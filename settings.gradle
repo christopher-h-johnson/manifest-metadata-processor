@@ -1,0 +1,2 @@
+rootProject.name = 'manifest-metadata-processor-api'
+include ':extractor'
