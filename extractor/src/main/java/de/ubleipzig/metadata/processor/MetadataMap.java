@@ -11,6 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package de.ubleipzig.metadata.processor;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,21 +23,23 @@ import java.util.Map;
 public class MetadataMap {
 
     @JsonProperty
-    private Map<String,String> metadataMap;
+    private Map<String, String> metadataMap;
 
     /**
+     * setMetadataMap.
      *
      * @param metadataMap Map
      */
-    public void setMetadataMap(final Map<String,String> metadataMap) {
+    public void setMetadataMap(final Map<String, String> metadataMap) {
         this.metadataMap = metadataMap;
     }
 
     /**
+     * getMetadataMap.
      *
      * @return Map
      */
-    public Map<String,String> getMetadataMap() {
+    public Map<String, String> getMetadataMap() {
         return metadataMap;
     }
 }

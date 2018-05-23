@@ -16,7 +16,7 @@ services:
     volumes:
       - esdata1:/usr/share/elasticsearch/data
     ports:
-      - 9200:9200
+      - 9100:9200
     networks:
       - esnet
   elasticsearch2:

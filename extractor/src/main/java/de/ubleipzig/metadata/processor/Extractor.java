@@ -11,6 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package de.ubleipzig.metadata.processor;
 
 import static de.ubleipzig.metadata.processor.JsonLdProcessorUtils.toRDF;
@@ -61,6 +62,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Extractor {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(Extractor.class);
     private static final String HTTP_ACCEPT = "Accept";
     private static final String SPARQL_QUERY = "type";
@@ -70,6 +72,8 @@ public class Extractor {
     private static final String EMPTY = "empty";
 
     /**
+     * main.
+     *
      * @param args String[]
      * @throws Exception Exception
      */
@@ -79,6 +83,8 @@ public class Extractor {
     }
 
     /**
+     * init.
+     *
      * @throws Exception Exception
      */
     private void init() throws Exception {
@@ -86,7 +92,7 @@ public class Extractor {
         main.addRouteBuilder(new Extractor.QueryRoute());
         main.addMainListener(new Extractor.Events());
         final JndiRegistry registry = new JndiRegistry(createInitialContext());
-        main.setPropertyPlaceholderLocations("file:${env:DYNAMO_HOME}/de.ubleipzig.dynamo.cfg");
+        main.setPropertyPlaceholderLocations("file:${env:DYNAMO_HOME}/de.ubleipzig.metadata.processor.cfg");
         main.run();
     }
 
@@ -113,33 +119,23 @@ public class Extractor {
 
 
         /**
-         *  configure.
+         * configure.
          */
         public void configure() {
-            from("jetty:http://{{api.host}}:{{api.port}}{{api.prefix}}?" +
-                    "optionsEnabled=true&matchOnUriPrefix=true&sendServerVersion=false" +
-                    "&httpMethodRestrict=GET,OPTIONS")
-                    .routeId("Extractor")
-                  .removeHeaders(HTTP_ACCEPT)
-                  .setHeader("Access-Control-Allow" + "-Origin")
-                  .constant("*")
-                  .choice()
-                  .when(header(HTTP_METHOD).isEqualTo("GET"))
-                  .to("direct:getManifest");
-            from("direct:getManifest")
-                  .process(e -> e.getIn().setHeader(Exchange.HTTP_URI, e.getIn().getHeader(MANIFEST_URI)))
-                  .to("http4")
-                  .filter(header(HTTP_RESPONSE_CODE).isEqualTo(200))
-                  .setHeader(CONTENT_TYPE)
-                  .constant(contentTypeJsonLd)
-                  .convertBodyTo(String.class)
-                  .log(INFO, LOGGER, "Fetching Json-LD document")
-                  .to("direct:toRDF");
-            from("direct:toRDF").choice()
-                  .when(header(SPARQL_QUERY).isEqualTo("extract"))
-                  .log(INFO, LOGGER, "Extracting Metadata from Json-LD document")
-                  .process(Extractor::processJsonLdExchange);
-            }
+            from("jetty:http://{{api.host}}:{{api.port}}{{api.prefix}}?"
+                    + "optionsEnabled=true&matchOnUriPrefix=true&sendServerVersion=false"
+                    + "&httpMethodRestrict=GET,OPTIONS").routeId("Extractor").removeHeaders(HTTP_ACCEPT).setHeader(
+                    "Access-Control-Allow" + "-Origin").constant("*").choice().when(
+                    header(HTTP_METHOD).isEqualTo("GET")).to("direct:getManifest");
+            from("direct:getManifest").process(
+                    e -> e.getIn().setHeader(Exchange.HTTP_URI, e.getIn().getHeader(MANIFEST_URI))).to("http4").filter(
+                    header(HTTP_RESPONSE_CODE).isEqualTo(200)).setHeader(CONTENT_TYPE).constant(
+                    contentTypeJsonLd).convertBodyTo(String.class).log(INFO, LOGGER, "Fetching Json-LD document").to(
+                    "direct:toRDF");
+            from("direct:toRDF").choice().when(header(SPARQL_QUERY).isEqualTo("extract")).log(
+                    INFO, LOGGER, "Extracting Metadata from Json-LD document").process(
+                    Extractor::processJsonLdExchange);
+        }
     }
 
     private static void processJsonLdExchange(final Exchange e) throws IOException, JsonLdError {
@@ -187,12 +183,13 @@ public class Extractor {
     }
 
     /**
+     * createInitialContext.
+     *
      * @return InitialContext Context
      * @throws Exception Exception
      */
     private static Context createInitialContext() throws Exception {
-        final InputStream in = Extractor.class.getClassLoader()
-                                                   .getResourceAsStream("jndi.properties");
+        final InputStream in = Extractor.class.getClassLoader().getResourceAsStream("jndi.properties");
         try {
             final Properties properties = new Properties();
             properties.load(in);

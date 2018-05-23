@@ -1,2 +1,4 @@
-rootProject.name = 'manifest-metadata-processor-api'
-include ':extractor'
+rootProject.name = 'manifest-metadata-processor'
+include 'extractor'
+project(':extractor').projectDir = "$rootDir/extractor" as File
+enableFeaturePreview('STABLE_PUBLISHING')

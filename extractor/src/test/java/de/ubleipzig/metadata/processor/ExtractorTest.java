@@ -11,6 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package de.ubleipzig.metadata.processor;
 
 import static de.ubleipzig.metadata.processor.JsonLdProcessorUtils.toRDF;
@@ -60,6 +61,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public final class ExtractorTest {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(Extractor.class);
     private static final String HTTP_ACCEPT = "Accept";
     private static final String SPARQL_QUERY = "type";
@@ -82,32 +84,22 @@ public final class ExtractorTest {
 
                 pc.setLocation("classpath:application.properties");
 
-                from("jetty:http://{{api.host}}:{{api.port}}{{api.prefix}}?" +
-                        "optionsEnabled=true&matchOnUriPrefix=true&sendServerVersion=false" +
-                        "&httpMethodRestrict=GET,OPTIONS")
-                        .routeId("Extractor")
-                      .removeHeaders(HTTP_ACCEPT)
-                      .setHeader("Access-Control-Allow" + "-Origin")
-                      .constant("*")
-                      .choice()
-                      .when(header(HTTP_METHOD).isEqualTo("GET"))
-                      .to("direct:getManifest");
-                from("direct:getManifest")
-                      .process(e -> e.getIn().setHeader(Exchange.HTTP_URI, e.getIn().getHeader(MANIFEST_URI)))
-                      .to("http4")
-                      .filter(header(HTTP_RESPONSE_CODE).isEqualTo(200))
-                      .setHeader(CONTENT_TYPE)
-                      .constant(contentTypeJsonLd)
-                      .convertBodyTo(String.class)
-                      .to("direct:toRDF");
-                from("direct:toRDF").choice()
-                      .when(header(SPARQL_QUERY).isEqualTo("extract"))
-                      .process(ExtractorTest::processJsonLdExchange);
+                from("jetty:http://{{api.host}}:{{api.port}}{{api.prefix}}?"
+                        + "optionsEnabled=true&matchOnUriPrefix=true&sendServerVersion=false"
+                        + "&httpMethodRestrict=GET,OPTIONS").routeId("Extractor").removeHeaders(HTTP_ACCEPT).setHeader(
+                        "Access-Control-Allow" + "-Origin").constant("*").choice().when(
+                        header(HTTP_METHOD).isEqualTo("GET")).to("direct:getManifest");
+                from("direct:getManifest").process(
+                        e -> e.getIn().setHeader(Exchange.HTTP_URI, e.getIn().getHeader(MANIFEST_URI))).to(
+                        "http4").filter(header(HTTP_RESPONSE_CODE).isEqualTo(200)).setHeader(CONTENT_TYPE).constant(
+                        contentTypeJsonLd).convertBodyTo(String.class).to("direct:toRDF");
+                from("direct:toRDF").choice().when(header(SPARQL_QUERY).isEqualTo("extract")).process(
+                        ExtractorTest::processJsonLdExchange);
             }
         });
         camelContext.start();
 
-        Thread.sleep(5 * 60 * 1000);
+        Thread.sleep(20 * 60 * 1000);
 
         camelContext.stop();
     }
@@ -142,15 +134,13 @@ public final class ExtractorTest {
                 e.getIn().setBody(json.orElse(null));
             }
         } else {
-            e.getIn()
-             .setHeader(CONTENT_TYPE, EMPTY);
+            e.getIn().setHeader(CONTENT_TYPE, EMPTY);
         }
     }
 
     private static Graph getGraph(final InputStream stream) {
         final Model model = createDefaultModel();
-        if (rdf.asJenaLang(NTRIPLES)
-               .isPresent()) {
+        if (rdf.asJenaLang(NTRIPLES).isPresent()) {
             final Lang lang = rdf.asJenaLang(NTRIPLES).get();
             RDFDataMgr.read(model, stream, null, lang);
             return rdf.asGraph(model);
@@ -159,12 +149,13 @@ public final class ExtractorTest {
     }
 
     /**
+     * createInitialContext.
+     *
      * @return InitialContext Context
      * @throws Exception Exception
      */
     private static Context createInitialContext() throws Exception {
-        final InputStream in = ExtractorTest.class.getClassLoader()
-                                                   .getResourceAsStream("jndi.properties");
+        final InputStream in = ExtractorTest.class.getClassLoader().getResourceAsStream("jndi.properties");
         try {
             final Properties properties = new Properties();
             properties.load(in);

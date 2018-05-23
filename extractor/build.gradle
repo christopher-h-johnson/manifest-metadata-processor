@@ -1,29 +1,26 @@
 apply plugin: 'application'
 
-mainClassName = 'de.ubleipzig.dynamo.camel.Dynamo'
+mainClassName = 'de.ubleipzig.metadata.processor.Extractor'
 description = 'A Camel service that assembles manifests from RDF queries'
 
 javaModule {
-    name = 'de.ubleipzig.dynamo'
-    hacks {
-        patches('org.apache.camel:camel-core-osgi', 'org.apache.camel:camel-core.')
-        patches('com.sun.xml.bind:jaxb-impl', 'javax.xml.bind:jaxb-api')
-        patches('com.sun.xml.bind:jaxb-core', 'javax.xml.bind:jaxb-api')
-        patches('org.apache.httpcomponents:httpcore', 'org.apache.httpcomponents:httpcore-osgi')
-        patches('org.apache.httpcomponents:httpcore-nio', 'org.apache.httpcomponents:httpcore-osgi')
-        patches('org.apache.httpcomponents:httpclient-osgi', 'org.apache.httpcomponents:httpclient')
-        patches('org.slf4j:jcl.over.slf4j', 'commons-logging:commons-logging')
+    name = 'de.ubleipzig.metadata.processor'
+    extraTestModules = ['jdk.incubator.httpclient']
+}
+
+configurations {
+    all {
+        exclude(group: 'commons-logging', module: 'commons-logging')
+        exclude(group: 'org.apache.camel', module: 'camel-core-osgi')
+        exclude group: 'com.sun.xml.bind', module: 'jaxb-core'
+        exclude group: 'com.sun.xml.bind', module: 'jaxb-impl'
+        exclude group: 'javax.inject', module: 'javax.inject'
+        exclude group: 'org.apache.httpcomponents', module: 'httpclient-osgi'
+        exclude group: 'org.apache.httpcomponents', module: 'httpcore-osgi'
     }
 }
 
 dependencies {
-    patch "org.apache.camel:camel-core-osgi:${camelVersion}"
-    patch "com.sun.xml.bind:jaxb-core:${jaxbCoreVersion}"
-    patch "com.sun.xml.bind:jaxb-impl:${jaxbCoreVersion}"
-    patch "org.apache.httpcomponents:httpclient-osgi:$httpClientOsgiVersion"
-    patch "org.apache.httpcomponents:httpcore:${httpCoreOsgiVersion}"
-    patch "org.apache.httpcomponents:httpcore-nio:${httpCoreOsgiVersion}"
-    patch "commons-logging:commons-logging:${commonsLoggingVersion}"
 
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion") {force = true}
@@ -47,7 +44,7 @@ dependencies {
 }
 
 artifacts {
-    archives (file('build/cfg/main/de.ubleipzig.dynamo.cfg')) {
+    archives (file('build/cfg/main/de.ubleipzig.metadata.processor.cfg')) {
         classifier 'configuration'
         type 'cfg'
     }

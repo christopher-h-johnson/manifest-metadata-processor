@@ -32,6 +32,8 @@ public final class QueryUtils {
     }
 
     /**
+     * replaceNode.
+     *
      * @param query query
      * @param v1 v1
      * @param v2 v2
@@ -50,6 +52,8 @@ public final class QueryUtils {
     }
 
     /**
+     * replaceNode.
+     *
      * @param query query
      * @param v1 v1
      * @return String
@@ -67,6 +71,8 @@ public final class QueryUtils {
     }
 
     /**
+     * replace.
+     *
      * @param group group
      * @param value value
      * @return String
@@ -76,47 +82,52 @@ public final class QueryUtils {
     }
 
     /**
+     * getQuery.
+     *
      * @param qname String
-     * @param V1 String
-     * @param V2 String
+     * @param v1 String
+     * @param v2 String
      * @return String
      * @throws IOException IOException
      */
-    public static String getQuery(final String qname, final String V1, final String V2) throws IOException {
-        final ClassLoader classloader = Thread.currentThread()
-                                              .getContextClassLoader();
+    public static String getQuery(final String qname, final String v1, final String v2) throws IOException {
+        final ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         final InputStream is = classloader.getResourceAsStream(qname);
         final String out = readFile(is);
-        return replaceNode(out, V1, V2);
+        return replaceNode(out, v1, v2);
     }
 
     /**
+     * getQuery.
+     *
      * @param qname String
-     * @param V1 String
+     * @param v1 String
      * @return String
      * @throws IOException IOException
      */
-    public static String getQuery(final String qname, final String V1) throws IOException {
-        final ClassLoader classloader = Thread.currentThread()
-                                              .getContextClassLoader();
+    public static String getQuery(final String qname, final String v1) throws IOException {
+        final ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         final InputStream is = classloader.getResourceAsStream(qname);
         final String out = readFile(is);
-        return replaceNode(out, V1);
+        return replaceNode(out, v1);
     }
 
     /**
+     * getQuery.
+     *
      * @param qname String
      * @return String
      * @throws IOException IOException
      */
     public static String getQuery(final String qname) throws IOException {
-        final ClassLoader classloader = Thread.currentThread()
-                                              .getContextClassLoader();
+        final ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         final InputStream is = classloader.getResourceAsStream(qname);
         return readFile(is);
     }
 
     /**
+     * readFile.
+     *
      * @param in InputStream
      * @return String
      * @throws IOException IOException
@@ -126,8 +137,7 @@ public final class QueryUtils {
         try (BufferedReader buf = new BufferedReader(new InputStreamReader(in, "UTF-8"))) {
             String line;
             while ((line = buf.readLine()) != null) {
-                inobj.append(line)
-                     .append("\n");
+                inobj.append(line).append("\n");
             }
         }
         return inobj.toString();

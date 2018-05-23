@@ -1,0 +1,7 @@
+[
+  {
+    "Content-Location": "http://iiif.io/api/presentation/2/context.json",
+    "X-Classpath": "cache/sc.json",
+    "Content-Type": "application/ld+json"
+  }
+]
