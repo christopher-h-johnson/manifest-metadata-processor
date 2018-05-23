@@ -18,7 +18,9 @@ import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
 import static de.ubleipzig.metadata.processor.JsonSerializer.writeToFile;
 import static org.slf4j.LoggerFactory.getLogger;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.ByteArrayInputStream;
@@ -112,6 +114,26 @@ public class IndexerCrawlerTest {
         try {
             client.put(identifier, is, "application/json");
         } catch (LdpClientException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void putJsonElastic() {
+        try {
+            String index = "{}";
+            InputStream is = new ByteArrayInputStream(index.getBytes());
+            client.put(rdf.createIRI(elasticBaseUrl + indexName), is, "application/json");
+            InputStream jsonList = IndexerCrawlerTest.class.getResourceAsStream("/ubl-metadata.json");
+            final MapList mapList = MAPPER.readValue(jsonList, new TypeReference<MapList>() {
+            });
+            final List<MetadataMap> m = mapList.getMapList();
+            m.forEach(map -> {
+                String json = serialize(map).orElse("");
+                indexJson(json);
+            });
+            client.put(rdf.createIRI(elasticBaseUrl + indexName), is, "application/json");
+        } catch (LdpClientException | IOException e) {
             e.printStackTrace();
         }
     }
