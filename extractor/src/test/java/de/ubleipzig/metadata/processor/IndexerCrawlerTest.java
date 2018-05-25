@@ -18,9 +18,7 @@ import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
 import static de.ubleipzig.metadata.processor.JsonSerializer.writeToFile;
 import static org.slf4j.LoggerFactory.getLogger;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.ByteArrayInputStream;
@@ -104,11 +102,11 @@ public class IndexerCrawlerTest {
         }
         mapList.forEach(m -> {
             String json = serialize(m).orElse("");
-            indexJson(json);
+            indexJson(json, indexName, indexType);
         });
     }
 
-    public void indexJson(String json) {
+    public void indexJson(String json, String indexName, String indexType) {
         final IRI identifier = rdf.createIRI(elasticBaseUrl + indexName + indexType + "/" + getDocumentId());
         InputStream is = new ByteArrayInputStream(json.getBytes());
         try {
@@ -123,18 +121,40 @@ public class IndexerCrawlerTest {
         try {
             String index = "{}";
             InputStream is = new ByteArrayInputStream(index.getBytes());
-            client.put(rdf.createIRI(elasticBaseUrl + indexName), is, "application/json");
+            client.put(rdf.createIRI(elasticBaseUrl + "/vp"), is, "application/json");
             InputStream jsonList = IndexerCrawlerTest.class.getResourceAsStream("/ubl-metadata.json");
             final MapList mapList = MAPPER.readValue(jsonList, new TypeReference<MapList>() {
             });
             final List<MetadataMap> m = mapList.getMapList();
             m.forEach(map -> {
                 String json = serialize(map).orElse("");
-                indexJson(json);
+                indexJson(json, indexName, indexType);
             });
             client.put(rdf.createIRI(elasticBaseUrl + indexName), is, "application/json");
         } catch (LdpClientException | IOException e) {
             e.printStackTrace();
         }
     }
+
+    @Test
+    void putJsonElastic2() {
+        try {
+            String indexName = "/vp3";
+            String index = "{}";
+            InputStream is = new ByteArrayInputStream(index.getBytes());
+            client.put(rdf.createIRI(elasticBaseUrl + indexName), is, "application/json");
+            InputStream jsonList = IndexerCrawlerTest.class.getResourceAsStream("/vp-metadata.json");
+            final MapListIdentifier mapList = MAPPER.readValue(jsonList, new TypeReference<MapListIdentifier>() {
+            });
+            final List<MetadataMapIdentifier> m = mapList.getMapList();
+            m.forEach(map -> {
+                String json = serialize(map).orElse("");
+                indexJson(json, indexName, indexType);
+            });
+            client.put(rdf.createIRI(elasticBaseUrl + indexName), is, "application/json");
+        } catch (LdpClientException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
