@@ -118,6 +118,7 @@ public class IndexerCrawlerTest {
 
     @Test
     void putJsonElastic() {
+        String indexName = "/m6";
         try {
             String index = "{}";
             InputStream is = new ByteArrayInputStream(index.getBytes());
@@ -139,7 +140,7 @@ public class IndexerCrawlerTest {
     @Test
     void putJsonElastic2() {
         try {
-            String indexName = "/vp3";
+            String indexName = "/vp5";
             String index = "{}";
             InputStream is = new ByteArrayInputStream(index.getBytes());
             client.put(rdf.createIRI(elasticBaseUrl + indexName), is, "application/json");
