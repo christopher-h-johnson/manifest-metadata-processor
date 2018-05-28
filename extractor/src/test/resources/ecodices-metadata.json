@@ -1,0 +1,111 @@
+{
+  "rootCollection" : [
+    {
+      "mapListCollection" : [
+        {
+          "metadataMap" : {
+            "@id" : "https://www.e-codices.unifr.ch/metadata/iiif/sl-0001/manifest.json",
+            "Century" : "8th century",
+            "Collection Name" : "codices restituti",
+            "DOI" : "10.5076/e-codices-sl-0001",
+            "Date of Origin (English)" : "7th / 8th century",
+            "Digitized by" : "Bibliothèque nationale de France / National Library of Russia / e-codices",
+            "Dimensions" : "32 x 22 cm",
+            "Document Type" : "Virtual Manuscript",
+            "Location" : "[sine loco]",
+            "Material" : "Papyrus and parchment",
+            "Number of Pages" : "117",
+            "Online Since" : "2014-12-15",
+            "Persons" : "Author: Augustinus, Aurelius",
+            "Place of Origin (English)" : "Lyon or Luxeuil",
+            "Shelfmark" : "Cod. 1 (Codex Florus dispersus)",
+            "Sponsored by" : "CRUS - Rectors' Conference of the Swiss Universities",
+            "Summary (English)" : "\"Codex Florus dispersus” contains a virtual reconstruction of a manuscript of letters and sermons by Augustine. It was written by a single hand in a late 7th or early 8th century uncial script. The manuscript evidently originated in France, perhaps in Luxeuil or in Lyon. Originally the manuscript contained at least 30 quinions (at least 300 leaves), of which 117 leaves remain today. One part with 63 leaves from the original quires 4-11 is currently held in Paris (<a href=\"http://www.e-codices.unifr.ch/en/list/one/bnf/lat11641\">BnF, lat. 11641</a>); after leaf 26 there could be inserted a single leaf which currently is held in St. Petersburg (<a href=\"http://www.e-codices.unifr.ch/en/list/one/nlr/lat-F-I-1\">NLR, Lat.F.papyr. I.1</a>). Another part with 53 leaves from the original quires 24-30 is being held in Geneva (<a href=\"http://www.e-codices.unifr.ch/en/list/one/bge/lat0016\">Bibliothèque de Genève, lat. 16</a>). The outer leaf of each quire (quinio) is parchment, while the remaining leaves are papyrus. During the 9th century the volume was part of the library of Florus of Lyon, who added numerous marginalia to the manuscript in his own hand. \"sine loco\", codices restituti, Cod. 1 contains a virtual reconstruction of the surviving pieces in their original order.",
+            "Text Language" : "Latin",
+            "Title" : "[sine loco], codices restituti, Cod. 1 (Codex Florus dispersus)",
+            "Title (English)" : "Augustinus Hipponensis, Epistolae et Sermones  (Codex restitutus)"
+          }
+        },
+        {
+          "metadataMap" : {
+            "@id" : "https://www.e-codices.unifr.ch/metadata/iiif/sl-0002/manifest.json",
+            "Century" : "12th century",
+            "Collection Name" : "codices restituti",
+            "DOI" : "10.5076/e-codices-sl-0002",
+            "Date of Origin (English)" : "1143-1178",
+            "Dated" : "1147-1178",
+            "Digitized by" : "e-codices / The Cleveland Museum of Art",
+            "Dimensions" : "31.5 x 23 cm",
+            "Document Type" : "Virtual Manuscript",
+            "Location" : "[sine loco]",
+            "Material" : "Parchment",
+            "Number of Pages" : "194",
+            "Online Since" : "2014-12-15",
+            "Persons" : "Patron: Frowinus, de Monte Angelorum; Author: Gregorius I, Papa; Librarian: Stadler, Karl",
+            "Place of Origin (English)" : "Engelberg",
+            "Shelfmark" : "Cod. 2 (Frowinus dispersus)",
+            "Sponsored by" : "CRUS - Rectors' Conference of the Swiss Universities",
+            "Summary (English)" : "This codex contains a virtual reconstruction of Engelberg Abbey Library’s Cod. 20 with the first volume of Gregory the Great’s <i>Moralia in Iob</i>. It contains the first (ff. <a href=\"http://www.e-codices.unifr.ch/en/list/one/bke/0020/6r\">6r</a>-<a href=\"http://www.e-codices.unifr.ch/en/bke/0020/99r\">99r</a>)  and second part (<a href=\"http://www.e-codices.unifr.ch/en/bke/0020/99r\">99r</a>-<a href=\"http://www.e-codices.unifr.ch/en/bke/0020/193v\">193v</a>), each  divided into five books. At the front of the volume there used to be a full-page illustration consisting of an artistic portrayal of Job with his three friends (upper half) and a portrayal of Gregory the Great and a writing monk (lower half), who according to custom represents Peter the Deacon (Petrus Diaconus). This leaf with a verse of dedication by Frowin on the back, the actual recto side, was carefully described by P. Karl Stadler in his hand-written catalog of 1787; this helped to identify the <i>membrum disiectum</i>, which is now held by the <a href=\"http://www.e-codices.unifr.ch/en/list/one/cma/1955-74\">The Cleveland Museum of Art, 1955.74</a> (Purchase from the J.H. Wade Fund), as unequivocally belonging to this volume.",
+            "Text Language" : "Latin",
+            "Title" : "[sine loco], codices restituti, Cod. 2 (Frowinus dispersus)",
+            "Title (English)" : "Gregorius M., Moralia in Job., t. I (Codex restitutus)"
+          }
+        }
+      ],
+      "label" : "[sine loco], codices restituti",
+      "@id" : "https://www.e-codices.unifr.ch/metadata/iiif/collection/sl.json"
+    },
+    {
+      "mapListCollection" : [
+        {
+          "metadataMap" : {
+            "@id" : "https://www.e-codices.unifr.ch/metadata/iiif/kba-BN0049/manifest.json",
+            "Century" : "15th century",
+            "Collection Name" : "Aargauer Kantonsbibliothek",
+            "DOI" : "10.5076/e-codices-kba-BN0049",
+            "Date of Origin (English)" : "end of the 14th century / first half of the 15th century",
+            "Dimensions" : "12.5 x 8.5 cm",
+            "Document Type" : "Manuscript",
+            "Location" : "Aarau",
+            "Material" : "Parchment",
+            "Number of Pages" : "184",
+            "Online Since" : "2014-12-18",
+            "Persons" : "Author: Beda, Venerabilis; Author: Johannes, von Neumarkt; Author: Milič z Kroměříže, Jan; Author: Mönch, von Heilsbronn; Author: Seuse, Heinrich",
+            "Place of Origin (English)" : "Bohemia",
+            "Shelfmark" : "MsBN 49",
+            "Summary (English)" : "This manuscript contains a collection of prayers in Bohemian; eight prayers are attributed to Johannes of Neumarkt (around 1310-1380), an early representative of Bohemian humanism. The manuscript is decorated with several red and blue initials. An image of the <i>Arma Christi </i> used to be glued onto <a  href=\"http://www.e-codices.unifr.ch/en/kba/BN0049/39r\">f. 39r</a>, of which only residue remains.",
+            "Text Language" : "Latin",
+            "Title" : "Aarau, Aargauer Kantonsbibliothek, MsBN 49",
+            "Title (English)" : "Prayer book"
+          }
+        },
+        {
+          "metadataMap" : {
+            "@id" : "https://www.e-codices.unifr.ch/metadata/iiif/kba-0003/manifest.json",
+            "Century" : "16th century",
+            "Collection Name" : "Aargauer Kantonsbibliothek",
+            "DOI" : "10.5076/e-codices-kba-0003",
+            "Date of Origin (English)" : "1508",
+            "Dated" : "1508",
+            "Dimensions" : "31 x 24 cm",
+            "Document Type" : "Manuscript",
+            "Liturgica christiana" : "Pontifical",
+            "Location" : "Aarau",
+            "Material" : "Parchment",
+            "Number of Pages" : "100",
+            "Online Since" : "2009-11-03",
+            "Persons" : "Annotator: Frey, Hieronymus, Abt des Klosters Muri",
+            "Place of Origin (English)" : "Muri (?)",
+            "Shelfmark" : "MsMurF 3",
+            "Summary (English)" : "Pontifical rites for Johannes Feierabend, Abbot of the Cloister at Muri from 1500 through 1508. On July 12, 1507 Pope Julius II conferred the pontifical upon Abbot Johannes Feierabend and his successors. ",
+            "Text Language" : "Hebrew",
+            "Title" : "Aarau, Aargauer Kantonsbibliothek, MsMurF 3",
+            "Title (English)" : "Pontificale Murense"
+          }
+        }
+      ],
+      "label" : "Aarau, Aargauer Kantonsbibliothek",
+      "@id" : "https://www.e-codices.unifr.ch/metadata/iiif/collection/kba.json"
+    }
+  ]
+}
