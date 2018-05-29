@@ -1,0 +1,12 @@
+PREFIX oa: <http://www.w3.org/ns/oa#>
+PREFIX sioc: <http://rdfs.org/sioc/ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sc: <http://iiif.io/api/presentation/2#>
+SELECT ?title ?imageId ?service ?profile WHERE {
+?manifest rdfs:label ?title .
+?manifest rdf:type sc:Manifest .
+?imageId <http://rdfs.org/sioc/services#has_service> ?service .
+?service <http://usefulinc.com/ns/doap#implements> ?profile .
+FILTER (?profile = <http://iiif.io/api/image/2/level1.json> || ?profile = <http://iiif.io/api/image/2/level2.json> || ?profile = <http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1>)
+}
