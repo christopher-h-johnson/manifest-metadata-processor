@@ -99,7 +99,7 @@ public final class ExtractorTest {
         });
         camelContext.start();
 
-        Thread.sleep(20 * 60 * 1000);
+        Thread.sleep(60 * 60 * 1000);
 
         camelContext.stop();
     }

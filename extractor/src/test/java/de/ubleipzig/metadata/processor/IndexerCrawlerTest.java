@@ -107,7 +107,8 @@ public class IndexerCrawlerTest {
     }
 
     public void indexJson(String json, String indexName, String indexType) {
-        final IRI identifier = rdf.createIRI(elasticBaseUrl + indexName + indexType + "/" + getDocumentId());
+        String baseUrl = "http://workspaces.ub.uni-leipzig.de:9100";
+        final IRI identifier = rdf.createIRI(baseUrl + indexName + indexType + "/" + getDocumentId());
         InputStream is = new ByteArrayInputStream(json.getBytes());
         try {
             client.put(identifier, is, "application/json");
@@ -118,11 +119,12 @@ public class IndexerCrawlerTest {
 
     @Test
     void putJsonElastic() {
-        String indexName = "/m6";
+        String baseUrl = "http://workspaces.ub.uni-leipzig.de:9100";
+        String indexName = "/m";
         try {
             String index = "{}";
             InputStream is = new ByteArrayInputStream(index.getBytes());
-            client.put(rdf.createIRI(elasticBaseUrl + "/vp"), is, "application/json");
+            client.put(rdf.createIRI(baseUrl + indexName), is, "application/json");
             InputStream jsonList = IndexerCrawlerTest.class.getResourceAsStream("/ubl-metadata.json");
             final MapList mapList = MAPPER.readValue(jsonList, new TypeReference<MapList>() {
             });
@@ -131,7 +133,7 @@ public class IndexerCrawlerTest {
                 String json = serialize(map).orElse("");
                 indexJson(json, indexName, indexType);
             });
-            client.put(rdf.createIRI(elasticBaseUrl + indexName), is, "application/json");
+            client.put(rdf.createIRI(baseUrl + indexName), is, "application/json");
         } catch (LdpClientException | IOException e) {
             e.printStackTrace();
         }
@@ -139,11 +141,12 @@ public class IndexerCrawlerTest {
 
     @Test
     void putJsonElastic2() {
+        String baseUrl = "http://workspaces.ub.uni-leipzig.de:9100";
         try {
-            String indexName = "/vp5";
+            String indexName = "/vp";
             String index = "{}";
             InputStream is = new ByteArrayInputStream(index.getBytes());
-            client.put(rdf.createIRI(elasticBaseUrl + indexName), is, "application/json");
+            client.put(rdf.createIRI(baseUrl + indexName), is, "application/json");
             InputStream jsonList = IndexerCrawlerTest.class.getResourceAsStream("/vp-metadata.json");
             final MapListIdentifier mapList = MAPPER.readValue(jsonList, new TypeReference<MapListIdentifier>() {
             });
@@ -152,7 +155,7 @@ public class IndexerCrawlerTest {
                 String json = serialize(map).orElse("");
                 indexJson(json, indexName, indexType);
             });
-            client.put(rdf.createIRI(elasticBaseUrl + indexName), is, "application/json");
+            client.put(rdf.createIRI(baseUrl + indexName), is, "application/json");
         } catch (LdpClientException | IOException e) {
             e.printStackTrace();
         }

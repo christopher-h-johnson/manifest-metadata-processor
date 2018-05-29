@@ -41,7 +41,7 @@ public class CollectionCollectorTest {
                 List<Manifest> cList = collections.getCollections();
                 RootCollection rootCollection = new RootCollection();
                 List<MapListCollection> mapListCollections = new ArrayList<>();
-                cList.subList(0, 2).forEach(c -> {
+                cList.forEach(c -> {
                     String cid = c.getId();
                     IRI cIRI = rdf.createIRI(cid);
                     try {
@@ -52,7 +52,7 @@ public class CollectionCollectorTest {
                                     json1, new TypeReference<ManifestList>() {});
                             List<Manifest> manifestList = subcollections.getManifests();
                             List<MetadataMap> mapList = new ArrayList<>();
-                            manifestList.subList(0, 2).forEach(m -> {
+                            manifestList.forEach(m -> {
                                 final IRI identifier = rdf.createIRI(m.getId());
 
                                      try {
