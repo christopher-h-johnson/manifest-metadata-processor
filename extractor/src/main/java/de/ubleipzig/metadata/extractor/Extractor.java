@@ -14,17 +14,11 @@
 
 package de.ubleipzig.metadata.extractor;
 
+import static de.ubleipzig.metadata.processor.ContextUtils.createInitialContext;
 import static org.apache.camel.Exchange.CONTENT_TYPE;
 import static org.apache.camel.Exchange.HTTP_METHOD;
 import static org.apache.camel.Exchange.HTTP_RESPONSE_CODE;
 import static org.apache.camel.LoggingLevel.INFO;
-
-import java.io.InputStream;
-import java.util.Hashtable;
-import java.util.Properties;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
@@ -32,7 +26,6 @@ import org.apache.camel.impl.JndiRegistry;
 import org.apache.camel.main.Main;
 import org.apache.camel.main.MainListenerSupport;
 import org.apache.camel.main.MainSupport;
-import org.apache.camel.util.IOHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -98,34 +91,27 @@ public class Extractor {
         public void configure() {
             from("jetty:http://{{api.host}}:{{api.port}}{{api.prefix}}?"
                     + "optionsEnabled=true&matchOnUriPrefix=true&sendServerVersion=false"
-                    + "&httpMethodRestrict=GET,OPTIONS").routeId("Extractor").removeHeaders(HTTP_ACCEPT).setHeader(
-                    "Access-Control-Allow" + "-Origin").constant("*").choice().when(
-                    header(HTTP_METHOD).isEqualTo("GET")).to("direct:getManifest");
+                    + "&httpMethodRestrict=GET,OPTIONS")
+                    .routeId("Extractor")
+                    .removeHeaders(HTTP_ACCEPT)
+                    .setHeader(
+                    "Access-Control-Allow" + "-Origin")
+                    .constant("*").choice()
+                    .when(header(HTTP_METHOD).isEqualTo("GET")).to("direct:getManifest");
             from("direct:getManifest").process(
-                    e -> e.getIn().setHeader(Exchange.HTTP_URI, e.getIn().getHeader(MANIFEST_URI))).to("http4").filter(
-                    header(HTTP_RESPONSE_CODE).isEqualTo(200)).setHeader(CONTENT_TYPE).constant(
-                    contentTypeJsonLd).convertBodyTo(String.class).log(INFO, LOGGER, "Fetching Json-LD document").to(
-                    "direct:toRDF");
-            from("direct:toRDF").choice().when(header(SPARQL_QUERY).isEqualTo("extract")).log(
-                    INFO, LOGGER, "Extracting Metadata from Json-LD document").process(
-                    ExchangeProcess::processJsonLdExchange);
-        }
-    }
-
-    /**
-     * createInitialContext.
-     *
-     * @return InitialContext Context
-     * @throws Exception Exception
-     */
-    private static Context createInitialContext() throws Exception {
-        final InputStream in = Extractor.class.getClassLoader().getResourceAsStream("jndi.properties");
-        try {
-            final Properties properties = new Properties();
-            properties.load(in);
-            return new InitialContext(new Hashtable<>(properties));
-        } finally {
-            IOHelper.close(in);
+                    e -> e.getIn().setHeader(Exchange.HTTP_URI, e.getIn().getHeader(MANIFEST_URI)))
+                    .to("http4")
+                    .filter(header(HTTP_RESPONSE_CODE).isEqualTo(200))
+                    .setHeader(CONTENT_TYPE)
+                    .constant(contentTypeJsonLd)
+                    .convertBodyTo(String.class)
+                    .log(INFO, LOGGER, "Fetching Json-LD document")
+                    .to("direct:toRDF");
+            from("direct:toRDF")
+                    .choice()
+                    .when(header(SPARQL_QUERY).isEqualTo("extract"))
+                    .log(INFO, LOGGER, "Extracting Metadata from Json-LD document")
+                    .process(ExchangeProcess::processJsonLdExchange);
         }
     }
 }

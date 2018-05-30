@@ -25,6 +25,7 @@ ext {
     iiifVocabularyVersion = '0.1.1'
     jacksonVersion = '2.9.5'
     jsonldVersion = "0.12.0"
+    slf4jVersion = '1.7.25'
     trellisClientVersion = '0.2.0-SNAPSHOT'
 
     /* Testing */

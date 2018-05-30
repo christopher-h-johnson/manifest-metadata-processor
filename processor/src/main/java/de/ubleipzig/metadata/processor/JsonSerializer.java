@@ -14,16 +14,12 @@
 
 package de.ubleipzig.metadata.processor;
 
-import static com.fasterxml.jackson.core.util.DefaultIndenter.SYSTEM_LINEFEED_INSTANCE;
-import static com.fasterxml.jackson.databind.SerializationFeature.INDENT_OUTPUT;
-import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.Files.newBufferedWriter;
 import static java.nio.file.StandardOpenOption.APPEND;
 import static java.nio.file.StandardOpenOption.CREATE;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
-import static org.slf4j.LoggerFactory.getLogger;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.util.DefaultIndenter;
@@ -51,7 +47,7 @@ public final class JsonSerializer {
 
     static {
         MAPPER.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-        MAPPER.configure(SerializationFeature.INDENT_OUTPUT, true);
+        MAPPER.configure(SerializationFeature.INDENT_OUTPUT, false);
     }
 
     private JsonSerializer() {
@@ -66,6 +62,20 @@ public final class JsonSerializer {
     public static Optional<String> serialize(final Object manifest) {
         try {
             return of(MAPPER.writer(PrettyPrinter.instance).writeValueAsString(manifest));
+        } catch (final JsonProcessingException ex) {
+            return empty();
+        }
+    }
+
+    /**
+     * Serialize the Manifest.
+     *
+     * @param manifest Object
+     * @return the Manifest as a JSON string
+     */
+    public static Optional<String> serializeRaw(final Object manifest) {
+        try {
+            return of(MAPPER.writeValueAsString(manifest));
         } catch (final JsonProcessingException ex) {
             return empty();
         }

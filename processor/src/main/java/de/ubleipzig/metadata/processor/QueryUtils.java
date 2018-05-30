@@ -132,7 +132,7 @@ public final class QueryUtils {
      * @return String
      * @throws IOException IOException
      */
-    private static String readFile(final InputStream in) throws IOException {
+    public static String readFile(final InputStream in) throws IOException {
         final StringBuilder inobj = new StringBuilder();
         try (BufferedReader buf = new BufferedReader(new InputStreamReader(in, "UTF-8"))) {
             String line;

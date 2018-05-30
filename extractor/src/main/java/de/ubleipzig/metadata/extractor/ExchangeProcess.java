@@ -20,10 +20,8 @@ import static org.apache.camel.Exchange.CONTENT_TYPE;
 import static org.apache.commons.rdf.api.RDFSyntax.NTRIPLES;
 import static org.apache.jena.core.rdf.model.ModelFactory.createDefaultModel;
 
-import com.github.jsonldjava.core.JsonLdError;
-
-import de.ubleipzig.metadata.templates.MetadataMap;
 import de.ubleipzig.metadata.processor.QueryUtils;
+import de.ubleipzig.metadata.templates.MetadataMap;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,7 +51,7 @@ public class ExchangeProcess {
     private static final JenaRDF rdf = new JenaRDF();
     private static final String EMPTY = "empty";
 
-    public static void processJsonLdExchange(final Exchange e) throws IOException, JsonLdError {
+    public static void processJsonLdExchange(final Exchange e) throws IOException {
         final String body = e.getIn().getBody().toString();
         if (body != null && !body.isEmpty()) {
             final InputStream is = toRDF(body);

@@ -5,7 +5,6 @@ description = 'A Camel service that assembles manifests from RDF queries'
 
 javaModule {
     name = 'de.ubleipzig.metadata.processor'
-    extraTestModules = ['jdk.incubator.httpclient']
 }
 
 configurations {
@@ -34,10 +33,6 @@ dependencies {
     implementation("org.apache.camel:camel-http4:$camelVersion")
     implementation("org.apache.camel:camel-spring-redis:$camelVersion")
     implementation("org.apache.httpcomponents:httpclient-cache:$httpClientOsgiVersion")
-    implementation("org.trellisldp:trellis-client:$trellisClientVersion")
-
-    testImplementation("com.itextpdf:io:7.1.2")
-    testImplementation("com.itextpdf:layout:7.1.2")
 
     testImplementation("de.ubleipzig:jena.core-jpms:$jenaVersion")
     testImplementation("org.apache.camel:camel-test:$camelVersion")

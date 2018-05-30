@@ -14,6 +14,7 @@
 
 package de.ubleipzig.metadata.renderer;
 
+import static de.ubleipzig.metadata.processor.ContextUtils.createInitialContext;
 import static org.apache.camel.Exchange.CONTENT_TYPE;
 import static org.apache.camel.Exchange.HTTP_METHOD;
 import static org.apache.camel.Exchange.HTTP_RESPONSE_CODE;
@@ -47,7 +48,7 @@ public final class RendererTest {
     }
 
     public static void main(final String[] args) throws Exception {
-        LOGGER.info("About to run Metadata Extractor API...");
+        LOGGER.info("About to run Renderer API...");
         final JndiRegistry registry = new JndiRegistry(createInitialContext());
         final CamelContext camelContext = new DefaultCamelContext(registry);
 
@@ -60,7 +61,7 @@ public final class RendererTest {
                 from("jetty:http://{{api.host}}:{{api.port}}{{api.prefix}}?"
                         + "optionsEnabled=true&matchOnUriPrefix=true&sendServerVersion=false"
                         + "&httpMethodRestrict=GET,OPTIONS")
-                        .routeId("Extractor")
+                        .routeId("Renderer")
                         .removeHeaders(HTTP_ACCEPT)
                         .setHeader("Access-Control-Allow-Origin")
                         .constant("*")
@@ -93,23 +94,5 @@ public final class RendererTest {
         Thread.sleep(60 * 60 * 1000);
 
         camelContext.stop();
-    }
-
-
-    /**
-     * createInitialContext.
-     *
-     * @return InitialContext Context
-     * @throws Exception Exception
-     */
-    private static Context createInitialContext() throws Exception {
-        final InputStream in = RendererTest.class.getClassLoader().getResourceAsStream("jndi.properties");
-        try {
-            final Properties properties = new Properties();
-            properties.load(in);
-            return new InitialContext(new Hashtable<>(properties));
-        } finally {
-            IOHelper.close(in);
-        }
     }
 }

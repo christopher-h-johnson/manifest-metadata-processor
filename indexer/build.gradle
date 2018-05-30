@@ -1,0 +1,9 @@
+dependencies {
+    implementation project(":processor")
+    implementation project(":templates")
+    implementation("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion") {force = true}
+    implementation("com.fasterxml.jackson.core:jackson-core:$jacksonVersion") {force = true}
+    implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion") {force = true}
+    implementation("org.slf4j:slf4j-api:$slf4jVersion")
+    implementation("org.trellisldp:trellis-client:$trellisClientVersion")
+}

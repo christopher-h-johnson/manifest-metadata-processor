@@ -15,7 +15,6 @@
 package de.ubleipzig.metadata.processor;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.slf4j.LoggerFactory.getLogger;
 
 import com.github.jsonldjava.core.JsonLdConsts;
 import com.github.jsonldjava.core.JsonLdError;
@@ -49,17 +48,22 @@ public final class JsonLdProcessorUtils {
      *
      * @param jsonLd String
      * @return InputStream
-     * @throws IOException IOException
      * @throws JsonLdError JsonLdError
      */
-    public static InputStream toRDF(final String jsonLd) throws IOException, JsonLdError {
+    public static InputStream toRDF(final String jsonLd) {
         final JsonLdOptions options = new JsonLdOptions();
         options.format = JsonLdConsts.APPLICATION_NQUADS;
-        final Object expanded = com.github.jsonldjava.core.JsonLdProcessor.toRDF(JsonUtils.fromString(jsonLd), options);
-        final ByteArrayOutputStream out = new ByteArrayOutputStream();
-        final Writer writer = new OutputStreamWriter(out, UTF_8);
-        writer.write(String.valueOf(expanded));
-        writer.flush();
-        return new ByteArrayInputStream(out.toByteArray());
+        try {
+            final Object expanded = com.github.jsonldjava.core.JsonLdProcessor.toRDF(
+                    JsonUtils.fromString(jsonLd), options);
+            final ByteArrayOutputStream out = new ByteArrayOutputStream();
+            final Writer writer = new OutputStreamWriter(out, UTF_8);
+
+            writer.write(String.valueOf(expanded));
+            writer.flush();
+            return new ByteArrayInputStream(out.toByteArray());
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 }
