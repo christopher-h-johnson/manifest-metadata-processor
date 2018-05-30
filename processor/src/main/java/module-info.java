@@ -11,8 +11,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-module de.ubleipzig.metadata.extractor {
-    exports de.ubleipzig.metadata.extractor;
+module de.ubleipzig.metadata.processor {
+    exports de.ubleipzig.metadata.processor;
     requires slf4j.api;
     requires jsonld.java;
     requires com.fasterxml.jackson.core;
@@ -25,7 +25,4 @@ module de.ubleipzig.metadata.extractor {
     requires org.apache.jena.arq;
     requires org.trellisldp.client;
     requires java.naming;
-    requires jdk.incubator.httpclient;
-    requires de.ubleipzig.metadata.processor;
-    requires de.ubleipzig.metadata.templates;
 }

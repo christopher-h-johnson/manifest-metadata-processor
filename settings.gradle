@@ -1,4 +1,10 @@
 rootProject.name = 'manifest-metadata-processor'
 include 'extractor'
+include 'processor'
+include 'renderer'
+include 'templates'
 project(':extractor').projectDir = "$rootDir/extractor" as File
+project(':processor').projectDir = "$rootDir/processor" as File
+project(':renderer').projectDir = "$rootDir/renderer" as File
+project(':templates').projectDir = "$rootDir/templates" as File
 enableFeaturePreview('STABLE_PUBLISHING')

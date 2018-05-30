@@ -11,21 +11,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-module de.ubleipzig.metadata.extractor {
-    exports de.ubleipzig.metadata.extractor;
-    requires slf4j.api;
-    requires jsonld.java;
+module de.ubleipzig.metadata.templates {
+    requires com.fasterxml.jackson.annotation;
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
-    requires com.fasterxml.jackson.annotation;
-    requires camel.core;
-    requires org.apache.commons.rdf.api;
-    requires org.apache.jena.core;
-    requires org.apache.commons.rdf.jena;
-    requires org.apache.jena.arq;
-    requires org.trellisldp.client;
-    requires java.naming;
-    requires jdk.incubator.httpclient;
-    requires de.ubleipzig.metadata.processor;
-    requires de.ubleipzig.metadata.templates;
+    exports de.ubleipzig.metadata.templates ;
+    opens de.ubleipzig.metadata.templates  to com.fasterxml.jackson.databind;
 }
