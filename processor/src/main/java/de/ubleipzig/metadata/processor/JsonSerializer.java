@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class JsonSerializer {
 
-    private static final ObjectMapper MAPPER = new ObjectMapper();
+    public static final ObjectMapper MAPPER = new ObjectMapper();
     private static Logger logger = LoggerFactory.getLogger(JsonSerializer.class);
 
     static {

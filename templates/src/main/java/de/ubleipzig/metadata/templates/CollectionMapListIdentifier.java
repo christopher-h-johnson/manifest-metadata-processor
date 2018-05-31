@@ -1,4 +1,4 @@
-package de.ubleipzig.metadata.templates;/*
+/*
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,28 +12,24 @@ package de.ubleipzig.metadata.templates;/*
  * limitations under the License.
  */
 
+package de.ubleipzig.metadata.templates;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public class MapListIdentifier {
+public class CollectionMapListIdentifier {
 
     @JsonProperty
-    private List<MetadataMapIdentifier> mapListCollection;
-
-    @JsonProperty
-    String label;
-
-    @JsonProperty("@id")
-    String id;
+    private List<MapListIdentifier> rootCollection;
 
     @JsonIgnore
-    public List<MetadataMapIdentifier> getMapListCollection() {
-        return mapListCollection;
+    public List<MapListIdentifier> getRootCollection() {
+        return rootCollection;
     }
 
-    public void setMapListCollection(List<MetadataMapIdentifier> mapListCollection) {
-        this.mapListCollection = mapListCollection;
+    public void setRootCollection(List<MapListIdentifier> rootCollection) {
+        this.rootCollection = rootCollection;
     }
 }

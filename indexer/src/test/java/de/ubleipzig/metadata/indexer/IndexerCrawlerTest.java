@@ -14,15 +14,12 @@
 
 package de.ubleipzig.metadata.indexer;
 
-import static de.ubleipzig.metadata.processor.QueryUtils.readFile;
-
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.ubleipzig.metadata.processor.JsonSerializer;
+import de.ubleipzig.metadata.templates.CollectionMapListIdentifier;
 import de.ubleipzig.metadata.templates.ElasticCreate;
-import de.ubleipzig.metadata.templates.ElasticIndex;
 import de.ubleipzig.metadata.templates.MapList;
 import de.ubleipzig.metadata.templates.MapListIdentifier;
 import de.ubleipzig.metadata.templates.MetadataMap;
@@ -53,9 +50,6 @@ public class IndexerCrawlerTest {
     private static Logger logger = LoggerFactory.getLogger(IndexerCrawlerTest.class);
     private final LdpClient client = new LdpClientImpl();
     private static final JenaRDF rdf = new JenaRDF();
-    private static final String extractorService = "http://localhost:9098/extractor?type=extract&manifest=http://iiif" +
-            ".ub.uni-leipzig.de/";
-    private static final String elasticBaseUrl = "http://localhost:9100";
 
     private static String getDocumentId() {
         return UUID.randomUUID().toString();
@@ -64,6 +58,8 @@ public class IndexerCrawlerTest {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     private List<IRI> buildIRIList() {
+        final String extractorService = "http://localhost:9098/extractor?type=extract&manifest=http://iiif" + ".ub" +
+                ".uni-leipzig.de/";
         final int LOOPS = 10000;
         List<IRI> list = new ArrayList<>();
         for (int i = 0; i < LOOPS; i++) {
@@ -78,6 +74,7 @@ public class IndexerCrawlerTest {
     @Test
     public void testGetJsonAPI() {
         final String baseUrl = "http://workspaces.ub.uni-leipzig.de:9100";
+        final String elasticBaseUrl = "http://localhost:9100";
         final String indexName = "/m";
         final String indexType = "/iiif";
         List<IRI> list = buildIRIList();
@@ -143,41 +140,66 @@ public class IndexerCrawlerTest {
     }
 
     @Test
-    void testCreateIndexandMapping() throws IOException, LdpClientException {
-        final String baseUrl = "http://workspaces.ub.uni-leipzig.de:9100/vp4";
-        StringBuilder sb = new StringBuilder();
-        JsonNode jsonNode = MAPPER.readValue(
-                readFile(IndexerCrawlerTest.class.getResourceAsStream("/vp5-mapping.json")), JsonNode.class);
-        sb.append(jsonNode.toString());
-        System.out.println(sb.toString());
-        InputStream is = new ByteArrayInputStream(sb.toString().getBytes());
-        client.put(rdf.createIRI(baseUrl), is, "application/json");
-    }
-
-    @Test
     void putJsonElasticBulk() throws LdpClientException {
         final Indexer indexer = new Indexer();
-        final String baseUrl = "http://workspaces.ub.uni-leipzig.de:9100/_bulk";
+        final String indexName = "ec";
+        final String baseUrl = "http://localhost:9100/";
+        final String bulkUri = baseUrl + "_bulk";
+        indexer.createIndexMapping(baseUrl + indexName,
+                IndexerCrawlerTest.class.getResourceAsStream("/vp-mapping.json"));
         StringBuffer sb = new StringBuffer();
         try {
             InputStream jsonList = IndexerCrawlerTest.class.getResourceAsStream("/vp-metadata.json");
             final MapListIdentifier mapList = MAPPER.readValue(jsonList, new TypeReference<MapListIdentifier>() {
             });
-            final List<MetadataMapIdentifier> m = mapList.getMapList();
+            final List<MetadataMapIdentifier> m = mapList.getMapListCollection();
             m.forEach(map -> {
-                ElasticCreate c = indexer.createDocument("vp4", "_doc", getDocumentId());
+                ElasticCreate c = indexer.createDocument(indexName, "_doc", getDocumentId());
                 sb.append(JsonSerializer.serializeRaw(c).orElse(""));
                 sb.append(System.getProperty("line.separator"));
                 sb.append(JsonSerializer.serializeRaw(map).orElse(""));
                 sb.append(System.getProperty("line.separator"));
-                //indexer.indexJson(baseUrl, getDocumentId(), indexName, indexType, json);
             });
             System.out.println(sb.toString());
             InputStream is = new ByteArrayInputStream(sb.toString().getBytes());
-            client.post(rdf.createIRI(baseUrl), is, "application/json");
+            client.post(rdf.createIRI(bulkUri), is, "application/json");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    @Test
+    void putJsonCollectionElasticBulk() throws LdpClientException {
+        final Indexer indexer = new Indexer();
+        final String indexName = "ec3";
+        final String baseUrl = "http://localhost:9100/";
+        final String bulkUri = baseUrl + "_bulk";
+        indexer.createIndexMapping(baseUrl + indexName,
+                IndexerCrawlerTest.class.getResourceAsStream("/ecodices-mapping.json"));
+        StringBuffer sb = new StringBuffer();
+        try {
+            InputStream jsonList = IndexerCrawlerTest.class.getResourceAsStream("/ecodices-metadata.json");
+            final CollectionMapListIdentifier mapList = MAPPER.readValue(
+                    jsonList, new TypeReference<CollectionMapListIdentifier>() {
+                    });
+            final List<MapListIdentifier> m = mapList.getRootCollection();
+            m.forEach(map -> {
+                map.getMapListCollection().forEach(ml -> {
+
+                    ElasticCreate c = indexer.createDocument(indexName, "_doc", getDocumentId());
+                    sb.append(JsonSerializer.serializeRaw(c).orElse(""));
+                    sb.append(System.getProperty("line.separator"));
+                    sb.append(JsonSerializer.serializeRaw(ml.getMetadataMap()).orElse(""));
+                    sb.append(System.getProperty("line.separator"));
+                });
+            });
+            System.out.println(sb.toString());
+            InputStream is = new ByteArrayInputStream(sb.toString().getBytes());
+            client.post(rdf.createIRI(bulkUri), is, "application/json");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

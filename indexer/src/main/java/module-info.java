@@ -16,5 +16,8 @@ module de.ubleipzig.metadata.indexer {
     requires org.trellisldp.client;
     requires org.apache.commons.rdf.jena;
     requires de.ubleipzig.metadata.templates;
+    requires com.fasterxml.jackson.databind;
+    requires de.ubleipzig.metadata.processor;
+    requires com.fasterxml.jackson.core;
     exports de.ubleipzig.metadata.indexer;
 }

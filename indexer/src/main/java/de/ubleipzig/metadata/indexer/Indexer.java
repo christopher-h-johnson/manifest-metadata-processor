@@ -13,7 +13,15 @@
  */
 package de.ubleipzig.metadata.indexer;
 
+import static de.ubleipzig.metadata.processor.JsonSerializer.MAPPER;
+import static de.ubleipzig.metadata.processor.QueryUtils.readFile;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 import de.ubleipzig.metadata.templates.ElasticCreate;
@@ -58,6 +66,19 @@ public class Indexer {
         try {
             client.put(identifier, is, "application/json");
         } catch (LdpClientException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createIndexMapping(String baseUrl, InputStream mapping) {
+        StringBuilder sb = new StringBuilder();
+        try {
+            JsonNode jsonNode = MAPPER.readValue(readFile(mapping), JsonNode.class);
+            sb.append(jsonNode.toString());
+            System.out.println(sb.toString());
+            InputStream is = new ByteArrayInputStream(sb.toString().getBytes());
+            client.put(rdf.createIRI(baseUrl), is, "application/json");
+        } catch (LdpClientException | IOException e) {
             e.printStackTrace();
         }
     }
