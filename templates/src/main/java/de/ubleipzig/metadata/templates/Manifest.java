@@ -1,4 +1,4 @@
-package de.ubleipzig.metadata.templates;/*
+/*
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,9 +12,16 @@ package de.ubleipzig.metadata.templates;/*
  * limitations under the License.
  */
 
+package de.ubleipzig.metadata.templates;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 public class Manifest {
+
+    @JsonProperty("@context")
+    private String context;
 
     @JsonProperty("@id")
     private String id;
@@ -25,21 +32,38 @@ public class Manifest {
     @JsonProperty
     private String label;
 
-    public String getId() {
-        return id;
-    }
+    @JsonProperty
+    private String license;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    @JsonProperty
+    private String within;
 
-    public String getType() {
-        return type;
-    }
+    @JsonProperty
+    private Object description;
 
-    public void setType(String type) {
-        this.type = type;
-    }
+    @JsonProperty
+    private String attribution;
+
+    @JsonProperty
+    private List<Object> metadata;
+
+    @JsonProperty
+    private String logo;
+
+    @JsonProperty
+    private Object related;
+
+    @JsonProperty
+    private List<Object> service;
+
+    @JsonProperty
+    private List<Object> seeAlso;
+
+    @JsonProperty
+    private List<Object> structures;
+
+    @JsonProperty
+    private List<Sequences> sequences;
 
     public String getLabel() {
         return label;
@@ -48,4 +72,13 @@ public class Manifest {
     public void setLabel(String label) {
         this.label = label;
     }
+
+    public List<Sequences> getSequences() {
+        return sequences;
+    }
+
+    public void setSequences(List<Sequences> sequences) {
+        this.sequences = sequences;
+    }
+
 }

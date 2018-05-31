@@ -13,8 +13,11 @@
  */
 module de.ubleipzig.metadata.renderer {
     exports de.ubleipzig.metadata.renderer;
+    requires de.ubleipzig.metadata.templates;
+    requires de.ubleipzig.metadata.processor;
     requires slf4j.api;
     requires jsonld.java;
+    requires org.apache.commons.io;
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.annotation;
@@ -24,7 +27,7 @@ module de.ubleipzig.metadata.renderer {
     requires org.apache.commons.rdf.jena;
     requires org.apache.jena.arq;
     requires java.naming;
-    requires de.ubleipzig.metadata.processor;
+
     requires httpcore;
     requires httpclient;
     requires io;

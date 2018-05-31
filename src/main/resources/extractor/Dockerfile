@@ -3,7 +3,7 @@ FROM ubuntu:16.04
 MAINTAINER Christopher Johnson <christopher_hanna.johnson@uni-leipzig.de>
 LABEL description = "Provides de.ubleipzig.metadata.templates.Manifest Metadata Extractor"
 
-ENV EXTRACTOR_VERSION 0.3.0-SNAPSHOT
+ENV EXTRACTOR_VERSION 0.1.0-SNAPSHOT
 ENV EXTRACTOR_RUNTIME /opt
 
 ENV JVM_BASE /usr/lib/jvm

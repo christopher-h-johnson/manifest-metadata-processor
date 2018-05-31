@@ -24,20 +24,20 @@ public class MetadataMap {
     private Map<String, String> metadataMap;
 
     /**
-     * setMetadataMap.
-     *
-     * @param metadataMap Map
-     */
-    public void setMetadataMap(final Map<String, String> metadataMap) {
-        this.metadataMap = metadataMap;
-    }
-
-    /**
      * getMetadataMap.
      *
      * @return Map
      */
     public Map<String, String> getMetadataMap() {
         return metadataMap;
+    }
+
+    /**
+     * setMetadataMap.
+     *
+     * @param metadataMap Map
+     */
+    public void setMetadataMap(final Map<String, String> metadataMap) {
+        this.metadataMap = metadataMap;
     }
 }

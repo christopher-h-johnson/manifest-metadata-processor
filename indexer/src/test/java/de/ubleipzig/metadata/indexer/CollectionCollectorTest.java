@@ -19,7 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.ubleipzig.metadata.processor.JsonSerializer;
 import de.ubleipzig.metadata.templates.CollectionList;
-import de.ubleipzig.metadata.templates.Manifest;
+import de.ubleipzig.metadata.templates.ManifestItem;
 import de.ubleipzig.metadata.templates.ManifestList;
 import de.ubleipzig.metadata.templates.MapListCollection;
 import de.ubleipzig.metadata.templates.MetadataMap;
@@ -58,7 +58,7 @@ public class CollectionCollectorTest {
                 final String json = res.body().toString();
                 final CollectionList collections = MAPPER.readValue(json, new TypeReference<CollectionList>() {
                 });
-                final List<Manifest> cList = collections.getCollections();
+                final List<ManifestItem> cList = collections.getCollections();
                 final RootCollection rootCollection = new RootCollection();
                 final List<MapListCollection> mapListCollections = new ArrayList<>();
                 cList.forEach(c -> {
@@ -71,7 +71,7 @@ public class CollectionCollectorTest {
                             final ManifestList subcollections = MAPPER.readValue(
                                     json1, new TypeReference<ManifestList>() {
                                     });
-                            final List<Manifest> manifestList = subcollections.getManifests();
+                            final List<ManifestItem> manifestList = subcollections.getManifests();
                             final List<MetadataMap> mapList = new ArrayList<>();
                             manifestList.forEach(m -> {
                                 final IRI identifier = rdf.createIRI(m.getId());

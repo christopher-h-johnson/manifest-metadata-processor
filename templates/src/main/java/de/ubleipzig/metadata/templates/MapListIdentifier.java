@@ -22,12 +22,12 @@ public class MapListIdentifier {
     @JsonProperty
     private List<MetadataMapIdentifier> mapList;
 
-    public void setMapList(List<MetadataMapIdentifier> mapList) {
-        this.mapList = mapList;
-    }
-
     @JsonIgnore
     public List<MetadataMapIdentifier> getMapList() {
         return mapList;
+    }
+
+    public void setMapList(List<MetadataMapIdentifier> mapList) {
+        this.mapList = mapList;
     }
 }

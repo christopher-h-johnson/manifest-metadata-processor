@@ -162,9 +162,9 @@ public class IndexerCrawlerTest {
     @Test
     void putJsonElasticBulk() throws IOException, LdpClientException {
         final Indexer indexer = new Indexer();
-        final String baseUrl = "http://localhost:9100/_bulk";
+        final String baseUrl = "http://workspaces.ub.uni-leipzig.de:9100/_bulk";
         StringBuffer sb = new StringBuffer();
-        ElasticIndex i = indexer.createIndex("vp", "iiif", getDocumentId());
+        ElasticIndex i = indexer.createIndex("vp2", "iiif", getDocumentId());
         sb.append(JsonSerializer.serializeRaw(i).orElse(""));
         sb.append(System.getProperty("line.separator"));
         JsonNode jsonNode = MAPPER.readValue(

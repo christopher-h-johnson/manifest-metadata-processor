@@ -29,15 +29,6 @@ public class MetadataMapIdentifier {
     private Map<String, String> metadataMap;
 
     /**
-     * setImageIndex.
-     *
-     * @param imageIndex Integer
-     */
-    public void setImageIndex(Integer imageIndex) {
-        this.imageIndex = imageIndex;
-    }
-
-    /**
      * getImageIndex.
      *
      * @return Integer
@@ -48,12 +39,12 @@ public class MetadataMapIdentifier {
     }
 
     /**
-     * setImageServiceIRI.
+     * setImageIndex.
      *
-     * @param imageServiceIRI String
+     * @param imageIndex Integer
      */
-    public void setImageServiceIRI(String imageServiceIRI) {
-        this.imageServiceIRI = imageServiceIRI;
+    public void setImageIndex(Integer imageIndex) {
+        this.imageIndex = imageIndex;
     }
 
     /**
@@ -67,12 +58,12 @@ public class MetadataMapIdentifier {
     }
 
     /**
-     * setMetadataMap.
+     * setImageServiceIRI.
      *
-     * @param metadataMap Map
+     * @param imageServiceIRI String
      */
-    public void setMetadataMap(final Map<String, String> metadataMap) {
-        this.metadataMap = metadataMap;
+    public void setImageServiceIRI(String imageServiceIRI) {
+        this.imageServiceIRI = imageServiceIRI;
     }
 
     /**
@@ -82,5 +73,14 @@ public class MetadataMapIdentifier {
      */
     public Map<String, String> getMetadataMap() {
         return metadataMap;
+    }
+
+    /**
+     * setMetadataMap.
+     *
+     * @param metadataMap Map
+     */
+    public void setMetadataMap(final Map<String, String> metadataMap) {
+        this.metadataMap = metadataMap;
     }
 }

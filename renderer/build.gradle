@@ -1,6 +1,6 @@
 apply plugin: 'application'
 
-mainClassName = 'de.ubleipzig.metadata.processor.Renderer'
+mainClassName = 'de.ubleipzig.metadata.renderer.Renderer'
 description = 'A Camel service that assembles manifests from RDF queries'
 
 javaModule {
@@ -26,6 +26,8 @@ dependencies {
     implementation("com.github.jsonld-java:jsonld-java:$jsonldVersion")
     implementation("com.itextpdf:io:7.1.2")
     implementation("com.itextpdf:layout:7.1.2")
+    implementation("commons-io:commons-io:2.6")
+
     implementation("de.ubleipzig:commons-rdf-jena-jpms:$commonsRdfJenaVersion")
     implementation("javax.activation:javax.activation-api:$activationApiVersion")
     implementation("javax.xml.bind:jaxb-api:$jaxbVersion")
@@ -34,7 +36,6 @@ dependencies {
     implementation("org.apache.httpcomponents:httpclient-cache:$httpClientOsgiVersion")
 
 
-    testImplementation("de.ubleipzig:jena.core-jpms:$jenaVersion")
     testImplementation("org.apache.camel:camel-test:$camelVersion")
     testImplementation("org.apache.camel:camel-jetty9:$camelVersion")
     testImplementation("org.apache.camel:camel-http4:$camelVersion")

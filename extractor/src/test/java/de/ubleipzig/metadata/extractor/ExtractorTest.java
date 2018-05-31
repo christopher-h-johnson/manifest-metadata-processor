@@ -53,15 +53,28 @@ public final class ExtractorTest {
 
                 from("jetty:http://{{api.host}}:{{api.port}}{{api.prefix}}?"
                         + "optionsEnabled=true&matchOnUriPrefix=true&sendServerVersion=false"
-                        + "&httpMethodRestrict=GET,OPTIONS").routeId("Extractor").removeHeaders(HTTP_ACCEPT).setHeader(
-                        "Access-Control-Allow" + "-Origin").constant("*").choice().when(
-                        header(HTTP_METHOD).isEqualTo("GET")).to("direct:getManifest");
-                from("direct:getManifest").process(
-                        e -> e.getIn().setHeader(Exchange.HTTP_URI, e.getIn().getHeader(MANIFEST_URI))).to(
-                        "http4").filter(header(HTTP_RESPONSE_CODE).isEqualTo(200)).setHeader(CONTENT_TYPE).constant(
-                        contentTypeJsonLd).convertBodyTo(String.class).to("direct:toRDF");
-                from("direct:toRDF").choice().when(header(SPARQL_QUERY).isEqualTo("extract")).process(
-                        ExchangeProcess::processJsonLdExchange);
+                        + "&httpMethodRestrict=GET,OPTIONS")
+                        .routeId("Extractor")
+                        .removeHeaders(HTTP_ACCEPT)
+                        .setHeader(
+                        "Access-Control-Allow-Origin")
+                        .constant("*")
+                        .choice()
+                        .when(header(HTTP_METHOD).isEqualTo("GET"))
+                        .to("direct:getManifest");
+                from("direct:getManifest")
+                        .process(e -> e.getIn().setHeader(Exchange.HTTP_URI, e.getIn().getHeader(MANIFEST_URI)))
+                        .to("http4")
+                        .filter(header(HTTP_RESPONSE_CODE)
+                                .isEqualTo(200))
+                        .setHeader(CONTENT_TYPE)
+                        .constant(contentTypeJsonLd)
+                        .convertBodyTo(String.class)
+                        .to("direct:toRDF");
+                from("direct:toRDF")
+                        .choice()
+                        .when(header(SPARQL_QUERY).isEqualTo("extract"))
+                        .process(ExchangeProcess::processJsonLdExchange);
             }
         });
         camelContext.start();

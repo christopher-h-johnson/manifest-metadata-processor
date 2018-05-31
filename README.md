@@ -1,5 +1,46 @@
-## Manifest Metadata Processor
+# Manifest Metadata Processor
 
+This is a collection of APIs for the manipulation of IIIF Manifests
+
+## Renderer
+
+This is an api that can produce a zip file or PDF of a range of images from a IIIF manifest:
+
+### Parameters
+| Name | Options | Description |
+| ---- | ------- | ------- |
+| type | pdf, image | serialization options |
+| manifest | (none) | the URI of a IIIF (v.2.1) manifest |
+| from | (none)    | the first index of the image sequence |
+| to | (none)    | the last index of the image sequence |
+| pct | (none)    | the scale of the images (as a percentage)|
+
+#### Example
+```bash
+http://localhost:9099/renderer?type=pdf&manifest=http://iiif.ub.uni-leipzig.de/0000009000/manifest.json&from=1&to=30&pct=25`
+```
+
+#### Preflight for Image Count
+A client can get the image count in a manifest with this request:
+```bash
+http://localhost:9099/renderer?type=count&manifest=http://iiif.ub.uni-leipzig.de/0000009000/manifest.json
+```
+
+The response is a JSON Object
+```json
+{
+  "imageServiceCount" : 316
+}
+```
+
+#### Docker Compose
+The service can be deployed with this:
+```bash
+$ cd src/main/resources/renderer
+docker-compose up
+```
+
+## Extractor
 This provides an Camel Jetty API that can be crawled by an httpclient to get indexable JSON documents containing mapped metadata fields
  sourced from IIIF manifests.
 
@@ -10,7 +51,10 @@ This provides an Camel Jetty API that can be crawled by an httpclient to get ind
 The client can then use the elasticsearch API and PUT the response bodies into an index for discovery.
 See `IndexerCrawlerTest` for an example.
 
-### Elasticsearch
+## Indexer
+(WIP)
+
+## ElasticSearch
 
 See [docs](https://github.com/ub-leipzig/manifest-metadata-processor/blob/master/docs) for sample analysis data from Elastic.
 

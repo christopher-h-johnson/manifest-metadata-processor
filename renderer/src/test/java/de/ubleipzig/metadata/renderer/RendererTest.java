@@ -19,20 +19,12 @@ import static org.apache.camel.Exchange.CONTENT_TYPE;
 import static org.apache.camel.Exchange.HTTP_METHOD;
 import static org.apache.camel.Exchange.HTTP_RESPONSE_CODE;
 
-import java.io.InputStream;
-import java.util.Hashtable;
-import java.util.Properties;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.JndiRegistry;
-import org.apache.camel.util.IOHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,7 +66,6 @@ public final class RendererTest {
                              e.getIn().setHeader(Exchange.HTTP_URI, e.getIn().getHeader(MANIFEST_URI));
                            })
                         .to("http4")
-                        .log("headers = ${headers}")
                         .filter(header(HTTP_RESPONSE_CODE)
                         .isEqualTo(200))
                         .setHeader(CONTENT_TYPE)
@@ -83,9 +74,13 @@ public final class RendererTest {
                         .to("direct:toRDF");
                 from("direct:toRDF")
                         .choice()
-                        .when(header(SPARQL_QUERY)
-                        .isEqualTo("extract"))
-                        .process(JsonLdExchange::processJsonLdExchange)
+                        .when(header(SPARQL_QUERY).isEqualTo("pdf"))
+                        .process(JsonLdExchange::processMap)
+                        .to("file://target")
+                        .when(header(SPARQL_QUERY).isEqualTo("count"))
+                        .process(JsonLdExchange::getImageCount)
+                        .when(header(SPARQL_QUERY).isEqualTo("image"))
+                        .process(JsonLdExchange::processImageDownload)
                         .to("file://target");
             }
         });

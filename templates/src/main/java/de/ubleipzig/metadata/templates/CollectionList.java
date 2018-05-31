@@ -31,7 +31,7 @@ public class CollectionList {
     private String label;
 
     @JsonProperty
-    private List<Manifest> collections;
+    private List<ManifestItem> collections;
 
     @JsonProperty
     private String description;
@@ -91,11 +91,11 @@ public class CollectionList {
         this.attribution = attribution;
     }
 
-    public List<Manifest> getCollections() {
+    public List<ManifestItem> getCollections() {
         return collections;
     }
 
-    public void setCollections(List<Manifest> collections) {
+    public void setCollections(List<ManifestItem> collections) {
         this.collections = collections;
     }
 }

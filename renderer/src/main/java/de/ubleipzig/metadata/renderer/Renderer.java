@@ -26,7 +26,7 @@ import org.apache.camel.impl.JndiRegistry;
 import org.apache.camel.main.Main;
 import org.apache.camel.main.MainListenerSupport;
 import org.apache.camel.main.MainSupport;
-import org.apache.commons.rdf.jena.JenaRDF;
+import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,8 +37,6 @@ public class Renderer {
     private static final String SPARQL_QUERY = "type";
     private static final String MANIFEST_URI = "manifest";
     private static final String contentTypeJsonLd = "application/ld+json";
-    private static final JenaRDF rdf = new JenaRDF();
-    private static final String EMPTY = "empty";
 
     /**
      * main.
@@ -61,7 +59,8 @@ public class Renderer {
         main.addRouteBuilder(new Renderer.QueryRoute());
         main.addMainListener(new Renderer.Events());
         final JndiRegistry registry = new JndiRegistry(ContextUtils.createInitialContext());
-        main.setPropertyPlaceholderLocations("file:${env:DYNAMO_HOME}/de.ubleipzig.metadata.renderer.cfg");
+        main.bind("x509HostnameVerifier", new AllowAllHostnameVerifier());
+        main.setPropertyPlaceholderLocations("file:${env:RENDERER_HOME}/de.ubleipzig.metadata.renderer.cfg");
         main.run();
     }
 
@@ -94,31 +93,32 @@ public class Renderer {
             from("jetty:http://{{api.host}}:{{api.port}}{{api.prefix}}?"
                     + "optionsEnabled=true&matchOnUriPrefix=true&sendServerVersion=false"
                     + "&httpMethodRestrict=GET,OPTIONS")
-                    .routeId("Extractor")
+                    .routeId("Renderer")
                     .removeHeaders(HTTP_ACCEPT)
                     .setHeader("Access-Control-Allow-Origin")
                     .constant("*")
                     .choice()
-                    .when(header(HTTP_METHOD)
-                            .isEqualTo("GET"))
+                    .when(header(HTTP_METHOD).isEqualTo("GET"))
                     .to("direct:getManifest");
             from("direct:getManifest")
                     .process(e -> {
                         e.getIn().setHeader(Exchange.HTTP_URI, e.getIn().getHeader(MANIFEST_URI));
                     })
                     .to("http4")
-                    .log("headers = ${headers}")
-                    .filter(header(HTTP_RESPONSE_CODE)
-                            .isEqualTo(200))
+                    .filter(header(HTTP_RESPONSE_CODE).isEqualTo(200))
                     .setHeader(CONTENT_TYPE)
                     .constant(contentTypeJsonLd)
                     .convertBodyTo(String.class)
-                    .to("direct:toRDF");
-            from("direct:toRDF")
+                    .to("direct:toRender");
+            from("direct:toRender")
                     .choice()
-                    .when(header(SPARQL_QUERY)
-                            .isEqualTo("extract"))
-                    .process(JsonLdExchange::processJsonLdExchange)
+                    .when(header(SPARQL_QUERY).isEqualTo("count"))
+                    .process(JsonLdExchange::getImageCount)
+                    .when(header(SPARQL_QUERY).isEqualTo("pdf"))
+                    .process(JsonLdExchange::processMap)
+                    .to("file://target")
+                    .when(header(SPARQL_QUERY).isEqualTo("image"))
+                    .process(JsonLdExchange::processImageDownload)
                     .to("file://target");
         }
     }

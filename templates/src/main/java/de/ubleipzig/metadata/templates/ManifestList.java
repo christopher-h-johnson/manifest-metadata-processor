@@ -31,7 +31,7 @@ public class ManifestList {
     private String label;
 
     @JsonProperty
-    private List<Manifest> manifests;
+    private List<ManifestItem> manifests;
 
     @JsonProperty
     private String description;
@@ -91,11 +91,11 @@ public class ManifestList {
         this.attribution = attribution;
     }
 
-    public List<Manifest> getManifests() {
+    public List<ManifestItem> getManifests() {
         return manifests;
     }
 
-    public void setManifest(List<Manifest> manifests) {
+    public void setManifest(List<ManifestItem> manifests) {
         this.manifests = manifests;
     }
 }

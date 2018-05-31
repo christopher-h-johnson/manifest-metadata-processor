@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  renderer:
+    image: ubleipzig/renderer:0.1.0
+    container_name: renderer
+    restart: always
+    ports:
+      - "9099:9099"
+    environment:
+        RENDERER_HOME: /etc/renderer
+    volumes:
+      - ./cfg/de.ubleipzig.metadata.renderer.cfg:/etc/renderer/de.ubleipzig.metadata.renderer.cfg
