@@ -144,40 +144,28 @@ public class IndexerCrawlerTest {
 
     @Test
     void testCreateIndexandMapping() throws IOException, LdpClientException {
-        final Indexer indexer = new Indexer();
-        final String baseUrl = "http://localhost:9100/_bulk";
+        final String baseUrl = "http://workspaces.ub.uni-leipzig.de:9100/vp4";
         StringBuilder sb = new StringBuilder();
-        ElasticIndex i = indexer.createIndex("vp", "iiif", getDocumentId());
-        sb.append(JsonSerializer.serializeRaw(i).orElse(""));
-        sb.append(System.getProperty("line.separator"));
         JsonNode jsonNode = MAPPER.readValue(
                 readFile(IndexerCrawlerTest.class.getResourceAsStream("/vp5-mapping.json")), JsonNode.class);
         sb.append(jsonNode.toString());
-        sb.append(System.getProperty("line.separator"));
         System.out.println(sb.toString());
         InputStream is = new ByteArrayInputStream(sb.toString().getBytes());
-        client.post(rdf.createIRI(baseUrl), is, "application/json");
+        client.put(rdf.createIRI(baseUrl), is, "application/json");
     }
 
     @Test
-    void putJsonElasticBulk() throws IOException, LdpClientException {
+    void putJsonElasticBulk() throws LdpClientException {
         final Indexer indexer = new Indexer();
         final String baseUrl = "http://workspaces.ub.uni-leipzig.de:9100/_bulk";
         StringBuffer sb = new StringBuffer();
-        ElasticIndex i = indexer.createIndex("vp2", "iiif", getDocumentId());
-        sb.append(JsonSerializer.serializeRaw(i).orElse(""));
-        sb.append(System.getProperty("line.separator"));
-        JsonNode jsonNode = MAPPER.readValue(
-                readFile(IndexerCrawlerTest.class.getResourceAsStream("/vp5-mapping.json")), JsonNode.class);
-        sb.append(jsonNode.toString());
-        sb.append(System.getProperty("line.separator"));
         try {
             InputStream jsonList = IndexerCrawlerTest.class.getResourceAsStream("/vp-metadata.json");
             final MapListIdentifier mapList = MAPPER.readValue(jsonList, new TypeReference<MapListIdentifier>() {
             });
             final List<MetadataMapIdentifier> m = mapList.getMapList();
             m.forEach(map -> {
-                ElasticCreate c = indexer.createDocument("vp", "iiif", getDocumentId());
+                ElasticCreate c = indexer.createDocument("vp4", "_doc", getDocumentId());
                 sb.append(JsonSerializer.serializeRaw(c).orElse(""));
                 sb.append(System.getProperty("line.separator"));
                 sb.append(JsonSerializer.serializeRaw(map).orElse(""));

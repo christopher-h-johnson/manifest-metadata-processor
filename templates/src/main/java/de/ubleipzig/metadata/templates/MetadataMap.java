@@ -17,7 +17,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Map;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class MetadataMap {
 
     @JsonProperty
