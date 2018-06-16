@@ -47,11 +47,15 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.slf4j.Logger;
 
 /**/
-public class JsonLdExchange {
+public final class JsonLdExchange {
 
     private static final Logger log = getLogger(JsonLdExchange.class);
     private static final String EMPTY = "empty";
     private static final ObjectMapper MAPPER = new ObjectMapper();
+
+    private JsonLdExchange() {
+
+    }
 
     public static void processMap(final Exchange e) throws JsonLdError, URISyntaxException {
         final String queryString = (String) e.getIn().getHeader(HTTP_QUERY);

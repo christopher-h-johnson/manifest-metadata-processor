@@ -22,4 +22,6 @@ module de.ubleipzig.metadata.extractor {
     requires java.naming;
     requires de.ubleipzig.metadata.processor;
     requires de.ubleipzig.metadata.templates;
+    requires com.fasterxml.jackson.databind;
+    requires com.fasterxml.jackson.core;
 }

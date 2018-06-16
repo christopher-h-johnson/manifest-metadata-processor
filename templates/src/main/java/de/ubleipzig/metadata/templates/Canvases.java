@@ -54,6 +54,10 @@ public class Canvases {
         return images;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public void setImages(List<Images> images) {
         this.images = images;
     }

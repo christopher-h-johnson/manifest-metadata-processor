@@ -11,33 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package de.ubleipzig.metadata.templates;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.Map;
-
-public class MetadataMap {
-
-    @JsonProperty
-    private Map<String, String> metadataMap;
-
-    /**
-     * getMetadataMap.
-     *
-     * @return Map
-     */
-    public Map<String, String> getMetadataMap() {
-        return metadataMap;
-    }
-
-    /**
-     * setMetadataMap.
-     *
-     * @param metadataMap Map
-     */
-    public void setMetadataMap(final Map<String, String> metadataMap) {
-        this.metadataMap = metadataMap;
-    }
-}
+/**
+ *
+ */
+package de.ubleipzig.metadata.indexer;

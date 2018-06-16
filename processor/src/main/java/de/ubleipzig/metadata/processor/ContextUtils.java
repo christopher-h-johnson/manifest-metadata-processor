@@ -25,7 +25,10 @@ import javax.naming.NamingException;
 
 import org.apache.camel.util.IOHelper;
 
-public class ContextUtils {
+public final class ContextUtils {
+
+    private ContextUtils() {
+    }
 
     /**
      * createInitialContext.

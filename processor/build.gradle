@@ -1,8 +1,3 @@
-apply plugin: 'application'
-
-mainClassName = 'de.ubleipzig.metadata.processor.Processor'
-description = 'A Camel service that assembles manifests from RDF queries'
-
 javaModule {
     name = 'de.ubleipzig.metadata.processor'
 }
@@ -29,21 +24,5 @@ dependencies {
     implementation("de.ubleipzig:commons-rdf-jena-jpms:$commonsRdfJenaVersion")
     implementation("javax.activation:javax.activation-api:$activationApiVersion")
     implementation("javax.xml.bind:jaxb-api:$jaxbVersion")
-    implementation("org.apache.camel:camel-jetty9:$camelVersion")
-    implementation("org.apache.camel:camel-http4:$camelVersion")
-    implementation("org.apache.camel:camel-spring-redis:$camelVersion")
-    implementation("org.apache.httpcomponents:httpclient-cache:$httpClientOsgiVersion")
-
-    testImplementation("de.ubleipzig:jena.core-jpms:$jenaVersion")
-    testImplementation("org.apache.camel:camel-test:$camelVersion")
-    testImplementation("org.apache.camel:camel-jetty9:$camelVersion")
-    testImplementation("org.apache.camel:camel-http4:$camelVersion")
-    testImplementation("ch.qos.logback:logback-classic:$logbackVersion")
-}
-
-artifacts {
-    archives (file('build/cfg/main/de.ubleipzig.metadata.processor.cfg')) {
-        classifier 'configuration'
-        type 'cfg'
-    }
+    implementation("org.apache.camel:camel-core:$camelVersion")
 }

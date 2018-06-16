@@ -11,33 +11,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package de.ubleipzig.metadata.templates;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import java.util.Map;
+/**
+ * Metadata.
+ *
+ * @author christopher-johnson
+ */
+@JsonPropertyOrder({"label", "value"})
+public class Metadata {
 
-public class MetadataMap {
+    @JsonProperty("label")
+    private String label;
 
-    @JsonProperty
-    private Map<String, String> metadataMap;
+    @JsonProperty("value")
+    private String value;
 
     /**
-     * getMetadataMap.
-     *
-     * @return Map
+     * @return String
      */
-    public Map<String, String> getMetadataMap() {
-        return metadataMap;
+    @JsonIgnore
+    public String getLabel() {
+        return this.label;
     }
 
     /**
-     * setMetadataMap.
-     *
-     * @param metadataMap Map
+     * @return String
      */
-    public void setMetadataMap(final Map<String, String> metadataMap) {
-        this.metadataMap = metadataMap;
+    @JsonIgnore
+    public String getValue() {
+        return this.value;
     }
+
 }

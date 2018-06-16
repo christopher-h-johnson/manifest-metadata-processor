@@ -51,9 +51,9 @@ public class CollectionCollectorTest {
 
     @Test
     void buildCollectionsFromJson() {
-        IRI rootCollectionIRI = rdf.createIRI("https://www.e-codices.unifr.ch/metadata/iiif/collection.json");
+        final IRI rootCollectionIRI = rdf.createIRI("https://www.e-codices.unifr.ch/metadata/iiif/collection.json");
         try {
-            HttpResponse res = client.getResponse(rootCollectionIRI);
+            final HttpResponse res = client.getResponse(rootCollectionIRI);
             if (res.statusCode() == 200) {
                 final String json = res.body().toString();
                 final CollectionList collections = MAPPER.readValue(json, new TypeReference<CollectionList>() {
@@ -62,10 +62,10 @@ public class CollectionCollectorTest {
                 final RootCollection rootCollection = new RootCollection();
                 final List<MapListCollection> mapListCollections = new ArrayList<>();
                 cList.forEach(c -> {
-                    String cid = c.getId();
+                    final String cid = c.getId();
                     final IRI cIRI = rdf.createIRI(cid);
                     try {
-                        HttpResponse res1 = client.getResponse(cIRI);
+                        final HttpResponse res1 = client.getResponse(cIRI);
                         if (res1.statusCode() == 200) {
                             final String json1 = res1.body().toString();
                             final ManifestList subcollections = MAPPER.readValue(
@@ -93,7 +93,7 @@ public class CollectionCollectorTest {
                                     e.printStackTrace();
                                 }
                             });
-                            MapListCollection l = new MapListCollection();
+                            final MapListCollection l = new MapListCollection();
                             l.setMapListCollection(mapList);
                             l.setId(c.getId());
                             l.setLabel(c.getLabel());

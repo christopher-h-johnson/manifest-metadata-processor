@@ -33,7 +33,7 @@ public final class ExtractorTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExtractorTest.class);
     private static final String HTTP_ACCEPT = "Accept";
-    private static final String SPARQL_QUERY = "type";
+    private static final String TYPE = "type";
     private static final String MANIFEST_URI = "manifest";
     private static final String contentTypeJsonLd = "application/ld+json";
 
@@ -70,11 +70,13 @@ public final class ExtractorTest {
                         .setHeader(CONTENT_TYPE)
                         .constant(contentTypeJsonLd)
                         .convertBodyTo(String.class)
-                        .to("direct:toRDF");
-                from("direct:toRDF")
+                        .to("direct:toExchangeProcess");
+                from("direct:toExchangeProcess")
                         .choice()
-                        .when(header(SPARQL_QUERY).isEqualTo("extract"))
-                        .process(ExchangeProcess::processJsonLdExchange);
+                        .when(header(TYPE).isEqualTo("extract"))
+                        .process(ExchangeProcess::processJsonLdExchange)
+                        .when(header(TYPE).isEqualTo("disassemble"))
+                        .process(ExchangeProcess::processDisassemblerExchange);
             }
         });
         camelContext.start();

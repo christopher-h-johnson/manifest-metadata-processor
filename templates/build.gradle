@@ -1,3 +1,7 @@
+javaModule {
+    name = 'de.ubleipzig.metadata.templates'
+}
+
 dependencies {
     implementation("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion") {force = true}
     implementation("com.fasterxml.jackson.core:jackson-core:$jacksonVersion") {force = true}

@@ -45,7 +45,7 @@ public class Manifest {
     private String attribution;
 
     @JsonProperty
-    private List<Object> metadata;
+    private List<Metadata> metadata;
 
     @JsonProperty
     private String logo;
@@ -60,10 +60,20 @@ public class Manifest {
     private List<Object> seeAlso;
 
     @JsonProperty
-    private List<Object> structures;
+    private List<Structure> structures;
+
+    @JsonProperty
+    private String viewingHint;
+
+    @JsonProperty
+    private Object thumbnail;
 
     @JsonProperty
     private List<Sequences> sequences;
+
+    public List<Metadata> getMetadata() {
+        return metadata;
+    }
 
     public String getLabel() {
         return label;
@@ -79,6 +89,10 @@ public class Manifest {
 
     public void setSequences(List<Sequences> sequences) {
         this.sequences = sequences;
+    }
+
+    public List<Structure> getStructures() {
+        return structures;
     }
 
 }

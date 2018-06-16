@@ -11,22 +11,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package de.ubleipzig.metadata.indexer;
 
 import static de.ubleipzig.metadata.processor.JsonSerializer.MAPPER;
 import static de.ubleipzig.metadata.processor.QueryUtils.readFile;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
+
+import de.ubleipzig.metadata.templates.ElasticCreate;
+import de.ubleipzig.metadata.templates.ElasticDocumentObject;
+import de.ubleipzig.metadata.templates.ElasticIndex;
+import de.ubleipzig.metadata.templates.MetadataMap;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import de.ubleipzig.metadata.templates.ElasticCreate;
-import de.ubleipzig.metadata.templates.ElasticDocumentObject;
-import de.ubleipzig.metadata.templates.ElasticIndex;
+import jdk.incubator.http.HttpResponse;
 
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.jena.JenaRDF;
@@ -34,11 +37,13 @@ import org.trellisldp.client.LdpClient;
 import org.trellisldp.client.LdpClientException;
 import org.trellisldp.client.LdpClientImpl;
 
+
 public class Indexer {
     private final LdpClient client = new LdpClientImpl();
     private static final JenaRDF rdf = new JenaRDF();
 
-    public Indexer() {}
+    public Indexer() {
+    }
 
     public ElasticIndex createIndex(String indexName, String type, String id) {
         final ElasticDocumentObject index = new ElasticDocumentObject();
@@ -81,5 +86,22 @@ public class Indexer {
         } catch (LdpClientException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public MetadataMap getMetadataMap(IRI iri) {
+        try {
+            final String extractorService = "http://localhost:9098/extractor?type=extract&manifest=";
+            final String extractorRequest = extractorService + iri.getIRIString();
+            final IRI req = rdf.createIRI(extractorRequest);
+            final HttpResponse res = client.getResponse(req);
+            if (res.statusCode() == 200) {
+                final String json = res.body().toString();
+                return MAPPER.readValue(json, new TypeReference<MetadataMap>() {
+                });
+            }
+        } catch (LdpClientException | IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+        return null;
     }
 }

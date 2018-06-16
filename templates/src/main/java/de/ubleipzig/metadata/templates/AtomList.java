@@ -11,33 +11,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package de.ubleipzig.metadata.templates;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.Map;
+import java.util.List;
 
-public class MetadataMap {
-
+public class AtomList {
     @JsonProperty
-    private Map<String, String> metadataMap;
+    private List<AnnotationBodyAtom> atomList;
 
-    /**
-     * getMetadataMap.
-     *
-     * @return Map
-     */
-    public Map<String, String> getMetadataMap() {
-        return metadataMap;
+    @JsonIgnore
+    public List<AnnotationBodyAtom> getAtomList() {
+        return atomList;
     }
 
-    /**
-     * setMetadataMap.
-     *
-     * @param metadataMap Map
-     */
-    public void setMetadataMap(final Map<String, String> metadataMap) {
-        this.metadataMap = metadataMap;
+    public void setAtomList(List<AnnotationBodyAtom> atomList) {
+        this.atomList = atomList;
     }
 }

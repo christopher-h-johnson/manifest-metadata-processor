@@ -20,11 +20,7 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Image;
 
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -38,7 +34,10 @@ import java.util.zip.ZipOutputStream;
 import org.apache.camel.util.IOHelper;
 import org.apache.commons.io.IOUtils;
 
-public class RenderedDocument {
+public final class RenderedDocument {
+
+    private RenderedDocument() {
+    }
 
     public static ByteArrayOutputStream buildPdf(List<String> imageList) throws Exception {
         final Image image = new Image(ImageDataFactory.create(new URL(imageList.get(0))));
