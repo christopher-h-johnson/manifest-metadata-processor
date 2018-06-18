@@ -14,12 +14,20 @@
 
 package de.ubleipzig.metadata.indexer;
 
+import static de.ubleipzig.metadata.indexer.Constants.bulkContext;
+import static de.ubleipzig.metadata.indexer.Constants.contentTypeJson;
+import static de.ubleipzig.metadata.indexer.Constants.docTypeIndex;
+import static de.ubleipzig.metadata.indexer.Constants.elasticSearchHost;
+import static de.ubleipzig.metadata.indexer.Constants.lineSeparator;
 import static de.ubleipzig.metadata.processor.JsonSerializer.MAPPER;
 import static de.ubleipzig.metadata.processor.QueryUtils.readFile;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 
+import de.ubleipzig.metadata.processor.JsonSerializer;
+import de.ubleipzig.metadata.templates.AnnotationBodyAtom;
+import de.ubleipzig.metadata.templates.AtomList;
 import de.ubleipzig.metadata.templates.ElasticCreate;
 import de.ubleipzig.metadata.templates.ElasticDocumentObject;
 import de.ubleipzig.metadata.templates.ElasticIndex;
@@ -28,6 +36,8 @@ import de.ubleipzig.metadata.templates.MetadataMap;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.UUID;
 
 import jdk.incubator.http.HttpResponse;
 
@@ -43,6 +53,10 @@ public class Indexer {
     private static final JenaRDF rdf = new JenaRDF();
 
     public Indexer() {
+    }
+
+    private static String getDocumentId() {
+        return UUID.randomUUID().toString();
     }
 
     public ElasticIndex createIndex(String indexName, String type, String id) {
@@ -103,5 +117,34 @@ public class Indexer {
             throw new RuntimeException(e.getMessage());
         }
         return null;
+    }
+
+    public void putJsonAtomsElasticBulk(IRI iri, String indexName, InputStream mapping) {
+        final Indexer indexer = new Indexer();
+        final String baseUrl = elasticSearchHost;
+        final String bulkUri = baseUrl + bulkContext;
+        indexer.createIndexMapping(baseUrl + indexName, mapping);
+        final StringBuffer sb = new StringBuffer();
+        try {
+            final HttpResponse res = client.getResponse(iri);
+            if (res.statusCode() == 200) {
+                final String jsonList = res.body().toString();
+                final AtomList atomList = MAPPER.readValue(jsonList, new TypeReference<AtomList>() {
+                });
+                final List<AnnotationBodyAtom> m = atomList.getAtomList();
+                m.forEach(map -> {
+                    ElasticCreate c = indexer.createDocument(indexName, docTypeIndex, getDocumentId());
+                    sb.append(JsonSerializer.serializeRaw(c).orElse(""));
+                    sb.append(System.getProperty(lineSeparator));
+                    sb.append(JsonSerializer.serializeRaw(map).orElse(""));
+                    sb.append(System.getProperty(lineSeparator));
+                });
+                System.out.println(sb.toString());
+                final InputStream is = new ByteArrayInputStream(sb.toString().getBytes());
+                client.post(rdf.createIRI(bulkUri), is, contentTypeJson);
+            }
+        } catch (IOException | LdpClientException e) {
+            e.printStackTrace();
+        }
     }
 }

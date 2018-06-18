@@ -1,22 +1,21 @@
 {
   "mappings": {
     "_doc": {
-      "dynamic_templates": [
-        {
-          "structures": {
-            "path_match": "structureMap.*",
-            "mapping": {
-              "type": "text"
-             }
-          }
-        }
-      ],
       "properties": {
         "imageIndex": {
           "type": "long"
         },
         "iiifService": {
           "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "structureMap.1": {
+          "type": "object",
           "fields": {
             "keyword": {
               "type": "keyword",

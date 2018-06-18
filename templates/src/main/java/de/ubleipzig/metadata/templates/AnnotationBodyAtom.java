@@ -31,7 +31,7 @@ public class AnnotationBodyAtom {
     private Map<String, String> metadata;
 
     @JsonProperty
-    private Map<Integer, String> structureMap;
+    private Map<Integer, Structure> structureMap;
 
     public String getIiifService() {
         return iiifService;
@@ -57,11 +57,11 @@ public class AnnotationBodyAtom {
         this.metadata = metadata;
     }
 
-    public Map<Integer, String> getStructureMap() {
+    public Map<Integer, Structure> getStructureMap() {
         return structureMap;
     }
 
-    public void setStructureMap(Map<Integer, String> structureMap) {
+    public void setStructureMap(Map<Integer, Structure> structureMap) {
         this.structureMap = structureMap;
     }
 }

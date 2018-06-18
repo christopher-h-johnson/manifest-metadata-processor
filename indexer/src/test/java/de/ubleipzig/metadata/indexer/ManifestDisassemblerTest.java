@@ -81,7 +81,10 @@ public class ManifestDisassemblerTest {
                 });
                 final Optional<List<Structure>> structures = ofNullable(manifest.getStructures());
                 final Map<String, List<String>> structureMap = new HashMap<>();
+                final Map<String, String> structureLabelMap = new HashMap<>();
+
                 structures.ifPresent(st -> st.forEach(s -> {
+                    structureLabelMap.put(s.getStructureId(), s.getStructureLabel());
                     final Optional<List<String>> canvases = ofNullable(s.getCanvases());
                     canvases.ifPresent(strings -> {
                         structureMap.put(s.getStructureId(), strings);
@@ -95,10 +98,13 @@ public class ManifestDisassemblerTest {
                         final AnnotationBodyAtom aba = new AnnotationBodyAtom();
                         final Integer imageIndex = ai.getAndIncrement();
                         final Optional<Set<String>> structureSet = ofNullable(getKeysByValue(structureMap, c.getId()));
-                        final Map<Integer, String> sMap = new HashMap<>();
+                        final Map<Integer, Structure> sMap = new HashMap<>();
                         final AtomicInteger ai2 = new AtomicInteger(1);
                         structureSet.ifPresent(structs -> structs.forEach(ss -> {
-                            sMap.put(ai2.getAndIncrement(), ss);
+                            final Structure structure = new Structure();
+                            structure.setStructureLabel(structureLabelMap.get(ss));
+                            structure.setStructureId(ss);
+                            sMap.put(ai2.getAndIncrement(), structure);
                         }));
                         aba.setStructureMap(sMap);
                         c.getImages().forEach(i -> {
