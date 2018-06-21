@@ -27,6 +27,7 @@ import org.apache.camel.main.Main;
 import org.apache.camel.main.MainListenerSupport;
 import org.apache.camel.main.MainSupport;
 import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,7 +60,7 @@ public class Renderer {
         main.addRouteBuilder(new Renderer.QueryRoute());
         main.addMainListener(new Renderer.Events());
         final JndiRegistry registry = new JndiRegistry(ContextUtils.createInitialContext());
-        main.bind("x509HostnameVerifier", new AllowAllHostnameVerifier());
+        main.bind("x509HostnameVerifier", new NoopHostnameVerifier());
         main.setPropertyPlaceholderLocations("file:${env:RENDERER_HOME}/de.ubleipzig.metadata.renderer.cfg");
         main.run();
     }

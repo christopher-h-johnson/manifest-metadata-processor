@@ -10,4 +10,3 @@ project(':indexer').projectDir = "$rootDir/indexer" as File
 project(':processor').projectDir = "$rootDir/processor" as File
 project(':renderer').projectDir = "$rootDir/renderer" as File
 project(':templates').projectDir = "$rootDir/templates" as File
-enableFeaturePreview('STABLE_PUBLISHING')

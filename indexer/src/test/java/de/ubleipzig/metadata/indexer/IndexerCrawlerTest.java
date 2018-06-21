@@ -21,9 +21,9 @@ import de.ubleipzig.metadata.processor.JsonSerializer;
 import de.ubleipzig.metadata.templates.CollectionMapListIdentifier;
 import de.ubleipzig.metadata.templates.ElasticCreate;
 import de.ubleipzig.metadata.templates.MapList;
-import de.ubleipzig.metadata.templates.MapListIdentifier;
+import de.ubleipzig.metadata.templates.OrpAtom;
+import de.ubleipzig.metadata.templates.OrpAtomList;
 import de.ubleipzig.metadata.templates.MetadataMap;
-import de.ubleipzig.metadata.templates.MetadataMapIdentifier;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -51,7 +51,7 @@ public class IndexerCrawlerTest {
     private final LdpClient client = new LdpClientImpl();
     private static final JenaRDF rdf = new JenaRDF();
     private final String contentTypeJson = "application/json";
-    private final String elasticSearchHost = "http://localhost:9100/";
+    private final String elasticSearchHost = "http://workspaces.ub.uni-leipzig.de:9100/";
     private final String lineSeparator = "line.separator";
     private final String docTypeIndex = "_doc";
     private final String bulkContext = "_bulk";
@@ -70,6 +70,19 @@ public class IndexerCrawlerTest {
         for (int i = 9698; i < loops; i++) {
             final String pid = String.format("%010d", i);
             final IRI identifier = rdf.createIRI(extractorService + pid + "/manifest.json");
+            list.add(identifier);
+        }
+        return list;
+    }
+
+    private List<IRI> buildDisassemblerIRIList() {
+        final String disassemblerService = "http://localhost:9098/extractor?type=disassemble&manifest=http://iiif.ub" +
+                ".uni-leipzig.de/";
+        final int loops = 10300;
+        final List<IRI> list = new ArrayList<>();
+        for (int i = 0; i < loops; i++) {
+            final String pid = String.format("%010d", i);
+            final IRI identifier = rdf.createIRI(disassemblerService + pid + "/manifest.json");
             list.add(identifier);
         }
         return list;
@@ -130,7 +143,7 @@ public class IndexerCrawlerTest {
     @Test
     void putJsonElasticBulk() throws LdpClientException {
         final Indexer indexer = new Indexer();
-        final String indexName = "ec";
+        final String indexName = "vp5";
         final String baseUrl = elasticSearchHost;
         final String bulkUri = baseUrl + bulkContext;
         indexer.createIndexMapping(baseUrl + indexName,
@@ -138,9 +151,9 @@ public class IndexerCrawlerTest {
         final StringBuffer sb = new StringBuffer();
         try {
             final InputStream jsonList = IndexerCrawlerTest.class.getResourceAsStream("/vp-metadata.json");
-            final MapListIdentifier mapList = MAPPER.readValue(jsonList, new TypeReference<MapListIdentifier>() {
+            final OrpAtomList mapList = MAPPER.readValue(jsonList, new TypeReference<OrpAtomList>() {
             });
-            final List<MetadataMapIdentifier> m = mapList.getMapListCollection();
+            final List<OrpAtom> m = mapList.getOrpAtomList();
             m.forEach(map -> {
                 ElasticCreate c = indexer.createDocument(indexName, docTypeIndex, getDocumentId());
                 sb.append(JsonSerializer.serializeRaw(c).orElse(""));
@@ -170,9 +183,9 @@ public class IndexerCrawlerTest {
             final CollectionMapListIdentifier mapList = MAPPER.readValue(
                     jsonList, new TypeReference<CollectionMapListIdentifier>() {
                     });
-            final List<MapListIdentifier> m = mapList.getRootCollection();
+            final List<OrpAtomList> m = mapList.getRootCollection();
             m.forEach(map -> {
-                map.getMapListCollection().forEach(ml -> {
+                map.getOrpAtomList().forEach(ml -> {
                     ElasticCreate c = indexer.createDocument(indexName, docTypeIndex, getDocumentId());
                     sb.append(JsonSerializer.serializeRaw(c).orElse(""));
                     sb.append(System.getProperty(lineSeparator));
@@ -191,7 +204,7 @@ public class IndexerCrawlerTest {
     @Test
     void putJsonCollectionElasticBulk3() throws LdpClientException {
         final Indexer indexer = new Indexer();
-        final String indexName = "m";
+        final String indexName = "m4";
         final String baseUrl = elasticSearchHost;
         final String bulkUri = baseUrl + bulkContext;
         indexer.createIndexMapping(baseUrl + indexName,
@@ -221,11 +234,12 @@ public class IndexerCrawlerTest {
     void putJsonAtomsElasticBulk4() {
         final Indexer indexer = new Indexer();
         final String indexName = "t4";
-        final InputStream is = IndexerCrawlerTest.class.getResourceAsStream("/ubl-atom-mapping.json");
-        final IRI apiURI = rdf.createIRI(
-                "http://localhost:9098/extractor?type=disassemble&manifest=http://iiif.ub.uni-leipzig" + "" +
-                        ".de/0000009864/manifest.json");
-        indexer.putJsonAtomsElasticBulk(apiURI, indexName, is);
+        final InputStream mapping = IndexerCrawlerTest.class.getResourceAsStream("/ubl-atom-mapping2.json");
+        indexer.createIndexMapping(elasticSearchHost + indexName, mapping);
+        final List<IRI> list = buildDisassemblerIRIList();
+        list.forEach(iri -> {
+            indexer.putJsonAtomsElasticBulk(iri, indexName);
+        });
     }
 
 

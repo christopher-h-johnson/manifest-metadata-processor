@@ -22,14 +22,14 @@ import java.util.List;
 public class CollectionMapListIdentifier {
 
     @JsonProperty
-    private List<MapListIdentifier> rootCollection;
+    private List<OrpAtomList> rootCollection;
 
     @JsonIgnore
-    public List<MapListIdentifier> getRootCollection() {
+    public List<OrpAtomList> getRootCollection() {
         return rootCollection;
     }
 
-    public void setRootCollection(List<MapListIdentifier> rootCollection) {
+    public void setRootCollection(List<OrpAtomList> rootCollection) {
         this.rootCollection = rootCollection;
     }
 }

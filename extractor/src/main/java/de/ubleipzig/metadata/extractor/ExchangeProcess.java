@@ -161,7 +161,13 @@ public final class ExchangeProcess {
                         }));
                         aba.setStructureMap(sMap);
                         c.getImages().forEach(i -> {
-                            final String iiifService = i.getResource().getService().getId();
+                            String iiifService = i.getResource().getService().getId();
+                            //hack to fix service
+                            if (iiifService.contains("fcgi-bin/iipsrv.fcgi?iiif=")) {
+                                iiifService = iiifService.replace(
+                                        "fcgi-bin/iipsrv.fcgi?iiif=",
+                                        "iiif");
+                            }
                             aba.setIiifService(iiifService);
                             aba.setImageIndex(imageIndex);
                             aba.setMetadata(metadataMap);

@@ -20,5 +20,6 @@ module de.ubleipzig.metadata.indexer {
     requires de.ubleipzig.metadata.processor;
     requires com.fasterxml.jackson.core;
     requires jdk.incubator.httpclient;
+    requires slf4j.api;
     exports de.ubleipzig.metadata.indexer;
 }

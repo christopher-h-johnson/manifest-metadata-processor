@@ -43,6 +43,8 @@ import jdk.incubator.http.HttpResponse;
 
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.jena.JenaRDF;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.trellisldp.client.LdpClient;
 import org.trellisldp.client.LdpClientException;
 import org.trellisldp.client.LdpClientImpl;
@@ -51,6 +53,7 @@ import org.trellisldp.client.LdpClientImpl;
 public class Indexer {
     private final LdpClient client = new LdpClientImpl();
     private static final JenaRDF rdf = new JenaRDF();
+    private static final Logger LOGGER = LoggerFactory.getLogger(Indexer.class);
 
     public Indexer() {
     }
@@ -119,11 +122,10 @@ public class Indexer {
         return null;
     }
 
-    public void putJsonAtomsElasticBulk(IRI iri, String indexName, InputStream mapping) {
+    public void putJsonAtomsElasticBulk(IRI iri, String indexName) {
         final Indexer indexer = new Indexer();
-        final String baseUrl = elasticSearchHost;
-        final String bulkUri = baseUrl + bulkContext;
-        indexer.createIndexMapping(baseUrl + indexName, mapping);
+        final String bulkUri = elasticSearchHost + bulkContext;
+
         final StringBuffer sb = new StringBuffer();
         try {
             final HttpResponse res = client.getResponse(iri);
@@ -139,7 +141,7 @@ public class Indexer {
                     sb.append(JsonSerializer.serializeRaw(map).orElse(""));
                     sb.append(System.getProperty(lineSeparator));
                 });
-                System.out.println(sb.toString());
+                LOGGER.debug(sb.toString());
                 final InputStream is = new ByteArrayInputStream(sb.toString().getBytes());
                 client.post(rdf.createIRI(bulkUri), is, contentTypeJson);
             }
