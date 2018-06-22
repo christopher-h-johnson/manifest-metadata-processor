@@ -24,4 +24,6 @@ module de.ubleipzig.metadata.extractor {
     requires de.ubleipzig.metadata.templates;
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.core;
+    requires org.apache.commons.io;
+    requires de.ubleipzig.image.metadata;
 }

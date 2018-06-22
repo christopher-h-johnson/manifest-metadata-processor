@@ -75,6 +75,10 @@ public class Manifest {
         return metadata;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public String getLabel() {
         return label;
     }

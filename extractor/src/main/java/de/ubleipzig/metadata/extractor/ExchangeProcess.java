@@ -24,9 +24,12 @@ import static org.apache.jena.core.rdf.model.ModelFactory.createDefaultModel;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import de.ubleipzig.image.metadata.templates.ImageDimensionManifest;
+import de.ubleipzig.image.metadata.templates.ImageDimensions;
 import de.ubleipzig.metadata.processor.QueryUtils;
 import de.ubleipzig.metadata.templates.AnnotationBodyAtom;
 import de.ubleipzig.metadata.templates.AtomList;
+import de.ubleipzig.metadata.templates.ImageServiceResponse;
 import de.ubleipzig.metadata.templates.Manifest;
 import de.ubleipzig.metadata.templates.Metadata;
 import de.ubleipzig.metadata.templates.MetadataMap;
@@ -34,6 +37,7 @@ import de.ubleipzig.metadata.templates.Structure;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,6 +50,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import org.apache.camel.Exchange;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.rdf.api.Graph;
 import org.apache.commons.rdf.jena.JenaRDF;
 import org.apache.jena.arq.query.Query;
@@ -164,9 +169,7 @@ public final class ExchangeProcess {
                             String iiifService = i.getResource().getService().getId();
                             //hack to fix service
                             if (iiifService.contains("fcgi-bin/iipsrv.fcgi?iiif=")) {
-                                iiifService = iiifService.replace(
-                                        "fcgi-bin/iipsrv.fcgi?iiif=",
-                                        "iiif");
+                                iiifService = iiifService.replace("fcgi-bin/iipsrv.fcgi?iiif=", "iiif");
                             }
                             aba.setIiifService(iiifService);
                             aba.setImageIndex(imageIndex);
@@ -187,8 +190,71 @@ public final class ExchangeProcess {
         }
     }
 
+    public static void processBinaryMetadataExchange(final Exchange e) {
+        final Optional<String> body = ofNullable(e.getIn().getBody().toString());
+        if (body.isPresent()) {
+            try {
+                final Manifest manifest = MAPPER.readValue(body.get(), new TypeReference<Manifest>() {
+                });
+                final ImageDimensionManifest dimManifest = new ImageDimensionManifest();
+                dimManifest.setCollection(manifest.getId());
+                final List<ImageDimensions> dimList = new ArrayList<>();
+
+                manifest.getSequences().forEach(sq -> {
+                    sq.getCanvases().forEach(c -> {
+                        final ImageDimensions dims = new ImageDimensions();
+                        c.getImages().forEach(i -> {
+                            String iiifService = i.getResource().getService().getId();
+                            //hack to fix service
+                            if (iiifService.contains("fcgi-bin/iipsrv.fcgi?iiif=")) {
+                                iiifService = iiifService.replace("fcgi-bin/iipsrv.fcgi?iiif=", "iiif");
+                            }
+                            //getDimensionsFromImageService
+                            InputStream is = null;
+                            try {
+                                final URL service = new URL(iiifService);
+                                final String path = service.getPath();
+                                final String filename = FilenameUtils.getName(path);
+                                dims.setFilename(filename);
+                                is = new URL(iiifService + "/info.json").openStream();
+                            } catch (IOException ex) {
+                                ex.printStackTrace();
+                            }
+                            final ImageServiceResponse ir = mapServiceResponse(is);
+                            final Integer height = ir.getHeight();
+                            final Integer width = ir.getWidth();
+                            dims.setHeight(height);
+                            dims.setWidth(width);
+                            dimList.add(dims);
+                        });
+                    });
+                });
+                dimManifest.setImageMetadata(dimList);
+                final Optional<String> json = serialize(dimManifest);
+                e.getIn().setBody(json.orElse(null));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        } else {
+            e.getIn().setHeader(CONTENT_TYPE, EMPTY);
+        }
+    }
+
     public static <T, V> Set<T> getKeysByValue(Map<T, List<V>> map, V value) {
         return map.entrySet().stream().filter(entry -> entry.getValue().stream().anyMatch(x -> x.equals(value))).map(
                 Map.Entry::getKey).collect(Collectors.toSet());
+    }
+
+    /**
+     * @param res String
+     * @return ImageServiceResponse
+     */
+    public static ImageServiceResponse mapServiceResponse(final InputStream res) {
+        try {
+            return MAPPER.readValue(res, new TypeReference<ImageServiceResponse>() {
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 }

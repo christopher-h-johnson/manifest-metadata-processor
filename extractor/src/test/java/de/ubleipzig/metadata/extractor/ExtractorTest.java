@@ -76,7 +76,9 @@ public final class ExtractorTest {
                         .when(header(TYPE).isEqualTo("extract"))
                         .process(ExchangeProcess::processJsonLdExchange)
                         .when(header(TYPE).isEqualTo("disassemble"))
-                        .process(ExchangeProcess::processDisassemblerExchange);
+                        .process(ExchangeProcess::processDisassemblerExchange)
+                        .when(header(TYPE).isEqualTo("dimensions"))
+                        .process(ExchangeProcess::processBinaryMetadataExchange);
             }
         });
         camelContext.start();

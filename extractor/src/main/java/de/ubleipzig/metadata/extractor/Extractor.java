@@ -33,7 +33,7 @@ public class Extractor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Extractor.class);
     private static final String HTTP_ACCEPT = "Accept";
-    private static final String SPARQL_QUERY = "type";
+    private static final String TYPE = "type";
     private static final String MANIFEST_URI = "manifest";
     private static final String contentTypeJsonLd = "application/ld+json";
 
@@ -106,12 +106,15 @@ public class Extractor {
                     .constant(contentTypeJsonLd)
                     .convertBodyTo(String.class)
                     .log(INFO, LOGGER, "Fetching Json-LD document")
-                    .to("direct:toRDF");
-            from("direct:toRDF")
+                    .to("direct:toExchangeProcess");
+            from("direct:toExchangeProcess")
                     .choice()
-                    .when(header(SPARQL_QUERY).isEqualTo("extract"))
-                    .log(INFO, LOGGER, "Extracting Metadata from Json-LD document")
-                    .process(ExchangeProcess::processJsonLdExchange);
+                    .when(header(TYPE).isEqualTo("extract"))
+                    .process(ExchangeProcess::processJsonLdExchange)
+                    .when(header(TYPE).isEqualTo("disassemble"))
+                    .process(ExchangeProcess::processDisassemblerExchange)
+                    .when(header(TYPE).isEqualTo("dimensions"))
+                    .process(ExchangeProcess::processBinaryMetadataExchange);
         }
     }
 }
