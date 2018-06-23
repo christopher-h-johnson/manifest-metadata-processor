@@ -26,9 +26,12 @@ ext {
     imageMetadataVersion = '0.2.0-SNAPSHOT'
     iiifVocabularyVersion = '0.1.1'
     jacksonVersion = '2.9.5'
-    jsonldVersion = "0.12.0"
+    jsonldVersion = '0.12.0'
+    leptonicaVersion = '1.75.3-1.4.1'
     slf4jVersion = '1.7.25'
+    tesseractVersion = '3.05.01-1.4.1'
     trellisClientVersion = '0.2.0-SNAPSHOT'
+    xbeamVersion = '1.4.16'
 
     /* Testing */
     jaxbVersion = '2.3.0'
@@ -74,7 +77,6 @@ allprojects { subproject ->
 }
 
 subprojects {
-    apply plugin: 'com.zyxist.chainsaw'
     apply plugin: 'maven'
     apply plugin: 'java-library'
     apply plugin: 'maven-publish'

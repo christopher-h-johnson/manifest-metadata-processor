@@ -1,0 +1,1406 @@
+{
+  "iiifService": "https://iiif.ub.uni-leipzig.de/iiif/j2k/0000/0098/0000009857/00000017.jpx",
+  "imageIndex": 17,
+  "metadata": {
+    "URN": "urn:nbn:de:bsz:15-0011-194180",
+    "Source PPN (SWB)": "04123491X",
+    "Owner": "Leipzig University Library",
+    "Physical description": "155 S.",
+    "Call number": "Kirchg.1328-oc",
+    "Place of publication": "Leipzig",
+    "Title": "Die Entstehung des Christentums",
+    "Collection": "Leipziger Verlage",
+    "Author": "Kalthoff, Albert",
+    "Publisher": "Diederichs",
+    "Kitodo": "10187",
+    "Date of publication": "1904"
+  },
+  "structureMap": {
+    "1": {
+      "@id": "https://iiif.ub.uni-leipzig.de/0000009857/range/LOG_0005",
+      "label": "Noch einmal der historische Jesus"
+    }
+  },
+  "contentList" : [
+    {
+      "objectId" : "word_1_1",
+      "chars" : "folgerung",
+      "region" : "235,360,182,40"
+    },
+    {
+      "objectId" : "word_1_2",
+      "chars" : "auf",
+      "region" : "443,360,54,30"
+    },
+    {
+      "objectId" : "word_1_3",
+      "chars" : "die",
+      "region" : "521,360,47,30"
+    },
+    {
+      "objectId" : "word_1_4",
+      "chars" : "es",
+      "region" : "593,368,33,22"
+    },
+    {
+      "objectId" : "word_1_5",
+      "chars" : "der",
+      "region" : "651,359,50,30"
+    },
+    {
+      "objectId" : "word_1_6",
+      "chars" : "Theologie",
+      "region" : "717,358,173,41"
+    },
+    {
+      "objectId" : "word_1_7",
+      "chars" : "doch",
+      "region" : "915,358,76,34"
+    },
+    {
+      "objectId" : "word_1_8",
+      "chars" : "eigentlich",
+      "region" : "1009,357,156,40"
+    },
+    {
+      "objectId" : "word_1_9",
+      "chars" : "ankommt,",
+      "region" : "1184,358,174,36"
+    },
+    {
+      "objectId" : "word_1_10",
+      "chars" : "dass",
+      "region" : "236,414,58,32"
+    },
+    {
+      "objectId" : "word_1_11",
+      "chars" : "nämlich",
+      "region" : "318,413,131,35"
+    },
+    {
+      "objectId" : "word_1_12",
+      "chars" : "an",
+      "region" : "475,422,38,23"
+    },
+    {
+      "objectId" : "word_1_13",
+      "chars" : "diesem",
+      "region" : "540,413,105,31"
+    },
+    {
+      "objectId" : "word_1_14",
+      "chars" : "historischen",
+      "region" : "672,412,187,35"
+    },
+    {
+      "objectId" : "word_1_15",
+      "chars" : "Jesus",
+      "region" : "886,411,92,37"
+    },
+    {
+      "objectId" : "word_1_16",
+      "chars" : "die",
+      "region" : "1011,412,47,31"
+    },
+    {
+      "objectId" : "word_1_17",
+      "chars" : "ganze",
+      "region" : "1089,420,91,31"
+    },
+    {
+      "objectId" : "word_1_18",
+      "chars" : "hirchliche",
+      "region" : "1204,411,155,34"
+    },
+    {
+      "objectId" : "word_1_19",
+      "chars" : "Sntwicleelung",
+      "region" : "236,467,235,39"
+    },
+    {
+      "objectId" : "word_1_20",
+      "chars" : "gemessen",
+      "region" : "497,467,140,40"
+    },
+    {
+      "objectId" : "word_1_21",
+      "chars" : "werden",
+      "region" : "659,466,120,32"
+    },
+    {
+      "objectId" : "word_1_22",
+      "chars" : "müsse,",
+      "region" : "805,466,100,36"
+    },
+    {
+      "objectId" : "word_1_23",
+      "chars" : "noch",
+      "region" : "931,466,78,34"
+    },
+    {
+      "objectId" : "word_1_24",
+      "chars" : "gelten",
+      "region" : "1036,465,97,39"
+    },
+    {
+      "objectId" : "word_1_25",
+      "chars" : "lassen",
+      "region" : "1161,465,89,31"
+    },
+    {
+      "objectId" : "word_1_26",
+      "chars" : "kön-",
+      "region" : "1276,465,83,31"
+    },
+    {
+      "objectId" : "word_1_27",
+      "chars" : "nen.",
+      "region" : "234,530,68,22"
+    },
+    {
+      "objectId" : "word_1_28",
+      "chars" : "Ss",
+      "region" : "350,521,49,31"
+    },
+    {
+      "objectId" : "word_1_29",
+      "chars" : "sind",
+      "region" : "428,521,66,31"
+    },
+    {
+      "objectId" : "word_1_30",
+      "chars" : "noch",
+      "region" : "519,520,76,34"
+    },
+    {
+      "objectId" : "word_1_31",
+      "chars" : "die",
+      "region" : "626,520,46,30"
+    },
+    {
+      "objectId" : "word_1_32",
+      "chars" : "letzten,",
+      "region" : "704,520,114,39"
+    },
+    {
+      "objectId" : "word_1_33",
+      "chars" : "in",
+      "region" : "852,520,30,30"
+    },
+    {
+      "objectId" : "word_1_34",
+      "chars" : "der",
+      "region" : "916,520,50,30"
+    },
+    {
+      "objectId" : "word_1_35",
+      "chars" : "übrigen",
+      "region" : "997,519,128,39"
+    },
+    {
+      "objectId" : "word_1_36",
+      "chars" : "Wissenschaft",
+      "region" : "1152,518,209,34"
+    },
+    {
+      "objectId" : "word_1_37",
+      "chars" : "überwundenen",
+      "region" : "235,575,246,31"
+    },
+    {
+      "objectId" : "word_1_38",
+      "chars" : "Uachwirlaungen",
+      "region" : "514,573,268,40"
+    },
+    {
+      "objectId" : "word_1_39",
+      "chars" : "naturrechtlicher",
+      "region" : "815,572,263,36"
+    },
+    {
+      "objectId" : "word_1_40",
+      "chars" : "Theorien",
+      "region" : "1107,572,152,34"
+    },
+    {
+      "objectId" : "word_1_41",
+      "chars" : "und",
+      "region" : "1293,572,67,31"
+    },
+    {
+      "objectId" : "word_1_42",
+      "chars" : "des",
+      "region" : "235,630,55,30"
+    },
+    {
+      "objectId" : "word_1_43",
+      "chars" : "Rousfeau\"scl)en",
+      "region" : "318,628,247,34"
+    },
+    {
+      "objectId" : "word_1_44",
+      "chars" : "Dogmas",
+      "region" : "598,627,146,40"
+    },
+    {
+      "objectId" : "word_1_45",
+      "chars" : "von",
+      "region" : "776,637,63,21"
+    },
+    {
+      "objectId" : "word_1_46",
+      "chars" : "einer",
+      "region" : "876,628,79,30"
+    },
+    {
+      "objectId" : "word_1_47",
+      "chars" : "Vollkommenheit",
+      "region" : "979,626,299,35"
+    },
+    {
+      "objectId" : "word_1_48",
+      "chars" : "die",
+      "region" : "1313,626,47,30"
+    },
+    {
+      "objectId" : "word_1_49",
+      "chars" : "\"",
+      "region" : "58,686,2,2"
+    },
+    {
+      "objectId" : "word_1_50",
+      "chars" : "den",
+      "region" : "234,683,55,31"
+    },
+    {
+      "objectId" : "word_1_51",
+      "chars" : "Ursprijngen",
+      "region" : "317,682,196,39"
+    },
+    {
+      "objectId" : "word_1_52",
+      "chars" : "des",
+      "region" : "541,682,55,30"
+    },
+    {
+      "objectId" : "word_1_53",
+      "chars" : "Lebens",
+      "region" : "621,681,119,31"
+    },
+    {
+      "objectId" : "word_1_54",
+      "chars" : "eingewohnt",
+      "region" : "766,681,200,39"
+    },
+    {
+      "objectId" : "word_1_55",
+      "chars" : "haben",
+      "region" : "991,680,97,34"
+    },
+    {
+      "objectId" : "word_1_56",
+      "chars" : "soll,",
+      "region" : "1116,680,67,36"
+    },
+    {
+      "objectId" : "word_1_57",
+      "chars" : "wenn",
+      "region" : "1209,688,90,22"
+    },
+    {
+      "objectId" : "word_1_58",
+      "chars" : "in",
+      "region" : "1326,680,31,29"
+    },
+    {
+      "objectId" : "word_1_59",
+      "chars" : "der",
+      "region" : "234,736,49,31"
+    },
+    {
+      "objectId" : "word_1_60",
+      "chars" : "Theologie",
+      "region" : "301,736,169,39"
+    },
+    {
+      "objectId" : "word_1_61",
+      "chars" : "nach",
+      "region" : "494,735,74,34"
+    },
+    {
+      "objectId" : "word_1_62",
+      "chars" : "einer",
+      "region" : "594,736,78,30"
+    },
+    {
+      "objectId" : "word_1_63",
+      "chars" : "christlichen",
+      "region" : "693,735,176,34"
+    },
+    {
+      "objectId" : "word_1_64",
+      "chars" : "Urperson",
+      "region" : "889,734,154,40"
+    },
+    {
+      "objectId" : "word_1_65",
+      "chars" : "oder",
+      "region" : "1072,733,74,32"
+    },
+    {
+      "objectId" : "word_1_66",
+      "chars" : "einem",
+      "region" : "1171,734,94,30"
+    },
+    {
+      "objectId" : "word_1_67",
+      "chars" : "ent-",
+      "region" : "1293,736,66,27"
+    },
+    {
+      "objectId" : "word_1_68",
+      "chars" : "sprechenden",
+      "region" : "234,789,191,40"
+    },
+    {
+      "objectId" : "word_1_69",
+      "chars" : "Urprinzip",
+      "region" : "464,789,164,39"
+    },
+    {
+      "objectId" : "word_1_70",
+      "chars" : "gesucht",
+      "region" : "665,789,118,39"
+    },
+    {
+      "objectId" : "word_1_71",
+      "chars" : "wird,",
+      "region" : "817,789,90,36"
+    },
+    {
+      "objectId" : "word_1_72",
+      "chars" : "um",
+      "region" : "949,797,51,22"
+    },
+    {
+      "objectId" : "word_1_73",
+      "chars" : "dann",
+      "region" : "1042,788,83,31"
+    },
+    {
+      "objectId" : "word_1_74",
+      "chars" : "die",
+      "region" : "1164,788,45,29"
+    },
+    {
+      "objectId" : "word_1_75",
+      "chars" : "Jdeale,",
+      "region" : "1242,787,116,36"
+    },
+    {
+      "objectId" : "word_1_76",
+      "chars" : "welche",
+      "region" : "233,843,106,33"
+    },
+    {
+      "objectId" : "word_1_77",
+      "chars" : "in",
+      "region" : "364,844,30,29"
+    },
+    {
+      "objectId" : "word_1_78",
+      "chars" : "der",
+      "region" : "422,843,49,30"
+    },
+    {
+      "objectId" : "word_1_79",
+      "chars" : "Sntwicleelungslinie",
+      "region" : "488,842,331,40"
+    },
+    {
+      "objectId" : "word_1_80",
+      "chars" : "des",
+      "region" : "844,843,56,31"
+    },
+    {
+      "objectId" : "word_1_81",
+      "chars" : "Lebens",
+      "region" : "917,842,120,32"
+    },
+    {
+      "objectId" : "word_1_82",
+      "chars" : "nur",
+      "region" : "1062,851,60,21"
+    },
+    {
+      "objectId" : "word_1_83",
+      "chars" : "cler",
+      "region" : "1147,842,52,31"
+    },
+    {
+      "objectId" : "word_1_84",
+      "chars" : "Zukunft",
+      "region" : "1215,839,145,33"
+    },
+    {
+      "objectId" : "word_1_85",
+      "chars" : "angehören",
+      "region" : "235,896,173,40"
+    },
+    {
+      "objectId" : "word_1_86",
+      "chars" : "können,",
+      "region" : "442,897,135,35"
+    },
+    {
+      "objectId" : "word_1_87",
+      "chars" : "an",
+      "region" : "609,906,38,21"
+    },
+    {
+      "objectId" : "word_1_88",
+      "chars" : "den",
+      "region" : "680,897,56,30"
+    },
+    {
+      "objectId" : "word_1_89",
+      "chars" : "anang",
+      "region" : "763,896,128,39"
+    },
+    {
+      "objectId" : "word_1_90",
+      "chars" : "der",
+      "region" : "923,896,50,31"
+    },
+    {
+      "objectId" : "word_1_91",
+      "chars" : "Geschichte",
+      "region" : "998,895,168,34"
+    },
+    {
+      "objectId" : "word_1_92",
+      "chars" : "zu",
+      "region" : "1196,903,33,32"
+    },
+    {
+      "objectId" : "word_1_93",
+      "chars" : "setzen·",
+      "region" : "1256,895,102,39"
+    },
+    {
+      "objectId" : "word_1_94",
+      "chars" : "Warum",
+      "region" : "236,949,129,32"
+    },
+    {
+      "objectId" : "word_1_95",
+      "chars" : "sollen",
+      "region" : "396,950,94,30"
+    },
+    {
+      "objectId" : "word_1_96",
+      "chars" : "die",
+      "region" : "524,950,46,30"
+    },
+    {
+      "objectId" : "word_1_97",
+      "chars" : "historischen",
+      "region" : "601,949,188,35"
+    },
+    {
+      "objectId" : "word_1_98",
+      "chars" : "Clemente,",
+      "region" : "824,949,167,36"
+    },
+    {
+      "objectId" : "word_1_99",
+      "chars" : "welche",
+      "region" : "1023,949,108,34"
+    },
+    {
+      "objectId" : "word_1_100",
+      "chars" : "mit",
+      "region" : "1162,949,58,31"
+    },
+    {
+      "objectId" : "word_1_101",
+      "chars" : "diesem",
+      "region" : "1251,948,106,31"
+    },
+    {
+      "objectId" : "word_1_102",
+      "chars" : "historischen",
+      "region" : "235,1003,187,34"
+    },
+    {
+      "objectId" : "word_1_103",
+      "chars" : "Jesus",
+      "region" : "448,1002,90,36"
+    },
+    {
+      "objectId" : "word_1_104",
+      "chars" : "zusammengewirlet",
+      "region" : "562,1003,305,39"
+    },
+    {
+      "objectId" : "word_1_105",
+      "chars" : "haben,",
+      "region" : "891,1003,109,36"
+    },
+    {
+      "objectId" : "word_1_106",
+      "chars" : "um",
+      "region" : "1034,1012,50,22"
+    },
+    {
+      "objectId" : "word_1_107",
+      "chars" : "das",
+      "region" : "1116,1002,60,31"
+    },
+    {
+      "objectId" : "word_1_108",
+      "chars" : "geschicht-",
+      "region" : "1202,1002,156,40"
+    },
+    {
+      "objectId" : "word_1_109",
+      "chars" : "liche",
+      "region" : "236,1056,70,33"
+    },
+    {
+      "objectId" : "word_1_110",
+      "chars" : "Christentum",
+      "region" : "324,1056,203,32"
+    },
+    {
+      "objectId" : "word_1_111",
+      "chars" : "zu",
+      "region" : "554,1065,32,31"
+    },
+    {
+      "objectId" : "word_1_112",
+      "chars" : "schaffen,",
+      "region" : "613,1057,134,35"
+    },
+    {
+      "objectId" : "word_1_113",
+      "chars" : "nicht",
+      "region" : "773,1056,80,34"
+    },
+    {
+      "objectId" : "word_1_114",
+      "chars" : "als",
+      "region" : "878,1057,50,31"
+    },
+    {
+      "objectId" : "word_1_115",
+      "chars" : "ebenso",
+      "region" : "954,1056,106,32"
+    },
+    {
+      "objectId" : "word_1_116",
+      "chars" : "gut",
+      "region" : "1087,1059,56,36"
+    },
+    {
+      "objectId" : "word_1_117",
+      "chars" : "und",
+      "region" : "1167,1056,65,31"
+    },
+    {
+      "objectId" : "word_1_118",
+      "chars" : "ebenso",
+      "region" : "1251,1056,108,30"
+    },
+    {
+      "objectId" : "word_1_119",
+      "chars" : "wertvoll",
+      "region" : "235,1110,143,30"
+    },
+    {
+      "objectId" : "word_1_120",
+      "chars" : "gelten",
+      "region" : "403,1111,97,38"
+    },
+    {
+      "objectId" : "word_1_121",
+      "chars" : "wie",
+      "region" : "526,1111,57,30"
+    },
+    {
+      "objectId" : "word_1_122",
+      "chars" : "die,",
+      "region" : "616,1110,55,36"
+    },
+    {
+      "objectId" : "word_1_123",
+      "chars" : "welche",
+      "region" : "704,1110,106,35"
+    },
+    {
+      "objectId" : "word_1_124",
+      "chars" : "der",
+      "region" : "840,1111,50,30"
+    },
+    {
+      "objectId" : "word_1_125",
+      "chars" : "person",
+      "region" : "913,1110,117,36"
+    },
+    {
+      "objectId" : "word_1_126",
+      "chars" : "dieses",
+      "region" : "1058,1110,93,31"
+    },
+    {
+      "objectId" : "word_1_127",
+      "chars" : "Jesus",
+      "region" : "1176,1109,91,37"
+    },
+    {
+      "objectId" : "word_1_128",
+      "chars" : "ent-",
+      "region" : "1293,1113,67,26"
+    },
+    {
+      "objectId" : "word_1_129",
+      "chars" : "stammen?",
+      "region" : "236,1163,164,31"
+    },
+    {
+      "objectId" : "word_1_130",
+      "chars" : "Warum",
+      "region" : "448,1163,129,32"
+    },
+    {
+      "objectId" : "word_1_131",
+      "chars" : "sollen",
+      "region" : "604,1164,93,31"
+    },
+    {
+      "objectId" : "word_1_132",
+      "chars" : "die",
+      "region" : "725,1165,46,30"
+    },
+    {
+      "objectId" : "word_1_133",
+      "chars" : "Ströme,",
+      "region" : "795,1164,135,36"
+    },
+    {
+      "objectId" : "word_1_134",
+      "chars" : "welche",
+      "region" : "963,1164,108,34"
+    },
+    {
+      "objectId" : "word_1_135",
+      "chars" : "aus",
+      "region" : "1096,1173,61,22"
+    },
+    {
+      "objectId" : "word_1_136",
+      "chars" : "Rom",
+      "region" : "1182,1162,84,33"
+    },
+    {
+      "objectId" : "word_1_137",
+      "chars" : "und",
+      "region" : "1294,1163,65,31"
+    },
+    {
+      "objectId" : "word_1_138",
+      "chars" : ".",
+      "region" : "51,1245,2,2"
+    },
+    {
+      "objectId" : "word_1_139",
+      "chars" : "Hellas",
+      "region" : "234,1216,108,40"
+    },
+    {
+      "objectId" : "word_1_140",
+      "chars" : "sich",
+      "region" : "367,1217,53,33"
+    },
+    {
+      "objectId" : "word_1_141",
+      "chars" : "in",
+      "region" : "451,1218,29,29"
+    },
+    {
+      "objectId" : "word_1_142",
+      "chars" : "das",
+      "region" : "508,1218,59,30"
+    },
+    {
+      "objectId" : "word_1_143",
+      "chars" : "breite",
+      "region" : "593,1217,90,31"
+    },
+    {
+      "objectId" : "word_1_144",
+      "chars" : "Bett",
+      "region" : "708,1217,72,32"
+    },
+    {
+      "objectId" : "word_1_145",
+      "chars" : "der",
+      "region" : "804,1218,50,30"
+    },
+    {
+      "objectId" : "word_1_146",
+      "chars" : "christlichen",
+      "region" : "879,1218,176,34"
+    },
+    {
+      "objectId" : "word_1_147",
+      "chars" : "Kultur",
+      "region" : "1082,1216,118,33"
+    },
+    {
+      "objectId" : "word_1_148",
+      "chars" : "ergossen",
+      "region" : "1224,1217,133,39"
+    },
+    {
+      "objectId" : "word_1_149",
+      "chars" : "haben,",
+      "region" : "235,1270,107,36"
+    },
+    {
+      "objectId" : "word_1_150",
+      "chars" : "unrein",
+      "region" : "376,1272,106,29"
+    },
+    {
+      "objectId" : "word_1_151",
+      "chars" : "gewesen",
+      "region" : "510,1272,129,39"
+    },
+    {
+      "objectId" : "word_1_152",
+      "chars" : "sein,",
+      "region" : "666,1272,70,36"
+    },
+    {
+      "objectId" : "word_1_153",
+      "chars" : "und",
+      "region" : "769,1272,66,31"
+    },
+    {
+      "objectId" : "word_1_154",
+      "chars" : "nur",
+      "region" : "865,1281,61,22"
+    },
+    {
+      "objectId" : "word_1_155",
+      "chars" : "der",
+      "region" : "950,1272,52,31"
+    },
+    {
+      "objectId" : "word_1_156",
+      "chars" : "eine,",
+      "region" : "1027,1272,72,36"
+    },
+    {
+      "objectId" : "word_1_157",
+      "chars" : "in",
+      "region" : "1132,1272,30,30"
+    },
+    {
+      "objectId" : "word_1_158",
+      "chars" : "Jerusalem",
+      "region" : "1189,1270,167,37"
+    },
+    {
+      "objectId" : "word_1_159",
+      "chars" : "entsprungene",
+      "region" : "233,1324,220,39"
+    },
+    {
+      "objectId" : "word_1_160",
+      "chars" : "rein?",
+      "region" : "478,1325,85,31"
+    },
+    {
+      "objectId" : "word_1_161",
+      "chars" : "Hatte",
+      "region" : "602,1325,93,40"
+    },
+    {
+      "objectId" : "word_1_162",
+      "chars" : "doch",
+      "region" : "720,1325,75,35"
+    },
+    {
+      "objectId" : "word_1_163",
+      "chars" : "schon",
+      "region" : "821,1326,88,33"
+    },
+    {
+      "objectId" : "word_1_164",
+      "chars" : "der",
+      "region" : "936,1325,50,31"
+    },
+    {
+      "objectId" : "word_1_165",
+      "chars" : "weitschauende",
+      "region" : "1010,1325,237,34"
+    },
+    {
+      "objectId" : "word_1_166",
+      "chars" : "Blick",
+      "region" : "1272,1324,85,32"
+    },
+    {
+      "objectId" : "word_1_167",
+      "chars" : "Zwinglis",
+      "region" : "232,1376,159,41"
+    },
+    {
+      "objectId" : "word_1_168",
+      "chars" : "davor",
+      "region" : "416,1378,100,31"
+    },
+    {
+      "objectId" : "word_1_169",
+      "chars" : "gewarnt,",
+      "region" : "536,1382,149,35"
+    },
+    {
+      "objectId" : "word_1_170",
+      "chars" : "man",
+      "region" : "710,1388,72,22"
+    },
+    {
+      "objectId" : "word_1_171",
+      "chars" : "solle",
+      "region" : "809,1379,73,32"
+    },
+    {
+      "objectId" : "word_1_172",
+      "chars" : "nicht",
+      "region" : "906,1380,81,34"
+    },
+    {
+      "objectId" : "word_1_173",
+      "chars" : "wähnen,",
+      "region" : "1003,1379,144,36"
+    },
+    {
+      "objectId" : "word_1_174",
+      "chars" : "der",
+      "region" : "1175,1379,50,30"
+    },
+    {
+      "objectId" : "word_1_175",
+      "chars" : "heilige",
+      "region" : "1250,1379,109,39"
+    },
+    {
+      "objectId" : "word_1_176",
+      "chars" : "Geist",
+      "region" : "234,1430,81,32"
+    },
+    {
+      "objectId" : "word_1_177",
+      "chars" : "sei",
+      "region" : "332,1431,37,31"
+    },
+    {
+      "objectId" : "word_1_178",
+      "chars" : "auf",
+      "region" : "386,1432,54,30"
+    },
+    {
+      "objectId" : "word_1_179",
+      "chars" : "Daläftina",
+      "region" : "458,1432,161,35"
+    },
+    {
+      "objectId" : "word_1_180",
+      "chars" : "beschränkt",
+      "region" : "637,1433,175,34"
+    },
+    {
+      "objectId" : "word_1_181",
+      "chars" : "gewesen.",
+      "region" : "829,1434,143,39"
+    },
+    {
+      "objectId" : "word_1_182",
+      "chars" : "Wie",
+      "region" : "1005,1433,68,32"
+    },
+    {
+      "objectId" : "word_1_183",
+      "chars" : "kam",
+      "region" : "1090,1433,71,31"
+    },
+    {
+      "objectId" : "word_1_184",
+      "chars" : "die",
+      "region" : "1188,1434,47,30"
+    },
+    {
+      "objectId" : "word_1_185",
+      "chars" : "Theo-",
+      "region" : "1252,1433,104,33"
+    },
+    {
+      "objectId" : "word_1_186",
+      "chars" : "logie,",
+      "region" : "232,1485,89,39"
+    },
+    {
+      "objectId" : "word_1_187",
+      "chars" : "die",
+      "region" : "347,1485,46,30"
+    },
+    {
+      "objectId" : "word_1_188",
+      "chars" : "sich",
+      "region" : "417,1486,53,33"
+    },
+    {
+      "objectId" : "word_1_189",
+      "chars" : "selbst",
+      "region" : "496,1486,83,31"
+    },
+    {
+      "objectId" : "word_1_190",
+      "chars" : "als",
+      "region" : "604,1487,50,30"
+    },
+    {
+      "objectId" : "word_1_191",
+      "chars" : "kritisch,",
+      "region" : "672,1486,127,37"
+    },
+    {
+      "objectId" : "word_1_192",
+      "chars" : "als",
+      "region" : "825,1487,51,31"
+    },
+    {
+      "objectId" : "word_1_193",
+      "chars" : "wissenschaftlich",
+      "region" : "893,1487,256,34"
+    },
+    {
+      "objectId" : "word_1_194",
+      "chars" : "bezeichnete,",
+      "region" : "1167,1487,189,39"
+    },
+    {
+      "objectId" : "word_1_195",
+      "chars" : "«",
+      "region" : "48,1572,2,3"
+    },
+    {
+      "objectId" : "word_1_196",
+      "chars" : "dazu,",
+      "region" : "232,1538,85,39"
+    },
+    {
+      "objectId" : "word_1_197",
+      "chars" : "unter",
+      "region" : "343,1542,88,27"
+    },
+    {
+      "objectId" : "word_1_198",
+      "chars" : "allen",
+      "region" : "455,1539,79,31"
+    },
+    {
+      "objectId" : "word_1_199",
+      "chars" : "Umständen",
+      "region" : "561,1539,187,32"
+    },
+    {
+      "objectId" : "word_1_200",
+      "chars" : "einen",
+      "region" : "775,1542,85,29"
+    },
+    {
+      "objectId" : "word_1_201",
+      "chars" : "geborenen",
+      "region" : "887,1540,169,41"
+    },
+    {
+      "objectId" : "word_1_202",
+      "chars" : "Juden",
+      "region" : "1083,1540,101,36"
+    },
+    {
+      "objectId" : "word_1_203",
+      "chars" : "als",
+      "region" : "1218,1541,50,30"
+    },
+    {
+      "objectId" : "word_1_204",
+      "chars" : "den",
+      "region" : "1299,1540,56,31"
+    },
+    {
+      "objectId" : "word_1_205",
+      "chars" : "«",
+      "region" : "1374,1530,13,12"
+    },
+    {
+      "objectId" : "word_1_206",
+      "chars" : "Träger",
+      "region" : "232,1591,116,39"
+    },
+    {
+      "objectId" : "word_1_207",
+      "chars" : "und",
+      "region" : "372,1592,64,31"
+    },
+    {
+      "objectId" : "word_1_208",
+      "chars" : "Schöpfer",
+      "region" : "459,1592,150,40"
+    },
+    {
+      "objectId" : "word_1_209",
+      "chars" : "christlichen",
+      "region" : "633,1593,176,35"
+    },
+    {
+      "objectId" : "word_1_210",
+      "chars" : "Geisteslebens",
+      "region" : "837,1593,228,33"
+    },
+    {
+      "objectId" : "word_1_211",
+      "chars" : "haben",
+      "region" : "1091,1594,97,34"
+    },
+    {
+      "objectId" : "word_1_212",
+      "chars" : "und",
+      "region" : "1217,1594,64,30"
+    },
+    {
+      "objectId" : "word_1_213",
+      "chars" : "be-",
+      "region" : "1306,1594,50,30"
+    },
+    {
+      "objectId" : "word_1_214",
+      "chars" : "halten",
+      "region" : "232,1644,102,35"
+    },
+    {
+      "objectId" : "word_1_215",
+      "chars" : "zu",
+      "region" : "370,1655,33,30"
+    },
+    {
+      "objectId" : "word_1_216",
+      "chars" : "wollen?",
+      "region" : "440,1646,137,32"
+    },
+    {
+      "objectId" : "word_1_217",
+      "chars" : "—",
+      "region" : "611,1665,41,4"
+    },
+    {
+      "objectId" : "word_1_218",
+      "chars" : "für",
+      "region" : "688,1646,60,39"
+    },
+    {
+      "objectId" : "word_1_219",
+      "chars" : "die",
+      "region" : "784,1648,47,31"
+    },
+    {
+      "objectId" : "word_1_220",
+      "chars" : "Geschichtsforschung,",
+      "region" : "866,1647,344,41"
+    },
+    {
+      "objectId" : "word_1_221",
+      "chars" : "welche",
+      "region" : "1248,1648,108,34"
+    },
+    {
+      "objectId" : "word_1_222",
+      "chars" : "nichts",
+      "region" : "230,1698,101,35"
+    },
+    {
+      "objectId" : "word_1_223",
+      "chars" : "will,",
+      "region" : "348,1699,76,36"
+    },
+    {
+      "objectId" : "word_1_224",
+      "chars" : "als",
+      "region" : "450,1700,50,30"
+    },
+    {
+      "objectId" : "word_1_225",
+      "chars" : "wissenschaftliche",
+      "region" : "520,1700,269,36"
+    },
+    {
+      "objectId" : "word_1_226",
+      "chars" : "Wahrheit",
+      "region" : "808,1701,162,35"
+    },
+    {
+      "objectId" : "word_1_227",
+      "chars" : "erkennen,",
+      "region" : "995,1702,160,35"
+    },
+    {
+      "objectId" : "word_1_228",
+      "chars" : "kann",
+      "region" : "1181,1702,84,30"
+    },
+    {
+      "objectId" : "word_1_229",
+      "chars" : "eine",
+      "region" : "1293,1702,63,30"
+    },
+    {
+      "objectId" : "word_1_230",
+      "chars" : "«",
+      "region" : "1543,1736,3,3"
+    },
+    {
+      "objectId" : "word_1_231",
+      "chars" : "solche",
+      "region" : "231,1751,93,35"
+    },
+    {
+      "objectId" : "word_1_232",
+      "chars" : "Bevorzugung",
+      "region" : "342,1752,226,40"
+    },
+    {
+      "objectId" : "word_1_233",
+      "chars" : "eines",
+      "region" : "594,1754,83,31"
+    },
+    {
+      "objectId" : "word_1_234",
+      "chars" : "einzelnen",
+      "region" : "703,1755,149,39"
+    },
+    {
+      "objectId" : "word_1_235",
+      "chars" : "Bestandteils",
+      "region" : "872,1754,206,32"
+    },
+    {
+      "objectId" : "word_1_236",
+      "chars" : "der",
+      "region" : "1104,1755,51,31"
+    },
+    {
+      "objectId" : "word_1_237",
+      "chars" : "christlichen",
+      "region" : "1177,1755,177,33"
+    },
+    {
+      "objectId" : "word_1_238",
+      "chars" : "Religion",
+      "region" : "232,1803,144,41"
+    },
+    {
+      "objectId" : "word_1_239",
+      "chars" : "auf",
+      "region" : "396,1806,52,31"
+    },
+    {
+      "objectId" : "word_1_240",
+      "chars" : "Kosten",
+      "region" : "465,1805,114,33"
+    },
+    {
+      "objectId" : "word_1_241",
+      "chars" : "aller",
+      "region" : "605,1808,75,30"
+    },
+    {
+      "objectId" : "word_1_242",
+      "chars" : "übrigen",
+      "region" : "704,1808,126,39"
+    },
+    {
+      "objectId" : "word_1_243",
+      "chars" : "gar",
+      "region" : "857,1818,55,30"
+    },
+    {
+      "objectId" : "word_1_244",
+      "chars" : "nicht",
+      "region" : "936,1809,82,34"
+    },
+    {
+      "objectId" : "word_1_245",
+      "chars" : "in",
+      "region" : "1038,1809,30,30"
+    },
+    {
+      "objectId" : "word_1_246",
+      "chars" : "frage",
+      "region" : "1087,1807,94,41"
+    },
+    {
+      "objectId" : "word_1_247",
+      "chars" : "kommen.",
+      "region" : "1197,1808,158,32"
+    },
+    {
+      "objectId" : "word_1_248",
+      "chars" : "Was",
+      "region" : "233,1857,80,32"
+    },
+    {
+      "objectId" : "word_1_249",
+      "chars" : "lich",
+      "region" : "337,1859,52,34"
+    },
+    {
+      "objectId" : "word_1_250",
+      "chars" : "in",
+      "region" : "414,1860,31,30"
+    },
+    {
+      "objectId" : "word_1_251",
+      "chars" : "der",
+      "region" : "472,1860,50,31"
+    },
+    {
+      "objectId" : "word_1_252",
+      "chars" : "Geschichte",
+      "region" : "539,1860,166,35"
+    },
+    {
+      "objectId" : "word_1_253",
+      "chars" : "der",
+      "region" : "730,1861,51,31"
+    },
+    {
+      "objectId" : "word_1_254",
+      "chars" : "Kirche",
+      "region" : "804,1861,106,35"
+    },
+    {
+      "objectId" : "word_1_255",
+      "chars" : "einst",
+      "region" : "935,1863,72,31"
+    },
+    {
+      "objectId" : "word_1_256",
+      "chars" : "zu",
+      "region" : "1031,1871,33,31"
+    },
+    {
+      "objectId" : "word_1_257",
+      "chars" : "behaupten",
+      "region" : "1090,1862,173,39"
+    },
+    {
+      "objectId" : "word_1_258",
+      "chars" : "und",
+      "region" : "1291,1861,65,31"
+    },
+    {
+      "objectId" : "word_1_259",
+      "chars" : "durchzusetzen",
+      "region" : "234,1910,216,42"
+    },
+    {
+      "objectId" : "word_1_260",
+      "chars" : "vermocht",
+      "region" : "487,1914,155,34"
+    },
+    {
+      "objectId" : "word_1_261",
+      "chars" : "hat,",
+      "region" : "678,1915,63,36"
+    },
+    {
+      "objectId" : "word_1_262",
+      "chars" : "das",
+      "region" : "778,1915,60,31"
+    },
+    {
+      "objectId" : "word_1_263",
+      "chars" : "ist",
+      "region" : "874,1916,35,30"
+    },
+    {
+      "objectId" : "word_1_264",
+      "chars" : "für",
+      "region" : "944,1916,51,31"
+    },
+    {
+      "objectId" : "word_1_265",
+      "chars" : "das",
+      "region" : "1030,1916,59,31"
+    },
+    {
+      "objectId" : "word_1_266",
+      "chars" : "Werden",
+      "region" : "1126,1915,131,32"
+    },
+    {
+      "objectId" : "word_1_267",
+      "chars" : "des",
+      "region" : "1299,1915,55,31"
+    },
+    {
+      "objectId" : "word_1_268",
+      "chars" : "christentums",
+      "region" : "235,1963,225,35"
+    },
+    {
+      "objectId" : "word_1_269",
+      "chars" : "gerade",
+      "region" : "478,1967,106,39"
+    },
+    {
+      "objectId" : "word_1_270",
+      "chars" : "so",
+      "region" : "609,1967,33,31"
+    },
+    {
+      "objectId" : "word_1_271",
+      "chars" : "notwendig",
+      "region" : "663,1969,183,39"
+    },
+    {
+      "objectId" : "word_1_272",
+      "chars" : "gewesen",
+      "region" : "865,1969,131,40"
+    },
+    {
+      "objectId" : "word_1_273",
+      "chars" : "wie",
+      "region" : "1014,1970,58,30"
+    },
+    {
+      "objectId" : "word_1_274",
+      "chars" : "dasjenige,",
+      "region" : "1090,1969,167,40"
+    },
+    {
+      "objectId" : "word_1_275",
+      "chars" : "was",
+      "region" : "1282,1977,72,22"
+    },
+    {
+      "objectId" : "word_1_276",
+      "chars" : "?",
+      "region" : "1221,2080,27,34"
+    }
+  ]
+}
