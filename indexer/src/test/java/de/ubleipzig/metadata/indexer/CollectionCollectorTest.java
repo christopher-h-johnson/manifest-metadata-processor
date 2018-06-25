@@ -34,6 +34,7 @@ import jdk.incubator.http.HttpResponse;
 
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.jena.JenaRDF;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +42,7 @@ import org.trellisldp.client.LdpClient;
 import org.trellisldp.client.LdpClientException;
 import org.trellisldp.client.LdpClientImpl;
 
+@Disabled
 public class CollectionCollectorTest {
 
     private final LdpClient client = new LdpClientImpl();

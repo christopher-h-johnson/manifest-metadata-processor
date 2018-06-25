@@ -3,12 +3,10 @@ include ':extractor'
 include ':indexer'
 include ':processor'
 include ':renderer'
-include ':scanner'
 include ':templates'
 
 project(':extractor').projectDir = "$rootDir/extractor" as File
 project(':indexer').projectDir = "$rootDir/indexer" as File
 project(':processor').projectDir = "$rootDir/processor" as File
 project(':renderer').projectDir = "$rootDir/renderer" as File
-project(':scanner').projectDir = "$rootDir/scanner" as File
 project(':templates').projectDir = "$rootDir/templates" as File

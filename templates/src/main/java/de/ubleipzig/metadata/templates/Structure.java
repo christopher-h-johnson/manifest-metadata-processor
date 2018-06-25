@@ -36,8 +36,11 @@ public class Structure {
     @JsonProperty("@type")
     private String type;
 
-    @JsonProperty("label")
+    @JsonProperty
     private String label;
+
+    @JsonProperty
+    private String within;
 
     @JsonProperty("ranges")
     private List<String> ranges;
@@ -88,6 +91,21 @@ public class Structure {
      */
     public void setStructureLabel(final String structureLabel) {
         this.label = structureLabel;
+    }
+
+    /**
+     * @return String
+     */
+    @JsonIgnore
+    public String getWithin() {
+        return within;
+    }
+
+    /**
+     * @param within String
+     */
+    public void setWithin(final String within) {
+        this.within = within;
     }
 
     /**

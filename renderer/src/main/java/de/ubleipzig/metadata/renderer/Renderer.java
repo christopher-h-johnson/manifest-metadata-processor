@@ -26,7 +26,6 @@ import org.apache.camel.impl.JndiRegistry;
 import org.apache.camel.main.Main;
 import org.apache.camel.main.MainListenerSupport;
 import org.apache.camel.main.MainSupport;
-import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

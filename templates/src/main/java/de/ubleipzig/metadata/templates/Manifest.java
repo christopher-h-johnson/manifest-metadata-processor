@@ -36,6 +36,9 @@ public class Manifest {
     private String license;
 
     @JsonProperty
+    private String viewingDirection;
+
+    @JsonProperty
     private String within;
 
     @JsonProperty

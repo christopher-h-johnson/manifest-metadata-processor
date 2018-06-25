@@ -16,6 +16,7 @@ package de.ubleipzig.metadata.templates;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -32,6 +33,9 @@ public class AnnotationBodyAtom {
 
     @JsonProperty
     private Map<Integer, Structure> structureMap;
+
+    @JsonProperty
+    private List<ContentList.Content> contentList;
 
     public String getIiifService() {
         return iiifService;
@@ -63,5 +67,13 @@ public class AnnotationBodyAtom {
 
     public void setStructureMap(Map<Integer, Structure> structureMap) {
         this.structureMap = structureMap;
+    }
+
+    public List<ContentList.Content> getContentList() {
+        return contentList;
+    }
+
+    public void setContentList(List<ContentList.Content> contentList) {
+        this.contentList = contentList;
     }
 }

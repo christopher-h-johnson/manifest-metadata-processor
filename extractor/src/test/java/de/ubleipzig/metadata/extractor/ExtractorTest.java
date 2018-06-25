@@ -14,11 +14,14 @@
 
 package de.ubleipzig.metadata.extractor;
 
+import static java.util.Optional.ofNullable;
 import static org.apache.camel.Exchange.CONTENT_TYPE;
 import static org.apache.camel.Exchange.HTTP_METHOD;
 import static org.apache.camel.Exchange.HTTP_RESPONSE_CODE;
 
 import de.ubleipzig.metadata.processor.ContextUtils;
+
+import java.util.Optional;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
@@ -76,9 +79,20 @@ public final class ExtractorTest {
                         .when(header(TYPE).isEqualTo("extract"))
                         .process(ExchangeProcess::processJsonLdExchange)
                         .when(header(TYPE).isEqualTo("disassemble"))
-                        .process(ExchangeProcess::processDisassemblerExchange)
+                        .process(e -> {
+                            final String body = e.getIn().getBody().toString();
+                            final Disassembler disassembler = new Disassembler(body);
+                            e.getIn().setBody(disassembler.build());
+                        })
                         .when(header(TYPE).isEqualTo("dimensions"))
-                        .process(ExchangeProcess::processBinaryMetadataExchange);
+                        .process(e -> {
+                            final Optional<String> body = ofNullable(e.getIn().getBody().toString());
+                            if (body.isPresent()) {
+                                final DimensionManifestBuilder dimManifestBuilder =
+                                        new DimensionManifestBuilder(body.get());
+                                e.getIn().setBody(dimManifestBuilder.build());
+                            }
+                        });
             }
         });
         camelContext.start();

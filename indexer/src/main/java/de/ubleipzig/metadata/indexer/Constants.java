@@ -19,6 +19,7 @@ public final class Constants {
     }
 
     static final String elasticSearchHost = "http://localhost:9100/";
+    static final String scannerAPIHost = "http://localhost:9085/scanner";
     static final String lineSeparator = "line.separator";
     static final String docTypeIndex = "_doc";
     static final String bulkContext = "_bulk";

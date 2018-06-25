@@ -15,10 +15,13 @@
 package de.ubleipzig.metadata.extractor;
 
 import static de.ubleipzig.metadata.processor.ContextUtils.createInitialContext;
+import static java.util.Optional.ofNullable;
 import static org.apache.camel.Exchange.CONTENT_TYPE;
 import static org.apache.camel.Exchange.HTTP_METHOD;
 import static org.apache.camel.Exchange.HTTP_RESPONSE_CODE;
 import static org.apache.camel.LoggingLevel.INFO;
+
+import java.util.Optional;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
@@ -112,9 +115,22 @@ public class Extractor {
                     .when(header(TYPE).isEqualTo("extract"))
                     .process(ExchangeProcess::processJsonLdExchange)
                     .when(header(TYPE).isEqualTo("disassemble"))
-                    .process(ExchangeProcess::processDisassemblerExchange)
+                    .process(e -> {
+                            final Optional<String> body = ofNullable(e.getIn().getBody().toString());
+                            if (body.isPresent()) {
+                                final Disassembler disassembler = new Disassembler(body.get());
+                                e.getIn().setBody(disassembler.build());
+                            }
+                    })
                     .when(header(TYPE).isEqualTo("dimensions"))
-                    .process(ExchangeProcess::processBinaryMetadataExchange);
+                    .process(e -> {
+                        final Optional<String> body = ofNullable(e.getIn().getBody().toString());
+                        if (body.isPresent()) {
+                            final DimensionManifestBuilder dimManifestBuilder =
+                                    new DimensionManifestBuilder(body.get());
+                            e.getIn().setBody(dimManifestBuilder.build());
+                        }
+                    });
         }
     }
 }
