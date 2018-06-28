@@ -77,7 +77,13 @@ public final class ExtractorTest {
                 from("direct:toExchangeProcess")
                         .choice()
                         .when(header(TYPE).isEqualTo("extract"))
-                        .process(ExchangeProcess::processJsonLdExchange)
+                        .process(e -> {
+                            final Optional<String> body = ofNullable(e.getIn().getBody().toString());
+                            if (body.isPresent()) {
+                                final SparqlMetadataExtractor extractor = new SparqlMetadataExtractor(body.get());
+                                e.getIn().setBody(extractor.build());
+                            }
+                        })
                         .when(header(TYPE).isEqualTo("disassemble"))
                         .process(e -> {
                             final String body = e.getIn().getBody().toString();
@@ -92,12 +98,21 @@ public final class ExtractorTest {
                                         new DimensionManifestBuilder(body.get());
                                 e.getIn().setBody(dimManifestBuilder.build());
                             }
+                        })
+                        .when(header(TYPE).isEqualTo("reserialize"))
+                        .process(e -> {
+                            final Optional<String> body = ofNullable(e.getIn().getBody().toString());
+                            if (body.isPresent()) {
+                                final Reserializer reserializer =
+                                        new Reserializer(body.get());
+                                e.getIn().setBody(reserializer.build());
+                            }
                         });
             }
         });
         camelContext.start();
 
-        Thread.sleep(60 * 60 * 1000);
+        Thread.sleep(360 * 60 * 1000);
 
         camelContext.stop();
     }

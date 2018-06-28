@@ -26,6 +26,7 @@ dependencies {
     implementation project(":processor")
     implementation project(":templates")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
+    implementation("de.ubleipzig:iiif.vocabulary:$iiifVocabularyVersion")
     implementation("de.ubleipzig:image.metadata:$imageMetadataVersion")
     implementation("de.ubleipzig:commons-rdf-jena-jpms:$commonsRdfJenaVersion")
     implementation("javax.activation:javax.activation-api:$activationApiVersion")

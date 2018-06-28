@@ -14,6 +14,7 @@
 
 package de.ubleipzig.metadata.templates;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -62,4 +63,19 @@ public class Canvases {
         this.images = images;
     }
 
+    /**
+     * @return String
+     */
+    @JsonIgnore
+    public String getLabel() {
+        return this.label;
+    }
+
+    /**
+     *
+     * @param label String
+     */
+    public void setLabel(final String label) {
+        this.label = label;
+    }
 }

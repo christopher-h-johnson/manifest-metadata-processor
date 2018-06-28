@@ -22,16 +22,16 @@ import java.net.URL;
 
 import org.junit.jupiter.api.Test;
 
-public class ManifestDisassemblerTest {
+public class ManifestReserializerTest {
 
     @Test
-    void testDisassembleManifest() {
+    void testReserializeManifest() {
         try {
-            final URL url = new URL("http://iiif.ub.uni-leipzig.de/0000000005/manifest.json");
+            final URL url = new URL("http://iiif.ub.uni-leipzig.de/0000000018/manifest.json");
             InputStream is = url.openStream();
             String json = readFile(is);
-            final Disassembler disassembler = new Disassembler(json);
-            System.out.println(disassembler.build());
+            final Reserializer reserializer = new Reserializer(json);
+            System.out.println(reserializer.build());
         } catch (IOException e) {
             e.printStackTrace();
         }

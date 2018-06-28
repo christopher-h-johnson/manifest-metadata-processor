@@ -11,23 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package de.ubleipzig.metadata.templates;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.List;
-
-public class RootCollection {
-
-    @JsonProperty
-    List<MapListCollection> rootCollection;
-
-    public List<MapListCollection> getRootCollection() {
-        return rootCollection;
-    }
-
-    public void setRootCollection(List<MapListCollection> rootCollection) {
-        this.rootCollection = rootCollection;
-    }
-}
+/**
+ *
+ */
+package de.ubleipzig.metadata.templates.collections;

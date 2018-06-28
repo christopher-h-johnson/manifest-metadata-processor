@@ -12,20 +12,42 @@
  * limitations under the License.
  */
 
-package de.ubleipzig.metadata.templates;
+package de.ubleipzig.metadata.templates.indexer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ElasticCreate {
+public class ElasticDocumentObject {
 
-    @JsonProperty
-    private Object create;
+    @JsonProperty("_index")
+    private String index;
 
-    public Object getCreate() {
-        return create;
+    @JsonProperty("_type")
+    private String type;
+
+    @JsonProperty("_id")
+    private String id;
+
+    public String getIndex() {
+        return index;
     }
 
-    public void setCreate(Object create) {
-        this.create = create;
+    public void setIndex(String index) {
+        this.index = index;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

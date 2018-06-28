@@ -15,6 +15,11 @@ module de.ubleipzig.metadata.templates {
     requires com.fasterxml.jackson.annotation;
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
-    exports de.ubleipzig.metadata.templates ;
-    opens de.ubleipzig.metadata.templates  to com.fasterxml.jackson.databind;
+    requires de.ubleipzig.iiif.vocabulary;
+    exports de.ubleipzig.metadata.templates;
+    exports de.ubleipzig.metadata.templates.collections;
+    opens de.ubleipzig.metadata.templates to com.fasterxml.jackson.databind;
+    exports de.ubleipzig.metadata.templates.v2;
+    exports de.ubleipzig.metadata.templates.atomic;
+    exports de.ubleipzig.metadata.templates.indexer;
 }

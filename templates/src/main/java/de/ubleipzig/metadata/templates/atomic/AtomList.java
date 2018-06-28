@@ -11,48 +11,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.ubleipzig.metadata.templates;
+package de.ubleipzig.metadata.templates.atomic;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/**
- * Metadata.
- *
- * @author christopher-johnson
- */
-@JsonPropertyOrder({"label", "value"})
-public class Metadata {
+import java.util.List;
 
-    @JsonProperty("label")
-    private String label;
+public class AtomList {
+    @JsonProperty
+    private List<AnnotationBodyAtom> atomList;
 
-    @JsonProperty("value")
-    private String value;
-
-    /**
-     * @return String
-     */
     @JsonIgnore
-    public String getLabel() {
-        return this.label;
+    public List<AnnotationBodyAtom> getAtomList() {
+        return atomList;
     }
 
-    /**
-     * @param label String
-     */
-    @JsonIgnore
-    public void setLabel(final String label) {
-        this.label = label;
+    public void setAtomList(List<AnnotationBodyAtom> atomList) {
+        this.atomList = atomList;
     }
-
-    /**
-     * @return String
-     */
-    @JsonIgnore
-    public String getValue() {
-        return this.value;
-    }
-
 }

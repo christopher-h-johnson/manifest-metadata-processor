@@ -14,6 +14,7 @@
 
 package de.ubleipzig.metadata.templates;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -25,16 +26,31 @@ public class Resource {
 
     @JsonProperty("@id")
     private String id;
+
     @JsonProperty("@type")
     private String type;
+
     @JsonProperty
     private String label;
+
     @JsonProperty
     private String format;
+
     @JsonProperty
     private String height;
+
     @JsonProperty
     private String width;
+
+    /**
+     * getResourceId.
+     *
+     * @return String
+     */
+    @JsonIgnore
+    public String getResourceId() {
+        return this.id;
+    }
 
     public Service getService() {
         return service;
@@ -42,5 +58,17 @@ public class Resource {
 
     public void setService(Service service) {
         this.service = service;
+    }
+
+    public String getHeight() {
+        return height;
+    }
+
+    public String getWidth() {
+        return width;
+    }
+
+    public String getLabel() {
+        return label;
     }
 }

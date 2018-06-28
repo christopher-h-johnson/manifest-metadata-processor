@@ -27,7 +27,7 @@ import java.util.List;
  * @author christopher-johnson
  */
 @JsonInclude(Include.NON_NULL)
-@JsonPropertyOrder({"@id", "@type", "label", "ranges", "canvases"})
+@JsonPropertyOrder({"@id", "@type", "label", "viewingHint", "ranges", "canvases"})
 public class Structure {
 
     @JsonProperty("@id")
@@ -71,6 +71,7 @@ public class Structure {
     public List<String> getCanvases() {
         return canvases;
     }
+
     /**
      * @param canvases List
      */

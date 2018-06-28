@@ -12,20 +12,26 @@
  * limitations under the License.
  */
 
-package de.ubleipzig.metadata.templates;
+package de.ubleipzig.metadata.templates.collections;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ElasticIndex {
+import de.ubleipzig.metadata.templates.OrpAtomList;
+
+import java.util.List;
+
+public class CollectionMapListIdentifier {
 
     @JsonProperty
-    private Object index;
+    private List<OrpAtomList> rootCollection;
 
-    public Object getIndex() {
-        return index;
+    @JsonIgnore
+    public List<OrpAtomList> getRootCollection() {
+        return rootCollection;
     }
 
-    public void setIndex(Object index) {
-        this.index = index;
+    public void setRootCollection(List<OrpAtomList> rootCollection) {
+        this.rootCollection = rootCollection;
     }
 }

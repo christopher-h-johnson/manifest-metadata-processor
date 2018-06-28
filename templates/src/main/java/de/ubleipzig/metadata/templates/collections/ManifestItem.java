@@ -12,16 +12,11 @@
  * limitations under the License.
  */
 
-package de.ubleipzig.metadata.templates;
+package de.ubleipzig.metadata.templates.collections;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.List;
-
-public class CollectionList {
-
-    @JsonProperty("@context")
-    private String context;
+public class ManifestItem {
 
     @JsonProperty("@id")
     private String id;
@@ -31,19 +26,6 @@ public class CollectionList {
 
     @JsonProperty
     private String label;
-
-    @JsonProperty
-    private List<ManifestItem> collections;
-
-    @JsonProperty
-    private String description;
-
-    @JsonProperty
-    private String logo;
-
-    @JsonProperty
-    private String attribution;
-
 
     public String getId() {
         return id;
@@ -67,37 +49,5 @@ public class CollectionList {
 
     public void setLabel(String label) {
         this.label = label;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getLogo() {
-        return logo;
-    }
-
-    public void setLogo(String logo) {
-        this.logo = logo;
-    }
-
-    public String getAttribution() {
-        return attribution;
-    }
-
-    public void setAttribution(String attribution) {
-        this.attribution = attribution;
-    }
-
-    public List<ManifestItem> getCollections() {
-        return collections;
-    }
-
-    public void setCollections(List<ManifestItem> collections) {
-        this.collections = collections;
     }
 }

@@ -21,11 +21,11 @@ import static java.util.Optional.ofNullable;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import de.ubleipzig.metadata.templates.AnnotationBodyAtom;
-import de.ubleipzig.metadata.templates.AtomList;
 import de.ubleipzig.metadata.templates.Manifest;
 import de.ubleipzig.metadata.templates.Metadata;
 import de.ubleipzig.metadata.templates.Structure;
+import de.ubleipzig.metadata.templates.atomic.AnnotationBodyAtom;
+import de.ubleipzig.metadata.templates.atomic.AtomList;
 
 import java.io.IOException;
 import java.util.ArrayList;

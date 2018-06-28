@@ -12,31 +12,52 @@
  * limitations under the License.
  */
 
-package de.ubleipzig.metadata.templates;
+package de.ubleipzig.metadata.templates.v2;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-public class Images {
+import de.ubleipzig.iiif.vocabulary.SCEnum;
 
-    @JsonIgnoreProperties({"motivation", "on"})
+import java.util.List;
+
+/**
+ * PaintingAnnotation.
+ *
+ * @author christopher-johnson
+ */
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({"@context", "id", "type", "motivation", "body", "target"})
+public class PaintingAnnotation {
+
+    @JsonProperty("@context")
+    private List<String> context;
 
     @JsonProperty("@id")
     private String id;
 
-    @JsonProperty("@type")
-    private String type;
+    @JsonProperty("type")
+    private String type = "oa:Annotation";
 
     @JsonProperty
-    private String motivation;
+    private String motivation = SCEnum.painting.compactedIRI();
+
+    @JsonProperty
+    private Body resource;
 
     @JsonProperty
     private String on;
 
-    @JsonProperty
-    private Resource resource;
-
+    /**
+     * setContext.
+     *
+     * @param context a {@link List} of contexts
+     */
+    public void setContext(final List<String> context) {
+        this.context = context;
+    }
 
     /**
      * setId.
@@ -63,7 +84,7 @@ public class Images {
      * @return TemplateBody
      */
     @JsonIgnore
-    public Resource getResource() {
+    public Body getBody() {
         return this.resource;
     }
 
@@ -72,7 +93,7 @@ public class Images {
      *
      * @param resource body
      */
-    public void setResource(final Resource resource) {
+    public void setBody(final Body resource) {
         this.resource = resource;
     }
 
@@ -84,4 +105,5 @@ public class Images {
     public void setTarget(final String on) {
         this.on = on;
     }
+
 }

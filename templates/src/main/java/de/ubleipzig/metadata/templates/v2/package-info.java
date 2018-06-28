@@ -11,17 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.ubleipzig.metadata.indexer;
-
-public final class Constants {
-
-    private Constants() {
-    }
-
-    static final String elasticSearchHost = "http://workspaces.ub.uni-leipzig.de:9100/";
-    static final String scannerAPIHost = "http://localhost:9085/scanner";
-    static final String lineSeparator = "line.separator";
-    static final String docTypeIndex = "_doc";
-    static final String bulkContext = "_bulk";
-    static final String contentTypeJson = "application/json";
-}
+/**
+ *
+ */
+package de.ubleipzig.metadata.templates.v2;

@@ -14,21 +14,24 @@
 
 package de.ubleipzig.metadata.indexer;
 
+import static java.io.File.separator;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.ubleipzig.metadata.processor.JsonSerializer;
-import de.ubleipzig.metadata.templates.CollectionMapListIdentifier;
-import de.ubleipzig.metadata.templates.ElasticCreate;
 import de.ubleipzig.metadata.templates.MapList;
 import de.ubleipzig.metadata.templates.MetadataMap;
 import de.ubleipzig.metadata.templates.OrpAtom;
 import de.ubleipzig.metadata.templates.OrpAtomList;
+import de.ubleipzig.metadata.templates.collections.CollectionMapListIdentifier;
+import de.ubleipzig.metadata.templates.indexer.ElasticCreate;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -53,6 +56,7 @@ public class IndexerTest {
     private static final JenaRDF rdf = new JenaRDF();
     private final String contentTypeJson = "application/json";
     private final String elasticSearchHost = "http://workspaces.ub.uni-leipzig.de:9100/";
+    private final String elasticSearchLocalhost = "http://localhost:9100/";
     private final String lineSeparator = "line.separator";
     private final String docTypeIndex = "_doc";
     private final String bulkContext = "_bulk";
@@ -218,12 +222,34 @@ public class IndexerTest {
     @Test
     void putJsonAtomsElasticBulk4() {
         final Indexer indexer = new Indexer();
-        final String indexName = "t4";
-        final InputStream mapping = IndexerTest.class.getResourceAsStream("/ubl-atom-mapping2.json");
+        final String indexName = "t5";
+        final InputStream mapping = IndexerTest.class.getResourceAsStream("/ubl-dynamic-mapping.json");
         indexer.createIndexMapping(elasticSearchHost + indexName, mapping);
         final List<IRI> list = buildDisassemblerIRIList();
         list.forEach(iri -> {
             indexer.putJsonAtomsElasticBulk(iri, indexName);
+        });
+    }
+
+    @Test
+    void reserializeAllManifestsv2() {
+        final List<IRI> list = buildReserializerIRIList();
+        list.forEach(iri -> {
+            try {
+                final String iriString = iri.getIRIString();
+                final String viewId = new URL(iriString).getQuery().split(separator)[3];
+                final String filePath = IndexerTest.class.getResource("/data").getPath() + separator + viewId + ".json";
+                final HttpResponse res = client.getResponse(iri);
+                if (res.statusCode() == 200) {
+                    final String json = res.body().toString();
+                    JsonSerializer.writeToFile(json, new File(filePath));
+                    logger.info("Writing View Id {} manifest to file {}", viewId, filePath);
+                } else {
+                    logger.warn("Reserializing View Id {} failed with statusCode {}", viewId, res.statusCode());
+                }
+            } catch (LdpClientException | IOException e) {
+                e.printStackTrace();
+            }
         });
     }
 
@@ -245,9 +271,22 @@ public class IndexerTest {
     private List<IRI> buildDisassemblerIRIList() {
         final String disassemblerService = "http://localhost:9098/extractor?type=disassemble&manifest=http://iiif.ub"
                 + ".uni-leipzig.de/";
-        final int loops = 10500;
+        final int loops = 11000;
         final List<IRI> list = new ArrayList<>();
-        for (int i = 0; i < loops; i++) {
+        for (int i = 12; i < loops; i++) {
+            final String pid = String.format("%010d", i);
+            final IRI identifier = rdf.createIRI(disassemblerService + pid + "/manifest.json");
+            list.add(identifier);
+        }
+        return list;
+    }
+
+    private List<IRI> buildReserializerIRIList() {
+        final String disassemblerService = "http://localhost:9098/extractor?type=reserialize&manifest=http://iiif.ub"
+                + ".uni-leipzig.de/";
+        final int loops = 11000;
+        final List<IRI> list = new ArrayList<>();
+        for (int i = 1517; i < loops; i++) {
             final String pid = String.format("%010d", i);
             final IRI identifier = rdf.createIRI(disassemblerService + pid + "/manifest.json");
             list.add(identifier);

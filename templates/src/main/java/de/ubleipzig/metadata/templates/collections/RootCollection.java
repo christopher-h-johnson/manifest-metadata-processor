@@ -1,4 +1,4 @@
-package de.ubleipzig.metadata.templates;/*
+/*
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,40 +12,24 @@ package de.ubleipzig.metadata.templates;/*
  * limitations under the License.
  */
 
+package de.ubleipzig.metadata.templates.collections;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ManifestItem {
+import de.ubleipzig.metadata.templates.MapListCollection;
 
-    @JsonProperty("@id")
-    private String id;
+import java.util.List;
 
-    @JsonProperty("@type")
-    private String type;
+public class RootCollection {
 
     @JsonProperty
-    private String label;
+    List<MapListCollection> rootCollection;
 
-    public String getId() {
-        return id;
+    public List<MapListCollection> getRootCollection() {
+        return rootCollection;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
+    public void setRootCollection(List<MapListCollection> rootCollection) {
+        this.rootCollection = rootCollection;
     }
 }

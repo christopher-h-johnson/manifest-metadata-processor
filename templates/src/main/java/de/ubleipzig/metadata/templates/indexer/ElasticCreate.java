@@ -11,17 +11,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.ubleipzig.metadata.indexer;
 
-public final class Constants {
+package de.ubleipzig.metadata.templates.indexer;
 
-    private Constants() {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class ElasticCreate {
+
+    @JsonProperty
+    private Object create;
+
+    public Object getCreate() {
+        return create;
     }
 
-    static final String elasticSearchHost = "http://workspaces.ub.uni-leipzig.de:9100/";
-    static final String scannerAPIHost = "http://localhost:9085/scanner";
-    static final String lineSeparator = "line.separator";
-    static final String docTypeIndex = "_doc";
-    static final String bulkContext = "_bulk";
-    static final String contentTypeJson = "application/json";
+    public void setCreate(Object create) {
+        this.create = create;
+    }
 }

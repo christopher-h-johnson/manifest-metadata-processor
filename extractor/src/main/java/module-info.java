@@ -15,6 +15,7 @@ module de.ubleipzig.metadata.extractor {
     exports de.ubleipzig.metadata.extractor;
     requires slf4j.api;
     requires camel.core;
+    requires de.ubleipzig.iiif.vocabulary;
     requires org.apache.commons.rdf.api;
     requires org.apache.jena.core;
     requires org.apache.commons.rdf.jena;

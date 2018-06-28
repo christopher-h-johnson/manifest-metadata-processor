@@ -11,25 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package de.ubleipzig.metadata.templates;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.List;
-
-public class CollectionMapListIdentifier {
-
-    @JsonProperty
-    private List<OrpAtomList> rootCollection;
-
-    @JsonIgnore
-    public List<OrpAtomList> getRootCollection() {
-        return rootCollection;
-    }
-
-    public void setRootCollection(List<OrpAtomList> rootCollection) {
-        this.rootCollection = rootCollection;
-    }
-}
+/**
+ *
+ */
+package de.ubleipzig.metadata.templates.indexer;

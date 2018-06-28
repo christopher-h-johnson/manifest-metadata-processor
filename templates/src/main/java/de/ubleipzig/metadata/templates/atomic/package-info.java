@@ -11,23 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.ubleipzig.metadata.templates;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.List;
-
-public class AtomList {
-    @JsonProperty
-    private List<AnnotationBodyAtom> atomList;
-
-    @JsonIgnore
-    public List<AnnotationBodyAtom> getAtomList() {
-        return atomList;
-    }
-
-    public void setAtomList(List<AnnotationBodyAtom> atomList) {
-        this.atomList = atomList;
-    }
-}
+/**
+ *
+ */
+package de.ubleipzig.metadata.templates.atomic;

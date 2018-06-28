@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-package de.ubleipzig.metadata.templates;
+package de.ubleipzig.metadata.templates.collections;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

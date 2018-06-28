@@ -11,10 +11,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.ubleipzig.metadata.templates;
+package de.ubleipzig.metadata.templates.atomic;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import de.ubleipzig.metadata.templates.ContentList;
+import de.ubleipzig.metadata.templates.Structure;
 
 import java.util.List;
 import java.util.Map;

@@ -24,8 +24,11 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import org.apache.camel.util.IOHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class ContextUtils {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ContextUtils.class);
 
     private ContextUtils() {
     }
@@ -36,10 +39,15 @@ public final class ContextUtils {
      * @return InitialContext Context
      */
     public static Context createInitialContext() {
-        final InputStream in = ContextUtils.class.getClassLoader().getResourceAsStream("jndi.properties");
+        final InputStream in = ContextUtils.class.getResourceAsStream("/jndi.properties");
         try {
             final Properties properties = new Properties();
-            properties.load(in);
+            if (in != null) {
+                LOGGER.debug("Using jndi.properties from classpath root");
+                properties.load(in);
+            } else {
+                properties.put("java.naming.factory.initial", "org.apache.camel.util.jndi.CamelInitialContextFactory");
+            }
             return new InitialContext(new Hashtable<>(properties));
         } catch (NamingException | IOException e) {
             throw new RuntimeException(e.getMessage());

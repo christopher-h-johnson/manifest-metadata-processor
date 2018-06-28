@@ -27,13 +27,13 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import de.ubleipzig.metadata.processor.JsonSerializer;
-import de.ubleipzig.metadata.templates.AnnotationBodyAtom;
-import de.ubleipzig.metadata.templates.AtomList;
 import de.ubleipzig.metadata.templates.ContentList;
-import de.ubleipzig.metadata.templates.ElasticCreate;
-import de.ubleipzig.metadata.templates.ElasticDocumentObject;
-import de.ubleipzig.metadata.templates.ElasticIndex;
 import de.ubleipzig.metadata.templates.MetadataMap;
+import de.ubleipzig.metadata.templates.atomic.AnnotationBodyAtom;
+import de.ubleipzig.metadata.templates.atomic.AtomList;
+import de.ubleipzig.metadata.templates.indexer.ElasticCreate;
+import de.ubleipzig.metadata.templates.indexer.ElasticDocumentObject;
+import de.ubleipzig.metadata.templates.indexer.ElasticIndex;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -175,8 +175,8 @@ public class Indexer {
                         sb.append(JsonSerializer.serializeRaw(c).orElse(""));
                         sb.append(System.getProperty(lineSeparator));
                         LOGGER.info("Scanning Image {}", map.getIiifService());
-                        IRI scannerApi = rdf.createIRI(scannerAPIHost + "?type=scan&lang=deu&image="
-                                + map.getIiifService());
+                        IRI scannerApi = rdf.createIRI(
+                                scannerAPIHost + "?type=scan&lang=deu&image=" + map.getIiifService());
                         List<ContentList.Content> cList = getContentList(scannerApi).getContentList();
                         map.setContentList(cList);
                         sb.append(JsonSerializer.serializeRaw(map).orElse(""));

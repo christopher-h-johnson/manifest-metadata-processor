@@ -18,12 +18,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.ubleipzig.metadata.processor.JsonSerializer;
-import de.ubleipzig.metadata.templates.CollectionList;
-import de.ubleipzig.metadata.templates.ManifestItem;
-import de.ubleipzig.metadata.templates.ManifestList;
 import de.ubleipzig.metadata.templates.MapListCollection;
 import de.ubleipzig.metadata.templates.MetadataMap;
-import de.ubleipzig.metadata.templates.RootCollection;
+import de.ubleipzig.metadata.templates.collections.CollectionList;
+import de.ubleipzig.metadata.templates.collections.ManifestItem;
+import de.ubleipzig.metadata.templates.collections.ManifestList;
+import de.ubleipzig.metadata.templates.collections.RootCollection;
 
 import java.io.File;
 import java.io.IOException;

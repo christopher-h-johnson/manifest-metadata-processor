@@ -16,7 +16,6 @@ package de.ubleipzig.metadata.extractor;
 
 import static de.ubleipzig.metadata.processor.JsonLdProcessorUtils.toRDF;
 import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
-import static org.apache.camel.Exchange.CONTENT_TYPE;
 import static org.apache.commons.rdf.api.RDFSyntax.NTRIPLES;
 import static org.apache.jena.core.rdf.model.ModelFactory.createDefaultModel;
 
@@ -30,7 +29,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeMap;
 
-import org.apache.camel.Exchange;
 import org.apache.commons.rdf.api.Graph;
 import org.apache.commons.rdf.jena.JenaRDF;
 import org.apache.jena.arq.query.Query;
@@ -46,17 +44,19 @@ import org.apache.jena.core.rdf.model.Model;
 import org.apache.jena.core.rdf.model.ModelFactory;
 import org.apache.jena.core.rdf.model.Resource;
 
-public final class ExchangeProcess {
-
+public class SparqlMetadataExtractor {
+    private String body;
     private static final JenaRDF rdf = new JenaRDF();
     private static final String EMPTY = "empty";
 
-    private ExchangeProcess() {
+    public SparqlMetadataExtractor(final String body) {
+        this.body = body;
     }
 
-    public static void processJsonLdExchange(final Exchange e) throws IOException {
-        final String body = e.getIn().getBody().toString();
-        if (body != null && !body.isEmpty()) {
+    ;
+
+    public String build() throws IOException {
+        try {
             final InputStream is = toRDF(body);
             final Graph graph = getGraph(is);
             final org.apache.jena.core.graph.Graph jenaGraph = rdf.asJenaGraph(Objects.requireNonNull(graph));
@@ -81,10 +81,10 @@ public final class ExchangeProcess {
                 final MetadataMap metadataMap = new MetadataMap();
                 metadataMap.setMetadataMap(metadata);
                 final Optional<String> json = serialize(metadataMap);
-                e.getIn().setBody(json.orElse(null));
+                return json.orElse(null);
             }
-        } else {
-            e.getIn().setHeader(CONTENT_TYPE, EMPTY);
+        } catch (IOException ex) {
+            throw new RuntimeException("Could not Disassemble Manifest", ex.getCause());
         }
     }
 
