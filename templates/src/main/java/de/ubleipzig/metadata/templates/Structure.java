@@ -51,6 +51,9 @@ public class Structure {
     @JsonProperty("viewingHint")
     private String viewingHint;
 
+    @JsonProperty("metadata")
+    private List<Metadata> metadata;
+
     /**
      *
      */
@@ -84,7 +87,7 @@ public class Structure {
      */
     @JsonIgnore
     public String getStructureLabel() {
-        return this.label;
+        return label;
     }
 
     /**
@@ -114,7 +117,7 @@ public class Structure {
      */
     @JsonIgnore
     public String getStructureId() {
-        return this.id;
+        return id;
     }
 
     /**
@@ -129,7 +132,7 @@ public class Structure {
      */
     @JsonIgnore
     public List<String> getRanges() {
-        return this.ranges;
+        return ranges;
     }
 
     /**
@@ -137,5 +140,20 @@ public class Structure {
      */
     public void setRanges(final List<String> ranges) {
         this.ranges = ranges;
+    }
+
+    /**
+     * @return List
+     */
+    @JsonIgnore
+    public List<Metadata> getMetadata() {
+        return metadata;
+    }
+
+    /**
+     * @param metadata List
+     */
+    public void setMetadata(final List<Metadata> metadata) {
+        this.metadata = metadata;
     }
 }

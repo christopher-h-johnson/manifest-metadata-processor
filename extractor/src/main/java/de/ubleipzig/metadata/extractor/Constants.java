@@ -26,6 +26,7 @@ public final class Constants {
     static String manifestBase = "manifest";
     static String sequenceBase = "sequence";
     static String targetBase = "canvas";
+    static String structureBase = "range";
     static String annotationBase = "anno";
     static String viewerUrl = "https://digital.ub.uni-leipzig.de/object/viewid/";
     static String katalogUrl = "https://katalog.ub.uni-leipzig.de/urn/";

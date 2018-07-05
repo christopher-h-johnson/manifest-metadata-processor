@@ -26,11 +26,14 @@ import de.ubleipzig.metadata.templates.OrpAtom;
 import de.ubleipzig.metadata.templates.OrpAtomList;
 import de.ubleipzig.metadata.templates.collections.CollectionMapListIdentifier;
 import de.ubleipzig.metadata.templates.indexer.ElasticCreate;
+import de.ubleipzig.metadata.templates.metsmods.RecordList;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -284,9 +287,9 @@ public class IndexerTest {
     private List<IRI> buildReserializerIRIList() {
         final String disassemblerService = "http://localhost:9098/extractor?type=reserialize&manifest=http://iiif.ub"
                 + ".uni-leipzig.de/";
-        final int loops = 11000;
+        final int loops = 52;
         final List<IRI> list = new ArrayList<>();
-        for (int i = 1517; i < loops; i++) {
+        for (int i = 12; i < loops; i++) {
             final String pid = String.format("%010d", i);
             final IRI identifier = rdf.createIRI(disassemblerService + pid + "/manifest.json");
             list.add(identifier);

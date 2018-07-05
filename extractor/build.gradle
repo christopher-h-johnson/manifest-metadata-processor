@@ -35,6 +35,7 @@ dependencies {
     implementation("org.apache.camel:camel-jetty9:$camelVersion")
     implementation("org.apache.camel:camel-http4:$camelVersion")
     implementation("org.apache.httpcomponents:httpclient-cache:$httpClientOsgiVersion")
+    implementation("org.trellisldp:trellis-client:$trellisClientVersion")
 
     testImplementation("de.ubleipzig:jena.core-jpms:$jenaVersion")
     testImplementation("org.apache.camel:camel-test:$camelVersion")

@@ -27,4 +27,5 @@ module de.ubleipzig.metadata.extractor {
     requires com.fasterxml.jackson.core;
     requires org.apache.commons.io;
     requires de.ubleipzig.image.metadata;
+    requires org.trellisldp.client;
 }

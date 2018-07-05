@@ -36,7 +36,7 @@ public class Metadata {
      */
     @JsonIgnore
     public String getLabel() {
-        return this.label;
+        return label;
     }
 
     /**
@@ -52,7 +52,14 @@ public class Metadata {
      */
     @JsonIgnore
     public String getValue() {
-        return this.value;
+        return value;
     }
 
+    /**
+     * @param value String
+     */
+    @JsonIgnore
+    public void setValue(final String value) {
+        this.value = value;
+    }
 }

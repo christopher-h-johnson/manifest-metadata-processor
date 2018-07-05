@@ -31,7 +31,7 @@ public class Body {
     @JsonProperty("@id")
     private String id;
 
-    @JsonProperty("type")
+    @JsonProperty("@type")
     private String type;
 
     @JsonProperty

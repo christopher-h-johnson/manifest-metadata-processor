@@ -22,9 +22,11 @@ import static de.ubleipzig.metadata.extractor.Constants.domainLogo;
 import static de.ubleipzig.metadata.extractor.Constants.katalogUrl;
 import static de.ubleipzig.metadata.extractor.Constants.manifestBase;
 import static de.ubleipzig.metadata.extractor.Constants.sequenceBase;
+import static de.ubleipzig.metadata.extractor.Constants.structureBase;
 import static de.ubleipzig.metadata.extractor.Constants.targetBase;
 import static de.ubleipzig.metadata.extractor.Constants.viewerUrl;
 import static de.ubleipzig.metadata.extractor.ExtractorUtils.IIPSRV_DEFAULT;
+import static de.ubleipzig.metadata.extractor.MetadataUtils.harmonizeMetadataLabels;
 import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
 import static java.io.File.separator;
 import static java.lang.String.format;
@@ -42,6 +44,8 @@ import de.ubleipzig.metadata.templates.Manifest;
 import de.ubleipzig.metadata.templates.Metadata;
 import de.ubleipzig.metadata.templates.Service;
 import de.ubleipzig.metadata.templates.Structure;
+import de.ubleipzig.metadata.templates.metsmods.MetsMods;
+import de.ubleipzig.metadata.templates.metsmods.RecordList;
 import de.ubleipzig.metadata.templates.v2.Body;
 import de.ubleipzig.metadata.templates.v2.Canvas;
 import de.ubleipzig.metadata.templates.v2.PaintingAnnotation;
@@ -53,59 +57,60 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
+import org.apache.commons.rdf.api.IRI;
+import org.apache.commons.rdf.jena.JenaRDF;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.trellisldp.client.LdpClient;
+import org.trellisldp.client.LdpClientException;
+import org.trellisldp.client.LdpClientImpl;
 
 public class Reserializer {
+
     private String body;
+    private final LdpClient client = new LdpClientImpl();
     private static final Logger LOGGER = LoggerFactory.getLogger(Reserializer.class);
     private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final JenaRDF rdf = new JenaRDF();
+    private MetadataUtils metadataUtils = new MetadataUtils();
 
     public Reserializer(final String body) {
         this.body = body;
     }
 
-    public List<Metadata> harmonizeMetadataLabels(List<Metadata> metadata) {
-        metadata.forEach(m -> {
-            String label = m.getLabel();
-            switch (label) {
-                case "urn":
-                    m.setLabel("URN");
-                    break;
-                case "swb-ppn":
-                    m.setLabel("Source PPN (SWB)");
-                    break;
-                case "goobi":
-                    m.setLabel("Kitodo");
-                    break;
-                case "Callnumber":
-                    m.setLabel("Call number");
-                    break;
-                case "Date":
-                    m.setLabel("Date of publication");
-                    break;
-                case "datiert":
-                    m.setLabel("Date of publication");
-                    break;
-                case "vd17":
-                    m.setLabel("VD17");
-                    break;
-                case "Place":
-                    m.setLabel("Place of publication");
-                    break;
-                case "Physical State":
-                    m.setLabel("Physical description");
-                    break;
-                default:
-                    break;
-            }
+    public MetadataUtils buildMetadataFromPPNApi(String ppn) {
+        LOGGER.info("Getting Metadata from PPN API using {}", ppn);
+        final Optional<MetsMods> metsMods = ofNullable(getMetadataFromAPIwithPPN(ppn));
+        metsMods.ifPresentOrElse(mets -> {
+            metadataUtils.setMetsMods(mets);
+            metadataUtils.buildFinalMetadata();
+        }, () -> {
+            LOGGER.error("invalid PPN {}", ppn);
+            throw new RuntimeException("Invalid PPN for manifest");
         });
-        return metadata;
+        return metadataUtils;
+    }
+
+    public MetadataUtils buildMetadataFromURNApi(String urn) {
+
+        LOGGER.info("Getting Metadata from URN API using {}", urn);
+        final Optional<MetsMods> metsMods = ofNullable(getMetadataFromAPI(urn));
+        metsMods.ifPresentOrElse(mets -> {
+            metadataUtils.setMetsMods(mets);
+            metadataUtils.buildFinalMetadata();
+        }, () -> {
+            LOGGER.error("invalid URN {}", urn);
+            throw new RuntimeException("Invalid URN for manifest");
+        });
+        return metadataUtils;
     }
 
     public String build() {
@@ -113,14 +118,25 @@ public class Reserializer {
             final Manifest manifest = MAPPER.readValue(body, new TypeReference<Manifest>() {
             });
             final Optional<List<Metadata>> metadata = ofNullable(manifest.getMetadata());
-            String urn = null;
-            List<Metadata> harmonizedMetadata = null;
             if (metadata.isPresent()) {
-                harmonizedMetadata = harmonizeMetadataLabels(metadata.get());
-                final Metadata metaURN = harmonizedMetadata.stream().filter(
-                        y -> y.getLabel().equals("URN")).findAny().orElse(null);
-                if (metaURN != null) {
-                    urn = metaURN.getValue();
+                List<Metadata> harmonizedMetadata = harmonizeMetadataLabels(metadata.get());
+                final Optional<Metadata> metaURN = harmonizedMetadata.stream().filter(
+                        y -> y.getLabel().equals("URN")).findAny();
+                final Optional<Metadata> metaPPN = harmonizedMetadata.stream().filter(
+                        y -> y.getLabel().equals("Source PPN (SWB)")).findAny();
+                if (metaURN.isPresent()) {
+                    final String urn = metaURN.get().getValue();
+                    if (urn.equals("null") && metaPPN.isPresent()) {
+                        final String ppn = metaPPN.get().getValue();
+                        metadataUtils = buildMetadataFromPPNApi(ppn);
+                    } else {
+                        metadataUtils = buildMetadataFromURNApi(urn);
+                    }
+                } else if (metaPPN.isPresent()) {
+                    final String ppn = metaPPN.get().getValue();
+                    metadataUtils = buildMetadataFromPPNApi(ppn);
+                } else {
+                    throw new RuntimeException("no valid identifiers for manifest");
                 }
             }
             //build structures objects
@@ -129,7 +145,7 @@ public class Reserializer {
             final String viewId = new URL(manifest.getId()).getPath().split(separator)[1];
 
             manifest.getSequences().forEach(sq -> {
-                AtomicInteger index = new AtomicInteger(1);
+                final AtomicInteger index = new AtomicInteger(1);
                 for (Canvases c : sq.getCanvases()) {
                     Integer height = null;
                     Integer width = null;
@@ -160,13 +176,19 @@ public class Reserializer {
                         service.setId(iiifService);
 
                         //createBody
-
                         bodyObj.setService(service);
                         bodyObj.setResourceHeight(height);
                         bodyObj.setResourceWidth(width);
                         bodyObj.setResourceType("dctypes:Image");
                         bodyObj.setResourceFormat("image/jpeg");
-                        bodyObj.setResourceId(i.getResource().getResourceId());
+                        String resourceId = i.getResource().getResourceId();
+                        //hack for Mirador file extension check
+                        if (resourceId.contains("jpx")) {
+                            final String jpgResource = resourceId.replace("jpx", "jpg");
+                            bodyObj.setResourceId(jpgResource);
+                        } else {
+                            bodyObj.setResourceId(resourceId);
+                        }
                         bodyObj.setLabel(i.getResource().getLabel());
                     }
                     //createAnnotation
@@ -191,6 +213,8 @@ public class Reserializer {
             final PerfectManifest perfectManifest = getManifest(viewId, sequences);
             if (structures.isPresent()) {
                 final List<Structure> structs = structures.get();
+                final AtomicInteger ai = new AtomicInteger(0);
+                final Map<String, String> backReferenceMap = new HashMap<>();
                 structs.forEach(s -> {
                     final Optional<List<String>> cs = ofNullable(s.getCanvases());
                     final List<String> paddedCanvases = new ArrayList<>();
@@ -208,13 +232,49 @@ public class Reserializer {
                     if (!paddedCanvases.isEmpty()) {
                         s.setCanvases(paddedCanvases);
                     }
+                    final String structureId = s.getStructureId();
+                    if (!structureId.contains("LOG") || !structureId.contains("r0")) {
+                        if (ai.get() == 0) {
+                            final String newStructureId = baseUrl + viewId + separator + structureBase + separator +
+                                    "r0";
+                            backReferenceMap.put(s.getStructureId(), newStructureId);
+                            //unset within (fix for early manifests)
+                            s.setWithin(null);
+                            ai.getAndIncrement();
+                        } else {
+                            final String newStructureId = baseUrl + viewId + separator + structureBase + separator +
+                                    "LOG_" + String.format(
+                                    "%04d", ai.getAndIncrement());
+                            backReferenceMap.put(s.getStructureId(), newStructureId);
+                            //final Optional<List<String>> newRanges = ofNullable(rangeMap.get(newStructureId));
+                            //newRanges.ifPresent(s::setRanges);
+                            //unset within (fix for early manifests)
+                            s.setWithin(null);
+                        }
+                    }
                 });
-                //structs.sort(comparing(Structure::getStructureId));
+
+                for (Structure struct : structs) {
+                    final Optional<List<String>> fr = ofNullable(struct.getRanges());
+                    final List<String> newRanges = new ArrayList<>();
+                    if (fr.isPresent()) {
+                        for (String r1 : fr.get()) {
+                            final Optional<String> newRange = ofNullable(backReferenceMap.get(r1));
+                            newRange.ifPresent(newRanges::add);
+                        }
+                        struct.setRanges(newRanges);
+                    }
+                    String structId = struct.getStructureId();
+                    String newStructId = backReferenceMap.get(structId);
+                    struct.setStructureId(newStructId);
+                }
                 perfectManifest.setStructures(structs);
             }
-            perfectManifest.setMetadata(harmonizedMetadata);
+            final List<Metadata> finalMetadata = metadataUtils.getFinalMetadata();
+            perfectManifest.setMetadata(finalMetadata);
             perfectManifest.setLabel(manifest.getLabel());
-            List<String> related = getRelated(perfectManifest.getId(), viewId, urn);
+            final Optional<String> finalURN = ofNullable(getURNfromFinalMetadata(finalMetadata, viewId));
+            final List<String> related = getRelated(viewId, finalURN.orElse(null));
             perfectManifest.setRelated(related);
             final Optional<String> json = serialize(perfectManifest);
             return json.orElse(null);
@@ -249,7 +309,6 @@ public class Reserializer {
         return sequences;
     }
 
-
     /**
      * @param sequences List
      * @return Manifest
@@ -266,13 +325,70 @@ public class Reserializer {
         return manifest;
     }
 
-    public List<String> getRelated(final String manifestId, final String viewId, final String urn) {
+    public List<String> getRelated(final String viewId, final String urn) {
         final ArrayList<String> related = new ArrayList<>();
         if (urn != null) {
             related.add(katalogUrl + urn);
         }
         related.add(viewerUrl + viewId);
-        related.add(manifestId);
         return related;
+    }
+
+    public List<URL> buildMetsModsJsonApiURLList() {
+        final IRI jsonAPI = rdf.createIRI("http://localhost:8900/exist/restxq/mets");
+        final String res;
+        try {
+            res = client.getDefaultType(jsonAPI);
+            final RecordList recordList = MAPPER.readValue(res, new TypeReference<RecordList>() {
+            });
+            final List<URL> list = new ArrayList<>();
+            recordList.getRecords().forEach(r -> {
+                final String apiLink = jsonAPI.getIRIString() + separator + r.getUrn();
+                try {
+                    list.add(new URL(apiLink));
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+            });
+            return list;
+        } catch (LdpClientException | IOException e) {
+            throw new RuntimeException("Record List Api Request Failed");
+        }
+    }
+
+    public MetsMods getMetadataFromAPI(String urn) {
+        final IRI jsonAPI = rdf.createIRI("http://localhost:8900/exist/restxq/mets" + separator + urn);
+        final String res;
+        try {
+            res = client.getDefaultType(jsonAPI);
+            return MAPPER.readValue(res, new TypeReference<MetsMods>() {
+            });
+        } catch (LdpClientException | IOException e) {
+            LOGGER.error("URN Api Request Failed for URN {}", urn);
+            throw new RuntimeException("URN Api Request Failed");
+        }
+    }
+
+    public MetsMods getMetadataFromAPIwithPPN(String ppn) {
+        final IRI jsonAPI = rdf.createIRI("http://localhost:8900/exist/restxq/mets/ppn" + separator + ppn);
+        final String res;
+        try {
+            res = client.getDefaultType(jsonAPI);
+            return MAPPER.readValue(res, new TypeReference<MetsMods>() {
+            });
+        } catch (LdpClientException | IOException e) {
+            LOGGER.error("PPN Api Request Failed for PPN {}", ppn);
+            throw new RuntimeException("PPN Api Request Failed");
+        }
+    }
+
+    public String getURNfromFinalMetadata(final List<Metadata> finalMetadata, final String viewId) {
+        final Metadata metaURN = finalMetadata.stream().filter(y -> y.getLabel().equals("URN")).findAny().orElse(null);
+        if (metaURN != null) {
+            return metaURN.getValue();
+        } else {
+            LOGGER.warn("No URN Available for {}", viewId);
+        }
+        return null;
     }
 }

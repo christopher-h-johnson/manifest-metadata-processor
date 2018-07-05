@@ -22,4 +22,5 @@ module de.ubleipzig.metadata.templates {
     exports de.ubleipzig.metadata.templates.v2;
     exports de.ubleipzig.metadata.templates.atomic;
     exports de.ubleipzig.metadata.templates.indexer;
+    exports de.ubleipzig.metadata.templates.metsmods;
 }

@@ -18,16 +18,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(value={"format", "height", "width", "@type","type"}, allowGetters=true)
 public class Resource {
 
     @JsonProperty
-    Service service;
-    @JsonIgnoreProperties({"format", "height", "width"})
+    private Service service;
 
     @JsonProperty("@id")
     private String id;
 
-    @JsonProperty("@type")
+    @JsonProperty("type")
     private String type;
 
     @JsonProperty
