@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 
 MAINTAINER Christopher Johnson <christopher_hanna.johnson@uni-leipzig.de>
-LABEL description = "Provides de.ubleipzig.metadata.templates.Manifest Metadata Extractor"
+LABEL description = "Provides de.ubleipzig.metadata.templates.Manifest Metadata Renderer"
 
 ENV RENDERER_VERSION 0.1.0-SNAPSHOT
 ENV RENDERER_RUNTIME /opt

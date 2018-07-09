@@ -28,7 +28,7 @@ APP_NAME="trellis-app"
 APP_BASE_NAME=`basename "$0"`
 
 # Add default JVM options here. You can also use JAVA_OPTS and TRELLIS_APP_OPTS to pass JVM options to this script.
-DEFAULT_JVM_OPTS='"--add-modules" "java.sql" "--add-modules" "java.xml.bind" "--module-path" "$APP_HOME/lib" "--module" "de.ubleipzig.metadata.processor/de.ubleipzig.metadata.processor.Extractor"'
+DEFAULT_JVM_OPTS='"--add-modules" "java.sql" "--add-modules" "java.xml.bind" "--add-modules" "jdk.incubator.httpclient" "--module-path" "$APP_HOME/lib" "--module" "de.ubleipzig.metadata.extractor/de.ubleipzig.metadata.extractor.Extractor"'
 
 # Use the maximum available, or set MAX_FD != -1 to use that value.
 MAX_FD="maximum"

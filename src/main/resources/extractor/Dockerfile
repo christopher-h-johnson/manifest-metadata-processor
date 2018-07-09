@@ -25,12 +25,13 @@ RUN mkdir ${JVM_BASE} && \
     java --version && \
     rm -rf /var/lib/apt/lists/* && apt-get purge -y
 
+COPY cacerts ${JVM_BASE}/jdk-10/lib/security/cacerts
 WORKDIR ${EXTRACTOR_RUNTIME}
 COPY *.tar .
 RUN tar -xvf *.tar && \
-mv dynamo-${EXTRACTOR_VERSION} dynamo
-COPY dynamo/entrypoint.sh .
-COPY dynamo/dynamo.sh /opt/dynamo/bin/dynamo.sh
-RUN chmod +x ${EXTRACTOR_RUNTIME}/dynamo/bin/dynamo.sh
+mv extractor-${EXTRACTOR_VERSION} extractor
+COPY entrypoint.sh .
+COPY extractor.sh /opt/extractor/bin/extractor.sh
+RUN chmod +x ${EXTRACTOR_RUNTIME}/extractor/bin/extractor.sh
 RUN chmod +x entrypoint.sh
 ENTRYPOINT [ "./entrypoint.sh" ]

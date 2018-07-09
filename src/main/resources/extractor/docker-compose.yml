@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  extractor:
+    image: ubleipzig/extractor:0.1.0
+    container_name: extractor
+    restart: always
+    ports:
+      - "9098:9098"
+    environment:
+        EXTRACTOR_HOME: /etc/extractor
+    volumes:
+      - ./cfg/de.ubleipzig.metadata.extractor.cfg:/etc/extractor/de.ubleipzig.metadata.extractor.cfg

@@ -63,7 +63,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.jena.JenaRDF;
@@ -81,9 +80,11 @@ public class Reserializer {
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final JenaRDF rdf = new JenaRDF();
     private MetadataUtils metadataUtils = new MetadataUtils();
+    private String xmldbHost;
 
-    public Reserializer(final String body) {
+    public Reserializer(final String body, final String xmldbHost) {
         this.body = body;
+        this.xmldbHost = xmldbHost;
     }
 
     public MetadataUtils buildMetadataFromPPNApi(String ppn) {
@@ -236,7 +237,7 @@ public class Reserializer {
                     if (!structureId.contains("LOG") || !structureId.contains("r0")) {
                         if (ai.get() == 0) {
                             final String newStructureId = baseUrl + viewId + separator + structureBase + separator +
-                                    "r0";
+                                    "LOG_0000";
                             backReferenceMap.put(s.getStructureId(), newStructureId);
                             //unset within (fix for early manifests)
                             s.setWithin(null);
@@ -264,9 +265,13 @@ public class Reserializer {
                         }
                         struct.setRanges(newRanges);
                     }
-                    String structId = struct.getStructureId();
-                    String newStructId = backReferenceMap.get(structId);
+                    final String structId = struct.getStructureId();
+                    final String newStructId = backReferenceMap.get(structId);
                     struct.setStructureId(newStructId);
+                    final String sId = new URL(newStructId).getPath().split(separator)[3];
+                    final Optional<List<Metadata>> structureMetadata = ofNullable(
+                            metadataUtils.buildStructureMetadataForId(sId));
+                    structureMetadata.ifPresent(struct::setMetadata);
                 }
                 perfectManifest.setStructures(structs);
             }
@@ -335,7 +340,7 @@ public class Reserializer {
     }
 
     public List<URL> buildMetsModsJsonApiURLList() {
-        final IRI jsonAPI = rdf.createIRI("http://localhost:8900/exist/restxq/mets");
+        final IRI jsonAPI = rdf.createIRI(xmldbHost + "/exist/restxq/mets");
         final String res;
         try {
             res = client.getDefaultType(jsonAPI);
@@ -357,7 +362,7 @@ public class Reserializer {
     }
 
     public MetsMods getMetadataFromAPI(String urn) {
-        final IRI jsonAPI = rdf.createIRI("http://localhost:8900/exist/restxq/mets" + separator + urn);
+        final IRI jsonAPI = rdf.createIRI(xmldbHost + "/exist/restxq/mets" + separator + urn);
         final String res;
         try {
             res = client.getDefaultType(jsonAPI);
@@ -370,7 +375,7 @@ public class Reserializer {
     }
 
     public MetsMods getMetadataFromAPIwithPPN(String ppn) {
-        final IRI jsonAPI = rdf.createIRI("http://localhost:8900/exist/restxq/mets/ppn" + separator + ppn);
+        final IRI jsonAPI = rdf.createIRI(xmldbHost + "/exist//restxq/mets/ppn" + separator + ppn);
         final String res;
         try {
             res = client.getDefaultType(jsonAPI);

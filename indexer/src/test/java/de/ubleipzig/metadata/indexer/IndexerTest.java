@@ -26,14 +26,11 @@ import de.ubleipzig.metadata.templates.OrpAtom;
 import de.ubleipzig.metadata.templates.OrpAtomList;
 import de.ubleipzig.metadata.templates.collections.CollectionMapListIdentifier;
 import de.ubleipzig.metadata.templates.indexer.ElasticCreate;
-import de.ubleipzig.metadata.templates.metsmods.RecordList;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +60,8 @@ public class IndexerTest {
     private final String lineSeparator = "line.separator";
     private final String docTypeIndex = "_doc";
     private final String bulkContext = "_bulk";
+    private final String manifestFileName = "/manifest.json";
+    private final String tenDigitString = "%010d";
 
     private static String getDocumentId() {
         return UUID.randomUUID().toString();
@@ -76,8 +75,8 @@ public class IndexerTest {
         final int loops = 10300;
         final List<IRI> list = new ArrayList<>();
         for (int i = 9698; i < loops; i++) {
-            final String pid = String.format("%010d", i);
-            final IRI identifier = rdf.createIRI(extractorService + pid + "/manifest.json");
+            final String pid = String.format(tenDigitString, i);
+            final IRI identifier = rdf.createIRI(extractorService + pid + manifestFileName);
             list.add(identifier);
         }
         return list;
@@ -241,7 +240,9 @@ public class IndexerTest {
             try {
                 final String iriString = iri.getIRIString();
                 final String viewId = new URL(iriString).getQuery().split(separator)[3];
-                final String filePath = IndexerTest.class.getResource("/data").getPath() + separator + viewId + ".json";
+                //final String filePath = IndexerTest.class.getResource("/data").getPath() + separator + viewId + "
+                // .json";
+                final String filePath = "/tmp/manifests" + separator + viewId + ".json";
                 final HttpResponse res = client.getResponse(iri);
                 if (res.statusCode() == 200) {
                     final String json = res.body().toString();
@@ -259,14 +260,14 @@ public class IndexerTest {
     @Test
     void putContentAtomsElastic() {
         final int index = 9000;
-        final String viewId = String.format("%010d", index);
+        final String viewId = String.format(tenDigitString, index);
         final Indexer indexer = new Indexer();
         final String indexName = "t8";
         final InputStream mapping = IndexerTest.class.getResourceAsStream("/ubl-nested-atom-mapping.json");
         indexer.createIndexMapping(elasticSearchHost + indexName, mapping);
         final IRI iri = rdf.createIRI(
                 "http://localhost:9098/extractor?type=disassemble&manifest=http://iiif.ub.uni-leipzig.de/" + viewId +
-                        "/manifest.json");
+                        manifestFileName);
         indexer.putModernContentAtoms(iri, indexName);
     }
 
@@ -277,8 +278,8 @@ public class IndexerTest {
         final int loops = 11000;
         final List<IRI> list = new ArrayList<>();
         for (int i = 12; i < loops; i++) {
-            final String pid = String.format("%010d", i);
-            final IRI identifier = rdf.createIRI(disassemblerService + pid + "/manifest.json");
+            final String pid = String.format(tenDigitString, i);
+            final IRI identifier = rdf.createIRI(disassemblerService + pid + manifestFileName);
             list.add(identifier);
         }
         return list;
@@ -287,11 +288,11 @@ public class IndexerTest {
     private List<IRI> buildReserializerIRIList() {
         final String disassemblerService = "http://localhost:9098/extractor?type=reserialize&manifest=http://iiif.ub"
                 + ".uni-leipzig.de/";
-        final int loops = 52;
+        final int loops = 3000;
         final List<IRI> list = new ArrayList<>();
         for (int i = 12; i < loops; i++) {
-            final String pid = String.format("%010d", i);
-            final IRI identifier = rdf.createIRI(disassemblerService + pid + "/manifest.json");
+            final String pid = String.format(tenDigitString, i);
+            final IRI identifier = rdf.createIRI(disassemblerService + pid + manifestFileName);
             list.add(identifier);
         }
         return list;

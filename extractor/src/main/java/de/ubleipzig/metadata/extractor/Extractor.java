@@ -62,7 +62,7 @@ public class Extractor {
         main.addRouteBuilder(new Extractor.QueryRoute());
         main.addMainListener(new Extractor.Events());
         final JndiRegistry registry = new JndiRegistry(createInitialContext());
-        main.setPropertyPlaceholderLocations("file:${env:DYNAMO_HOME}/de.ubleipzig.metadata.extractor.cfg");
+        main.setPropertyPlaceholderLocations("file:${env:EXTRACTOR_HOME}/de.ubleipzig.metadata.extractor.cfg");
         main.run();
     }
 
@@ -140,9 +140,10 @@ public class Extractor {
                     .when(header(TYPE).isEqualTo("reserialize"))
                     .process(e -> {
                         final Optional<String> body = ofNullable(e.getIn().getBody().toString());
+                        final String xmldbHost = e.getContext().resolvePropertyPlaceholders("{{xmldb.host}}");
                         if (body.isPresent()) {
                             final Reserializer reserializer =
-                                    new Reserializer(body.get());
+                                    new Reserializer(body.get(), xmldbHost);
                             e.getIn().setBody(reserializer.build());
                         }
                     });

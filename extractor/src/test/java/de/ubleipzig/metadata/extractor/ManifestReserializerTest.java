@@ -30,14 +30,16 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 public class ManifestReserializerTest {
-
+    private String testManifest = "http://iiif.ub.uni-leipzig.de/0000000054/manifest.json";
+    private String testManifest1 = "http://iiif.ub.uni-leipzig.de/0000000018/manifest.json";
+    private String xmldbhost = "http://localhost:8900";
     @Test
     void testReserializeManifest() {
         try {
-            final URL url = new URL("http://iiif.ub.uni-leipzig.de/0000000054/manifest.json");
+            final URL url = new URL(testManifest);
             InputStream is = url.openStream();
             String json = readFile(is);
-            final Reserializer reserializer = new Reserializer(json);
+            final Reserializer reserializer = new Reserializer(json, xmldbhost);
             System.out.println(reserializer.build());
         } catch (IOException e) {
             e.printStackTrace();
@@ -50,7 +52,7 @@ public class ManifestReserializerTest {
             final URL url = new URL("http://iiif.ub.uni-leipzig.de/0000009054/manifest.json");
             InputStream is = url.openStream();
             String json = readFile(is);
-            final Reserializer reserializer = new Reserializer(json);
+            final Reserializer reserializer = new Reserializer(json, xmldbhost);
             System.out.println(reserializer.build());
         } catch (IOException e) {
             e.printStackTrace();
@@ -60,38 +62,33 @@ public class ManifestReserializerTest {
     @Test
     void testGetUrlListFromAPI() {
         try {
-        final URL url = new URL("http://iiif.ub.uni-leipzig.de/0000000018/manifest.json");
-        InputStream is = url.openStream();
-        String json = readFile(is);
-        final Reserializer reserializer = new Reserializer(json);
-        List<URL> urlList = reserializer.buildMetsModsJsonApiURLList();
-        System.out.println(urlList);
+            final URL url = new URL(testManifest1);
+            InputStream is = url.openStream();
+            String json = readFile(is);
+            final Reserializer reserializer = new Reserializer(json, xmldbhost);
+            List<URL> urlList = reserializer.buildMetsModsJsonApiURLList();
+            System.out.println(urlList);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     void testGetMetadataFromAPI() {
         try {
-            final URL url = new URL("http://iiif.ub.uni-leipzig.de/0000000018/manifest.json");
+            final URL url = new URL(testManifest1);
             InputStream is = url.openStream();
             String json = readFile(is);
-            final Reserializer reserializer = new Reserializer(json);
+            final Reserializer reserializer = new Reserializer(json, xmldbhost);
             MetsMods metsmods = reserializer.getMetadataFromAPI("urn:nbn:de:bsz:15-0011-224709");
             Map<String, Object> metadata = metsmods.getMetadata();
             List<Map<String, Object>> structures = metsmods.getStructures();
             Optional<?> author = ofNullable(metadata.get("author"));
             Optional<?> collection = ofNullable(metadata.get("collection"));
-            Optional<Map<String, String>> objAsMap = author
-                    .filter(Map.class::isInstance)
-                    .map(Map.class::cast);
-            Optional<String> objAsString = collection
-                    .filter(String.class::isInstance)
-                    .map(String.class::cast);
-            Optional<List<String>> objAsList = collection
-                    .filter(List.class::isInstance)
-                    .map(List.class::cast);
+            Optional<Map<String, String>> objAsMap = author.filter(Map.class::isInstance).map(Map.class::cast);
+            Optional<String> objAsString = collection.filter(String.class::isInstance).map(String.class::cast);
+            Optional<List<String>> objAsList = collection.filter(List.class::isInstance).map(List.class::cast);
             objAsList.ifPresent(System.out::println);
             objAsMap.ifPresent(System.out::println);
             objAsString.ifPresent(System.out::println);
@@ -105,14 +102,14 @@ public class ManifestReserializerTest {
     void testBuildAuthorsFromAPIList() {
         final MetadataUtils metadataUtils = new MetadataUtils();
         try {
-        final URL url = new URL("http://iiif.ub.uni-leipzig.de/0000000018/manifest.json");
-        InputStream is = url.openStream();
-        String json = readFile(is);
-        final Reserializer reserializer = new Reserializer(json);
+            final URL url = new URL(testManifest1);
+            InputStream is = url.openStream();
+            String json = readFile(is);
+            final Reserializer reserializer = new Reserializer(json, xmldbhost);
             MetsMods metsmods = reserializer.getMetadataFromAPI("urn:nbn:de:bsz:15-0012-142679");
             metadataUtils.setMetsMods(metsmods);
-        List<Metadata> authors = metadataUtils.setAuthors();
-        System.out.println(authors);
+            List<Metadata> authors = metadataUtils.setAuthors();
+            System.out.println(authors);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -122,10 +119,10 @@ public class ManifestReserializerTest {
     void testBuildAuthorFromAPIMap() {
         final MetadataUtils metadataUtils = new MetadataUtils();
         try {
-            final URL url = new URL("http://iiif.ub.uni-leipzig.de/0000000018/manifest.json");
+            final URL url = new URL(testManifest1);
             InputStream is = url.openStream();
             String json = readFile(is);
-            final Reserializer reserializer = new Reserializer(json);
+            final Reserializer reserializer = new Reserializer(json, xmldbhost);
             MetsMods metsmods = reserializer.getMetadataFromAPI("urn:nbn:de:bsz:15-0012-220148");
             metadataUtils.setMetsMods(metsmods);
             List<Metadata> authors = metadataUtils.setAuthors();

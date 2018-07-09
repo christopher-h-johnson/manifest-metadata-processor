@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@JsonIgnoreProperties(value={"format", "height", "width", "@type","type"}, allowGetters=true)
+@JsonIgnoreProperties(value = {"format", "height", "width", "@type", "type"}, allowGetters = true)
 public class Resource {
 
     @JsonProperty

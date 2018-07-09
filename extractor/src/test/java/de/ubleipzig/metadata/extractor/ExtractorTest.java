@@ -101,9 +101,10 @@ public final class ExtractorTest {
                         .when(header(TYPE).isEqualTo("reserialize"))
                         .process(e -> {
                             final Optional<String> body = ofNullable(e.getIn().getBody().toString());
+                            final String xmldbHost = e.getContext().resolvePropertyPlaceholders("{{xmldb.host}}");
                             if (body.isPresent()) {
                                 final Reserializer reserializer =
-                                        new Reserializer(body.get());
+                                        new Reserializer(body.get(), xmldbHost);
                                 e.getIn().setBody(reserializer.build());
                             }
                         });
