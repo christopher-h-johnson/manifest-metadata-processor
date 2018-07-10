@@ -14,19 +14,19 @@
 
 package de.ubleipzig.metadata.extractor;
 
-import static de.ubleipzig.metadata.extractor.Constants.annotationBase;
-import static de.ubleipzig.metadata.extractor.Constants.baseUrl;
-import static de.ubleipzig.metadata.extractor.Constants.domainAttribution;
-import static de.ubleipzig.metadata.extractor.Constants.domainLicense;
-import static de.ubleipzig.metadata.extractor.Constants.domainLogo;
-import static de.ubleipzig.metadata.extractor.Constants.katalogUrl;
-import static de.ubleipzig.metadata.extractor.Constants.manifestBase;
-import static de.ubleipzig.metadata.extractor.Constants.sequenceBase;
-import static de.ubleipzig.metadata.extractor.Constants.structureBase;
-import static de.ubleipzig.metadata.extractor.Constants.targetBase;
-import static de.ubleipzig.metadata.extractor.Constants.viewerUrl;
+import static de.ubleipzig.metadata.extractor.DomainConstants.annotationBase;
+import static de.ubleipzig.metadata.extractor.DomainConstants.baseUrl;
+import static de.ubleipzig.metadata.extractor.DomainConstants.domainAttribution;
+import static de.ubleipzig.metadata.extractor.DomainConstants.domainLicense;
+import static de.ubleipzig.metadata.extractor.DomainConstants.domainLogo;
+import static de.ubleipzig.metadata.extractor.DomainConstants.katalogUrl;
+import static de.ubleipzig.metadata.extractor.DomainConstants.manifestBase;
+import static de.ubleipzig.metadata.extractor.DomainConstants.sequenceBase;
+import static de.ubleipzig.metadata.extractor.DomainConstants.structureBase;
+import static de.ubleipzig.metadata.extractor.DomainConstants.targetBase;
+import static de.ubleipzig.metadata.extractor.DomainConstants.viewerUrl;
 import static de.ubleipzig.metadata.extractor.ExtractorUtils.IIPSRV_DEFAULT;
-import static de.ubleipzig.metadata.extractor.MetadataUtils.harmonizeMetadataLabels;
+import static de.ubleipzig.metadata.extractor.MetadataUtils.harmonizeIdentifierLabels;
 import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
 import static java.io.File.separator;
 import static java.lang.String.format;
@@ -120,7 +120,7 @@ public class Reserializer {
             });
             final Optional<List<Metadata>> metadata = ofNullable(manifest.getMetadata());
             if (metadata.isPresent()) {
-                List<Metadata> harmonizedMetadata = harmonizeMetadataLabels(metadata.get());
+                List<Metadata> harmonizedMetadata = harmonizeIdentifierLabels(metadata.get());
                 final Optional<Metadata> metaURN = harmonizedMetadata.stream().filter(
                         y -> y.getLabel().equals("URN")).findAny();
                 final Optional<Metadata> metaPPN = harmonizedMetadata.stream().filter(
@@ -357,7 +357,7 @@ public class Reserializer {
             });
             return list;
         } catch (LdpClientException | IOException e) {
-            throw new RuntimeException("Record List Api Request Failed");
+            throw new RuntimeException("Record List Api Request Failed" + e.getMessage());
         }
     }
 
@@ -370,7 +370,7 @@ public class Reserializer {
             });
         } catch (LdpClientException | IOException e) {
             LOGGER.error("URN Api Request Failed for URN {}", urn);
-            throw new RuntimeException("URN Api Request Failed");
+            throw new RuntimeException("URN Api Request Failed" + e.getMessage());
         }
     }
 
@@ -383,7 +383,7 @@ public class Reserializer {
             });
         } catch (LdpClientException | IOException e) {
             LOGGER.error("PPN Api Request Failed for PPN {}", ppn);
-            throw new RuntimeException("PPN Api Request Failed");
+            throw new RuntimeException("PPN Api Request Failed" + e.getMessage());
         }
     }
 

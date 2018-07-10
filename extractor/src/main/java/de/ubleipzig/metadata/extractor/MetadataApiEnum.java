@@ -17,7 +17,7 @@ package de.ubleipzig.metadata.extractor;
 public enum MetadataApiEnum {
 
     AUTHOR("author"), LABEL("label"), GND("GND"), STRUCTTYPE("structType"), COLLECTION("collection"),
-    LANGUAGE("language-iso639-2");
+    LANGUAGE("language-iso639-2"), DISPLAYORDER("displayOrder"), MANUSCRIPT("manuscript"), MANIFESTTYPE("manifestType");
 
     private String apiKey;
 

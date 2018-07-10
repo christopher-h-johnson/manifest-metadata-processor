@@ -31,6 +31,10 @@ public class Metadata {
     @JsonProperty("value")
     private String value;
 
+    @JsonIgnore
+    private Integer displayOrder;
+
+
     /**
      * @return String
      */
@@ -62,4 +66,21 @@ public class Metadata {
     public void setValue(final String value) {
         this.value = value;
     }
+
+    /**
+     * @return String
+     */
+    @JsonIgnore
+    public Integer getDisplayOrder() {
+        return displayOrder;
+    }
+
+    /**
+     * @param displayOrder String
+     */
+    @JsonIgnore
+    public void setDisplayOrder(final Integer displayOrder) {
+        this.displayOrder = displayOrder;
+    }
+
 }
