@@ -11,6 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package de.ubleipzig.metadata.templates.metsmods;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,8 +22,12 @@ public class RecordList {
     @JsonProperty
     private List<Record> records;
 
-    public List<Record> getRecords()  {
+    public List<Record> getRecords() {
         return records;
+    }
+
+    public void setRecords(List<RecordList.Record> records) {
+        this.records = records;
     }
 
     public static class Record {
@@ -31,6 +36,10 @@ public class RecordList {
 
         public String getUrn() {
             return urn;
+        }
+
+        public void setUrn(String urn) {
+            this.urn = urn;
         }
 
         @JsonProperty
@@ -45,6 +54,17 @@ public class RecordList {
 
         public String getCreateDate() {
             return createDate;
+        }
+
+        @JsonProperty
+        private String resolvedURI;
+
+        public void setResolvedURI(String resolvedURI) {
+            this.resolvedURI = resolvedURI;
+        }
+
+        public String getResolvedURI() {
+            return resolvedURI;
         }
     }
 }

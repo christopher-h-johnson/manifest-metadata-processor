@@ -20,6 +20,12 @@ import static org.apache.camel.Exchange.CONTENT_TYPE;
 import static org.apache.camel.Exchange.HTTP_METHOD;
 import static org.apache.camel.Exchange.HTTP_RESPONSE_CODE;
 import static org.apache.camel.LoggingLevel.INFO;
+import static org.apache.camel.builder.PredicateBuilder.and;
+
+import de.ubleipzig.metadata.extractor.disassembler.DimensionManifestBuilder;
+import de.ubleipzig.metadata.extractor.disassembler.Disassembler;
+import de.ubleipzig.metadata.extractor.reserializer.Reserializer;
+import de.ubleipzig.metadata.extractor.reserializer.ReserializerVersion3;
 
 import java.util.Optional;
 
@@ -37,7 +43,8 @@ public class Extractor {
     private static final Logger LOGGER = LoggerFactory.getLogger(Extractor.class);
     private static final String HTTP_ACCEPT = "Accept";
     private static final String TYPE = "type";
-    private static final String MANIFEST_URI = "manifest";
+    private static final String MANIFEST_URI = "m";
+    private static final String VERSION = "version";
     private static final String contentTypeJsonLd = "application/ld+json";
 
 
@@ -137,13 +144,23 @@ public class Extractor {
                             e.getIn().setBody(dimManifestBuilder.build());
                         }
                     })
-                    .when(header(TYPE).isEqualTo("reserialize"))
+                    .when(and(header(TYPE).isEqualTo("reserialize"), header(VERSION).isEqualTo("2")))
                     .process(e -> {
                         final Optional<String> body = ofNullable(e.getIn().getBody().toString());
                         final String xmldbHost = e.getContext().resolvePropertyPlaceholders("{{xmldb.host}}");
                         if (body.isPresent()) {
                             final Reserializer reserializer =
                                     new Reserializer(body.get(), xmldbHost);
+                            e.getIn().setBody(reserializer.build());
+                        }
+                    })
+                    .when(and(header(TYPE).isEqualTo("reserialize"), header(VERSION).isEqualTo("3")))
+                    .process(e -> {
+                        final Optional<String> body = ofNullable(e.getIn().getBody().toString());
+                        final String xmldbHost = e.getContext().resolvePropertyPlaceholders("{{xmldb.host}}");
+                        if (body.isPresent()) {
+                            final ReserializerVersion3 reserializer =
+                                    new ReserializerVersion3(body.get(), xmldbHost);
                             e.getIn().setBody(reserializer.build());
                         }
                     });

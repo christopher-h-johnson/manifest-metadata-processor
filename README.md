@@ -2,6 +2,22 @@
 
 This is a collection of APIs for the manipulation of IIIF Manifests
 
+## Reserializer
+
+This is an api to change/correct previously published manifests.  It can also produce version 3 manifests from version 2 data.
+If new metadata is available via a JSON API, it can modify existing labels and values.
+
+### Parameters
+| Name | Options | Description |
+| ---- | ------- | ------- |
+| type | reserialize | processor type |
+| m | (none) | the URI of a IIIF (v.2.1) manifest |
+| version | 2 or 3   | the IIIF output specification |
+
+```bash
+ http://localhost:9098/extractor?type=reserialize&version=3&m={$remote_manifest_URI}
+ ```
+
 ## Renderer
 
 This is an api that can produce a zip file or PDF of a range of images from a IIIF manifest:

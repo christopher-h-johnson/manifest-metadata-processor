@@ -16,6 +16,8 @@ package de.ubleipzig.metadata.extractor;
 
 import static de.ubleipzig.metadata.processor.QueryUtils.readFile;
 
+import de.ubleipzig.metadata.extractor.disassembler.Disassembler;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;

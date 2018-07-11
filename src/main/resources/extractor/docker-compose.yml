@@ -2,7 +2,7 @@ version: "3"
 
 services:
   extractor:
-    image: ubleipzig/extractor:0.1.0
+    image: ubleipzig/extractor:0.2.0
     container_name: extractor
     restart: always
     ports:
@@ -11,3 +11,9 @@ services:
         EXTRACTOR_HOME: /etc/extractor
     volumes:
       - ./cfg/de.ubleipzig.metadata.extractor.cfg:/etc/extractor/de.ubleipzig.metadata.extractor.cfg
+    networks:
+      - metsmodsexist_default
+
+networks:
+  metsmodsexist_default:
+    external: true

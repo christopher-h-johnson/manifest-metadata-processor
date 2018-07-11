@@ -21,10 +21,12 @@ module de.ubleipzig.metadata.templates {
     opens de.ubleipzig.metadata.templates to com.fasterxml.jackson.databind;
     opens de.ubleipzig.metadata.templates.metsmods to com.fasterxml.jackson.databind;
     opens de.ubleipzig.metadata.templates.v2 to com.fasterxml.jackson.databind;
+    opens de.ubleipzig.metadata.templates.v3 to com.fasterxml.jackson.databind;
     opens de.ubleipzig.metadata.templates.atomic to com.fasterxml.jackson.databind;
     opens de.ubleipzig.metadata.templates.indexer to com.fasterxml.jackson.databind;
     opens de.ubleipzig.metadata.templates.collections to com.fasterxml.jackson.databind;
     exports de.ubleipzig.metadata.templates.v2;
+    exports de.ubleipzig.metadata.templates.v3;
     exports de.ubleipzig.metadata.templates.atomic;
     exports de.ubleipzig.metadata.templates.indexer;
     exports de.ubleipzig.metadata.templates.metsmods;
