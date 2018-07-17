@@ -97,13 +97,13 @@ public class MetadataBuilder {
     }
 
     public MetadataUtils buildMetadataFromPPNApi(String ppn) {
-        LOGGER.info("Getting Metadata from PPN API using {}", ppn);
+        LOGGER.info("Getting Metadata from PPN API using {} for manifest {}", ppn, manifest.getId());
         final Optional<MetsMods> metsMods = ofNullable(getMetadataFromAPIwithPPN(ppn));
         metsMods.ifPresentOrElse(mets -> {
             metadataUtils.setMetsMods(mets);
             metadataUtils.buildFinalMetadata();
         }, () -> {
-            LOGGER.error("invalid PPN {}", ppn);
+            LOGGER.error("invalid PPN {} for manifest {}", ppn, manifest.getId());
             throw new RuntimeException("Invalid PPN for manifest");
         });
         return metadataUtils;
@@ -111,13 +111,13 @@ public class MetadataBuilder {
 
     public MetadataUtils buildMetadataFromURNApi(String urn) {
 
-        LOGGER.info("Getting Metadata from URN API using {}", urn);
+        LOGGER.info("Getting Metadata from URN API using {} for manifest {}", urn, manifest.getId());
         final Optional<MetsMods> metsMods = ofNullable(getMetadataFromAPI(urn));
         metsMods.ifPresentOrElse(mets -> {
             metadataUtils.setMetsMods(mets);
             metadataUtils.buildFinalMetadata();
         }, () -> {
-            LOGGER.error("invalid URN {}", urn);
+            LOGGER.error("invalid URN {} for manifest {}", urn, manifest.getId());
             throw new RuntimeException("Invalid URN for manifest");
         });
         return metadataUtils;
@@ -153,7 +153,7 @@ public class MetadataBuilder {
             return MAPPER.readValue(res, new TypeReference<MetsMods>() {
             });
         } catch (LdpClientException | IOException e) {
-            LOGGER.error("URN Api Request Failed for URN {}", urn);
+            LOGGER.error("URN Api Request Failed for URN {} and manifest {}", urn, manifest.getId());
             throw new RuntimeException("URN Api Request Failed" + e.getMessage());
         }
     }
@@ -166,7 +166,7 @@ public class MetadataBuilder {
             return MAPPER.readValue(res, new TypeReference<MetsMods>() {
             });
         } catch (LdpClientException | IOException e) {
-            LOGGER.error("PPN Api Request Failed for PPN {}", ppn);
+            LOGGER.error("PPN Api Request Failed for PPN {} and manifest {}", ppn, manifest.getId());
             throw new RuntimeException("PPN Api Request Failed" + e.getMessage());
         }
     }

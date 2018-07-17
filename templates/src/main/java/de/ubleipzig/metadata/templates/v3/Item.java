@@ -66,4 +66,15 @@ public class Item {
     public void setItems(List<Item> items) {
         this.items = items;
     }
+
+    @JsonProperty
+    private List<String> behavior;
+
+    public List<String> getBehavior() {
+        return behavior;
+    }
+
+    public void setBehavior(final List<String> behavior) {
+        this.behavior = behavior;
+    }
 }

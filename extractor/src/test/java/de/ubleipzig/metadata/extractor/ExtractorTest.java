@@ -60,6 +60,8 @@ public final class ExtractorTest {
 
                 pc.setLocation("classpath:application.properties");
 
+                errorHandler(defaultErrorHandler().logExhaustedMessageHistory(false));
+
                 from("jetty:http://{{api.host}}:{{api.port}}{{api.prefix}}?"
                         + "optionsEnabled=true&matchOnUriPrefix=true&sendServerVersion=false"
                         + "&httpMethodRestrict=GET,OPTIONS")

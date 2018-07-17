@@ -24,7 +24,6 @@ import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.domai
 import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.katalogUrl;
 import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.manifestBase;
 import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.sequenceBase;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.structureBase;
 import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.targetBase;
 import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.viewerUrl;
 import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
@@ -52,12 +51,9 @@ import de.ubleipzig.metadata.templates.v2.Sequence;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -161,66 +157,10 @@ public class Reserializer {
             final PerfectManifest perfectManifest = getManifest(viewId, sequences);
             if (structures.isPresent()) {
                 final List<Structure> structs = structures.get();
-                final AtomicInteger ai = new AtomicInteger(0);
-                final Map<String, String> backReferenceMap = new HashMap<>();
-                structs.forEach(s -> {
-                    final Optional<List<String>> cs = ofNullable(s.getCanvases());
-                    final List<String> paddedCanvases = new ArrayList<>();
-                    cs.ifPresent(x -> x.forEach(c -> {
-                        try {
-                            final String paddedCanvasId = format(
-                                    "%08d", Integer.valueOf(new URL(c).getPath().split(separator)[3]));
-                            final String canvas = baseUrl + viewId + separator + targetBase + separator +
-                                    paddedCanvasId;
-                            paddedCanvases.add(canvas);
-                        } catch (MalformedURLException e) {
-                            e.printStackTrace();
-                        }
-                    }));
-                    if (!paddedCanvases.isEmpty()) {
-                        s.setCanvases(paddedCanvases);
-                    }
-                    final String structureId = s.getStructureId();
-                    if (!structureId.contains("LOG") || !structureId.contains("r0")) {
-                        if (ai.get() == 0) {
-                            final String newStructureId = baseUrl + viewId + separator + structureBase + separator +
-                                    "LOG_0000";
-                            backReferenceMap.put(s.getStructureId(), newStructureId);
-                            //unset within (fix for early manifests)
-                            s.setWithin(null);
-                            ai.getAndIncrement();
-                        } else {
-                            final String newStructureId = baseUrl + viewId + separator + structureBase + separator +
-                                    "LOG_" + String.format(
-                                    "%04d", ai.getAndIncrement());
-                            backReferenceMap.put(s.getStructureId(), newStructureId);
-                            //final Optional<List<String>> newRanges = ofNullable(rangeMap.get(newStructureId));
-                            //newRanges.ifPresent(s::setRanges);
-                            //unset within (fix for early manifests)
-                            s.setWithin(null);
-                        }
-                    }
-                });
-
-                for (Structure struct : structs) {
-                    final Optional<List<String>> fr = ofNullable(struct.getRanges());
-                    final List<String> newRanges = new ArrayList<>();
-                    if (fr.isPresent()) {
-                        for (String r1 : fr.get()) {
-                            final Optional<String> newRange = ofNullable(backReferenceMap.get(r1));
-                            newRange.ifPresent(newRanges::add);
-                        }
-                        struct.setRanges(newRanges);
-                    }
-                    final String structId = struct.getStructureId();
-                    final String newStructId = backReferenceMap.get(structId);
-                    struct.setStructureId(newStructId);
-                    final String sId = new URL(newStructId).getPath().split(separator)[3];
-                    final Optional<List<Metadata>> structureMetadata = ofNullable(
-                            metadataUtils.buildStructureMetadataForId(sId));
-                    structureMetadata.ifPresent(struct::setMetadata);
-                }
-                perfectManifest.setStructures(structs);
+                final StructureBuilder sbuilder = new StructureBuilder(structs, viewId, metadataUtils);
+                sbuilder.fix();
+                List<Structure> newStructures = sbuilder.build();
+                perfectManifest.setStructures(newStructures);
             }
             final List<Metadata> finalMetadata = metadataUtils.getFinalMetadata();
             perfectManifest.setMetadata(finalMetadata);

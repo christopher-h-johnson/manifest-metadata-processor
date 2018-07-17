@@ -11,8 +11,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package de.ubleipzig.metadata.extractor.reserializer;
 
+import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.baseUrl;
+import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.targetBase;
+import static java.io.File.separator;
+import static java.lang.String.format;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,5 +37,19 @@ public final class ReserializerUtils {
         final Map<String, List<String>> labelMap = new HashMap<>();
         labelMap.put(language, labelList);
         return labelMap;
+    }
+
+    public static List<String> buildPaddedCanvases(final List<String> canvases, final String viewId) {
+        final List<String> paddedCanvases = new ArrayList<>();
+        canvases.forEach(c -> {
+            try {
+                final String paddedCanvasId = format("%08d", Integer.valueOf(new URL(c).getPath().split(separator)[3]));
+                final String canvas = baseUrl + viewId + separator + targetBase + separator + paddedCanvasId;
+                paddedCanvases.add(canvas);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        });
+        return paddedCanvases;
     }
 }

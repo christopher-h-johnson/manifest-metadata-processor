@@ -247,7 +247,7 @@ public class ReserializerVersion3 {
             katalogReference.setId(katalogUrl + urn);
             katalogReference.setFormat("text/html");
             katalogReference.setType("Application");
-            katalogReference.setProfile("https://www.ub.uni-leipzig.de/profiles/application/v3");
+            katalogReference.setProfile(SEE_ALSO_PROFILE);
             seeAlso.add(katalogReference);
         }
         final SeeAlso viewerReference = new SeeAlso();

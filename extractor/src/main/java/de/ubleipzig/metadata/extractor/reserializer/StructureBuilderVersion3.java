@@ -16,10 +16,9 @@ package de.ubleipzig.metadata.extractor.reserializer;
 
 import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.baseUrl;
 import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.structureBase;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.targetBase;
 import static de.ubleipzig.metadata.extractor.reserializer.ReserializerUtils.buildLabelMap;
+import static de.ubleipzig.metadata.extractor.reserializer.ReserializerUtils.buildPaddedCanvases;
 import static java.io.File.separator;
-import static java.lang.String.format;
 import static java.util.Optional.ofNullable;
 
 import de.ubleipzig.metadata.templates.Structure;
@@ -54,20 +53,14 @@ public class StructureBuilderVersion3 {
         final AtomicInteger ai = new AtomicInteger(0);
         structures.forEach(s -> {
             final Optional<List<String>> cs = ofNullable(s.getCanvases());
-            final List<String> paddedCanvases = new ArrayList<>();
-            cs.ifPresent(x -> x.forEach(c -> {
-                try {
-                    final String paddedCanvasId = format(
-                            "%08d", Integer.valueOf(new URL(c).getPath().split(separator)[3]));
-                    final String canvas = baseUrl + viewId + separator + targetBase + separator + paddedCanvasId;
-                    paddedCanvases.add(canvas);
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
+
+            if (cs.isPresent()) {
+                final List<String> paddedCanvases = buildPaddedCanvases(cs.get(), viewId);
+                if (!paddedCanvases.isEmpty()) {
+                    s.setCanvases(paddedCanvases);
                 }
-            }));
-            if (!paddedCanvases.isEmpty()) {
-                s.setCanvases(paddedCanvases);
             }
+
             final String structureId = s.getStructureId();
             if (!structureId.contains("LOG") || !structureId.contains("r0")) {
                 if (ai.get() == 0) {
@@ -126,6 +119,7 @@ public class StructureBuilderVersion3 {
             final String sId;
             try {
                 sId = new URL(newStructId).getPath().split(separator)[3];
+                //TODO
                 final Optional<List<MetadataVersion3>> structureMetadata = ofNullable(
                         metadataUtils.buildStructureMetadataForId(sId));
                 //structureMetadata.ifPresent(struct::setMetadata);

@@ -286,9 +286,9 @@ public class IndexerTest {
     }
 
     private List<IRI> buildReserializerIRIList() {
-        final String disassemblerService = "http://localhost:9098/extractor?type=reserialize&manifest=http://iiif.ub"
+        final String disassemblerService = "http://localhost:9098/extractor?type=reserialize&version=2&m=http://iiif.ub"
                 + ".uni-leipzig.de/";
-        final int loops = 3000;
+        final int loops = 5000;
         final List<IRI> list = new ArrayList<>();
         for (int i = 12; i < loops; i++) {
             final String pid = String.format(tenDigitString, i);

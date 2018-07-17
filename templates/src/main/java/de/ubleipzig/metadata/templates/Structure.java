@@ -101,6 +101,21 @@ public class Structure {
      * @return String
      */
     @JsonIgnore
+    public String getViewingHint() {
+        return viewingHint;
+    }
+
+    /**
+     * @param viewingHint String
+     */
+    public void setViewingHint(final String viewingHint) {
+        this.viewingHint = viewingHint;
+    }
+
+    /**
+     * @return String
+     */
+    @JsonIgnore
     public String getWithin() {
         return within;
     }
