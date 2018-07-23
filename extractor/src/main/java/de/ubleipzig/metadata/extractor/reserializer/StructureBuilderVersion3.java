@@ -163,7 +163,9 @@ public class StructureBuilderVersion3 {
                 }
             });
             final List<Item> finalStructure = new ArrayList<>();
-            finalStructure.add(topStructure.get());
+            final Item top = topStructure.get();
+            top.setType("Range");
+            finalStructure.add(top);
             return finalStructure;
         }
         return null;

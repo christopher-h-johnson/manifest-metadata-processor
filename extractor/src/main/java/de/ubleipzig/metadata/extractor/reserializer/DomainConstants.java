@@ -31,8 +31,8 @@ public final class DomainConstants {
     static String annotationPageBase = "page";
     static String viewerUrl = "https://digital.ub.uni-leipzig.de/object/viewid/";
     static String katalogUrl = "https://katalog.ub.uni-leipzig.de/urn/";
-    static String IIIF_SERVICE_PROFILE = "level2";
-    static String IIIF_SERVICE_TYPE = "ImageService3";
+    static String IIIF_SERVICE_PROFILE = "http://iiif.io/api/image/2/level1.json";
+    static String IIIF_SERVICE_TYPE = "ImageService2";
     static String SEE_ALSO_PROFILE = "https://www.ub.uni-leipzig.de/profiles/application/v3";
     static String IIIF_VERSION3_CONTEXT = "http://iiif.io/api/presentation/3/context.json";
     static String WEB_ANNOTATION_CONTEXT = "http://www.w3.org/ns/anno.jsonld";
