@@ -1,0 +1,16 @@
+baseUrl: "https://iiif.ub.uni-leipzig.de/"
+viewerUrl: "https://digital.ub.uni-leipzig.de/object/viewid/"
+katalogUrl: "https://katalog.ub.uni-leipzig.de/urn/"
+
+isUBLImageService: true
+imageServiceBaseUrl: "https://iiif.ub.uni-leipzig.de/iiif"
+imageServiceImageDirPrefix: "/j2k/"
+imageServiceFileExtension: ".jpx"
+
+sequenceContext: "/sequence"
+canvasContext: "/canvas"
+annotationContext: "/anno"
+rangeContext: "/range"
+license: "https://creativecommons.org/publicdomain/mark/1.0/"
+attributionLicenseNote: "No Copyright - Public Domain Marked"
+attributionKey: "Provided by "

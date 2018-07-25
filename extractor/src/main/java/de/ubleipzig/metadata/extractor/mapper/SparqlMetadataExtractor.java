@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-package de.ubleipzig.metadata.extractor;
+package de.ubleipzig.metadata.extractor.mapper;
 
 import static de.ubleipzig.metadata.processor.JsonLdProcessorUtils.toRDF;
 import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
@@ -53,8 +53,6 @@ public class SparqlMetadataExtractor {
         this.body = body;
     }
 
-    ;
-
     public String build() throws IOException {
         try {
             final InputStream is = toRDF(body);
@@ -73,8 +71,10 @@ public class SparqlMetadataExtractor {
                         final Literal k = qs.getLiteral("k").asLiteral();
                         final Literal v = qs.getLiteral("mvalue").asLiteral();
                         final Literal l = qs.getLiteral("title").asLiteral();
+                        final Resource r = qs.getResource("related");
                         metadata.put(k.getString(), v.getString());
-                        metadata.put("Title", l.getString());
+                        metadata.put("title", l.getString());
+                        metadata.put("related", r.getURI());
                         metadata.put("@id", id.getURI());
                     }
                 }

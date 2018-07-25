@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.ubleipzig.metadata.processor.JsonSerializer;
 import de.ubleipzig.metadata.templates.MapList;
+import de.ubleipzig.metadata.templates.MapListCollection;
 import de.ubleipzig.metadata.templates.MetadataMap;
 import de.ubleipzig.metadata.templates.OrpAtom;
 import de.ubleipzig.metadata.templates.OrpAtomList;
@@ -164,7 +165,7 @@ public class IndexerTest {
     @Test
     void putJsonCollectionElasticBulk() throws LdpClientException {
         final Indexer indexer = new Indexer();
-        final String indexName = "ec3";
+        final String indexName = "ec7";
         final String baseUrl = elasticSearchHost;
         final String bulkUri = baseUrl + bulkContext;
         indexer.createIndexMapping(baseUrl + indexName,
@@ -175,9 +176,9 @@ public class IndexerTest {
             final CollectionMapListIdentifier mapList = MAPPER.readValue(
                     jsonList, new TypeReference<CollectionMapListIdentifier>() {
                     });
-            final List<OrpAtomList> m = mapList.getRootCollection();
+            final List<MapListCollection> m = mapList.getRootCollection();
             m.forEach(map -> {
-                map.getOrpAtomList().forEach(ml -> {
+                map.getMapListCollection().forEach(ml -> {
                     ElasticCreate c = indexer.createDocument(indexName, docTypeIndex, getDocumentId());
                     sb.append(JsonSerializer.serializeRaw(c).orElse(""));
                     sb.append(System.getProperty(lineSeparator));

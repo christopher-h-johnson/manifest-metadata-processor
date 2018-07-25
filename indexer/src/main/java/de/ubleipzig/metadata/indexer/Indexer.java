@@ -110,7 +110,7 @@ public class Indexer {
 
     public MetadataMap getMetadataMap(IRI iri) {
         try {
-            final String extractorService = "http://localhost:9098/extractor?type=extract&manifest=";
+            final String extractorService = "http://localhost:9098/extractor?type=extract&m=";
             final String extractorRequest = extractorService + iri.getIRIString();
             final IRI req = rdf.createIRI(extractorRequest);
             final HttpResponse res = client.getResponse(req);
@@ -204,5 +204,20 @@ public class Indexer {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<MetadataMap> buildMetadataMap(final String json, final List<MetadataMap> mapList ) {
+        final MetadataMap metadataMap;
+        try {
+            metadataMap = MAPPER.readValue(
+                    json, new TypeReference<MetadataMap>() {
+                    });
+            if (metadataMap.getMetadataMap().size() > 0) {
+                mapList.add(metadataMap);
+            }
+            return mapList;
+        } catch (IOException e) {
+            throw new RuntimeException("Could not map metadata JSON", e.getCause());
+        }
     }
 }

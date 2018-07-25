@@ -24,6 +24,7 @@ import static org.apache.camel.builder.PredicateBuilder.and;
 
 import de.ubleipzig.metadata.extractor.disassembler.DimensionManifestBuilder;
 import de.ubleipzig.metadata.extractor.disassembler.Disassembler;
+import de.ubleipzig.metadata.extractor.mapper.MetadataMapper;
 import de.ubleipzig.metadata.extractor.reserializer.Reserializer;
 import de.ubleipzig.metadata.extractor.reserializer.ReserializerVersion3;
 
@@ -123,7 +124,7 @@ public class Extractor {
                     .process(e -> {
                         final Optional<String> body = ofNullable(e.getIn().getBody().toString());
                         if (body.isPresent()) {
-                            final SparqlMetadataExtractor extractor = new SparqlMetadataExtractor(body.get());
+                            final MetadataMapper extractor = new MetadataMapper(body.get());
                             e.getIn().setBody(extractor.build());
                         }
                     })

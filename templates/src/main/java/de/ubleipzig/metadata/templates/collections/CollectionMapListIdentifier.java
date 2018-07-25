@@ -17,21 +17,21 @@ package de.ubleipzig.metadata.templates.collections;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import de.ubleipzig.metadata.templates.OrpAtomList;
+import de.ubleipzig.metadata.templates.MapListCollection;
 
 import java.util.List;
 
 public class CollectionMapListIdentifier {
 
     @JsonProperty
-    private List<OrpAtomList> rootCollection;
+    private List<MapListCollection> rootCollection;
 
     @JsonIgnore
-    public List<OrpAtomList> getRootCollection() {
+    public List<MapListCollection> getRootCollection() {
         return rootCollection;
     }
 
-    public void setRootCollection(List<OrpAtomList> rootCollection) {
+    public void setRootCollection(List<MapListCollection> rootCollection) {
         this.rootCollection = rootCollection;
     }
 }

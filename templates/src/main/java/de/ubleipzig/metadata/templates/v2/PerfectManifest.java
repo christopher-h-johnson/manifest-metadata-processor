@@ -21,7 +21,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import de.ubleipzig.iiif.vocabulary.SCEnum;
 import de.ubleipzig.metadata.templates.Metadata;
-import de.ubleipzig.metadata.templates.Service;
 import de.ubleipzig.metadata.templates.Structure;
 
 import java.util.List;
@@ -51,8 +50,20 @@ public class PerfectManifest {
     @JsonProperty("license")
     private String license;
 
-    @JsonProperty("attribution")
+    @JsonProperty
+    private String viewingDirection;
+
+    @JsonProperty
+    private String within;
+
+    @JsonProperty
+    private Object description;
+
+    @JsonProperty
     private String attribution;
+
+    @JsonProperty
+    private Object thumbnail;
 
     @JsonProperty("logo")
     private String logo;
@@ -64,13 +75,19 @@ public class PerfectManifest {
     private List<Sequence> sequences;
 
     @JsonProperty("service")
-    private Service service;
+    private List<Object> service;
+
+    @JsonProperty
+    private List<Object> seeAlso;
 
     @JsonProperty("metadata")
     private List<Metadata> metadata;
 
     @JsonProperty("structures")
     private List<Structure> structures;
+
+    @JsonProperty
+    private String viewingHint;
 
     /**
      * Manifest.
@@ -114,10 +131,21 @@ public class PerfectManifest {
     }
 
     /**
+     * @return String
+     */
+    public String getLabel() {
+        return label;
+    }
+
+    /**
      * @param attribution String
      */
     public void setAttribution(final String attribution) {
         this.attribution = attribution;
+    }
+
+    public Object getThumbnail() {
+        return thumbnail;
     }
 
     /**
@@ -137,7 +165,7 @@ public class PerfectManifest {
     /**
      * @param service String
      */
-    public void setService(final Service service) {
+    public void setService(final List<Object> service) {
         this.service = service;
     }
 
@@ -146,6 +174,13 @@ public class PerfectManifest {
      */
     public void setSequences(final List<Sequence> sequences) {
         this.sequences = sequences;
+    }
+
+    /**
+     * @return List
+     */
+    public List<Sequence> getSequences() {
+        return sequences;
     }
 
     /**
@@ -163,10 +198,24 @@ public class PerfectManifest {
     }
 
     /**
+     * @return List
+     */
+    public List<Metadata> getMetadata() {
+        return metadata;
+    }
+
+    /**
      * @param related List
      */
     public void setRelated(final List<String> related) {
         this.related = related;
+    }
+
+    /**
+     * @return List
+     */
+    public List<String> getRelated() {
+        return related;
     }
 }
 

@@ -11,16 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-module de.ubleipzig.metadata.indexer {
-    requires org.apache.commons.rdf.api;
-    requires org.trellisldp.client;
-    requires org.apache.commons.rdf.jena;
-    requires de.ubleipzig.metadata.templates;
-    requires com.fasterxml.jackson.databind;
-    requires de.ubleipzig.metadata.processor;
-    requires com.fasterxml.jackson.core;
-    requires jdk.incubator.httpclient;
-    requires slf4j.api;
-    requires org.trellisldp.jpms.vocabulary;
-    exports de.ubleipzig.metadata.indexer;
-}
+/**
+ *
+ */
+package de.ubleipzig.metadata.extractor.mapper;

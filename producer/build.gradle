@@ -1,11 +1,11 @@
 apply plugin: 'application'
 apply plugin: 'com.zyxist.chainsaw'
 
-mainClassName = 'de.ubleipzig.metadata.extractor.Extractor'
-description = 'A Camel service that assembles manifests from RDF queries'
+mainClassName = 'de.ubleipzig.metadata.producer.Producer'
+description = 'A Camel service that produces IIIF Manifests'
 
 javaModule {
-    name = 'de.ubleipzig.metadata.extractor'
+    name = 'de.ubleipzig.metadata.producer'
     extraTestModules = ['jdk.incubator.httpclient']
 }
 
@@ -36,6 +36,7 @@ dependencies {
     implementation("org.apache.camel:camel-http4:$camelVersion")
     implementation("org.apache.httpcomponents:httpclient-cache:$httpClientOsgiVersion")
     implementation("org.trellisldp:trellis-client:$trellisClientVersion")
+    implementation("org.xmlbeam:xmlprojector:$xbeamVersion")
 
     testImplementation("de.ubleipzig:jena.core-jpms:$jenaVersion")
     testImplementation("org.apache.camel:camel-test:$camelVersion")
@@ -45,7 +46,7 @@ dependencies {
 }
 
 artifacts {
-    archives (file('build/cfg/main/de.ubleipzig.metadata.extractor.cfg')) {
+    archives (file('build/cfg/main/de.ubleipzig.metadata.producer.cfg')) {
         classifier 'configuration'
         type 'cfg'
     }

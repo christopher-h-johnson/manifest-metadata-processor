@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 public class ManifestReserializerTest {
     private String testManifest = "http://iiif.ub.uni-leipzig.de/0000000054/manifest.json";
     private String testManifest1 = "http://iiif.ub.uni-leipzig.de/0000000018/manifest.json";
-    private String xmldbhost = "http://localhost:8900";
+    private String xmldbhost = "http://workspaces.ub.uni-leipzig.de:8900";
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @Test

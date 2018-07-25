@@ -102,4 +102,12 @@ public class Manifest {
         return structures;
     }
 
+    public Object getRelated() {
+        return related;
+    }
+
+    public Object getThumbnail() {
+        return thumbnail;
+    }
+
 }

@@ -1,8 +1,10 @@
 PREFIX sc: <http://iiif.io/api/presentation/2#> 
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-SELECT ?manifest ?title ?k ?mvalue WHERE {
+PREFIX dcterms: <http://purl.org/dc/terms/>
+SELECT ?manifest ?related ?title ?k ?mvalue WHERE {
 ?manifest rdfs:label ?title .
+?manifest dcterms:relation ?related .
 ?manifest sc:metadataLabels ?llist .
 ?llist rdf:rest* ?lmid .
 ?lmid rdf:first ?label .

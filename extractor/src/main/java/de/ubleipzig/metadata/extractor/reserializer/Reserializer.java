@@ -182,7 +182,9 @@ public class Reserializer {
     public List<Sequence> getSequence(final List<Canvas> graph) {
         final String id = baseUrl + sequenceBase + separator + UUID.randomUUID();
         final List<Sequence> sequences = new ArrayList<>();
-        final Sequence sequence = new Sequence(id, graph);
+        final Sequence sequence = new Sequence();
+        sequence.setId(id);
+        sequence.setCanvases(graph);
         sequence.setViewingHint("paged");
         sequences.add(sequence);
         return sequences;

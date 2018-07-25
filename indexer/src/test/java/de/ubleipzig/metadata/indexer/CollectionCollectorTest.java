@@ -48,8 +48,9 @@ public class CollectionCollectorTest {
     private final LdpClient client = new LdpClientImpl();
     private static final JenaRDF rdf = new JenaRDF();
     private static final ObjectMapper MAPPER = new ObjectMapper();
-    private static Logger logger = LoggerFactory.getLogger(CollectionCollectorTest.class);
-    private static final String baseUrl = "http://localhost:9098/extractor?type=extract&manifest=";
+    private static final String baseUrl = "http://localhost:9098/extractor?type=extract&m=";
+    private final Indexer indexer = new Indexer();
+    private static final Logger LOGGER = LoggerFactory.getLogger(CollectionCollectorTest.class);
 
     @Test
     void buildCollectionsFromJson() {
@@ -74,27 +75,17 @@ public class CollectionCollectorTest {
                                     json1, new TypeReference<ManifestList>() {
                                     });
                             final List<ManifestItem> manifestList = subcollections.getManifests();
-                            final List<MetadataMap> mapList = new ArrayList<>();
-                            manifestList.forEach(m -> {
+                            List<MetadataMap> mapList = new ArrayList<>();
+                            for (ManifestItem m : manifestList) {
                                 final IRI identifier = rdf.createIRI(m.getId());
-
-                                try {
-                                    final IRI apiReq = rdf.createIRI(baseUrl + identifier.getIRIString());
-                                    final HttpResponse res3 = client.getResponse(apiReq);
-                                    if (res3.statusCode() == 200) {
-                                        final String json3 = res3.body().toString();
-                                        final MetadataMap metadataMap = MAPPER.readValue(
-                                                json3, new TypeReference<MetadataMap>() {
-                                                });
-                                        if (metadataMap.getMetadataMap().size() > 0) {
-                                            mapList.add(metadataMap);
-                                            logger.info("adding {} to indexable metadata", identifier.getIRIString());
-                                        }
-                                    }
-                                } catch (LdpClientException | IOException e) {
-                                    e.printStackTrace();
+                                final IRI apiReq = rdf.createIRI(baseUrl + identifier.getIRIString());
+                                final HttpResponse res3 = client.getResponse(apiReq);
+                                if (res3.statusCode() == 200) {
+                                    final String json3 = res3.body().toString();
+                                    mapList = indexer.buildMetadataMap(json3, mapList);
+                                    LOGGER.info("adding {} to indexable metadata", identifier.getIRIString());
                                 }
-                            });
+                            }
                             final MapListCollection l = new MapListCollection();
                             l.setMapListCollection(mapList);
                             l.setId(c.getId());

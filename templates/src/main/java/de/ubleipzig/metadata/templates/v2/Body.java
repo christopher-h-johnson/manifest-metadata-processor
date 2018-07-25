@@ -111,6 +111,14 @@ public class Body {
     }
 
     /**
+     *
+     * @return Service
+     */
+    public Service getService() {
+        return service;
+    }
+
+    /**
      * setResourceHeight.
      *
      * @param height height
