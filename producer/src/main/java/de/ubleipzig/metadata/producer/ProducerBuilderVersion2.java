@@ -16,6 +16,9 @@ package de.ubleipzig.metadata.producer;
 
 import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
 import static de.ubleipzig.metadata.producer.doc.MetsConstants.URN_TYPE;
+import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.getAttribution;
+import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.getLogo;
+import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.getManifestTitle;
 import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.getManuscriptIdByType;
 import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.getMetsFromString;
 import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.getOrderLabelForDiv;
@@ -23,6 +26,7 @@ import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.getPhysical
 import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.getPresentationUri;
 import static java.io.File.separator;
 import static java.lang.String.format;
+import static java.util.Optional.ofNullable;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,12 +35,17 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import de.ubleipzig.iiif.vocabulary.SC;
 import de.ubleipzig.metadata.producer.doc.MetsData;
 import de.ubleipzig.metadata.templates.ImageServiceResponse;
+import de.ubleipzig.metadata.templates.Metadata;
 import de.ubleipzig.metadata.templates.Service;
+import de.ubleipzig.metadata.templates.metsmods.MetsMods;
 import de.ubleipzig.metadata.templates.v2.Body;
 import de.ubleipzig.metadata.templates.v2.Canvas;
 import de.ubleipzig.metadata.templates.v2.PaintingAnnotation;
 import de.ubleipzig.metadata.templates.v2.PerfectManifest;
 import de.ubleipzig.metadata.templates.v2.Sequence;
+import de.ubleipzig.metadata.templates.v2.StructureList;
+import de.ubleipzig.metadata.transformer.MetadataImplVersion2;
+import de.ubleipzig.metadata.transformer.XmlDbAccessor;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,19 +62,18 @@ import org.slf4j.LoggerFactory;
 
 public class ProducerBuilderVersion2 {
 
-    private String body;
     private static final Logger LOGGER = LoggerFactory.getLogger(ProducerBuilderVersion2.class);
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private String xmldbHost;
     private MetsData mets;
 
-    public ProducerBuilderVersion2(final String body, final String xmldbHost) {
-        this.body = body;
+    public ProducerBuilderVersion2(final String xmlDoc, final String xmldbHost) {
         this.xmldbHost = xmldbHost;
-        this.mets = getMetsFromString(body);
+        this.mets = getMetsFromString(xmlDoc);
     }
 
     /**
+     * retrieveConfig.
      * This method parses the provided configFile into its equivalent command-line args.
      *
      * @param configFile containing config args
@@ -76,20 +84,31 @@ public class ProducerBuilderVersion2 {
             final ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
             return mapper.readValue(configFile, Config.class);
         } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
+            throw new RuntimeException("Could not read configuration " + e.getMessage());
         }
     }
 
+    /**
+     * getViewId.
+     *
+     * @param presentationUri the location of the viewer
+     * @return the 10 digit viewId integer as a String
+     */
     private String getViewId(final String presentationUri) {
         try {
             final String presentationUriPath = new URL(presentationUri).getPath();
-            final String[] parts = presentationUriPath.split("/");
+            final String[] parts = presentationUriPath.split(separator);
             return parts[3];
         } catch (MalformedURLException e) {
             throw new RuntimeException("No view Id found. Exiting " + e.getMessage());
         }
     }
 
+    /**
+     * build.
+     *
+     * @return a json-ld manifest as a String
+     */
     public String build() {
         final PerfectManifest manifest = new PerfectManifest();
         manifest.setContext(SC.CONTEXT);
@@ -103,6 +122,21 @@ public class ProducerBuilderVersion2 {
         final String resourceContext = baseUrl + viewId;
         manifest.setId(resourceContext + separator + config.getManifestFilename());
 
+        //setTitle
+        final String title = getManifestTitle(mets);
+        manifest.setLabel(title);
+
+        //setLicense
+        manifest.setLicense(config.getLicense());
+
+        //setAttribution
+        final String attribution = config.getAttributionKey() + getAttribution(
+                mets) + "<br/>" + config.getAttributionLicenseNote();
+        manifest.setAttribution(attribution);
+
+        //setLogo
+        manifest.setLogo(getLogo(mets));
+
         //setRelated
         final ArrayList<String> related = new ArrayList<>();
         final String urn = getManuscriptIdByType(mets, URN_TYPE);
@@ -110,6 +144,22 @@ public class ProducerBuilderVersion2 {
         related.add(presentationUri);
         manifest.setRelated(related);
 
+        //getMetadataFromJSON_API
+        final MetadataImplVersion2 metadataImplVersion2 = new MetadataImplVersion2();
+        final XmlDbAccessor accessor = new XmlDbAccessor(xmldbHost);
+        final MetsMods metsmods = accessor.getMetadataFromAPI(urn);
+        metadataImplVersion2.setMetsMods(metsmods);
+        metadataImplVersion2.buildFinalMetadata();
+        final List<Metadata> metadata = metadataImplVersion2.getMetadata();
+        manifest.setMetadata(metadata);
+
+        //build Structures
+        final StructureBuilderVersion2 structureBuilderVersion2 = new StructureBuilderVersion2(
+                config, mets, resourceContext);
+        final Optional<StructureList> structureList = ofNullable(structureBuilderVersion2.build());
+        structureList.ifPresent(slist -> manifest.setStructures(slist.getStructureList()));
+
+        //buildCanvases
         final List<Canvas> canvases = new ArrayList<>();
         final AtomicInteger atomicInteger = new AtomicInteger(1);
         final List<String> divs = getPhysicalDivs(mets);
@@ -126,7 +176,8 @@ public class ProducerBuilderVersion2 {
 
             //canvasId = resourceId
             final String canvasIdString = resourceContext + canvasContext + separator + resourceFileId;
-            final String bodyIdString = resourceContext + separator + resourceFileId + ".jpg";
+            final String bodyIdString =
+                    resourceContext + separator + resourceFileId + config.getResourceFileExtension();
             //set Canvas Id
             canvas.setId(canvasIdString);
             //set BodyId
@@ -144,6 +195,8 @@ public class ProducerBuilderVersion2 {
             final Integer width = ir.getWidth();
             canvas.setWidth(width);
             canvas.setHeight(height);
+            body.setResourceType(config.getResourceType());
+            body.setResourceFormat(config.getResourceFormat());
             body.setResourceWidth(width);
             body.setResourceHeight(height);
 
@@ -166,23 +219,35 @@ public class ProducerBuilderVersion2 {
             canvases.add(canvas);
         }
         final String sequenceId = iriBuilder.buildSequenceId(resourceContext);
-        final List<Sequence> sequence = addCanvasesToSequence(canvases, sequenceId);
+        final List<Sequence> sequence = addCanvasesToSequence(canvases, sequenceId, config);
         manifest.setSequences(sequence);
+
         LOGGER.info("Builder Process Complete, Serializing to Json ...");
         final Optional<String> json = serialize(manifest);
         return json.orElse(null);
     }
 
-    public List<Sequence> addCanvasesToSequence(final List<Canvas> canvases, final String sequenceId) {
+    /**
+     * addCanvasesToSequence.
+     *
+     * @param canvases   List
+     * @param sequenceId String
+     * @return List
+     */
+    public List<Sequence> addCanvasesToSequence(final List<Canvas> canvases, final String sequenceId,
+                                                final Config config) {
         final List<Sequence> sequences = new ArrayList<>();
         final Sequence sequence = new Sequence();
         sequence.setId(sequenceId);
         sequence.setCanvases(canvases);
+        sequence.setViewingHint(config.getViewingHint());
         sequences.add(sequence);
         return sequences;
     }
 
     /**
+     * mapServiceResponse.
+     *
      * @param res String
      * @return ImageServiceResponse
      */

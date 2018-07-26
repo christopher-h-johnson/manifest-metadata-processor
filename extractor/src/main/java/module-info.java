@@ -13,6 +13,7 @@
  */
 module de.ubleipzig.metadata.extractor {
     exports de.ubleipzig.metadata.extractor;
+    exports de.ubleipzig.metadata.extractor.reserializer;
     requires slf4j.api;
     requires camel.core;
     requires de.ubleipzig.iiif.vocabulary;
@@ -28,4 +29,5 @@ module de.ubleipzig.metadata.extractor {
     requires org.apache.commons.io;
     requires de.ubleipzig.image.metadata;
     requires org.trellisldp.client;
+    requires de.ubleipzig.metadata.transformer;
 }

@@ -40,9 +40,9 @@ import org.slf4j.LoggerFactory;
 
 
 public class MetadataMapper {
-    private String body;
     private static final Logger LOGGER = LoggerFactory.getLogger(MetadataMapper.class);
     private static final ObjectMapper MAPPER = new ObjectMapper();
+    private String body;
 
     public MetadataMapper(final String body) {
         this.body = body;

@@ -45,12 +45,22 @@ import org.apache.jena.core.rdf.model.ModelFactory;
 import org.apache.jena.core.rdf.model.Resource;
 
 public class SparqlMetadataExtractor {
-    private String body;
     private static final JenaRDF rdf = new JenaRDF();
     private static final String EMPTY = "empty";
+    private String body;
 
     public SparqlMetadataExtractor(final String body) {
         this.body = body;
+    }
+
+    private static Graph getGraph(final InputStream stream) {
+        final Model model = createDefaultModel();
+        if (rdf.asJenaLang(NTRIPLES).isPresent()) {
+            final Lang lang = rdf.asJenaLang(NTRIPLES).get();
+            RDFDataMgr.read(model, stream, null, lang);
+            return rdf.asGraph(model);
+        }
+        return null;
     }
 
     public String build() throws IOException {
@@ -86,15 +96,5 @@ public class SparqlMetadataExtractor {
         } catch (IOException ex) {
             throw new RuntimeException("Could not Disassemble Manifest", ex.getCause());
         }
-    }
-
-    private static Graph getGraph(final InputStream stream) {
-        final Model model = createDefaultModel();
-        if (rdf.asJenaLang(NTRIPLES).isPresent()) {
-            final Lang lang = rdf.asJenaLang(NTRIPLES).get();
-            RDFDataMgr.read(model, stream, null, lang);
-            return rdf.asGraph(model);
-        }
-        return null;
     }
 }

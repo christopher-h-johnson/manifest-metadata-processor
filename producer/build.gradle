@@ -25,6 +25,8 @@ dependencies {
 
     implementation project(":processor")
     implementation project(":templates")
+    implementation project(":extractor")
+    implementation project(":transformer")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("de.ubleipzig:iiif.vocabulary:$iiifVocabularyVersion")
     implementation("de.ubleipzig:image.metadata:$imageMetadataVersion")

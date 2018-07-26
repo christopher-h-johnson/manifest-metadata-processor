@@ -42,12 +42,14 @@ import de.ubleipzig.metadata.templates.Images;
 import de.ubleipzig.metadata.templates.Manifest;
 import de.ubleipzig.metadata.templates.Metadata;
 import de.ubleipzig.metadata.templates.Service;
-import de.ubleipzig.metadata.templates.Structure;
 import de.ubleipzig.metadata.templates.v2.Body;
 import de.ubleipzig.metadata.templates.v2.Canvas;
 import de.ubleipzig.metadata.templates.v2.PaintingAnnotation;
 import de.ubleipzig.metadata.templates.v2.PerfectManifest;
 import de.ubleipzig.metadata.templates.v2.Sequence;
+import de.ubleipzig.metadata.templates.v2.Structure;
+import de.ubleipzig.metadata.transformer.MetadataApi;
+import de.ubleipzig.metadata.transformer.MetadataBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -63,9 +65,9 @@ import org.slf4j.LoggerFactory;
 
 public class Reserializer {
 
-    private String body;
     private static final Logger LOGGER = LoggerFactory.getLogger(Reserializer.class);
     private static final ObjectMapper MAPPER = new ObjectMapper();
+    private String body;
     private String xmldbHost;
 
     public Reserializer(final String body, final String xmldbHost) {
@@ -78,7 +80,7 @@ public class Reserializer {
             final Manifest manifest = MAPPER.readValue(body, new TypeReference<Manifest>() {
             });
 
-            final MetadataUtils metadataUtils = new MetadataBuilder(manifest, xmldbHost).build();
+            final MetadataApi<Metadata> metadataImplVersion2 = new MetadataBuilder(manifest, xmldbHost).build();
 
             //build structures objects
             final Optional<List<Structure>> structures = ofNullable(manifest.getStructures());
@@ -157,12 +159,12 @@ public class Reserializer {
             final PerfectManifest perfectManifest = getManifest(viewId, sequences);
             if (structures.isPresent()) {
                 final List<Structure> structs = structures.get();
-                final StructureBuilder sbuilder = new StructureBuilder(structs, viewId, metadataUtils);
+                final StructureBuilder sbuilder = new StructureBuilder(structs, viewId, metadataImplVersion2);
                 sbuilder.fix();
                 List<Structure> newStructures = sbuilder.build();
                 perfectManifest.setStructures(newStructures);
             }
-            final List<Metadata> finalMetadata = metadataUtils.getFinalMetadata();
+            final List<Metadata> finalMetadata = metadataImplVersion2.getMetadata();
             perfectManifest.setMetadata(finalMetadata);
             perfectManifest.setLabel(manifest.getLabel());
             final Optional<String> finalURN = ofNullable(getURNfromFinalMetadata(finalMetadata, viewId));

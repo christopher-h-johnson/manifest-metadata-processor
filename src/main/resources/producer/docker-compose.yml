@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  producer:
+    image: ubleipzig/producer:0.1.0
+    container_name: producer
+    restart: always
+    ports:
+      - "9303:9303"
+    environment:
+        PRODUCER_HOME: /etc/producer
+    volumes:
+      - ./cfg/de.ubleipzig.metadata.producer.cfg:/etc/producer/de.ubleipzig.metadata.producer.cfg
+    networks:
+      - metsmodsexist_default
+
+networks:
+  metsmodsexist_default:
+    external: true

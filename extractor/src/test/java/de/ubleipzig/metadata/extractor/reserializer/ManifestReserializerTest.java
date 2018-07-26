@@ -17,12 +17,12 @@ package de.ubleipzig.metadata.extractor.reserializer;
 import static de.ubleipzig.metadata.processor.QueryUtils.readFile;
 import static java.util.Optional.ofNullable;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import de.ubleipzig.metadata.templates.Manifest;
 import de.ubleipzig.metadata.templates.Metadata;
 import de.ubleipzig.metadata.templates.metsmods.MetsMods;
+import de.ubleipzig.metadata.transformer.MetadataImplVersion2;
+import de.ubleipzig.metadata.transformer.XmlDbAccessor;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,6 +30,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -43,8 +44,8 @@ public class ManifestReserializerTest {
     void testReserializeManifest() {
         try {
             final URL url = new URL(testManifest);
-            InputStream is = url.openStream();
-            String json = readFile(is);
+            final InputStream is = url.openStream();
+            final String json = readFile(is);
             final Reserializer reserializer = new Reserializer(json, xmldbhost);
             System.out.println(reserializer.build());
         } catch (IOException e) {
@@ -56,8 +57,8 @@ public class ManifestReserializerTest {
     void testReserializeManifest2() {
         try {
             final URL url = new URL("http://iiif.ub.uni-leipzig.de/0000009054/manifest.json");
-            InputStream is = url.openStream();
-            String json = readFile(is);
+            final InputStream is = url.openStream();
+            final String json = readFile(is);
             final Reserializer reserializer = new Reserializer(json, xmldbhost);
             System.out.println(reserializer.build());
         } catch (IOException e) {
@@ -69,8 +70,8 @@ public class ManifestReserializerTest {
     void testReserializeManifest3() {
         try {
             final URL url = new URL("http://iiif.ub.uni-leipzig.de/0000004595/manifest.json");
-            InputStream is = url.openStream();
-            String json = readFile(is);
+            final InputStream is = url.openStream();
+            final String json = readFile(is);
             final ReserializerVersion3 reserializer = new ReserializerVersion3(json, xmldbhost);
             System.out.println(reserializer.build());
         } catch (IOException e) {
@@ -80,83 +81,49 @@ public class ManifestReserializerTest {
 
     @Test
     void testGetUrlListFromAPI() {
-        try {
-            final URL url = new URL(testManifest1);
-            InputStream is = url.openStream();
-            String json = readFile(is);
-            final Manifest manifest = MAPPER.readValue(json, new TypeReference<Manifest>() {
-            });
-            final MetadataBuilder builder = new MetadataBuilder(manifest, xmldbhost);
-            List<URL> urlList = builder.buildMetsModsJsonApiURLList();
-            System.out.println(urlList);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        final XmlDbAccessor accessor = new XmlDbAccessor(xmldbhost);
+        final List<URL> urlList = accessor.buildMetsModsJsonApiURLList();
+        System.out.println(urlList);
     }
 
     @SuppressWarnings("unchecked")
     @Test
     void testGetMetadataFromAPI() {
-        try {
-            final URL url = new URL(testManifest1);
-            InputStream is = url.openStream();
-            String json = readFile(is);
-            final Manifest manifest = MAPPER.readValue(json, new TypeReference<Manifest>() {
-            });
-            final MetadataBuilder builder = new MetadataBuilder(manifest, xmldbhost);
-            MetsMods metsmods = builder.getMetadataFromAPI("urn:nbn:de:bsz:15-0011-224709");
-            Map<String, Object> metadata = metsmods.getMetadata();
-            List<Map<String, Object>> structures = metsmods.getStructures();
-            Optional<?> author = ofNullable(metadata.get("author"));
-            Optional<?> collection = ofNullable(metadata.get("collection"));
-            Optional<Map<String, String>> objAsMap = author.filter(Map.class::isInstance).map(Map.class::cast);
-            Optional<String> objAsString = collection.filter(String.class::isInstance).map(String.class::cast);
-            Optional<List<String>> objAsList = collection.filter(List.class::isInstance).map(List.class::cast);
-            objAsList.ifPresent(System.out::println);
-            objAsMap.ifPresent(System.out::println);
-            objAsString.ifPresent(System.out::println);
+        final XmlDbAccessor accessor = new XmlDbAccessor(xmldbhost);
+        final MetsMods metsmods = accessor.getMetadataFromAPI("urn:nbn:de:bsz:15-0011-224709");
+        final Map<String, Object> metadata = metsmods.getMetadata();
+        final List<Map<String, Object>> structures = metsmods.getStructures();
+        final Optional<?> author = ofNullable(metadata.get("author"));
+        final Optional<?> collection = ofNullable(metadata.get("collection"));
+        final Optional<Map<String, String>> objAsMap = author.filter(Map.class::isInstance).map(Map.class::cast);
+        final Optional<String> objAsString = collection.filter(String.class::isInstance).map(String.class::cast);
+        final Optional<List<String>> objAsList = collection.filter(List.class::isInstance).map(List.class::cast);
+        objAsList.ifPresent(System.out::println);
+        objAsMap.ifPresent(System.out::println);
+        objAsString.ifPresent(System.out::println);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Test
     void testBuildAuthorsFromAPIList() {
-        final MetadataUtils metadataUtils = new MetadataUtils();
-        try {
-            final URL url = new URL(testManifest1);
-            InputStream is = url.openStream();
-            String json = readFile(is);
-            final Manifest manifest = MAPPER.readValue(json, new TypeReference<Manifest>() {
-            });
-            final MetadataBuilder builder = new MetadataBuilder(manifest, xmldbhost);
-            MetsMods metsmods = builder.getMetadataFromAPI("urn:nbn:de:bsz:15-0012-142679");
-            metadataUtils.setMetsMods(metsmods);
-            List<Metadata> authors = metadataUtils.setAuthors();
-            System.out.println(authors);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        final MetadataImplVersion2 metadataUtils = new MetadataImplVersion2();
+        final XmlDbAccessor accessor = new XmlDbAccessor(xmldbhost);
+        final MetsMods metsmods = accessor.getMetadataFromAPI("urn:nbn:de:bsz:15-0012-142679");
+        metadataUtils.setMetsMods(metsmods);
+        final List<Metadata> authors = metadataUtils.setAuthors();
+        System.out.println(authors.stream().map(Metadata::getValue)
+                .collect( Collectors.joining( "," )));
     }
 
     @Test
     void testBuildAuthorFromAPIMap() {
-        final MetadataUtils metadataUtils = new MetadataUtils();
-        try {
-            final URL url = new URL(testManifest1);
-            InputStream is = url.openStream();
-            String json = readFile(is);
-            final Manifest manifest = MAPPER.readValue(json, new TypeReference<Manifest>() {
-            });
-            final MetadataBuilder builder = new MetadataBuilder(manifest, xmldbhost);
-            MetsMods metsmods = builder.getMetadataFromAPI("urn:nbn:de:bsz:15-0012-220148");
-            metadataUtils.setMetsMods(metsmods);
-            List<Metadata> authors = metadataUtils.setAuthors();
-            System.out.println(authors);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        final MetadataImplVersion2 metadataUtils = new MetadataImplVersion2();
+        final XmlDbAccessor accessor = new XmlDbAccessor(xmldbhost);
+        final MetsMods metsmods = accessor.getMetadataFromAPI("urn:nbn:de:bsz:15-0012-220148");
+        metadataUtils.setMetsMods(metsmods);
+        final List<Metadata> authors = metadataUtils.setAuthors();
+        System.out.println(authors.stream().map(Metadata::getValue)
+                .collect( Collectors.joining( "," )));
     }
 }
 

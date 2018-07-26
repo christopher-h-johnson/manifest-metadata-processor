@@ -16,6 +16,8 @@ package de.ubleipzig.metadata.templates;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import de.ubleipzig.metadata.templates.v2.Structure;
+
 import java.util.List;
 
 public class Manifest {

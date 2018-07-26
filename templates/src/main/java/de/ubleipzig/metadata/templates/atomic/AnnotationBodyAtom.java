@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import de.ubleipzig.metadata.templates.ContentList;
-import de.ubleipzig.metadata.templates.Structure;
+import de.ubleipzig.metadata.templates.v2.Structure;
 
 import java.util.List;
 import java.util.Map;

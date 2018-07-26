@@ -44,7 +44,7 @@ import de.ubleipzig.metadata.templates.Canvases;
 import de.ubleipzig.metadata.templates.ImageServiceResponse;
 import de.ubleipzig.metadata.templates.Images;
 import de.ubleipzig.metadata.templates.Manifest;
-import de.ubleipzig.metadata.templates.Structure;
+import de.ubleipzig.metadata.templates.v2.Structure;
 import de.ubleipzig.metadata.templates.v3.AnnotationPage;
 import de.ubleipzig.metadata.templates.v3.AnnotationVersion3;
 import de.ubleipzig.metadata.templates.v3.BodyVersion3;
@@ -54,6 +54,8 @@ import de.ubleipzig.metadata.templates.v3.ManifestVersion3;
 import de.ubleipzig.metadata.templates.v3.MetadataVersion3;
 import de.ubleipzig.metadata.templates.v3.SeeAlso;
 import de.ubleipzig.metadata.templates.v3.ServiceVersion3;
+import de.ubleipzig.metadata.transformer.MetadataApi;
+import de.ubleipzig.metadata.transformer.MetadataBuilderVersion3;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -72,11 +74,11 @@ import org.slf4j.LoggerFactory;
 
 public class ReserializerVersion3 {
 
-    private String body;
     private static final Logger LOGGER = LoggerFactory.getLogger(ReserializerVersion3.class);
     private static final ObjectMapper MAPPER = new ObjectMapper();
-    private String xmldbHost;
     private static String NONE = "@none";
+    private String body;
+    private String xmldbHost;
 
     public ReserializerVersion3(final String body, final String xmldbHost) {
         this.body = body;
@@ -87,7 +89,8 @@ public class ReserializerVersion3 {
         try {
             final Manifest manifest = MAPPER.readValue(body, new TypeReference<Manifest>() {
             });
-            MetadataUtilsVersion3 metadataUtils = new MetadataBuilderVersion3(manifest, xmldbHost).build();
+            MetadataApi<MetadataVersion3> metadataImplVersion3 = new MetadataBuilderVersion3(
+                    manifest, xmldbHost).build();
             final List<CanvasVersion3> canvases = new ArrayList<>();
             final String viewId = new URL(manifest.getId()).getPath().split(separator)[1];
 
@@ -161,8 +164,8 @@ public class ReserializerVersion3 {
                     //createAnnotationPage
                     final List<AnnotationPage> annoPages = new ArrayList<>();
                     final AnnotationPage annoPage = new AnnotationPage();
-                    final String annoPageId = baseUrl + viewId + separator + annotationPageBase + separator + UUID
-                            .randomUUID();
+                    final String annoPageId =
+                            baseUrl + viewId + separator + annotationPageBase + separator + UUID.randomUUID();
                     annoPage.setId(annoPageId);
                     annoPage.setType("AnnotationPage");
                     annoPage.setItems(annotations);
@@ -181,14 +184,15 @@ public class ReserializerVersion3 {
                 }
             });
 
-            List<MetadataVersion3> finalMetadata = metadataUtils.getFinalMetadata();
+            List<MetadataVersion3> finalMetadata = metadataImplVersion3.getMetadata();
             ManifestVersion3 newManifest = buildManifest(viewId, canvases);
 
             //build structures objects
             final Optional<List<Structure>> structures = ofNullable(manifest.getStructures());
             if (structures.isPresent()) {
                 final List<Structure> structs = structures.get();
-                final StructureBuilderVersion3 sbuilder = new StructureBuilderVersion3(structs, viewId, metadataUtils);
+                final StructureBuilderVersion3 sbuilder = new StructureBuilderVersion3(
+                        structs, viewId, metadataImplVersion3);
                 sbuilder.fix();
                 List<Item> newStructures = sbuilder.build();
                 newManifest.setStructures(newStructures);
@@ -260,7 +264,7 @@ public class ReserializerVersion3 {
     }
 
     public String getURNfromFinalMetadata(final List<MetadataVersion3> finalMetadata, final String viewId) {
-        final Optional<Set<MetadataVersion3>> metaURN = ofNullable(finalMetadata.stream().filter(
+        final Optional<Set<MetadataVersion3>> metaURN = Optional.of(finalMetadata.stream().filter(
                 y -> y.getLabel().values().stream().anyMatch(v -> v.contains("URN"))).collect(Collectors.toSet()));
         if (metaURN.isPresent()) {
             final Optional<MetadataVersion3> urn = metaURN.get().stream().findAny();

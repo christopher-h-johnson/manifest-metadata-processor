@@ -18,8 +18,8 @@ package de.ubleipzig.metadata.extractor.reserializer;
  * Constants.
  */
 public final class DomainConstants {
-    public static String domainAttribution = "Provided by Leipzig University Library<br/>No Copyright - Public Domain" +
-            " Marked";
+    public static String domainAttribution = "Provided by Leipzig University Library<br/>No Copyright - Public " +
+            "Domain" + " Marked";
     public static String domainLogo = "https://iiif.ub.uni-leipzig.de/ubl-logo.png";
     public static String domainLicense = "https://creativecommons.org/publicdomain/mark/1.0/";
     static String baseUrl = "https://iiif.ub.uni-leipzig.de/";
@@ -36,6 +36,7 @@ public final class DomainConstants {
     static String SEE_ALSO_PROFILE = "https://www.ub.uni-leipzig.de/profiles/application/v3";
     static String IIIF_VERSION3_CONTEXT = "http://iiif.io/api/presentation/3/context.json";
     static String WEB_ANNOTATION_CONTEXT = "http://www.w3.org/ns/anno.jsonld";
+
     private DomainConstants() {
     }
 }

@@ -1,3 +1,16 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.ubleipzig.metadata.producer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -35,6 +48,10 @@ public class Config {
     private String license;
     private String attributionLicenseNote;
     private String attributionKey;
+    private String resourceType;
+    private String resourceFormat;
+    private String resourceFileExtension;
+    private String viewingHint;
 
     /**
      * @return baseUrl String
@@ -292,6 +309,70 @@ public class Config {
     @JsonProperty
     public void setAttributionKey(final String attributionKey) {
         this.attributionKey = attributionKey;
+    }
+
+    /**
+     * @return resourceType
+     */
+    @JsonProperty
+    public String getResourceType() {
+        return resourceType;
+    }
+
+    /**
+     * @param resourceType String
+     */
+    @JsonProperty
+    public void setResourceType(final String resourceType) {
+        this.resourceType = resourceType;
+    }
+
+    /**
+     * @return resourceFormat
+     */
+    @JsonProperty
+    public String getResourceFormat() {
+        return resourceFormat;
+    }
+
+    /**
+     * @param resourceFormat String
+     */
+    @JsonProperty
+    public void setResourceFormat(final String resourceFormat) {
+        this.resourceFormat = resourceFormat;
+    }
+
+    /**
+     * @return resourceFileExtension
+     */
+    @JsonProperty
+    public String getResourceFileExtension() {
+        return resourceFileExtension;
+    }
+
+    /**
+     * @param resourceFileExtension String
+     */
+    @JsonProperty
+    public void setResourceFileExtension(final String resourceFileExtension) {
+        this.resourceFileExtension = resourceFileExtension;
+    }
+
+    /**
+     * @return viewingHint
+     */
+    @JsonProperty
+    public String getViewingHint() {
+        return viewingHint;
+    }
+
+    /**
+     * @param viewingHint String
+     */
+    @JsonProperty
+    public void setViewingHint(final String viewingHint) {
+        this.viewingHint = viewingHint;
     }
 
 }

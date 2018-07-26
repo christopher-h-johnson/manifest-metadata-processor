@@ -11,6 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package de.ubleipzig.metadata.extractor.disassembler;
 
 import static de.ubleipzig.metadata.extractor.ExtractorUtils.IIPSRV_DEFAULT;
@@ -36,12 +37,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DimensionManifestBuilder {
-    private String body;
     private static final Logger LOGGER = LoggerFactory.getLogger(DimensionManifestBuilder.class);
     private static final ObjectMapper MAPPER = new ObjectMapper();
+    private String body;
 
     public DimensionManifestBuilder(final String body) {
         this.body = body;
+    }
+
+    /**
+     * @param res String
+     * @return ImageServiceResponse
+     */
+    public static ImageServiceResponse mapServiceResponse(final InputStream res) {
+        try {
+            return MAPPER.readValue(res, new TypeReference<ImageServiceResponse>() {
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     public String build() {
@@ -86,19 +100,6 @@ public class DimensionManifestBuilder {
             return json.orElse(null);
         } catch (IOException ex) {
             throw new RuntimeException("Could not Disassemble Manifest", ex.getCause());
-        }
-    }
-
-    /**
-     * @param res String
-     * @return ImageServiceResponse
-     */
-    public static ImageServiceResponse mapServiceResponse(final InputStream res) {
-        try {
-            return MAPPER.readValue(res, new TypeReference<ImageServiceResponse>() {
-            });
-        } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
         }
     }
 }

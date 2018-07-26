@@ -14,8 +14,11 @@
 
 package de.ubleipzig.metadata.templates.v2;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import de.ubleipzig.iiif.vocabulary.SCEnum;
 
 import java.util.List;
 
@@ -24,6 +27,7 @@ import java.util.List;
  *
  * @author christopher-johnson
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({"@id", "@type", "viewingHint", "canvases"})
 public class Sequence {
 
@@ -31,7 +35,7 @@ public class Sequence {
     private String id;
 
     @JsonProperty("@type")
-    private String type;
+    private String type = SCEnum.Sequence.compactedIRI();
 
     @JsonProperty
     private Object label;
@@ -57,6 +61,13 @@ public class Sequence {
 
     public String getId() {
         return id;
+    }
+
+    /**
+     * @param type String
+     */
+    public void setType(final String type) {
+        this.type = type;
     }
 
     /**

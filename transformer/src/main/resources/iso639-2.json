@@ -1,0 +1,3551 @@
+[
+  {
+    "ISO 639-2 Code": "aar",
+    "ISO 639-1 Code": "aa",
+    "English name of Language": "Afar",
+    "French name of Language": "afar",
+    "German name of Language": "Danakil-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "abk",
+    "ISO 639-1 Code": "ab",
+    "English name of Language": "Abkhazian",
+    "French name of Language": "abkhaze",
+    "German name of Language": "Abchasisch"
+  },
+  {
+    "ISO 639-2 Code": "ace",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Achinese",
+    "French name of Language": "aceh",
+    "German name of Language": "Aceh-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "ach",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Acoli",
+    "French name of Language": "acoli",
+    "German name of Language": "Acholi-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "ada",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Adangme",
+    "French name of Language": "adangme",
+    "German name of Language": "Adangme-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "ady",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Adyghe; Adygei",
+    "French name of Language": "adyghé",
+    "German name of Language": "Adygisch"
+  },
+  {
+    "ISO 639-2 Code": "afa",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Afro-Asiatic languages",
+    "French name of Language": "afro-asiatiques, langues",
+    "German name of Language": "Hamitosemitische Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "afh",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Afrihili",
+    "French name of Language": "afrihili",
+    "German name of Language": "Afrihili"
+  },
+  {
+    "ISO 639-2 Code": "afr",
+    "ISO 639-1 Code": "af",
+    "English name of Language": "Afrikaans",
+    "French name of Language": "afrikaans",
+    "German name of Language": "Afrikaans"
+  },
+  {
+    "ISO 639-2 Code": "ain",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Ainu",
+    "French name of Language": "aïnou",
+    "German name of Language": "Ainu-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "aka",
+    "ISO 639-1 Code": "ak",
+    "English name of Language": "Akan",
+    "French name of Language": "akan",
+    "German name of Language": "Akan-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "akk",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Akkadian",
+    "French name of Language": "akkadien",
+    "German name of Language": "Akkadisch"
+  },
+  {
+    "ISO 639-2 Code": "alb",
+    "ISO 639-1 Code": "sq",
+    "English name of Language": "Albanian",
+    "French name of Language": "albanais",
+    "German name of Language": "Albanisch"
+  },
+  {
+    "ISO 639-2 Code": "ale",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Aleut",
+    "French name of Language": "aléoute",
+    "German name of Language": "Aleutisch"
+  },
+  {
+    "ISO 639-2 Code": "alg",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Algonquian languages",
+    "French name of Language": "algonquines, langues",
+    "German name of Language": "Algonkin-Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "alt",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Southern Altai",
+    "French name of Language": "altai du Sud",
+    "German name of Language": "Altaisch"
+  },
+  {
+    "ISO 639-2 Code": "amh",
+    "ISO 639-1 Code": "am",
+    "English name of Language": "Amharic",
+    "French name of Language": "amharique",
+    "German name of Language": "Amharisch"
+  },
+  {
+    "ISO 639-2 Code": "ang",
+    "ISO 639-1 Code": "",
+    "English name of Language": "English, Old (ca.450-1100)",
+    "French name of Language": "anglo-saxon (ca.450-1100)",
+    "German name of Language": "Altenglisch"
+  },
+  {
+    "ISO 639-2 Code": "anp",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Angika",
+    "French name of Language": "angika",
+    "German name of Language": "Anga-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "apa",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Apache languages",
+    "French name of Language": "apaches, langues",
+    "German name of Language": "Apachen-Sprachen"
+  },
+  {
+    "ISO 639-2 Code": "ara",
+    "ISO 639-1 Code": "ar",
+    "English name of Language": "Arabic",
+    "French name of Language": "arabe",
+    "German name of Language": "Arabisch"
+  },
+  {
+    "ISO 639-2 Code": "arc",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Official Aramaic (700-300 BCE); Imperial Aramaic (700-300 BCE)",
+    "French name of Language": "araméen d'empire (700-300 BCE)",
+    "German name of Language": "Aramäisch"
+  },
+  {
+    "ISO 639-2 Code": "arg",
+    "ISO 639-1 Code": "an",
+    "English name of Language": "Aragonese",
+    "French name of Language": "aragonais",
+    "German name of Language": "Aragonesisch"
+  },
+  {
+    "ISO 639-2 Code": "arm",
+    "ISO 639-1 Code": "hy",
+    "English name of Language": "Armenian",
+    "French name of Language": "arménien",
+    "German name of Language": "Armenisch"
+  },
+  {
+    "ISO 639-2 Code": "arn",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Mapudungun; Mapuche",
+    "French name of Language": "mapudungun; mapuche; mapuce",
+    "German name of Language": "Arauka-Sprachen"
+  },
+  {
+    "ISO 639-2 Code": "arp",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Arapaho",
+    "French name of Language": "arapaho",
+    "German name of Language": "Arapaho-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "art",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Artificial languages",
+    "French name of Language": "artificielles, langues",
+    "German name of Language": "Kunstsprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "arw",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Arawak",
+    "French name of Language": "arawak",
+    "German name of Language": "Arawak-Sprachen"
+  },
+  {
+    "ISO 639-2 Code": "asm",
+    "ISO 639-1 Code": "as",
+    "English name of Language": "Assamese",
+    "French name of Language": "assamais",
+    "German name of Language": "Assamesisch"
+  },
+  {
+    "ISO 639-2 Code": "ast",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Asturian; Bable; Leonese; Asturleonese",
+    "French name of Language": "asturien; bable; léonais; asturoléonais",
+    "German name of Language": "Asturisch"
+  },
+  {
+    "ISO 639-2 Code": "ath",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Athapascan languages",
+    "French name of Language": "athapascanes, langues",
+    "German name of Language": "Athapaskische Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "aus",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Australian languages",
+    "French name of Language": "australiennes, langues",
+    "German name of Language": "Australische Sprachen"
+  },
+  {
+    "ISO 639-2 Code": "ava",
+    "ISO 639-1 Code": "av",
+    "English name of Language": "Avaric",
+    "French name of Language": "avar",
+    "German name of Language": "Awarisch"
+  },
+  {
+    "ISO 639-2 Code": "ave",
+    "ISO 639-1 Code": "ae",
+    "English name of Language": "Avestan",
+    "French name of Language": "avestique",
+    "German name of Language": "Avestisch"
+  },
+  {
+    "ISO 639-2 Code": "awa",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Awadhi",
+    "French name of Language": "awadhi",
+    "German name of Language": "Awadhi"
+  },
+  {
+    "ISO 639-2 Code": "aym",
+    "ISO 639-1 Code": "ay",
+    "English name of Language": "Aymara",
+    "French name of Language": "aymara",
+    "German name of Language": "Aymará-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "aze",
+    "ISO 639-1 Code": "az",
+    "English name of Language": "Azerbaijani",
+    "French name of Language": "azéri",
+    "German name of Language": "Aserbeidschanisch"
+  },
+  {
+    "ISO 639-2 Code": "bad",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Banda languages",
+    "French name of Language": "banda, langues",
+    "German name of Language": "Banda-Sprachen (Ubangi-Sprachen)"
+  },
+  {
+    "ISO 639-2 Code": "bai",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Bamileke languages",
+    "French name of Language": "bamiléké, langues",
+    "German name of Language": "Bamileke-Sprachen"
+  },
+  {
+    "ISO 639-2 Code": "bak",
+    "ISO 639-1 Code": "ba",
+    "English name of Language": "Bashkir",
+    "French name of Language": "bachkir",
+    "German name of Language": "Baschkirisch"
+  },
+  {
+    "ISO 639-2 Code": "bal",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Baluchi",
+    "French name of Language": "baloutchi",
+    "German name of Language": "Belutschisch"
+  },
+  {
+    "ISO 639-2 Code": "bam",
+    "ISO 639-1 Code": "bm",
+    "English name of Language": "Bambara",
+    "French name of Language": "bambara",
+    "German name of Language": "Bambara-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "ban",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Balinese",
+    "French name of Language": "balinais",
+    "German name of Language": "Balinesisch"
+  },
+  {
+    "ISO 639-2 Code": "baq",
+    "ISO 639-1 Code": "eu",
+    "English name of Language": "Basque",
+    "French name of Language": "basque",
+    "German name of Language": "Baskisch"
+  },
+  {
+    "ISO 639-2 Code": "bas",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Basa",
+    "French name of Language": "basa",
+    "German name of Language": "Basaa-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "bat",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Baltic languages",
+    "French name of Language": "baltes, langues",
+    "German name of Language": "Baltische Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "bej",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Beja; Bedawiyet",
+    "French name of Language": "bedja",
+    "German name of Language": "Bedauye"
+  },
+  {
+    "ISO 639-2 Code": "bel",
+    "ISO 639-1 Code": "be",
+    "English name of Language": "Belarusian",
+    "French name of Language": "biélorusse",
+    "German name of Language": "Weißrussisch"
+  },
+  {
+    "ISO 639-2 Code": "bem",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Bemba",
+    "French name of Language": "bemba",
+    "German name of Language": "Bemba-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "ben",
+    "ISO 639-1 Code": "bn",
+    "English name of Language": "Bengali",
+    "French name of Language": "bengali",
+    "German name of Language": "Bengali"
+  },
+  {
+    "ISO 639-2 Code": "ber",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Berber languages",
+    "French name of Language": "berbères, langues",
+    "German name of Language": "Berbersprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "bho",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Bhojpuri",
+    "French name of Language": "bhojpuri",
+    "German name of Language": "Bhojpuri"
+  },
+  {
+    "ISO 639-2 Code": "bih",
+    "ISO 639-1 Code": "bh",
+    "English name of Language": "Bihari languages",
+    "French name of Language": "langues biharis",
+    "German name of Language": "Bihari (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "bik",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Bikol",
+    "French name of Language": "bikol",
+    "German name of Language": "Bikol-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "bin",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Bini; Edo",
+    "French name of Language": "bini; edo",
+    "German name of Language": "Edo-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "bis",
+    "ISO 639-1 Code": "bi",
+    "English name of Language": "Bislama",
+    "French name of Language": "bichlamar",
+    "German name of Language": "Beach-la-mar"
+  },
+  {
+    "ISO 639-2 Code": "bla",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Siksika",
+    "French name of Language": "blackfoot",
+    "German name of Language": "Blackfoot-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "bnt",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Bantu languages",
+    "French name of Language": "bantou, langues",
+    "German name of Language": "Bantusprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "tib",
+    "ISO 639-1 Code": "bo",
+    "English name of Language": "Tibetan",
+    "French name of Language": "tibétain",
+    "German name of Language": "Tibetisch"
+  },
+  {
+    "ISO 639-2 Code": "bos",
+    "ISO 639-1 Code": "bs",
+    "English name of Language": "Bosnian",
+    "French name of Language": "bosniaque",
+    "German name of Language": "Bosnisch"
+  },
+  {
+    "ISO 639-2 Code": "bra",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Braj",
+    "French name of Language": "braj",
+    "German name of Language": "Braj-Bhakha"
+  },
+  {
+    "ISO 639-2 Code": "bre",
+    "ISO 639-1 Code": "br",
+    "English name of Language": "Breton",
+    "French name of Language": "breton",
+    "German name of Language": "Bretonisch"
+  },
+  {
+    "ISO 639-2 Code": "btk",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Batak languages",
+    "French name of Language": "batak, langues",
+    "German name of Language": "Batak-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "bua",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Buriat",
+    "French name of Language": "bouriate",
+    "German name of Language": "Burjatisch"
+  },
+  {
+    "ISO 639-2 Code": "bug",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Buginese",
+    "French name of Language": "bugi",
+    "German name of Language": "Bugi-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "bul",
+    "ISO 639-1 Code": "bg",
+    "English name of Language": "Bulgarian",
+    "French name of Language": "bulgare",
+    "German name of Language": "Bulgarisch"
+  },
+  {
+    "ISO 639-2 Code": "bur",
+    "ISO 639-1 Code": "my",
+    "English name of Language": "Burmese",
+    "French name of Language": "birman",
+    "German name of Language": "Birmanisch"
+  },
+  {
+    "ISO 639-2 Code": "byn",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Blin; Bilin",
+    "French name of Language": "blin; bilen",
+    "German name of Language": "Bilin-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "cad",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Caddo",
+    "French name of Language": "caddo",
+    "German name of Language": "Caddo-Sprachen"
+  },
+  {
+    "ISO 639-2 Code": "cai",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Central American Indian languages",
+    "French name of Language": "amérindiennes de l'Amérique centrale, langues",
+    "German name of Language": "Indianersprachen, Zentralamerika (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "car",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Galibi Carib",
+    "French name of Language": "karib; galibi; carib",
+    "German name of Language": "Karibische Sprachen"
+  },
+  {
+    "ISO 639-2 Code": "cat",
+    "ISO 639-1 Code": "ca",
+    "English name of Language": "Catalan; Valencian",
+    "French name of Language": "catalan; valencien",
+    "German name of Language": "Katalanisch"
+  },
+  {
+    "ISO 639-2 Code": "cau",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Caucasian languages",
+    "French name of Language": "caucasiennes, langues",
+    "German name of Language": "Kaukasische Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "ceb",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Cebuano",
+    "French name of Language": "cebuano",
+    "German name of Language": "Cebuano"
+  },
+  {
+    "ISO 639-2 Code": "cel",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Celtic languages",
+    "French name of Language": "celtiques, langues; celtes, langues",
+    "German name of Language": "Keltische Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "cze",
+    "ISO 639-1 Code": "cs",
+    "English name of Language": "Czech",
+    "French name of Language": "tchèque",
+    "German name of Language": "Tschechisch"
+  },
+  {
+    "ISO 639-2 Code": "cha",
+    "ISO 639-1 Code": "ch",
+    "English name of Language": "Chamorro",
+    "French name of Language": "chamorro",
+    "German name of Language": "Chamorro-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "chb",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Chibcha",
+    "French name of Language": "chibcha",
+    "German name of Language": "Chibcha-Sprachen"
+  },
+  {
+    "ISO 639-2 Code": "che",
+    "ISO 639-1 Code": "ce",
+    "English name of Language": "Chechen",
+    "French name of Language": "tchétchène",
+    "German name of Language": "Tschetschenisch"
+  },
+  {
+    "ISO 639-2 Code": "chg",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Chagatai",
+    "French name of Language": "djaghataï",
+    "German name of Language": "Tschagataisch"
+  },
+  {
+    "ISO 639-2 Code": "chi",
+    "ISO 639-1 Code": "zh",
+    "English name of Language": "Chinese",
+    "French name of Language": "chinois",
+    "German name of Language": "Chinesisch"
+  },
+  {
+    "ISO 639-2 Code": "chk",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Chuukese",
+    "French name of Language": "chuuk",
+    "German name of Language": "Trukesisch"
+  },
+  {
+    "ISO 639-2 Code": "chm",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Mari",
+    "French name of Language": "mari",
+    "German name of Language": "Tscheremissisch"
+  },
+  {
+    "ISO 639-2 Code": "chn",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Chinook jargon",
+    "French name of Language": "chinook, jargon",
+    "German name of Language": "Chinook-Jargon"
+  },
+  {
+    "ISO 639-2 Code": "cho",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Choctaw",
+    "French name of Language": "choctaw",
+    "German name of Language": "Choctaw-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "chp",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Chipewyan; Dene Suline",
+    "French name of Language": "chipewyan",
+    "German name of Language": "Chipewyan-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "chr",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Cherokee",
+    "French name of Language": "cherokee",
+    "German name of Language": "Cherokee-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "chu",
+    "ISO 639-1 Code": "cu",
+    "English name of Language": "Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic",
+    "French name of Language": "slavon d'église; vieux slave; slavon liturgique; vieux bulgare",
+    "German name of Language": "Kirchenslawisch"
+  },
+  {
+    "ISO 639-2 Code": "chv",
+    "ISO 639-1 Code": "cv",
+    "English name of Language": "Chuvash",
+    "French name of Language": "tchouvache",
+    "German name of Language": "Tschuwaschisch"
+  },
+  {
+    "ISO 639-2 Code": "chy",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Cheyenne",
+    "French name of Language": "cheyenne",
+    "German name of Language": "Cheyenne-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "cmc",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Chamic languages",
+    "French name of Language": "chames, langues",
+    "German name of Language": "Cham-Sprachen"
+  },
+  {
+    "ISO 639-2 Code": "cnr",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Montenegrin",
+    "French name of Language": "monténégrin",
+    "German name of Language": "Montenegrinisch"
+  },
+  {
+    "ISO 639-2 Code": "cop",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Coptic",
+    "French name of Language": "copte",
+    "German name of Language": "Koptisch"
+  },
+  {
+    "ISO 639-2 Code": "cor",
+    "ISO 639-1 Code": "kw",
+    "English name of Language": "Cornish",
+    "French name of Language": "cornique",
+    "German name of Language": "Kornisch"
+  },
+  {
+    "ISO 639-2 Code": "cos",
+    "ISO 639-1 Code": "co",
+    "English name of Language": "Corsican",
+    "French name of Language": "corse",
+    "German name of Language": "Korsisch"
+  },
+  {
+    "ISO 639-2 Code": "cpe",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Creoles and pidgins, English based",
+    "French name of Language": "créoles et pidgins basés sur l'anglais",
+    "German name of Language": "Kreolisch-Englisch (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "cpf",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Creoles and pidgins, French-based",
+    "French name of Language": "créoles et pidgins basés sur le français",
+    "German name of Language": "Kreolisch-Französisch (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "cpp",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Creoles and pidgins, Portuguese-based",
+    "French name of Language": "créoles et pidgins basés sur le portugais",
+    "German name of Language": "Kreolisch-Portugiesisch (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "cre",
+    "ISO 639-1 Code": "cr",
+    "English name of Language": "Cree",
+    "French name of Language": "cree",
+    "German name of Language": "Cree-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "crh",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Crimean Tatar; Crimean Turkish",
+    "French name of Language": "tatar de Crimé",
+    "German name of Language": "Krimtatarisch"
+  },
+  {
+    "ISO 639-2 Code": "crp",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Creoles and pidgins",
+    "French name of Language": "créoles et pidgins",
+    "German name of Language": "Kreolische Sprachen; Pidginsprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "csb",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Kashubian",
+    "French name of Language": "kachoube",
+    "German name of Language": "Kaschubisch"
+  },
+  {
+    "ISO 639-2 Code": "cus",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Cushitic languages",
+    "French name of Language": "couchitiques, langues",
+    "German name of Language": "Kuschitische Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "wel",
+    "ISO 639-1 Code": "cy",
+    "English name of Language": "Welsh",
+    "French name of Language": "gallois",
+    "German name of Language": "Kymrisch"
+  },
+  {
+    "ISO 639-2 Code": "cze",
+    "ISO 639-1 Code": "cs",
+    "English name of Language": "Czech",
+    "French name of Language": "tchèque",
+    "German name of Language": "Tschechisch"
+  },
+  {
+    "ISO 639-2 Code": "dak",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Dakota",
+    "French name of Language": "dakota",
+    "German name of Language": "Dakota-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "dan",
+    "ISO 639-1 Code": "da",
+    "English name of Language": "Danish",
+    "French name of Language": "danois",
+    "German name of Language": "Dänisch"
+  },
+  {
+    "ISO 639-2 Code": "dar",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Dargwa",
+    "French name of Language": "dargwa",
+    "German name of Language": "Darginisch"
+  },
+  {
+    "ISO 639-2 Code": "day",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Land Dayak languages",
+    "French name of Language": "dayak, langues",
+    "German name of Language": "Dajakisch"
+  },
+  {
+    "ISO 639-2 Code": "del",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Delaware",
+    "French name of Language": "delaware",
+    "German name of Language": "Delaware-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "den",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Slave (Athapascan)",
+    "French name of Language": "esclave (athapascan)",
+    "German name of Language": "Slave-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "ger",
+    "ISO 639-1 Code": "de",
+    "English name of Language": "German",
+    "French name of Language": "allemand",
+    "German name of Language": "Deutsch"
+  },
+  {
+    "ISO 639-2 Code": "dgr",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Dogrib",
+    "French name of Language": "dogrib",
+    "German name of Language": "Dogrib-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "din",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Dinka",
+    "French name of Language": "dinka",
+    "German name of Language": "Dinka-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "div",
+    "ISO 639-1 Code": "dv",
+    "English name of Language": "Divehi; Dhivehi; Maldivian",
+    "French name of Language": "maldivien",
+    "German name of Language": "Maledivisch"
+  },
+  {
+    "ISO 639-2 Code": "doi",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Dogri",
+    "French name of Language": "dogri",
+    "German name of Language": "Dogri"
+  },
+  {
+    "ISO 639-2 Code": "dra",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Dravidian languages",
+    "French name of Language": "dravidiennes, langues",
+    "German name of Language": "Drawidische Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "dsb",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Lower Sorbian",
+    "French name of Language": "bas-sorabe",
+    "German name of Language": "Niedersorbisch"
+  },
+  {
+    "ISO 639-2 Code": "dua",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Duala",
+    "French name of Language": "douala",
+    "German name of Language": "Duala-Sprachen"
+  },
+  {
+    "ISO 639-2 Code": "dum",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Dutch, Middle (ca.1050-1350)",
+    "French name of Language": "néerlandais moyen (ca. 1050-1350)",
+    "German name of Language": "Mittelniederländisch"
+  },
+  {
+    "ISO 639-2 Code": "dut",
+    "ISO 639-1 Code": "nl",
+    "English name of Language": "Dutch; Flemish",
+    "French name of Language": "néerlandais; flamand",
+    "German name of Language": "Niederländisch"
+  },
+  {
+    "ISO 639-2 Code": "dyu",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Dyula",
+    "French name of Language": "dioula",
+    "German name of Language": "Dyula-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "dzo",
+    "ISO 639-1 Code": "dz",
+    "English name of Language": "Dzongkha",
+    "French name of Language": "dzongkha",
+    "German name of Language": "Dzongkha"
+  },
+  {
+    "ISO 639-2 Code": "efi",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Efik",
+    "French name of Language": "efik",
+    "German name of Language": "Efik"
+  },
+  {
+    "ISO 639-2 Code": "egy",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Egyptian (Ancient)",
+    "French name of Language": "égyptien",
+    "German name of Language": "Ägyptisch"
+  },
+  {
+    "ISO 639-2 Code": "eka",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Ekajuk",
+    "French name of Language": "ekajuk",
+    "German name of Language": "Ekajuk"
+  },
+  {
+    "ISO 639-2 Code": "gre",
+    "ISO 639-1 Code": "el",
+    "English name of Language": "Greek, Modern (1453-)",
+    "French name of Language": "grec moderne (après 1453)",
+    "German name of Language": "Neugriechisch"
+  },
+  {
+    "ISO 639-2 Code": "elx",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Elamite",
+    "French name of Language": "élamite",
+    "German name of Language": "Elamisch"
+  },
+  {
+    "ISO 639-2 Code": "eng",
+    "ISO 639-1 Code": "en",
+    "English name of Language": "English",
+    "French name of Language": "anglais",
+    "German name of Language": "Englisch"
+  },
+  {
+    "ISO 639-2 Code": "enm",
+    "ISO 639-1 Code": "",
+    "English name of Language": "English, Middle (1100-1500)",
+    "French name of Language": "anglais moyen (1100-1500)",
+    "German name of Language": "Mittelenglisch"
+  },
+  {
+    "ISO 639-2 Code": "epo",
+    "ISO 639-1 Code": "eo",
+    "English name of Language": "Esperanto",
+    "French name of Language": "espéranto",
+    "German name of Language": "Esperanto"
+  },
+  {
+    "ISO 639-2 Code": "est",
+    "ISO 639-1 Code": "et",
+    "English name of Language": "Estonian",
+    "French name of Language": "estonien",
+    "German name of Language": "Estnisch"
+  },
+  {
+    "ISO 639-2 Code": "baq",
+    "ISO 639-1 Code": "eu",
+    "English name of Language": "Basque",
+    "French name of Language": "basque",
+    "German name of Language": "Baskisch"
+  },
+  {
+    "ISO 639-2 Code": "ewe",
+    "ISO 639-1 Code": "ee",
+    "English name of Language": "Ewe",
+    "French name of Language": "éwé",
+    "German name of Language": "Ewe-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "ewo",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Ewondo",
+    "French name of Language": "éwondo",
+    "German name of Language": "Ewondo"
+  },
+  {
+    "ISO 639-2 Code": "fan",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Fang",
+    "French name of Language": "fang",
+    "German name of Language": "Pangwe-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "fao",
+    "ISO 639-1 Code": "fo",
+    "English name of Language": "Faroese",
+    "French name of Language": "féroïen",
+    "German name of Language": "Färöisch"
+  },
+  {
+    "ISO 639-2 Code": "per",
+    "ISO 639-1 Code": "fa",
+    "English name of Language": "Persian",
+    "French name of Language": "persan",
+    "German name of Language": "Persisch"
+  },
+  {
+    "ISO 639-2 Code": "fat",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Fanti",
+    "French name of Language": "fanti",
+    "German name of Language": "Fante-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "fij",
+    "ISO 639-1 Code": "fj",
+    "English name of Language": "Fijian",
+    "French name of Language": "fidjien",
+    "German name of Language": "Fidschi-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "fil",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Filipino; Pilipino",
+    "French name of Language": "filipino; pilipino",
+    "German name of Language": "Pilipino"
+  },
+  {
+    "ISO 639-2 Code": "fin",
+    "ISO 639-1 Code": "fi",
+    "English name of Language": "Finnish",
+    "French name of Language": "finnois",
+    "German name of Language": "Finnisch"
+  },
+  {
+    "ISO 639-2 Code": "fiu",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Finno-Ugrian languages",
+    "French name of Language": "finno-ougriennes, langues",
+    "German name of Language": "Finnougrische Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "fon",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Fon",
+    "French name of Language": "fon",
+    "German name of Language": "Fon-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "fre",
+    "ISO 639-1 Code": "fr",
+    "English name of Language": "French",
+    "French name of Language": "français",
+    "German name of Language": "Französisch"
+  },
+  {
+    "ISO 639-2 Code": "fre",
+    "ISO 639-1 Code": "fr",
+    "English name of Language": "French",
+    "French name of Language": "français",
+    "German name of Language": "Französisch"
+  },
+  {
+    "ISO 639-2 Code": "frm",
+    "ISO 639-1 Code": "",
+    "English name of Language": "French, Middle (ca.1400-1600)",
+    "French name of Language": "français moyen (1400-1600)",
+    "German name of Language": "Mittelfranzösisch"
+  },
+  {
+    "ISO 639-2 Code": "fro",
+    "ISO 639-1 Code": "",
+    "English name of Language": "French, Old (842-ca.1400)",
+    "French name of Language": "français ancien (842-ca.1400)",
+    "German name of Language": "Altfranzösisch"
+  },
+  {
+    "ISO 639-2 Code": "frr",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Northern Frisian",
+    "French name of Language": "frison septentrional",
+    "German name of Language": "Nordfriesisch"
+  },
+  {
+    "ISO 639-2 Code": "frs",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Eastern Frisian",
+    "French name of Language": "frison oriental",
+    "German name of Language": "Ostfriesisch"
+  },
+  {
+    "ISO 639-2 Code": "fry",
+    "ISO 639-1 Code": "fy",
+    "English name of Language": "Western Frisian",
+    "French name of Language": "frison occidental",
+    "German name of Language": "Friesisch"
+  },
+  {
+    "ISO 639-2 Code": "ful",
+    "ISO 639-1 Code": "ff",
+    "English name of Language": "Fulah",
+    "French name of Language": "peul",
+    "German name of Language": "Ful"
+  },
+  {
+    "ISO 639-2 Code": "fur",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Friulian",
+    "French name of Language": "frioulan",
+    "German name of Language": "Friulisch"
+  },
+  {
+    "ISO 639-2 Code": "gaa",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Ga",
+    "French name of Language": "ga",
+    "German name of Language": "Ga-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "gay",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Gayo",
+    "French name of Language": "gayo",
+    "German name of Language": "Gayo-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "gba",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Gbaya",
+    "French name of Language": "gbaya",
+    "German name of Language": "Gbaya-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "gem",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Germanic languages",
+    "French name of Language": "germaniques, langues",
+    "German name of Language": "Germanische Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "geo",
+    "ISO 639-1 Code": "ka",
+    "English name of Language": "Georgian",
+    "French name of Language": "géorgien",
+    "German name of Language": "Georgisch"
+  },
+  {
+    "ISO 639-2 Code": "ger",
+    "ISO 639-1 Code": "de",
+    "English name of Language": "German",
+    "French name of Language": "allemand",
+    "German name of Language": "Deutsch"
+  },
+  {
+    "ISO 639-2 Code": "gez",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Geez",
+    "French name of Language": "guèze",
+    "German name of Language": "Altäthiopisch"
+  },
+  {
+    "ISO 639-2 Code": "gil",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Gilbertese",
+    "French name of Language": "kiribati",
+    "German name of Language": "Gilbertesisch"
+  },
+  {
+    "ISO 639-2 Code": "gla",
+    "ISO 639-1 Code": "gd",
+    "English name of Language": "Gaelic; Scottish Gaelic",
+    "French name of Language": "gaélique; gaélique écossais",
+    "German name of Language": "Gälisch-Schottisch"
+  },
+  {
+    "ISO 639-2 Code": "gle",
+    "ISO 639-1 Code": "ga",
+    "English name of Language": "Irish",
+    "French name of Language": "irlandais",
+    "German name of Language": "Irisch"
+  },
+  {
+    "ISO 639-2 Code": "glg",
+    "ISO 639-1 Code": "gl",
+    "English name of Language": "Galician",
+    "French name of Language": "galicien",
+    "German name of Language": "Galicisch"
+  },
+  {
+    "ISO 639-2 Code": "glv",
+    "ISO 639-1 Code": "gv",
+    "English name of Language": "Manx",
+    "French name of Language": "manx; mannois",
+    "German name of Language": "Manx"
+  },
+  {
+    "ISO 639-2 Code": "gmh",
+    "ISO 639-1 Code": "",
+    "English name of Language": "German, Middle High (ca.1050-1500)",
+    "French name of Language": "allemand, moyen haut (ca. 1050-1500)",
+    "German name of Language": "Mittelhochdeutsch"
+  },
+  {
+    "ISO 639-2 Code": "goh",
+    "ISO 639-1 Code": "",
+    "English name of Language": "German, Old High (ca.750-1050)",
+    "French name of Language": "allemand, vieux haut (ca. 750-1050)",
+    "German name of Language": "Althochdeutsch"
+  },
+  {
+    "ISO 639-2 Code": "gon",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Gondi",
+    "French name of Language": "gond",
+    "German name of Language": "Gondi-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "gor",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Gorontalo",
+    "French name of Language": "gorontalo",
+    "German name of Language": "Gorontalesisch"
+  },
+  {
+    "ISO 639-2 Code": "got",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Gothic",
+    "French name of Language": "gothique",
+    "German name of Language": "Gotisch"
+  },
+  {
+    "ISO 639-2 Code": "grb",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Grebo",
+    "French name of Language": "grebo",
+    "German name of Language": "Grebo-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "grc",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Greek, Ancient (to 1453)",
+    "French name of Language": "grec ancien (jusqu'à 1453)",
+    "German name of Language": "Griechisch"
+  },
+  {
+    "ISO 639-2 Code": "gre",
+    "ISO 639-1 Code": "el",
+    "English name of Language": "Greek, Modern (1453-)",
+    "French name of Language": "grec moderne (après 1453)",
+    "German name of Language": "Neugriechisch"
+  },
+  {
+    "ISO 639-2 Code": "grn",
+    "ISO 639-1 Code": "gn",
+    "English name of Language": "Guarani",
+    "French name of Language": "guarani",
+    "German name of Language": "Guaraní-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "gsw",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Swiss German; Alemannic; Alsatian",
+    "French name of Language": "suisse alémanique; alémanique; alsacien",
+    "German name of Language": "Schweizerdeutsch"
+  },
+  {
+    "ISO 639-2 Code": "guj",
+    "ISO 639-1 Code": "gu",
+    "English name of Language": "Gujarati",
+    "French name of Language": "goudjrati",
+    "German name of Language": "Gujarati-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "gwi",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Gwich'in",
+    "French name of Language": "gwich'in",
+    "German name of Language": "Kutchin-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "hai",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Haida",
+    "French name of Language": "haida",
+    "German name of Language": "Haida-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "hat",
+    "ISO 639-1 Code": "ht",
+    "English name of Language": "Haitian; Haitian Creole",
+    "French name of Language": "haïtien; créole haïtien",
+    "German name of Language": "Haïtien (Haiti-Kreolisch)"
+  },
+  {
+    "ISO 639-2 Code": "hau",
+    "ISO 639-1 Code": "ha",
+    "English name of Language": "Hausa",
+    "French name of Language": "haoussa",
+    "German name of Language": "Haussa-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "haw",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Hawaiian",
+    "French name of Language": "hawaïen",
+    "German name of Language": "Hawaiisch"
+  },
+  {
+    "ISO 639-2 Code": "heb",
+    "ISO 639-1 Code": "he",
+    "English name of Language": "Hebrew",
+    "French name of Language": "hébreu",
+    "German name of Language": "Hebräisch"
+  },
+  {
+    "ISO 639-2 Code": "her",
+    "ISO 639-1 Code": "hz",
+    "English name of Language": "Herero",
+    "French name of Language": "herero",
+    "German name of Language": "Herero-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "hil",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Hiligaynon",
+    "French name of Language": "hiligaynon",
+    "German name of Language": "Hiligaynon-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "him",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Himachali languages; Western Pahari languages",
+    "French name of Language": "langues himachalis; langues paharis occidentales",
+    "German name of Language": "Himachali"
+  },
+  {
+    "ISO 639-2 Code": "hin",
+    "ISO 639-1 Code": "hi",
+    "English name of Language": "Hindi",
+    "French name of Language": "hindi",
+    "German name of Language": "Hindi"
+  },
+  {
+    "ISO 639-2 Code": "hit",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Hittite",
+    "French name of Language": "hittite",
+    "German name of Language": "Hethitisch"
+  },
+  {
+    "ISO 639-2 Code": "hmn",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Hmong; Mong",
+    "French name of Language": "hmong",
+    "German name of Language": "Miao-Sprachen"
+  },
+  {
+    "ISO 639-2 Code": "hmo",
+    "ISO 639-1 Code": "ho",
+    "English name of Language": "Hiri Motu",
+    "French name of Language": "hiri motu",
+    "German name of Language": "Hiri-Motu"
+  },
+  {
+    "ISO 639-2 Code": "hrv",
+    "ISO 639-1 Code": "hr",
+    "English name of Language": "Croatian",
+    "French name of Language": "croate",
+    "German name of Language": "Kroatisch"
+  },
+  {
+    "ISO 639-2 Code": "hsb",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Upper Sorbian",
+    "French name of Language": "haut-sorabe",
+    "German name of Language": "Obersorbisch"
+  },
+  {
+    "ISO 639-2 Code": "hun",
+    "ISO 639-1 Code": "hu",
+    "English name of Language": "Hungarian",
+    "French name of Language": "hongrois",
+    "German name of Language": "Ungarisch"
+  },
+  {
+    "ISO 639-2 Code": "hup",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Hupa",
+    "French name of Language": "hupa",
+    "German name of Language": "Hupa-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "arm",
+    "ISO 639-1 Code": "hy",
+    "English name of Language": "Armenian",
+    "French name of Language": "arménien",
+    "German name of Language": "Armenisch"
+  },
+  {
+    "ISO 639-2 Code": "iba",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Iban",
+    "French name of Language": "iban",
+    "German name of Language": "Iban-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "ibo",
+    "ISO 639-1 Code": "ig",
+    "English name of Language": "Igbo",
+    "French name of Language": "igbo",
+    "German name of Language": "Ibo-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "ice",
+    "ISO 639-1 Code": "is",
+    "English name of Language": "Icelandic",
+    "French name of Language": "islandais",
+    "German name of Language": "Isländisch"
+  },
+  {
+    "ISO 639-2 Code": "ido",
+    "ISO 639-1 Code": "io",
+    "English name of Language": "Ido",
+    "French name of Language": "ido",
+    "German name of Language": "Ido"
+  },
+  {
+    "ISO 639-2 Code": "iii",
+    "ISO 639-1 Code": "ii",
+    "English name of Language": "Sichuan Yi; Nuosu",
+    "French name of Language": "yi de Sichuan",
+    "German name of Language": "Lalo-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "ijo",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Ijo languages",
+    "French name of Language": "ijo, langues",
+    "German name of Language": "Ijo-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "iku",
+    "ISO 639-1 Code": "iu",
+    "English name of Language": "Inuktitut",
+    "French name of Language": "inuktitut",
+    "German name of Language": "Inuktitut"
+  },
+  {
+    "ISO 639-2 Code": "ile",
+    "ISO 639-1 Code": "ie",
+    "English name of Language": "Interlingue; Occidental",
+    "French name of Language": "interlingue",
+    "German name of Language": "Interlingue"
+  },
+  {
+    "ISO 639-2 Code": "ilo",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Iloko",
+    "French name of Language": "ilocano",
+    "German name of Language": "Ilokano-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "ina",
+    "ISO 639-1 Code": "ia",
+    "English name of Language": "Interlingua (International Auxiliary Language Association)",
+    "French name of Language": "interlingua (langue auxiliaire internationale)",
+    "German name of Language": "Interlingua"
+  },
+  {
+    "ISO 639-2 Code": "inc",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Indic languages",
+    "French name of Language": "indo-aryennes, langues",
+    "German name of Language": "Indoarische Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "ind",
+    "ISO 639-1 Code": "id",
+    "English name of Language": "Indonesian",
+    "French name of Language": "indonésien",
+    "German name of Language": "Bahasa Indonesia"
+  },
+  {
+    "ISO 639-2 Code": "ine",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Indo-European languages",
+    "French name of Language": "indo-européennes, langues",
+    "German name of Language": "Indogermanische Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "inh",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Ingush",
+    "French name of Language": "ingouche",
+    "German name of Language": "Inguschisch"
+  },
+  {
+    "ISO 639-2 Code": "ipk",
+    "ISO 639-1 Code": "ik",
+    "English name of Language": "Inupiaq",
+    "French name of Language": "inupiaq",
+    "German name of Language": "Inupik"
+  },
+  {
+    "ISO 639-2 Code": "ira",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Iranian languages",
+    "French name of Language": "iraniennes, langues",
+    "German name of Language": "Iranische Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "iro",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Iroquoian languages",
+    "French name of Language": "iroquoises, langues",
+    "German name of Language": "Irokesische Sprachen"
+  },
+  {
+    "ISO 639-2 Code": "ice",
+    "ISO 639-1 Code": "is",
+    "English name of Language": "Icelandic",
+    "French name of Language": "islandais",
+    "German name of Language": "Isländisch"
+  },
+  {
+    "ISO 639-2 Code": "ita",
+    "ISO 639-1 Code": "it",
+    "English name of Language": "Italian",
+    "French name of Language": "italien",
+    "German name of Language": "Italienisch"
+  },
+  {
+    "ISO 639-2 Code": "jav",
+    "ISO 639-1 Code": "jv",
+    "English name of Language": "Javanese",
+    "French name of Language": "javanais",
+    "German name of Language": "Javanisch"
+  },
+  {
+    "ISO 639-2 Code": "jbo",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Lojban",
+    "French name of Language": "lojban",
+    "German name of Language": "Lojban"
+  },
+  {
+    "ISO 639-2 Code": "jpn",
+    "ISO 639-1 Code": "ja",
+    "English name of Language": "Japanese",
+    "French name of Language": "japonais",
+    "German name of Language": "Japanisch"
+  },
+  {
+    "ISO 639-2 Code": "jpr",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Judeo-Persian",
+    "French name of Language": "judéo-persan",
+    "German name of Language": "Jüdisch-Persisch"
+  },
+  {
+    "ISO 639-2 Code": "jrb",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Judeo-Arabic",
+    "French name of Language": "judéo-arabe",
+    "German name of Language": "Jüdisch-Arabisch"
+  },
+  {
+    "ISO 639-2 Code": "kaa",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Kara-Kalpak",
+    "French name of Language": "karakalpak",
+    "German name of Language": "Karakalpakisch"
+  },
+  {
+    "ISO 639-2 Code": "kab",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Kabyle",
+    "French name of Language": "kabyle",
+    "German name of Language": "Kabylisch"
+  },
+  {
+    "ISO 639-2 Code": "kac",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Kachin; Jingpho",
+    "French name of Language": "kachin; jingpho",
+    "German name of Language": "Kachin-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "kal",
+    "ISO 639-1 Code": "kl",
+    "English name of Language": "Kalaallisut; Greenlandic",
+    "French name of Language": "groenlandais",
+    "German name of Language": "Grönländisch"
+  },
+  {
+    "ISO 639-2 Code": "kam",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Kamba",
+    "French name of Language": "kamba",
+    "German name of Language": "Kamba-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "kan",
+    "ISO 639-1 Code": "kn",
+    "English name of Language": "Kannada",
+    "French name of Language": "kannada",
+    "German name of Language": "Kannada"
+  },
+  {
+    "ISO 639-2 Code": "kar",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Karen languages",
+    "French name of Language": "karen, langues",
+    "German name of Language": "Karenisch"
+  },
+  {
+    "ISO 639-2 Code": "kas",
+    "ISO 639-1 Code": "ks",
+    "English name of Language": "Kashmiri",
+    "French name of Language": "kashmiri",
+    "German name of Language": "Kaschmiri"
+  },
+  {
+    "ISO 639-2 Code": "geo",
+    "ISO 639-1 Code": "ka",
+    "English name of Language": "Georgian",
+    "French name of Language": "géorgien",
+    "German name of Language": "Georgisch"
+  },
+  {
+    "ISO 639-2 Code": "kau",
+    "ISO 639-1 Code": "kr",
+    "English name of Language": "Kanuri",
+    "French name of Language": "kanouri",
+    "German name of Language": "Kanuri-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "kaw",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Kawi",
+    "French name of Language": "kawi",
+    "German name of Language": "Kawi"
+  },
+  {
+    "ISO 639-2 Code": "kaz",
+    "ISO 639-1 Code": "kk",
+    "English name of Language": "Kazakh",
+    "French name of Language": "kazakh",
+    "German name of Language": "Kasachisch"
+  },
+  {
+    "ISO 639-2 Code": "kbd",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Kabardian",
+    "French name of Language": "kabardien",
+    "German name of Language": "Kabardinisch"
+  },
+  {
+    "ISO 639-2 Code": "kha",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Khasi",
+    "French name of Language": "khasi",
+    "German name of Language": "Khasi-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "khi",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Khoisan languages",
+    "French name of Language": "khoïsan, langues",
+    "German name of Language": "Khoisan-Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "khm",
+    "ISO 639-1 Code": "km",
+    "English name of Language": "Central Khmer",
+    "French name of Language": "khmer central",
+    "German name of Language": "Kambodschanisch"
+  },
+  {
+    "ISO 639-2 Code": "kho",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Khotanese; Sakan",
+    "French name of Language": "khotanais; sakan",
+    "German name of Language": "Sakisch"
+  },
+  {
+    "ISO 639-2 Code": "kik",
+    "ISO 639-1 Code": "ki",
+    "English name of Language": "Kikuyu; Gikuyu",
+    "French name of Language": "kikuyu",
+    "German name of Language": "Kikuyu-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "kin",
+    "ISO 639-1 Code": "rw",
+    "English name of Language": "Kinyarwanda",
+    "French name of Language": "rwanda",
+    "German name of Language": "Rwanda-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "kir",
+    "ISO 639-1 Code": "ky",
+    "English name of Language": "Kirghiz; Kyrgyz",
+    "French name of Language": "kirghiz",
+    "German name of Language": "Kirgisisch"
+  },
+  {
+    "ISO 639-2 Code": "kmb",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Kimbundu",
+    "French name of Language": "kimbundu",
+    "German name of Language": "Kimbundu-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "kok",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Konkani",
+    "French name of Language": "konkani",
+    "German name of Language": "Konkani"
+  },
+  {
+    "ISO 639-2 Code": "kom",
+    "ISO 639-1 Code": "kv",
+    "English name of Language": "Komi",
+    "French name of Language": "kom",
+    "German name of Language": "Komi-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "kon",
+    "ISO 639-1 Code": "kg",
+    "English name of Language": "Kongo",
+    "French name of Language": "kongo",
+    "German name of Language": "Kongo-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "kor",
+    "ISO 639-1 Code": "ko",
+    "English name of Language": "Korean",
+    "French name of Language": "coréen",
+    "German name of Language": "Koreanisch"
+  },
+  {
+    "ISO 639-2 Code": "kos",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Kosraean",
+    "French name of Language": "kosrae",
+    "German name of Language": "Kosraeanisch"
+  },
+  {
+    "ISO 639-2 Code": "kpe",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Kpelle",
+    "French name of Language": "kpellé",
+    "German name of Language": "Kpelle-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "krc",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Karachay-Balkar",
+    "French name of Language": "karatchai balkar",
+    "German name of Language": "Karatschaiisch-Balkarisch"
+  },
+  {
+    "ISO 639-2 Code": "krl",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Karelian",
+    "French name of Language": "carélien",
+    "German name of Language": "Karelisch"
+  },
+  {
+    "ISO 639-2 Code": "kro",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Kru languages",
+    "French name of Language": "krou, langues",
+    "German name of Language": "Kru-Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "kru",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Kurukh",
+    "French name of Language": "kurukh",
+    "German name of Language": "Oraon-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "kua",
+    "ISO 639-1 Code": "kj",
+    "English name of Language": "Kuanyama; Kwanyama",
+    "French name of Language": "kuanyama; kwanyama",
+    "German name of Language": "Kwanyama-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "kum",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Kumyk",
+    "French name of Language": "koumyk",
+    "German name of Language": "Kumükisch"
+  },
+  {
+    "ISO 639-2 Code": "kur",
+    "ISO 639-1 Code": "ku",
+    "English name of Language": "Kurdish",
+    "French name of Language": "kurde",
+    "German name of Language": "Kurdisch"
+  },
+  {
+    "ISO 639-2 Code": "kut",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Kutenai",
+    "French name of Language": "kutenai",
+    "German name of Language": "Kutenai-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "lad",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Ladino",
+    "French name of Language": "judéo-espagnol",
+    "German name of Language": "Judenspanisch"
+  },
+  {
+    "ISO 639-2 Code": "lah",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Lahnda",
+    "French name of Language": "lahnda",
+    "German name of Language": "Lahnda"
+  },
+  {
+    "ISO 639-2 Code": "lam",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Lamba",
+    "French name of Language": "lamba",
+    "German name of Language": "Lamba-Sprache (Bantusprache)"
+  },
+  {
+    "ISO 639-2 Code": "lao",
+    "ISO 639-1 Code": "lo",
+    "English name of Language": "Lao",
+    "French name of Language": "lao",
+    "German name of Language": "Laotisch"
+  },
+  {
+    "ISO 639-2 Code": "lat",
+    "ISO 639-1 Code": "la",
+    "English name of Language": "Latin",
+    "French name of Language": "latin",
+    "German name of Language": "Latein"
+  },
+  {
+    "ISO 639-2 Code": "lav",
+    "ISO 639-1 Code": "lv",
+    "English name of Language": "Latvian",
+    "French name of Language": "letton",
+    "German name of Language": "Lettisch"
+  },
+  {
+    "ISO 639-2 Code": "lez",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Lezghian",
+    "French name of Language": "lezghien",
+    "German name of Language": "Lesgisch"
+  },
+  {
+    "ISO 639-2 Code": "lim",
+    "ISO 639-1 Code": "li",
+    "English name of Language": "Limburgan; Limburger; Limburgish",
+    "French name of Language": "limbourgeois",
+    "German name of Language": "Limburgisch"
+  },
+  {
+    "ISO 639-2 Code": "lin",
+    "ISO 639-1 Code": "ln",
+    "English name of Language": "Lingala",
+    "French name of Language": "lingala",
+    "German name of Language": "Lingala"
+  },
+  {
+    "ISO 639-2 Code": "lit",
+    "ISO 639-1 Code": "lt",
+    "English name of Language": "Lithuanian",
+    "French name of Language": "lituanien",
+    "German name of Language": "Litauisch"
+  },
+  {
+    "ISO 639-2 Code": "lol",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Mongo",
+    "French name of Language": "mongo",
+    "German name of Language": "Mongo-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "loz",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Lozi",
+    "French name of Language": "lozi",
+    "German name of Language": "Rotse-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "ltz",
+    "ISO 639-1 Code": "lb",
+    "English name of Language": "Luxembourgish; Letzeburgesch",
+    "French name of Language": "luxembourgeois",
+    "German name of Language": "Luxemburgisch"
+  },
+  {
+    "ISO 639-2 Code": "lua",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Luba-Lulua",
+    "French name of Language": "luba-lulua",
+    "German name of Language": "Lulua-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "lub",
+    "ISO 639-1 Code": "lu",
+    "English name of Language": "Luba-Katanga",
+    "French name of Language": "luba-katanga",
+    "German name of Language": "Luba-Katanga-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "lug",
+    "ISO 639-1 Code": "lg",
+    "English name of Language": "Ganda",
+    "French name of Language": "ganda",
+    "German name of Language": "Ganda-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "lui",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Luiseno",
+    "French name of Language": "luiseno",
+    "German name of Language": "Luiseño-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "lun",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Lunda",
+    "French name of Language": "lunda",
+    "German name of Language": "Lunda-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "luo",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Luo (Kenya and Tanzania)",
+    "French name of Language": "luo (Kenya et Tanzanie)",
+    "German name of Language": "Luo-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "lus",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Lushai",
+    "French name of Language": "lushai",
+    "German name of Language": "Lushai-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "mac",
+    "ISO 639-1 Code": "mk",
+    "English name of Language": "Macedonian",
+    "French name of Language": "macédonien",
+    "German name of Language": "Makedonisch"
+  },
+  {
+    "ISO 639-2 Code": "mad",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Madurese",
+    "French name of Language": "madourais",
+    "German name of Language": "Maduresisch"
+  },
+  {
+    "ISO 639-2 Code": "mag",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Magahi",
+    "French name of Language": "magahi",
+    "German name of Language": "Khotta"
+  },
+  {
+    "ISO 639-2 Code": "mah",
+    "ISO 639-1 Code": "mh",
+    "English name of Language": "Marshallese",
+    "French name of Language": "marshall",
+    "German name of Language": "Marschallesisch"
+  },
+  {
+    "ISO 639-2 Code": "mai",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Maithili",
+    "French name of Language": "maithili",
+    "German name of Language": "Maithili"
+  },
+  {
+    "ISO 639-2 Code": "mak",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Makasar",
+    "French name of Language": "makassar",
+    "German name of Language": "Makassarisch"
+  },
+  {
+    "ISO 639-2 Code": "mal",
+    "ISO 639-1 Code": "ml",
+    "English name of Language": "Malayalam",
+    "French name of Language": "malayalam",
+    "German name of Language": "Malayalam"
+  },
+  {
+    "ISO 639-2 Code": "man",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Mandingo",
+    "French name of Language": "mandingue",
+    "German name of Language": "Malinke-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "mao",
+    "ISO 639-1 Code": "mi",
+    "English name of Language": "Maori",
+    "French name of Language": "maori",
+    "German name of Language": "Maori-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "map",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Austronesian languages",
+    "French name of Language": "austronésiennes, langues",
+    "German name of Language": "Austronesische Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "mar",
+    "ISO 639-1 Code": "mr",
+    "English name of Language": "Marathi",
+    "French name of Language": "marathe",
+    "German name of Language": "Marathi"
+  },
+  {
+    "ISO 639-2 Code": "mas",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Masai",
+    "French name of Language": "massaï",
+    "German name of Language": "Massai-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "may",
+    "ISO 639-1 Code": "ms",
+    "English name of Language": "Malay",
+    "French name of Language": "malais",
+    "German name of Language": "Malaiisch"
+  },
+  {
+    "ISO 639-2 Code": "mdf",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Moksha",
+    "French name of Language": "moksa",
+    "German name of Language": "Mokscha-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "mdr",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Mandar",
+    "French name of Language": "mandar",
+    "German name of Language": "Mandaresisch"
+  },
+  {
+    "ISO 639-2 Code": "men",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Mende",
+    "French name of Language": "mendé",
+    "German name of Language": "Mende-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "mga",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Irish, Middle (900-1200)",
+    "French name of Language": "irlandais moyen (900-1200)",
+    "German name of Language": "Mittelirisch"
+  },
+  {
+    "ISO 639-2 Code": "mic",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Mi'kmaq; Micmac",
+    "French name of Language": "mi'kmaq; micmac",
+    "German name of Language": "Micmac-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "min",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Minangkabau",
+    "French name of Language": "minangkabau",
+    "German name of Language": "Minangkabau-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "mis",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Uncoded languages",
+    "French name of Language": "langues non codées",
+    "German name of Language": "Einzelne andere Sprachen"
+  },
+  {
+    "ISO 639-2 Code": "mac",
+    "ISO 639-1 Code": "mk",
+    "English name of Language": "Macedonian",
+    "French name of Language": "macédonien",
+    "German name of Language": "Makedonisch"
+  },
+  {
+    "ISO 639-2 Code": "mkh",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Mon-Khmer languages",
+    "French name of Language": "môn-khmer, langues",
+    "German name of Language": "Mon-Khmer-Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "mlg",
+    "ISO 639-1 Code": "mg",
+    "English name of Language": "Malagasy",
+    "French name of Language": "malgache",
+    "German name of Language": "Malagassi-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "mlt",
+    "ISO 639-1 Code": "mt",
+    "English name of Language": "Maltese",
+    "French name of Language": "maltais",
+    "German name of Language": "Maltesisch"
+  },
+  {
+    "ISO 639-2 Code": "mnc",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Manchu",
+    "French name of Language": "mandchou",
+    "German name of Language": "Mandschurisch"
+  },
+  {
+    "ISO 639-2 Code": "mni",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Manipuri",
+    "French name of Language": "manipuri",
+    "German name of Language": "Meithei-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "mno",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Manobo languages",
+    "French name of Language": "manobo, langues",
+    "German name of Language": "Manobo-Sprachen"
+  },
+  {
+    "ISO 639-2 Code": "moh",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Mohawk",
+    "French name of Language": "mohawk",
+    "German name of Language": "Mohawk-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "mon",
+    "ISO 639-1 Code": "mn",
+    "English name of Language": "Mongolian",
+    "French name of Language": "mongol",
+    "German name of Language": "Mongolisch"
+  },
+  {
+    "ISO 639-2 Code": "mos",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Mossi",
+    "French name of Language": "moré",
+    "German name of Language": "Mossi-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "mao",
+    "ISO 639-1 Code": "mi",
+    "English name of Language": "Maori",
+    "French name of Language": "maori",
+    "German name of Language": "Maori-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "may",
+    "ISO 639-1 Code": "ms",
+    "English name of Language": "Malay",
+    "French name of Language": "malais",
+    "German name of Language": "Malaiisch"
+  },
+  {
+    "ISO 639-2 Code": "mul",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Multiple languages",
+    "French name of Language": "multilingue",
+    "German name of Language": "Mehrere Sprachen"
+  },
+  {
+    "ISO 639-2 Code": "mun",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Munda languages",
+    "French name of Language": "mounda, langues",
+    "German name of Language": "Mundasprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "mus",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Creek",
+    "French name of Language": "muskogee",
+    "German name of Language": "Muskogisch"
+  },
+  {
+    "ISO 639-2 Code": "mwl",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Mirandese",
+    "French name of Language": "mirandais",
+    "German name of Language": "Mirandesisch"
+  },
+  {
+    "ISO 639-2 Code": "mwr",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Marwari",
+    "French name of Language": "marvari",
+    "German name of Language": "Marwari"
+  },
+  {
+    "ISO 639-2 Code": "bur",
+    "ISO 639-1 Code": "my",
+    "English name of Language": "Burmese",
+    "French name of Language": "birman",
+    "German name of Language": "Birmanisch"
+  },
+  {
+    "ISO 639-2 Code": "myn",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Mayan languages",
+    "French name of Language": "maya, langues",
+    "German name of Language": "Maya-Sprachen"
+  },
+  {
+    "ISO 639-2 Code": "myv",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Erzya",
+    "French name of Language": "erza",
+    "German name of Language": "Erza-Mordwinisch"
+  },
+  {
+    "ISO 639-2 Code": "nah",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Nahuatl languages",
+    "French name of Language": "nahuatl, langues",
+    "German name of Language": "Nahuatl"
+  },
+  {
+    "ISO 639-2 Code": "nai",
+    "ISO 639-1 Code": "",
+    "English name of Language": "North American Indian languages",
+    "French name of Language": "nord-amérindiennes, langues",
+    "German name of Language": "Indianersprachen, Nordamerika (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "nap",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Neapolitan",
+    "French name of Language": "napolitain",
+    "German name of Language": "Neapel / Mundart"
+  },
+  {
+    "ISO 639-2 Code": "nau",
+    "ISO 639-1 Code": "na",
+    "English name of Language": "Nauru",
+    "French name of Language": "nauruan",
+    "German name of Language": "Nauruanisch"
+  },
+  {
+    "ISO 639-2 Code": "nav",
+    "ISO 639-1 Code": "nv",
+    "English name of Language": "Navajo; Navaho",
+    "French name of Language": "navaho",
+    "German name of Language": "Navajo-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "nbl",
+    "ISO 639-1 Code": "nr",
+    "English name of Language": "Ndebele, South; South Ndebele",
+    "French name of Language": "ndébélé du Sud",
+    "German name of Language": "Ndebele-Sprache (Transvaal)"
+  },
+  {
+    "ISO 639-2 Code": "nde",
+    "ISO 639-1 Code": "nd",
+    "English name of Language": "Ndebele, North; North Ndebele",
+    "French name of Language": "ndébélé du Nord",
+    "German name of Language": "Ndebele-Sprache (Simbabwe)"
+  },
+  {
+    "ISO 639-2 Code": "ndo",
+    "ISO 639-1 Code": "ng",
+    "English name of Language": "Ndonga",
+    "French name of Language": "ndonga",
+    "German name of Language": "Ndonga"
+  },
+  {
+    "ISO 639-2 Code": "nds",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Low German; Low Saxon; German, Low; Saxon, Low",
+    "French name of Language": "bas allemand; bas saxon; allemand, bas; saxon, bas",
+    "German name of Language": "Niederdeutsch"
+  },
+  {
+    "ISO 639-2 Code": "nep",
+    "ISO 639-1 Code": "ne",
+    "English name of Language": "Nepali",
+    "French name of Language": "népalais",
+    "German name of Language": "Nepali"
+  },
+  {
+    "ISO 639-2 Code": "new",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Nepal Bhasa; Newari",
+    "French name of Language": "nepal bhasa; newari",
+    "German name of Language": "Newari"
+  },
+  {
+    "ISO 639-2 Code": "nia",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Nias",
+    "French name of Language": "nias",
+    "German name of Language": "Nias-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "nic",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Niger-Kordofanian languages",
+    "French name of Language": "nigéro-kordofaniennes, langues",
+    "German name of Language": "Nigerkordofanische Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "niu",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Niuean",
+    "French name of Language": "niué",
+    "German name of Language": "Niue-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "dut",
+    "ISO 639-1 Code": "nl",
+    "English name of Language": "Dutch; Flemish",
+    "French name of Language": "néerlandais; flamand",
+    "German name of Language": "Niederländisch"
+  },
+  {
+    "ISO 639-2 Code": "nno",
+    "ISO 639-1 Code": "nn",
+    "English name of Language": "Norwegian Nynorsk; Nynorsk, Norwegian",
+    "French name of Language": "norvégien nynorsk; nynorsk, norvégien",
+    "German name of Language": "Nynorsk"
+  },
+  {
+    "ISO 639-2 Code": "nob",
+    "ISO 639-1 Code": "nb",
+    "English name of Language": "Bokmål, Norwegian; Norwegian Bokmål",
+    "French name of Language": "norvégien bokmål",
+    "German name of Language": "Bokmål"
+  },
+  {
+    "ISO 639-2 Code": "nog",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Nogai",
+    "French name of Language": "nogaï; nogay",
+    "German name of Language": "Nogaisch"
+  },
+  {
+    "ISO 639-2 Code": "non",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Norse, Old",
+    "French name of Language": "norrois, vieux",
+    "German name of Language": "Altnorwegisch"
+  },
+  {
+    "ISO 639-2 Code": "nor",
+    "ISO 639-1 Code": "no",
+    "English name of Language": "Norwegian",
+    "French name of Language": "norvégien",
+    "German name of Language": "Norwegisch"
+  },
+  {
+    "ISO 639-2 Code": "nqo",
+    "ISO 639-1 Code": "",
+    "English name of Language": "N'Ko",
+    "French name of Language": "n'ko",
+    "German name of Language": "N'Ko"
+  },
+  {
+    "ISO 639-2 Code": "nso",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Pedi; Sepedi; Northern Sotho",
+    "French name of Language": "pedi; sepedi; sotho du Nord",
+    "German name of Language": "Pedi-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "nub",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Nubian languages",
+    "French name of Language": "nubiennes, langues",
+    "German name of Language": "Nubische Sprachen"
+  },
+  {
+    "ISO 639-2 Code": "nwc",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Classical Newari; Old Newari; Classical Nepal Bhasa",
+    "French name of Language": "newari classique",
+    "German name of Language": "Alt-Newari"
+  },
+  {
+    "ISO 639-2 Code": "nya",
+    "ISO 639-1 Code": "ny",
+    "English name of Language": "Chichewa; Chewa; Nyanja",
+    "French name of Language": "chichewa; chewa; nyanja",
+    "German name of Language": "Nyanja-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "nym",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Nyamwezi",
+    "French name of Language": "nyamwezi",
+    "German name of Language": "Nyamwezi-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "nyn",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Nyankole",
+    "French name of Language": "nyankolé",
+    "German name of Language": "Nkole-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "nyo",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Nyoro",
+    "French name of Language": "nyoro",
+    "German name of Language": "Nyoro-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "nzi",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Nzima",
+    "French name of Language": "nzema",
+    "German name of Language": "Nzima-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "oci",
+    "ISO 639-1 Code": "oc",
+    "English name of Language": "Occitan (post 1500)",
+    "French name of Language": "occitan (après 1500)",
+    "German name of Language": "Okzitanisch"
+  },
+  {
+    "ISO 639-2 Code": "oji",
+    "ISO 639-1 Code": "oj",
+    "English name of Language": "Ojibwa",
+    "French name of Language": "ojibwa",
+    "German name of Language": "Ojibwa-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "ori",
+    "ISO 639-1 Code": "or",
+    "English name of Language": "Oriya",
+    "French name of Language": "oriya",
+    "German name of Language": "Oriya-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "orm",
+    "ISO 639-1 Code": "om",
+    "English name of Language": "Oromo",
+    "French name of Language": "galla",
+    "German name of Language": "Galla-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "osa",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Osage",
+    "French name of Language": "osage",
+    "German name of Language": "Osage-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "oss",
+    "ISO 639-1 Code": "os",
+    "English name of Language": "Ossetian; Ossetic",
+    "French name of Language": "ossète",
+    "German name of Language": "Ossetisch"
+  },
+  {
+    "ISO 639-2 Code": "ota",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Turkish, Ottoman (1500-1928)",
+    "French name of Language": "turc ottoman (1500-1928)",
+    "German name of Language": "Osmanisch"
+  },
+  {
+    "ISO 639-2 Code": "oto",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Otomian languages",
+    "French name of Language": "otomi, langues",
+    "German name of Language": "Otomangue-Sprachen"
+  },
+  {
+    "ISO 639-2 Code": "paa",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Papuan languages",
+    "French name of Language": "papoues, langues",
+    "German name of Language": "Papuasprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "pag",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Pangasinan",
+    "French name of Language": "pangasinan",
+    "German name of Language": "Pangasinan-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "pal",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Pahlavi",
+    "French name of Language": "pahlavi",
+    "German name of Language": "Mittelpersisch"
+  },
+  {
+    "ISO 639-2 Code": "pam",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Pampanga; Kapampangan",
+    "French name of Language": "pampangan",
+    "German name of Language": "Pampanggan-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "pan",
+    "ISO 639-1 Code": "pa",
+    "English name of Language": "Panjabi; Punjabi",
+    "French name of Language": "pendjabi",
+    "German name of Language": "Pandschabi-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "pap",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Papiamento",
+    "French name of Language": "papiamento",
+    "German name of Language": "Papiamento"
+  },
+  {
+    "ISO 639-2 Code": "pau",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Palauan",
+    "French name of Language": "palau",
+    "German name of Language": "Palau-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "peo",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Persian, Old (ca.600-400 B.C.)",
+    "French name of Language": "perse, vieux (ca. 600-400 av. J.-C.)",
+    "German name of Language": "Altpersisch"
+  },
+  {
+    "ISO 639-2 Code": "per",
+    "ISO 639-1 Code": "fa",
+    "English name of Language": "Persian",
+    "French name of Language": "persan",
+    "German name of Language": "Persisch"
+  },
+  {
+    "ISO 639-2 Code": "phi",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Philippine languages",
+    "French name of Language": "philippines, langues",
+    "German name of Language": "Philippinisch-Austronesisch (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "phn",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Phoenician",
+    "French name of Language": "phénicien",
+    "German name of Language": "Phönikisch"
+  },
+  {
+    "ISO 639-2 Code": "pli",
+    "ISO 639-1 Code": "pi",
+    "English name of Language": "Pali",
+    "French name of Language": "pali",
+    "German name of Language": "Pali"
+  },
+  {
+    "ISO 639-2 Code": "pol",
+    "ISO 639-1 Code": "pl",
+    "English name of Language": "Polish",
+    "French name of Language": "polonais",
+    "German name of Language": "Polnisch"
+  },
+  {
+    "ISO 639-2 Code": "pon",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Pohnpeian",
+    "French name of Language": "pohnpei",
+    "German name of Language": "Ponapeanisch"
+  },
+  {
+    "ISO 639-2 Code": "por",
+    "ISO 639-1 Code": "pt",
+    "English name of Language": "Portuguese",
+    "French name of Language": "portugais",
+    "German name of Language": "Portugiesisch"
+  },
+  {
+    "ISO 639-2 Code": "pra",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Prakrit languages",
+    "French name of Language": "prâkrit, langues",
+    "German name of Language": "Prakrit"
+  },
+  {
+    "ISO 639-2 Code": "pro",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Provençal, Old (to 1500);Occitan, Old (to 1500)",
+    "French name of Language": "provençal ancien (jusqu'à 1500); occitan ancien (jusqu'à 1500)",
+    "German name of Language": "Altokzitanisch"
+  },
+  {
+    "ISO 639-2 Code": "pus",
+    "ISO 639-1 Code": "ps",
+    "English name of Language": "Pushto; Pashto",
+    "French name of Language": "pachto",
+    "German name of Language": "Paschtu"
+  },
+  {
+    "ISO 639-2 Code": "qaa-qtz",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Reserved for local use",
+    "French name of Language": "réservée à l'usage local",
+    "German name of Language": "Reserviert für lokale Verwendung"
+  },
+  {
+    "ISO 639-2 Code": "que",
+    "ISO 639-1 Code": "qu",
+    "English name of Language": "Quechua",
+    "French name of Language": "quechua",
+    "German name of Language": "Quechua-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "raj",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Rajasthani",
+    "French name of Language": "rajasthani",
+    "German name of Language": "Rajasthani"
+  },
+  {
+    "ISO 639-2 Code": "rap",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Rapanui",
+    "French name of Language": "rapanui",
+    "German name of Language": "Osterinsel-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "rar",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Rarotongan; Cook Islands Maori",
+    "French name of Language": "rarotonga; maori des îles Cook",
+    "German name of Language": "Rarotonganisch"
+  },
+  {
+    "ISO 639-2 Code": "roa",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Romance languages",
+    "French name of Language": "romanes, langues",
+    "German name of Language": "Romanische Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "roh",
+    "ISO 639-1 Code": "rm",
+    "English name of Language": "Romansh",
+    "French name of Language": "romanche",
+    "German name of Language": "Rätoromanisch"
+  },
+  {
+    "ISO 639-2 Code": "rom",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Romany",
+    "French name of Language": "tsigane",
+    "German name of Language": "Romani (Sprache)"
+  },
+  {
+    "ISO 639-2 Code": "rum",
+    "ISO 639-1 Code": "ro",
+    "English name of Language": "Romanian; Moldavian; Moldovan",
+    "French name of Language": "roumain; moldave",
+    "German name of Language": "Rumänisch"
+  },
+  {
+    "ISO 639-2 Code": "rum",
+    "ISO 639-1 Code": "ro",
+    "English name of Language": "Romanian; Moldavian; Moldovan",
+    "French name of Language": "roumain; moldave",
+    "German name of Language": "Rumänisch"
+  },
+  {
+    "ISO 639-2 Code": "run",
+    "ISO 639-1 Code": "rn",
+    "English name of Language": "Rundi",
+    "French name of Language": "rundi",
+    "German name of Language": "Rundi-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "rup",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Aromanian; Arumanian; Macedo-Romanian",
+    "French name of Language": "aroumain; macédo-roumain",
+    "German name of Language": "Aromunisch"
+  },
+  {
+    "ISO 639-2 Code": "rus",
+    "ISO 639-1 Code": "ru",
+    "English name of Language": "Russian",
+    "French name of Language": "russe",
+    "German name of Language": "Russisch"
+  },
+  {
+    "ISO 639-2 Code": "sad",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Sandawe",
+    "French name of Language": "sandawe",
+    "German name of Language": "Sandawe-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "sag",
+    "ISO 639-1 Code": "sg",
+    "English name of Language": "Sango",
+    "French name of Language": "sango",
+    "German name of Language": "Sango-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "sah",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Yakut",
+    "French name of Language": "iakoute",
+    "German name of Language": "Jakutisch"
+  },
+  {
+    "ISO 639-2 Code": "sai",
+    "ISO 639-1 Code": "",
+    "English name of Language": "South American Indian languages",
+    "French name of Language": "sud-amérindiennes, langues",
+    "German name of Language": "Indianersprachen, Südamerika (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "sal",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Salishan languages",
+    "French name of Language": "salishennes, langues",
+    "German name of Language": "Salish-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "sam",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Samaritan Aramaic",
+    "French name of Language": "samaritain",
+    "German name of Language": "Samaritanisch"
+  },
+  {
+    "ISO 639-2 Code": "san",
+    "ISO 639-1 Code": "sa",
+    "English name of Language": "Sanskrit",
+    "French name of Language": "sanskrit",
+    "German name of Language": "Sanskrit"
+  },
+  {
+    "ISO 639-2 Code": "sas",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Sasak",
+    "French name of Language": "sasak",
+    "German name of Language": "Sasak"
+  },
+  {
+    "ISO 639-2 Code": "sat",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Santali",
+    "French name of Language": "santal",
+    "German name of Language": "Santali"
+  },
+  {
+    "ISO 639-2 Code": "scn",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Sicilian",
+    "French name of Language": "sicilien",
+    "German name of Language": "Sizilianisch"
+  },
+  {
+    "ISO 639-2 Code": "sco",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Scots",
+    "French name of Language": "écossais",
+    "German name of Language": "Schottisch"
+  },
+  {
+    "ISO 639-2 Code": "sel",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Selkup",
+    "French name of Language": "selkoupe",
+    "German name of Language": "Selkupisch"
+  },
+  {
+    "ISO 639-2 Code": "sem",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Semitic languages",
+    "French name of Language": "sémitiques, langues",
+    "German name of Language": "Semitische Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "sga",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Irish, Old (to 900)",
+    "French name of Language": "irlandais ancien (jusqu'à 900)",
+    "German name of Language": "Altirisch"
+  },
+  {
+    "ISO 639-2 Code": "sgn",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Sign Languages",
+    "French name of Language": "langues des signes",
+    "German name of Language": "Zeichensprachen"
+  },
+  {
+    "ISO 639-2 Code": "shn",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Shan",
+    "French name of Language": "chan",
+    "German name of Language": "Schan-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "sid",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Sidamo",
+    "French name of Language": "sidamo",
+    "German name of Language": "Sidamo-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "sin",
+    "ISO 639-1 Code": "si",
+    "English name of Language": "Sinhala; Sinhalese",
+    "French name of Language": "singhalais",
+    "German name of Language": "Singhalesisch"
+  },
+  {
+    "ISO 639-2 Code": "sio",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Siouan languages",
+    "French name of Language": "sioux, langues",
+    "German name of Language": "Sioux-Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "sit",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Sino-Tibetan languages",
+    "French name of Language": "sino-tibétaines, langues",
+    "German name of Language": "Sinotibetische Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "sla",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Slavic languages",
+    "French name of Language": "slaves, langues",
+    "German name of Language": "Slawische Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "slo",
+    "ISO 639-1 Code": "sk",
+    "English name of Language": "Slovak",
+    "French name of Language": "slovaque",
+    "German name of Language": "Slowakisch"
+  },
+  {
+    "ISO 639-2 Code": "slo",
+    "ISO 639-1 Code": "sk",
+    "English name of Language": "Slovak",
+    "French name of Language": "slovaque",
+    "German name of Language": "Slowakisch"
+  },
+  {
+    "ISO 639-2 Code": "slv",
+    "ISO 639-1 Code": "sl",
+    "English name of Language": "Slovenian",
+    "French name of Language": "slovène",
+    "German name of Language": "Slowenisch"
+  },
+  {
+    "ISO 639-2 Code": "sma",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Southern Sami",
+    "French name of Language": "sami du Sud",
+    "German name of Language": "Südsaamisch"
+  },
+  {
+    "ISO 639-2 Code": "sme",
+    "ISO 639-1 Code": "se",
+    "English name of Language": "Northern Sami",
+    "French name of Language": "sami du Nord",
+    "German name of Language": "Nordsaamisch"
+  },
+  {
+    "ISO 639-2 Code": "smi",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Sami languages",
+    "French name of Language": "sames, langues",
+    "German name of Language": "Saamisch"
+  },
+  {
+    "ISO 639-2 Code": "smj",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Lule Sami",
+    "French name of Language": "sami de Lule",
+    "German name of Language": "Lulesaamisch"
+  },
+  {
+    "ISO 639-2 Code": "smn",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Inari Sami",
+    "French name of Language": "sami d'Inari",
+    "German name of Language": "Inarisaamisch"
+  },
+  {
+    "ISO 639-2 Code": "smo",
+    "ISO 639-1 Code": "sm",
+    "English name of Language": "Samoan",
+    "French name of Language": "samoan",
+    "German name of Language": "Samoanisch"
+  },
+  {
+    "ISO 639-2 Code": "sms",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Skolt Sami",
+    "French name of Language": "sami skolt",
+    "German name of Language": "Skoltsaamisch"
+  },
+  {
+    "ISO 639-2 Code": "sna",
+    "ISO 639-1 Code": "sn",
+    "English name of Language": "Shona",
+    "French name of Language": "shona",
+    "German name of Language": "Schona-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "snd",
+    "ISO 639-1 Code": "sd",
+    "English name of Language": "Sindhi",
+    "French name of Language": "sindhi",
+    "German name of Language": "Sindhi-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "snk",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Soninke",
+    "French name of Language": "soninké",
+    "German name of Language": "Soninke-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "sog",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Sogdian",
+    "French name of Language": "sogdien",
+    "German name of Language": "Sogdisch"
+  },
+  {
+    "ISO 639-2 Code": "som",
+    "ISO 639-1 Code": "so",
+    "English name of Language": "Somali",
+    "French name of Language": "somali",
+    "German name of Language": "Somali"
+  },
+  {
+    "ISO 639-2 Code": "son",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Songhai languages",
+    "French name of Language": "songhai, langues",
+    "German name of Language": "Songhai-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "sot",
+    "ISO 639-1 Code": "st",
+    "English name of Language": "Sotho, Southern",
+    "French name of Language": "sotho du Sud",
+    "German name of Language": "Süd-Sotho-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "spa",
+    "ISO 639-1 Code": "es",
+    "English name of Language": "Spanish; Castilian",
+    "French name of Language": "espagnol; castillan",
+    "German name of Language": "Spanisch"
+  },
+  {
+    "ISO 639-2 Code": "alb",
+    "ISO 639-1 Code": "sq",
+    "English name of Language": "Albanian",
+    "French name of Language": "albanais",
+    "German name of Language": "Albanisch"
+  },
+  {
+    "ISO 639-2 Code": "srd",
+    "ISO 639-1 Code": "sc",
+    "English name of Language": "Sardinian",
+    "French name of Language": "sarde",
+    "German name of Language": "Sardisch"
+  },
+  {
+    "ISO 639-2 Code": "srn",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Sranan Tongo",
+    "French name of Language": "sranan tongo",
+    "German name of Language": "Sranantongo"
+  },
+  {
+    "ISO 639-2 Code": "srp",
+    "ISO 639-1 Code": "sr",
+    "English name of Language": "Serbian",
+    "French name of Language": "serbe",
+    "German name of Language": "Serbisch"
+  },
+  {
+    "ISO 639-2 Code": "srr",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Serer",
+    "French name of Language": "sérère",
+    "German name of Language": "Serer-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "ssa",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Nilo-Saharan languages",
+    "French name of Language": "nilo-sahariennes, langues",
+    "German name of Language": "Nilosaharanische Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "ssw",
+    "ISO 639-1 Code": "ss",
+    "English name of Language": "Swati",
+    "French name of Language": "swati",
+    "German name of Language": "Swasi-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "suk",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Sukuma",
+    "French name of Language": "sukuma",
+    "German name of Language": "Sukuma-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "sun",
+    "ISO 639-1 Code": "su",
+    "English name of Language": "Sundanese",
+    "French name of Language": "soundanais",
+    "German name of Language": "Sundanesisch"
+  },
+  {
+    "ISO 639-2 Code": "sus",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Susu",
+    "French name of Language": "soussou",
+    "German name of Language": "Susu"
+  },
+  {
+    "ISO 639-2 Code": "sux",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Sumerian",
+    "French name of Language": "sumérien",
+    "German name of Language": "Sumerisch"
+  },
+  {
+    "ISO 639-2 Code": "swa",
+    "ISO 639-1 Code": "sw",
+    "English name of Language": "Swahili",
+    "French name of Language": "swahili",
+    "German name of Language": "Swahili"
+  },
+  {
+    "ISO 639-2 Code": "swe",
+    "ISO 639-1 Code": "sv",
+    "English name of Language": "Swedish",
+    "French name of Language": "suédois",
+    "German name of Language": "Schwedisch"
+  },
+  {
+    "ISO 639-2 Code": "syc",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Classical Syriac",
+    "French name of Language": "syriaque classique",
+    "German name of Language": "Syrisch"
+  },
+  {
+    "ISO 639-2 Code": "syr",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Syriac",
+    "French name of Language": "syriaque",
+    "German name of Language": "Neuostaramäisch"
+  },
+  {
+    "ISO 639-2 Code": "tah",
+    "ISO 639-1 Code": "ty",
+    "English name of Language": "Tahitian",
+    "French name of Language": "tahitien",
+    "German name of Language": "Tahitisch"
+  },
+  {
+    "ISO 639-2 Code": "tai",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Tai languages",
+    "French name of Language": "tai, langues",
+    "German name of Language": "Thaisprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "tam",
+    "ISO 639-1 Code": "ta",
+    "English name of Language": "Tamil",
+    "French name of Language": "tamoul",
+    "German name of Language": "Tamil"
+  },
+  {
+    "ISO 639-2 Code": "tat",
+    "ISO 639-1 Code": "tt",
+    "English name of Language": "Tatar",
+    "French name of Language": "tatar",
+    "German name of Language": "Tatarisch"
+  },
+  {
+    "ISO 639-2 Code": "tel",
+    "ISO 639-1 Code": "te",
+    "English name of Language": "Telugu",
+    "French name of Language": "télougou",
+    "German name of Language": "Telugu-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "tem",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Timne",
+    "French name of Language": "temne",
+    "German name of Language": "Temne-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "ter",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Tereno",
+    "French name of Language": "tereno",
+    "German name of Language": "Tereno-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "tet",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Tetum",
+    "French name of Language": "tetum",
+    "German name of Language": "Tetum-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "tgk",
+    "ISO 639-1 Code": "tg",
+    "English name of Language": "Tajik",
+    "French name of Language": "tadjik",
+    "German name of Language": "Tadschikisch"
+  },
+  {
+    "ISO 639-2 Code": "tgl",
+    "ISO 639-1 Code": "tl",
+    "English name of Language": "Tagalog",
+    "French name of Language": "tagalog",
+    "German name of Language": "Tagalog"
+  },
+  {
+    "ISO 639-2 Code": "tha",
+    "ISO 639-1 Code": "th",
+    "English name of Language": "Thai",
+    "French name of Language": "thaï",
+    "German name of Language": "Thailändisch"
+  },
+  {
+    "ISO 639-2 Code": "tib",
+    "ISO 639-1 Code": "bo",
+    "English name of Language": "Tibetan",
+    "French name of Language": "tibétain",
+    "German name of Language": "Tibetisch"
+  },
+  {
+    "ISO 639-2 Code": "tig",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Tigre",
+    "French name of Language": "tigré",
+    "German name of Language": "Tigre-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "tir",
+    "ISO 639-1 Code": "ti",
+    "English name of Language": "Tigrinya",
+    "French name of Language": "tigrigna",
+    "German name of Language": "Tigrinja-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "tiv",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Tiv",
+    "French name of Language": "tiv",
+    "German name of Language": "Tiv-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "tkl",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Tokelau",
+    "French name of Language": "tokelau",
+    "German name of Language": "Tokelauanisch"
+  },
+  {
+    "ISO 639-2 Code": "tlh",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Klingon; tlhIngan-Hol",
+    "French name of Language": "klingon",
+    "German name of Language": "Klingonisch"
+  },
+  {
+    "ISO 639-2 Code": "tli",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Tlingit",
+    "French name of Language": "tlingit",
+    "German name of Language": "Tlingit-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "tmh",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Tamashek",
+    "French name of Language": "tamacheq",
+    "German name of Language": "Tamašeq"
+  },
+  {
+    "ISO 639-2 Code": "tog",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Tonga (Nyasa)",
+    "French name of Language": "tonga (Nyasa)",
+    "German name of Language": "Tonga (Bantusprache, Sambia)"
+  },
+  {
+    "ISO 639-2 Code": "ton",
+    "ISO 639-1 Code": "to",
+    "English name of Language": "Tonga (Tonga Islands)",
+    "French name of Language": "tongan (Îles Tonga)",
+    "German name of Language": "Tongaisch"
+  },
+  {
+    "ISO 639-2 Code": "tpi",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Tok Pisin",
+    "French name of Language": "tok pisin",
+    "German name of Language": "Neumelanesisch"
+  },
+  {
+    "ISO 639-2 Code": "tsi",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Tsimshian",
+    "French name of Language": "tsimshian",
+    "German name of Language": "Tsimshian-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "tsn",
+    "ISO 639-1 Code": "tn",
+    "English name of Language": "Tswana",
+    "French name of Language": "tswana",
+    "German name of Language": "Tswana-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "tso",
+    "ISO 639-1 Code": "ts",
+    "English name of Language": "Tsonga",
+    "French name of Language": "tsonga",
+    "German name of Language": "Tsonga-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "tuk",
+    "ISO 639-1 Code": "tk",
+    "English name of Language": "Turkmen",
+    "French name of Language": "turkmène",
+    "German name of Language": "Turkmenisch"
+  },
+  {
+    "ISO 639-2 Code": "tum",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Tumbuka",
+    "French name of Language": "tumbuka",
+    "German name of Language": "Tumbuka-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "tup",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Tupi languages",
+    "French name of Language": "tupi, langues",
+    "German name of Language": "Tupi-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "tur",
+    "ISO 639-1 Code": "tr",
+    "English name of Language": "Turkish",
+    "French name of Language": "turc",
+    "German name of Language": "Türkisch"
+  },
+  {
+    "ISO 639-2 Code": "tut",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Altaic languages",
+    "French name of Language": "altaïques, langues",
+    "German name of Language": "Altaische Sprachen (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "tvl",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Tuvalu",
+    "French name of Language": "tuvalu",
+    "German name of Language": "Elliceanisch"
+  },
+  {
+    "ISO 639-2 Code": "twi",
+    "ISO 639-1 Code": "tw",
+    "English name of Language": "Twi",
+    "French name of Language": "twi",
+    "German name of Language": "Twi-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "tyv",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Tuvinian",
+    "French name of Language": "touva",
+    "German name of Language": "Tuwinisch"
+  },
+  {
+    "ISO 639-2 Code": "udm",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Udmurt",
+    "French name of Language": "oudmourte",
+    "German name of Language": "Udmurtisch"
+  },
+  {
+    "ISO 639-2 Code": "uga",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Ugaritic",
+    "French name of Language": "ougaritique",
+    "German name of Language": "Ugaritisch"
+  },
+  {
+    "ISO 639-2 Code": "uig",
+    "ISO 639-1 Code": "ug",
+    "English name of Language": "Uighur; Uyghur",
+    "French name of Language": "ouïgour",
+    "German name of Language": "Uigurisch"
+  },
+  {
+    "ISO 639-2 Code": "ukr",
+    "ISO 639-1 Code": "uk",
+    "English name of Language": "Ukrainian",
+    "French name of Language": "ukrainien",
+    "German name of Language": "Ukrainisch"
+  },
+  {
+    "ISO 639-2 Code": "umb",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Umbundu",
+    "French name of Language": "umbundu",
+    "German name of Language": "Mbundu-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "und",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Undetermined",
+    "French name of Language": "indéterminée",
+    "German name of Language": "Nicht zu entscheiden"
+  },
+  {
+    "ISO 639-2 Code": "urd",
+    "ISO 639-1 Code": "ur",
+    "English name of Language": "Urdu",
+    "French name of Language": "ourdou",
+    "German name of Language": "Urdu"
+  },
+  {
+    "ISO 639-2 Code": "uzb",
+    "ISO 639-1 Code": "uz",
+    "English name of Language": "Uzbek",
+    "French name of Language": "ouszbek",
+    "German name of Language": "Usbekisch"
+  },
+  {
+    "ISO 639-2 Code": "vai",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Vai",
+    "French name of Language": "vaï",
+    "German name of Language": "Vai-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "ven",
+    "ISO 639-1 Code": "ve",
+    "English name of Language": "Venda",
+    "French name of Language": "venda",
+    "German name of Language": "Venda-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "vie",
+    "ISO 639-1 Code": "vi",
+    "English name of Language": "Vietnamese",
+    "French name of Language": "vietnamien",
+    "German name of Language": "Vietnamesisch"
+  },
+  {
+    "ISO 639-2 Code": "vol",
+    "ISO 639-1 Code": "vo",
+    "English name of Language": "Volapük",
+    "French name of Language": "volapük",
+    "German name of Language": "Volapük"
+  },
+  {
+    "ISO 639-2 Code": "vot",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Votic",
+    "French name of Language": "vote",
+    "German name of Language": "Wotisch"
+  },
+  {
+    "ISO 639-2 Code": "wak",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Wakashan languages",
+    "French name of Language": "wakashanes, langues",
+    "German name of Language": "Wakash-Sprachen"
+  },
+  {
+    "ISO 639-2 Code": "wal",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Wolaitta; Wolaytta",
+    "French name of Language": "wolaitta; wolaytta",
+    "German name of Language": "Walamo-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "war",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Waray",
+    "French name of Language": "waray",
+    "German name of Language": "Waray"
+  },
+  {
+    "ISO 639-2 Code": "was",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Washo",
+    "French name of Language": "washo",
+    "German name of Language": "Washo-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "wel",
+    "ISO 639-1 Code": "cy",
+    "English name of Language": "Welsh",
+    "French name of Language": "gallois",
+    "German name of Language": "Kymrisch"
+  },
+  {
+    "ISO 639-2 Code": "wen",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Sorbian languages",
+    "French name of Language": "sorabes, langues",
+    "German name of Language": "Sorbisch (Andere)"
+  },
+  {
+    "ISO 639-2 Code": "wln",
+    "ISO 639-1 Code": "wa",
+    "English name of Language": "Walloon",
+    "French name of Language": "wallon",
+    "German name of Language": "Wallonisch"
+  },
+  {
+    "ISO 639-2 Code": "wol",
+    "ISO 639-1 Code": "wo",
+    "English name of Language": "Wolof",
+    "French name of Language": "wolof",
+    "German name of Language": "Wolof-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "xal",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Kalmyk; Oirat",
+    "French name of Language": "kalmouk; oïrat",
+    "German name of Language": "Kalmückisch"
+  },
+  {
+    "ISO 639-2 Code": "xho",
+    "ISO 639-1 Code": "xh",
+    "English name of Language": "Xhosa",
+    "French name of Language": "xhosa",
+    "German name of Language": "Xhosa-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "yao",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Yao",
+    "French name of Language": "yao",
+    "German name of Language": "Yao-Sprache (Bantusprache)"
+  },
+  {
+    "ISO 639-2 Code": "yap",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Yapese",
+    "French name of Language": "yapois",
+    "German name of Language": "Yapesisch"
+  },
+  {
+    "ISO 639-2 Code": "yid",
+    "ISO 639-1 Code": "yi",
+    "English name of Language": "Yiddish",
+    "French name of Language": "yiddish",
+    "German name of Language": "Jiddisch"
+  },
+  {
+    "ISO 639-2 Code": "yor",
+    "ISO 639-1 Code": "yo",
+    "English name of Language": "Yoruba",
+    "French name of Language": "yoruba",
+    "German name of Language": "Yoruba-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "ypk",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Yupik languages",
+    "French name of Language": "yupik, langues",
+    "German name of Language": "Ypik-Sprachen"
+  },
+  {
+    "ISO 639-2 Code": "zap",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Zapotec",
+    "French name of Language": "zapotèque",
+    "German name of Language": "Zapotekisch"
+  },
+  {
+    "ISO 639-2 Code": "zbl",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Blissymbols; Blissymbolics; Bliss",
+    "French name of Language": "symboles Bliss; Bliss",
+    "German name of Language": "Bliss-Symbol"
+  },
+  {
+    "ISO 639-2 Code": "zen",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Zenaga",
+    "French name of Language": "zenaga",
+    "German name of Language": "Zenaga"
+  },
+  {
+    "ISO 639-2 Code": "zgh",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Standard Moroccan Tamazight",
+    "French name of Language": "amazighe standard marocain",
+    "German name of Language": ""
+  },
+  {
+    "ISO 639-2 Code": "zha",
+    "ISO 639-1 Code": "za",
+    "English name of Language": "Zhuang; Chuang",
+    "French name of Language": "zhuang; chuang",
+    "German name of Language": "Zhuang"
+  },
+  {
+    "ISO 639-2 Code": "chi",
+    "ISO 639-1 Code": "zh",
+    "English name of Language": "Chinese",
+    "French name of Language": "chinois",
+    "German name of Language": "Chinesisch"
+  },
+  {
+    "ISO 639-2 Code": "znd",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Zande languages",
+    "French name of Language": "zandé, langues",
+    "German name of Language": "Zande-Sprachen"
+  },
+  {
+    "ISO 639-2 Code": "zul",
+    "ISO 639-1 Code": "zu",
+    "English name of Language": "Zulu",
+    "French name of Language": "zoulou",
+    "German name of Language": "Zulu-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "zun",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Zuni",
+    "French name of Language": "zuni",
+    "German name of Language": "Zuñi-Sprache"
+  },
+  {
+    "ISO 639-2 Code": "zxx",
+    "ISO 639-1 Code": "",
+    "English name of Language": "No linguistic content; Not applicable",
+    "French name of Language": "pas de contenu linguistique; non applicable",
+    "German name of Language": "Kein linguistischer Inhalt"
+  },
+  {
+    "ISO 639-2 Code": "zza",
+    "ISO 639-1 Code": "",
+    "English name of Language": "Zaza; Dimili; Dimli; Kirdki; Kirmanjki; Zazaki",
+    "French name of Language": "zaza; dimili; dimli; kirdki; kirmanjki; zazaki",
+    "German name of Language": "Zazaki"
+  }
+]

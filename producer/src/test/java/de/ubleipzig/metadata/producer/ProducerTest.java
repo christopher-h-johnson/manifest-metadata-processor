@@ -71,10 +71,10 @@ public final class ProducerTest {
                         .when(header(HTTP_METHOD).isEqualTo("GET"))
                         .to("direct:getMetsMods");
                 from("direct:getMetsMods")
-                        .process(e ->
-                        {
+                        .process(e -> {
                             final String xmldbHost = e.getContext().resolvePropertyPlaceholders("{{xmldb.host}}");
-                            final String urnContextPath = e.getContext().resolvePropertyPlaceholders("{{urn.lookup.context}}");
+                            final String urnContextPath =
+                                    e.getContext().resolvePropertyPlaceholders("{{urn.lookup.context}}");
                             final String xmlURI = xmldbHost + urnContextPath + "?urn=" + e.getIn().getHeader(URN);
                             e.getIn().setHeader(Exchange.HTTP_URI, xmlURI);
                         })
@@ -93,7 +93,8 @@ public final class ProducerTest {
                             final Optional<String> body = ofNullable(e.getIn().getBody().toString());
                             final String xmldbHost = e.getContext().resolvePropertyPlaceholders("{{xmldb.host}}");
                             if (body.isPresent()) {
-                                final ProducerBuilderVersion2 builder = new ProducerBuilderVersion2(body.get(), xmldbHost);
+                                final ProducerBuilderVersion2 builder =
+                                        new ProducerBuilderVersion2(body.get(), xmldbHost);
                                 e.getIn().setBody(builder.build());
                             }
                         });

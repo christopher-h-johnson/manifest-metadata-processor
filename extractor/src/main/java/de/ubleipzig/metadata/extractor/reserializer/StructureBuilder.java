@@ -21,7 +21,8 @@ import static java.io.File.separator;
 import static java.util.Optional.ofNullable;
 
 import de.ubleipzig.metadata.templates.Metadata;
-import de.ubleipzig.metadata.templates.Structure;
+import de.ubleipzig.metadata.templates.v2.Structure;
+import de.ubleipzig.metadata.transformer.MetadataApi;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -35,13 +36,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class StructureBuilder {
     private final List<Structure> structures;
     private final String viewId;
-    private final MetadataUtils metadataUtils;
+    private final MetadataApi<Metadata> metadataImplVersion2;
     private final Map<String, String> backReferenceMap = new HashMap<>();
 
-    public StructureBuilder(final List<Structure> structures, final String viewId, final MetadataUtils metadataUtils) {
+    public StructureBuilder(final List<Structure> structures, final String viewId,
+                            final MetadataApi<Metadata> metadataImplVersion2) {
         this.structures = structures;
         this.viewId = viewId;
-        this.metadataUtils = metadataUtils;
+        this.metadataImplVersion2 = metadataImplVersion2;
     }
 
     public void fix() {
@@ -66,8 +68,8 @@ public class StructureBuilder {
                     s.setViewingHint("top");
                     ai.getAndIncrement();
                 } else {
-                    final String newStructureId = baseUrl + viewId + separator + structureBase + separator + "LOG_" +
-                            String.format(
+                    final String newStructureId =
+                            baseUrl + viewId + separator + structureBase + separator + "LOG_" + String.format(
                             "%04d", ai.getAndIncrement());
                     backReferenceMap.put(s.getStructureId(), newStructureId);
                     //unset within (fix for early manifests)
@@ -95,7 +97,7 @@ public class StructureBuilder {
             try {
                 sId = new URL(newStructId).getPath().split(separator)[3];
                 final Optional<List<Metadata>> structureMetadata = ofNullable(
-                        metadataUtils.buildStructureMetadataForId(sId));
+                        metadataImplVersion2.buildStructureMetadataForId(sId));
                 structureMetadata.ifPresent(struct::setMetadata);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
