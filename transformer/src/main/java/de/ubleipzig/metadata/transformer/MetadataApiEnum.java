@@ -17,7 +17,8 @@ package de.ubleipzig.metadata.transformer;
 public enum MetadataApiEnum {
 
     AUTHOR("author"), LABEL("label"), GND("GND"), STRUCTTYPE("structType"), COLLECTION("collection"), LANGUAGE(
-            "language-iso639-2"), DISPLAYORDER("displayOrder"), MANUSCRIPT("manuscript"), MANIFESTTYPE("manifestType");
+            "language-iso639-2"), DISPLAYORDER("displayOrder"), MANUSCRIPT("manuscript"), MANIFESTTYPE("manifestType"),
+    LANGUAGE_NAME("Language Name"), SUBTITLE("subTitle"), PHYSICAL_DESCRIPTION("physicalDescription");
 
     private String apiKey;
 

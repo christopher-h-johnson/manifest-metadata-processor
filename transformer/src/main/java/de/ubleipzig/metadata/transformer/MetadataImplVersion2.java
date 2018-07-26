@@ -20,14 +20,22 @@ import static de.ubleipzig.metadata.transformer.MetadataApiEnum.DISPLAYORDER;
 import static de.ubleipzig.metadata.transformer.MetadataApiEnum.GND;
 import static de.ubleipzig.metadata.transformer.MetadataApiEnum.LABEL;
 import static de.ubleipzig.metadata.transformer.MetadataApiEnum.LANGUAGE;
+import static de.ubleipzig.metadata.transformer.MetadataApiEnum.LANGUAGE_NAME;
 import static de.ubleipzig.metadata.transformer.MetadataApiEnum.MANIFESTTYPE;
 import static de.ubleipzig.metadata.transformer.MetadataApiEnum.MANUSCRIPT;
+import static de.ubleipzig.metadata.transformer.MetadataApiEnum.PHYSICAL_DESCRIPTION;
 import static de.ubleipzig.metadata.transformer.MetadataApiEnum.STRUCTTYPE;
+import static de.ubleipzig.metadata.transformer.MetadataApiEnum.SUBTITLE;
 import static java.util.Optional.ofNullable;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import de.ubleipzig.metadata.templates.ISO639;
 import de.ubleipzig.metadata.templates.Metadata;
 import de.ubleipzig.metadata.templates.metsmods.MetsMods;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -44,6 +52,7 @@ public class MetadataImplVersion2 extends MetadataObjectTypes implements Metadat
     private static final String PERIOD = ".";
     private MetsMods metsMods;
     private List<Metadata> finalMetadata = new ArrayList<>();
+    private LanguageMap languageMap = new LanguageMap();
 
     public MetadataImplVersion2() {
     }
@@ -101,18 +110,38 @@ public class MetadataImplVersion2 extends MetadataObjectTypes implements Metadat
         return mList;
     }
 
+    private String getGermanLanguageNameForCode(final String key) {
+        final ISO639 iso639 = languageMap.getISO639();
+        final List<ISO639.Language> languages = iso639.getLanguages();
+        final Optional<ISO639.Language> lang = languages.stream().filter(
+                y -> y.getIso639_2().equals(key)).findAny();
+        return lang.map(ISO639.Language::getGermanName).orElse(null);
+    }
+
     private List<Metadata> addMetadataStringOrList(final Map<String, Object> newMetadata, final String key,
                                                    final String displayLabel, Integer displayOrder) {
         final List<Metadata> mList = new ArrayList<>();
         if (getValueAsString(newMetadata, key).isPresent()) {
-            final String collection = getValueAsString(newMetadata, key).get();
-            final Metadata m1 = buildMetadata(displayLabel, collection, displayOrder);
+            final String value = getValueAsString(newMetadata, key).get();
+            final Metadata m1 = buildMetadata(displayLabel, value, displayOrder);
             mList.add(m1);
+            if (key.equals("language-iso639-2")) {
+                //add German Language Name to Metadata
+                final String germanLanguageName = getGermanLanguageNameForCode(value);
+                final Metadata m2 = buildMetadata(LANGUAGE_NAME.getApiKey(), germanLanguageName, displayOrder + 1);
+                mList.add(m2);
+            }
         } else if (getValueAsStringList(newMetadata, key).isPresent()) {
-            final List<String> collections = getValueAsStringList(newMetadata, key).get();
-            collections.forEach(collection -> {
-                final Metadata m1 = buildMetadata(displayLabel, collection, displayOrder);
+            final List<String> values = getValueAsStringList(newMetadata, key).get();
+            values.forEach(value -> {
+                final Metadata m1 = buildMetadata(displayLabel, value, displayOrder);
                 mList.add(m1);
+                if (key.equals("language-iso639-2")) {
+                    //add German Language Name to Metadata
+                    final String germanLanguageName = getGermanLanguageNameForCode(value);
+                    final Metadata m2 = buildMetadata(LANGUAGE_NAME.getApiKey(), germanLanguageName, displayOrder + 1);
+                    mList.add(m2);
+                }
             });
         }
         return mList;
@@ -166,11 +195,11 @@ public class MetadataImplVersion2 extends MetadataObjectTypes implements Metadat
             finalMetadata.add(manifestTypeObj);
             if (manifestType.get().equals(MANUSCRIPT.getApiKey())) {
                 //hack for UBL mets/mods classification confusion
-                finalMetadata = addMetadataObject(newMetadata, "subTitle", "Objekttitel", 2);
+                finalMetadata = addMetadataObject(newMetadata, SUBTITLE.getApiKey(), "Objekttitel", 2);
             } else {
-                finalMetadata = addMetadataObject(newMetadata, "subTitle", "Subtitle", 2);
+                finalMetadata = addMetadataObject(newMetadata, SUBTITLE.getApiKey(), "Subtitle", 2);
                 //only show Physical Dimension for Non-manuscripts
-                finalMetadata = addMetadataObject(newMetadata, "physicalDescription", "Physical Description", 10);
+                finalMetadata = addMetadataObject(newMetadata, PHYSICAL_DESCRIPTION.getApiKey(), "Physical Description", 10);
             }
         }
 

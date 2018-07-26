@@ -22,7 +22,9 @@ import static de.ubleipzig.metadata.transformer.MetadataApiEnum.LABEL;
 import static de.ubleipzig.metadata.transformer.MetadataApiEnum.LANGUAGE;
 import static de.ubleipzig.metadata.transformer.MetadataApiEnum.MANIFESTTYPE;
 import static de.ubleipzig.metadata.transformer.MetadataApiEnum.MANUSCRIPT;
+import static de.ubleipzig.metadata.transformer.MetadataApiEnum.PHYSICAL_DESCRIPTION;
 import static de.ubleipzig.metadata.transformer.MetadataApiEnum.STRUCTTYPE;
+import static de.ubleipzig.metadata.transformer.MetadataApiEnum.SUBTITLE;
 import static java.util.Optional.ofNullable;
 
 import de.ubleipzig.metadata.templates.metsmods.MetsMods;
@@ -187,12 +189,12 @@ public class MetadataImplVersion3 extends MetadataObjectTypes implements Metadat
             finalMetadata.add(manifestTypeObj);
             if (manifestType.get().equals(MANUSCRIPT.getApiKey())) {
                 //hack for UBL mets/mods classification confusion
-                finalMetadata = addMetadataObject(DEUTSCH, newMetadata, "subTitle", "Objekttitel", 2);
+                finalMetadata = addMetadataObject(DEUTSCH, newMetadata, SUBTITLE.getApiKey(), "Objekttitel", 2);
             } else {
-                finalMetadata = addMetadataObject(ENGLISH, newMetadata, "subTitle", "Subtitle", 2);
+                finalMetadata = addMetadataObject(ENGLISH, newMetadata, SUBTITLE.getApiKey(), "Subtitle", 2);
                 //only show Physical Dimension for Non-manuscripts
                 finalMetadata = addMetadataObject(
-                        ENGLISH, newMetadata, "physicalDescription", "Physical Description", 10);
+                        ENGLISH, newMetadata, PHYSICAL_DESCRIPTION.getApiKey(), "Physical Description", 10);
             }
         }
 
