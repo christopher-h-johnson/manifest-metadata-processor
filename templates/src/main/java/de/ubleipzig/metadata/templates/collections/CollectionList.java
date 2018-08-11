@@ -44,6 +44,8 @@ public class CollectionList {
     @JsonProperty
     private String attribution;
 
+    @JsonProperty
+    private List<Object> members;
 
     public String getId() {
         return id;

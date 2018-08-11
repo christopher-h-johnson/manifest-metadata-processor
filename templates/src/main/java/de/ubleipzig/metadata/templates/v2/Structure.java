@@ -57,6 +57,18 @@ public class Structure {
     @JsonProperty("metadata")
     private List<Metadata> metadata;
 
+    @JsonProperty("attribution")
+    private String attribution;
+
+    @JsonProperty("description")
+    private String description;
+
+    @JsonProperty("logo")
+    private String logo;
+
+    @JsonProperty("license")
+    private String license;
+
     /**
      *
      */

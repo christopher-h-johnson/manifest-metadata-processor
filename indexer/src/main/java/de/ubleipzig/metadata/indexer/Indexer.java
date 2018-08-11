@@ -206,16 +206,13 @@ public class Indexer {
         return null;
     }
 
-    public List<MetadataMap> buildMetadataMap(final String json, final List<MetadataMap> mapList ) {
+    public MetadataMap buildMetadataMap(final String json) {
         final MetadataMap metadataMap;
         try {
             metadataMap = MAPPER.readValue(
                     json, new TypeReference<MetadataMap>() {
                     });
-            if (metadataMap.getMetadataMap().size() > 0) {
-                mapList.add(metadataMap);
-            }
-            return mapList;
+            return metadataMap;
         } catch (IOException e) {
             throw new RuntimeException("Could not map metadata JSON", e.getCause());
         }

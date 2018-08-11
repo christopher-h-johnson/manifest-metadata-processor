@@ -60,7 +60,9 @@ public class Disassembler {
             String title = manifest.getLabel();
             metadataMap.put("Title", title);
             metadata.ifPresent(md -> md.forEach(m -> {
-                metadataMap.put(m.getLabel(), m.getValue());
+                final Optional<?> value = ofNullable(m.getValue());
+                final Optional<String> v = value.filter(String.class::isInstance).map(String.class::cast);
+                v.ifPresent(s -> metadataMap.put(m.getLabel(), s));
             }));
 
             //build structures objects

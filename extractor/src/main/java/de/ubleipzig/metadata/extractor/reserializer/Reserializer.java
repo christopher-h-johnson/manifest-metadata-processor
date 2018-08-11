@@ -220,7 +220,11 @@ public class Reserializer {
     public String getURNfromFinalMetadata(final List<Metadata> finalMetadata, final String viewId) {
         final Metadata metaURN = finalMetadata.stream().filter(y -> y.getLabel().equals("URN")).findAny().orElse(null);
         if (metaURN != null) {
-            return metaURN.getValue();
+            final Optional<?> value = ofNullable(metaURN.getValue());
+            final Optional<String> urn = value.filter(String.class::isInstance).map(String.class::cast);
+            if (urn.isPresent()) {
+                return urn.get();
+            }
         } else {
             LOGGER.warn("No URN Available for {}", viewId);
         }

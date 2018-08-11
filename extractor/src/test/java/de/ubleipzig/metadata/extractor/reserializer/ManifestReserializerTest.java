@@ -30,10 +30,11 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+@Disabled
 public class ManifestReserializerTest {
     private String testManifest = "http://iiif.ub.uni-leipzig.de/0000000054/manifest.json";
     private String testManifest1 = "http://iiif.ub.uni-leipzig.de/0000000018/manifest.json";
@@ -111,8 +112,6 @@ public class ManifestReserializerTest {
         final MetsMods metsmods = accessor.getMetadataFromAPI("urn:nbn:de:bsz:15-0012-142679");
         metadataUtils.setMetsMods(metsmods);
         final List<Metadata> authors = metadataUtils.setAuthors();
-        System.out.println(authors.stream().map(Metadata::getValue)
-                .collect( Collectors.joining( "," )));
     }
 
     @Test
@@ -122,8 +121,6 @@ public class ManifestReserializerTest {
         final MetsMods metsmods = accessor.getMetadataFromAPI("urn:nbn:de:bsz:15-0012-220148");
         metadataUtils.setMetsMods(metsmods);
         final List<Metadata> authors = metadataUtils.setAuthors();
-        System.out.println(authors.stream().map(Metadata::getValue)
-                .collect( Collectors.joining( "," )));
     }
 }
 

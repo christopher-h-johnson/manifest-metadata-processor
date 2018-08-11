@@ -47,16 +47,21 @@ public class MetadataBuilderVersion3 {
             final Optional<Metadata> metaPPN = harmonizedMetadata.stream().filter(
                     y -> y.getLabel().equals("Source PPN (SWB)")).findAny();
             if (metaURN.isPresent()) {
-                final String urn = metaURN.get().getValue();
-                if (urn.equals("null") && metaPPN.isPresent()) {
-                    final String ppn = metaPPN.get().getValue();
-                    metadataImplVersion3 = buildMetadataFromPPNApi(ppn);
-                } else {
-                    metadataImplVersion3 = buildMetadataFromURNApi(urn);
+                final Optional<?> value = ofNullable(metaURN.get().getValue());
+                final Optional<String> urn = value.filter(String.class::isInstance).map(String.class::cast);
+                if (urn.isPresent()) {
+                    if (urn.get().equals("null") && metaPPN.isPresent()) {
+                        final Optional<?> value2 = ofNullable(metaPPN.get().getValue());
+                        final Optional<String> ppn = value2.filter(String.class::isInstance).map(String.class::cast);
+                        ppn.ifPresent(s -> metadataImplVersion3 = buildMetadataFromPPNApi(ppn.get()));
+                    } else {
+                        metadataImplVersion3 = buildMetadataFromURNApi(urn.get());
+                    }
                 }
             } else if (metaPPN.isPresent()) {
-                final String ppn = metaPPN.get().getValue();
-                metadataImplVersion3 = buildMetadataFromPPNApi(ppn);
+                final Optional<?> value2 = ofNullable(metaPPN.get().getValue());
+                final Optional<String> ppn = value2.filter(String.class::isInstance).map(String.class::cast);
+                ppn.ifPresent(s -> metadataImplVersion3 = buildMetadataFromPPNApi(ppn.get()));
             } else {
                 throw new RuntimeException("no valid identifiers for manifest");
             }

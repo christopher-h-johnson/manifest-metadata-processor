@@ -44,6 +44,19 @@ public class ManifestList {
     @JsonProperty
     private String attribution;
 
+    @JsonProperty
+    private String next;
+
+    @JsonProperty
+    private String within;
+
+    public String getNext() {
+        return next;
+    }
+
+    public void setNext(String next) {
+        this.next = next;
+    }
 
     public String getId() {
         return id;

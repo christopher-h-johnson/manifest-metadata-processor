@@ -14,6 +14,7 @@
 
 package de.ubleipzig.metadata.templates.v2;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -33,6 +34,8 @@ import java.util.List;
 @JsonPropertyOrder({"@context", "@id", "@type", "label", "license", "attribution", "logo", "related", "metadata",
         "sequences", "service"})
 public class PerfectManifest {
+
+    @JsonIgnoreProperties({"rendering", "logo"})
 
     @JsonProperty("@context")
     private String context;
@@ -65,19 +68,19 @@ public class PerfectManifest {
     private Object thumbnail;
 
     @JsonProperty("logo")
-    private String logo;
+    private Object logo;
 
     @JsonProperty("related")
-    private List<String> related;
+    private Object related;
 
     @JsonProperty("sequences")
     private List<Sequence> sequences;
 
     @JsonProperty("service")
-    private List<Object> service;
+    private  Object service;
 
     @JsonProperty
-    private List<Object> seeAlso;
+    private Object seeAlso;
 
     @JsonProperty("metadata")
     private List<Metadata> metadata;
@@ -87,6 +90,10 @@ public class PerfectManifest {
 
     @JsonProperty
     private String viewingHint;
+
+    @JsonProperty
+    private Object rendering;
+
 
     /**
      * Manifest.
@@ -157,14 +164,14 @@ public class PerfectManifest {
     /**
      * @param logo String
      */
-    public void setLogo(final String logo) {
+    public void setLogo(final Object logo) {
         this.logo = logo;
     }
 
     /**
      * @param service String
      */
-    public void setService(final List<Object> service) {
+    public void setService(final Object service) {
         this.service = service;
     }
 
@@ -206,15 +213,29 @@ public class PerfectManifest {
     /**
      * @param related List
      */
-    public void setRelated(final List<String> related) {
+    public void setRelated(final Object related) {
         this.related = related;
     }
 
     /**
      * @return List
      */
-    public List<String> getRelated() {
+    public Object getRelated() {
         return related;
+    }
+
+    /**
+     * @param seeAlso List
+     */
+    public void setSeeAlso(final Object seeAlso) {
+        this.seeAlso = seeAlso;
+    }
+
+    /**
+     * @return List
+     */
+    public Object getSeeAlso() {
+        return seeAlso;
     }
 }
 

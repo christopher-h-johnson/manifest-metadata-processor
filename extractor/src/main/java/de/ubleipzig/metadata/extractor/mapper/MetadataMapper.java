@@ -17,7 +17,9 @@ package de.ubleipzig.metadata.extractor.mapper;
 import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
 import static java.util.Optional.ofNullable;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.ubleipzig.metadata.templates.Metadata;
@@ -34,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.SplittableRandom;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,23 +54,30 @@ public class MetadataMapper {
     private String getRandomImageAsThumbnail(final PerfectManifest manifest) {
         final List<Sequence> seq = manifest.getSequences();
         final List<Canvas> canvases = seq.get(0).getCanvases();
-        final Integer canvasCount = canvases.size();
-        int n = new SplittableRandom().nextInt(0, canvasCount);
-        final List<PaintingAnnotation> images = canvases.get(n).getImages();
-        final Body res = images.get(0).getBody();
-        return res.getService().getId();
+        final int canvasCount = canvases.size();
+        if (canvasCount == 1) {
+            final List<PaintingAnnotation> images = canvases.get(0).getImages();
+            final Body res = images.get(0).getBody();
+            return res.getService().getId();
+        } else {
+            int n = new SplittableRandom().nextInt(0, canvasCount);
+            final List<PaintingAnnotation> images = canvases.get(n).getImages();
+            final Body res = images.get(0).getBody();
+            return res.getService().getId();
+        }
     }
 
     public String build() {
         try {
             final PerfectManifest manifest = MAPPER.readValue(body, new TypeReference<PerfectManifest>() {
             });
+
             final Map<String, String> metadataMap = new HashMap<>();
 
             //get Thumbnail
             final Optional<Object> thumbnail = ofNullable(manifest.getThumbnail());
             final String thumb;
-            thumb = thumbnail.map(t -> (String) t).orElseGet(() -> getRandomImageAsThumbnail(manifest));
+            thumb = getRandomImageAsThumbnail(manifest);
             metadataMap.put("thumbnail", thumb);
 
             final Optional<List<Metadata>> metadata = ofNullable(manifest.getMetadata());
@@ -81,16 +91,39 @@ public class MetadataMapper {
                 rel.ifPresent(s -> metadataMap.put("related", s));
             }
 
+            //set seeAlso (only if string)
+            final Optional<?> seeAlso = ofNullable(manifest.getSeeAlso());
+            if (seeAlso.isPresent()) {
+                final Optional<String> rel = seeAlso.filter(String.class::isInstance).map(String.class::cast);
+                rel.ifPresent(s -> metadataMap.put("seeAlso", s));
+            }
+
             metadata.ifPresent(md -> md.forEach(m -> {
-                metadataMap.put(m.getLabel(), m.getValue());
+                final Optional<?> value = ofNullable(m.getValue());
+                final Optional<String> v = value.filter(String.class::isInstance).map(String.class::cast);
+                if (v.isPresent()) {
+                    metadataMap.put(m.getLabel(), v.get());
+                } else {
+                    @SuppressWarnings("unchecked")
+                    final Optional<List<String>> vl = value.filter(List.class::isInstance).map(List.class::cast);
+                    if (vl.isPresent()) {
+                        List<String> s = vl.get();
+                        String vals = s.stream().map(Object::toString).collect(Collectors.joining(","));
+                        metadataMap.put(m.getLabel(), vals);
+                    }
+                }
             }));
             final MetadataMap map = new MetadataMap();
             map.setMetadataMap(metadataMap);
             final Optional<String> json = serialize(map);
             return json.orElse(null);
-        } catch (IOException ex) {
-            LOGGER.warn("Could not Map Manifest Metadata");
-            throw new RuntimeException("Could not Map Manifest Metadata", ex.getCause());
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return null;
     }
 }

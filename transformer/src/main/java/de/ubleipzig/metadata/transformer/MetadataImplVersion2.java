@@ -28,14 +28,10 @@ import static de.ubleipzig.metadata.transformer.MetadataApiEnum.STRUCTTYPE;
 import static de.ubleipzig.metadata.transformer.MetadataApiEnum.SUBTITLE;
 import static java.util.Optional.ofNullable;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.ubleipzig.metadata.templates.ISO639;
 import de.ubleipzig.metadata.templates.Metadata;
 import de.ubleipzig.metadata.templates.metsmods.MetsMods;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -113,8 +109,7 @@ public class MetadataImplVersion2 extends MetadataObjectTypes implements Metadat
     private String getGermanLanguageNameForCode(final String key) {
         final ISO639 iso639 = languageMap.getISO639();
         final List<ISO639.Language> languages = iso639.getLanguages();
-        final Optional<ISO639.Language> lang = languages.stream().filter(
-                y -> y.getIso639_2().equals(key)).findAny();
+        final Optional<ISO639.Language> lang = languages.stream().filter(y -> y.getIso639_2().equals(key)).findAny();
         return lang.map(ISO639.Language::getGermanName).orElse(null);
     }
 
@@ -199,7 +194,8 @@ public class MetadataImplVersion2 extends MetadataObjectTypes implements Metadat
             } else {
                 finalMetadata = addMetadataObject(newMetadata, SUBTITLE.getApiKey(), "Subtitle", 2);
                 //only show Physical Dimension for Non-manuscripts
-                finalMetadata = addMetadataObject(newMetadata, PHYSICAL_DESCRIPTION.getApiKey(), "Physical Description", 10);
+                finalMetadata = addMetadataObject(
+                        newMetadata, PHYSICAL_DESCRIPTION.getApiKey(), "Physical Description", 10);
             }
         }
 

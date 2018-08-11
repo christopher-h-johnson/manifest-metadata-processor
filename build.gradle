@@ -30,7 +30,7 @@ ext {
     leptonicaVersion = '1.75.3-1.4.1'
     slf4jVersion = '1.7.25'
     tesseractVersion = '3.05.01-1.4.1'
-    trellisClientVersion = '0.2.0-SNAPSHOT'
+    trellisClientVersion = '0.2.1-SNAPSHOT'
     xbeamVersion = '1.4.16'
 
     /* Testing */

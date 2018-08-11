@@ -50,6 +50,12 @@ public class Canvas {
     @JsonProperty("width")
     private Integer width;
 
+    @JsonProperty("thumbnail")
+    private Object thumbnail;
+
+    @JsonProperty
+    private List<Object> otherContent;
+
     /**
      * @return String
      */

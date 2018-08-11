@@ -29,7 +29,7 @@ public class Metadata {
     private String label;
 
     @JsonProperty("value")
-    private String value;
+    private Object value;
 
     @JsonIgnore
     private Integer displayOrder;
@@ -55,7 +55,7 @@ public class Metadata {
      * @return String
      */
     @JsonIgnore
-    public String getValue() {
+    public Object getValue() {
         return value;
     }
 
@@ -63,7 +63,7 @@ public class Metadata {
      * @param value String
      */
     @JsonIgnore
-    public void setValue(final String value) {
+    public void setValue(final Object value) {
         this.value = value;
     }
 

@@ -31,6 +31,9 @@ import java.util.List;
 @JsonPropertyOrder({"@id", "@type", "viewingHint", "canvases"})
 public class Sequence {
 
+    @JsonProperty("@context")
+    private String context;
+
     @JsonProperty("@id")
     private String id;
 
@@ -45,6 +48,9 @@ public class Sequence {
 
     @JsonProperty
     private String viewingHint;
+
+    @JsonProperty
+    private String viewingDirection;
 
     @JsonProperty
     private List<Canvas> canvases;
