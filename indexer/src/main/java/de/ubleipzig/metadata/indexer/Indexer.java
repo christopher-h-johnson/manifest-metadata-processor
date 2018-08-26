@@ -214,7 +214,8 @@ public class Indexer {
                     });
             return metadataMap;
         } catch (IOException e) {
-            throw new RuntimeException("Could not map metadata JSON", e.getCause());
+            LOGGER.info("unmappable metadata");
         }
+        return null;
     }
 }

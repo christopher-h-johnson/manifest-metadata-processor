@@ -76,7 +76,7 @@ public class MetadataMapper {
 
             //get Thumbnail
             final Optional<Object> thumbnail = ofNullable(manifest.getThumbnail());
-            final String thumb;
+            String thumb;
             thumb = getRandomImageAsThumbnail(manifest);
             metadataMap.put("thumbnail", thumb);
 
@@ -91,11 +91,42 @@ public class MetadataMapper {
                 rel.ifPresent(s -> metadataMap.put("related", s));
             }
 
-            //set seeAlso (only if string)
+            //set seeAlso
             final Optional<?> seeAlso = ofNullable(manifest.getSeeAlso());
             if (seeAlso.isPresent()) {
-                final Optional<String> rel = seeAlso.filter(String.class::isInstance).map(String.class::cast);
-                rel.ifPresent(s -> metadataMap.put("seeAlso", s));
+                final Optional<String> see = seeAlso.filter(String.class::isInstance).map(String.class::cast);
+                if (see.isPresent()) {
+                    metadataMap.put("seeAlso", see.get());
+                } else {
+                    @SuppressWarnings("unchecked")
+                    final Optional<List<String>> vl = seeAlso.filter(List.class::isInstance).map(List.class::cast);
+                    if (vl.isPresent()) {
+                        List<String> s = vl.get();
+                        String vals = s.stream().map(Object::toString).collect(Collectors.joining(","));
+                        metadataMap.put("seeAlso", vals);
+                    }
+                }
+            }
+
+            //set description  (only if string)
+            final Optional<?> description = ofNullable(manifest.getDescription());
+            if (description.isPresent()) {
+                final Optional<String> desc = description.filter(String.class::isInstance).map(String.class::cast);
+                desc.ifPresent(s -> metadataMap.put("description", s));
+            }
+
+            //set license  (only if string)
+            final Optional<?> license = ofNullable(manifest.getLicense());
+            if (license.isPresent()) {
+                final Optional<String> lisc = license.filter(String.class::isInstance).map(String.class::cast);
+                lisc.ifPresent(s -> metadataMap.put("license", s));
+            }
+
+            //set attribution  (only if string)
+            final Optional<?> attribution = ofNullable(manifest.getAttribution());
+            if (attribution.isPresent()) {
+                final Optional<String> attr = attribution.filter(String.class::isInstance).map(String.class::cast);
+                attr.ifPresent(s -> metadataMap.put("attribution", s));
             }
 
             metadata.ifPresent(md -> md.forEach(m -> {
@@ -105,10 +136,11 @@ public class MetadataMapper {
                     metadataMap.put(m.getLabel(), v.get());
                 } else {
                     @SuppressWarnings("unchecked")
-                    final Optional<List<String>> vl = value.filter(List.class::isInstance).map(List.class::cast);
+                    final Optional<List<Map<String, String>>> vl = value.filter(List.class::isInstance).map(List.class::cast);
                     if (vl.isPresent()) {
-                        List<String> s = vl.get();
-                        String vals = s.stream().map(Object::toString).collect(Collectors.joining(","));
+                        List<Map<String, String>> s = vl.get();
+                        final String vals = s.stream().map((Map<String, String> key) -> key.get("@value")).collect(Collectors.joining(","));
+                        // String vals = s.stream().map(Object::toString).collect(Collectors.joining(","));
                         metadataMap.put(m.getLabel(), vals);
                     }
                 }

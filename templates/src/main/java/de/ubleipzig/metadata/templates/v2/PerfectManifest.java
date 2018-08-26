@@ -150,6 +150,10 @@ public class PerfectManifest {
         this.attribution = attribution;
     }
 
+    public String getAttribution() {
+        return attribution;
+    }
+
     public Object getThumbnail() {
         return thumbnail;
     }
@@ -159,6 +163,10 @@ public class PerfectManifest {
      */
     public void setLicense(final String license) {
         this.license = license;
+    }
+
+    public String getLicense() {
+        return license;
     }
 
     /**
@@ -236,6 +244,13 @@ public class PerfectManifest {
      */
     public Object getSeeAlso() {
         return seeAlso;
+    }
+
+    /**
+     * @return List
+     */
+    public Object getDescription() {
+        return description;
     }
 }
 

@@ -179,14 +179,14 @@ public class IndexerTest {
     @Test
     void putJsonCollectionElasticBulk() throws LdpClientException {
         final Indexer indexer = new Indexer();
-        final String indexName = "hvd1";
+        final String indexName = "ga1";
         final String baseUrl = elasticSearchHost;
         final String bulkUri = baseUrl + bulkContext;
         indexer.createIndexMapping(baseUrl + indexName,
                 IndexerTest.class.getResourceAsStream("/ubl-dynamic-mapping.json"));
         final StringBuffer sb = new StringBuffer();
         try {
-            final InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/harvardArt-metadata.json");
+            final InputStream jsonList = IndexerTest.class.getResourceAsStream("/gallica/gallica-arsenal-metadata.json");
             final CollectionMapListIdentifier mapList = MAPPER.readValue(
                     jsonList, new TypeReference<CollectionMapListIdentifier>() {
                     });

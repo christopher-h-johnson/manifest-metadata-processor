@@ -14,6 +14,8 @@
 
 package de.ubleipzig.metadata.indexer;
 
+import static java.util.Optional.ofNullable;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -30,6 +32,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import jdk.incubator.http.HttpResponse;
 
@@ -55,7 +58,7 @@ public class Collection2LevelCollectorTest {
 
     @Test
     void buildCollectionsFromJson() {
-        final IRI rootCollectionIRI = rdf.createIRI("https://scta.info/iiif/scta/collection");
+        final IRI rootCollectionIRI = rdf.createIRI("https://biblissima.fr/iiif/collection/gallica-bnf/manuscripts-department/erudits-bibliophiles");
         try {
             final HttpResponse res = client.getResponse(rootCollectionIRI);
             if (res.statusCode() == 200 | res.statusCode() == 301) {
@@ -84,13 +87,16 @@ public class Collection2LevelCollectorTest {
                                 final HttpResponse res3 = client.getResponse(apiReq);
                                 if (res3.statusCode() == 200 | res3.statusCode() == 301) {
                                     final String json3 = res3.body().toString();
-                                    final MetadataMap metadataMap = indexer.buildMetadataMap(json3);
-                                    Map<String,String> metadata = metadataMap.getMetadataMap();
-                                    metadata.put("Collection", label);
-                                    metadata.put("Manifest", m.getId());
-                                    metadataMap.setMetadataMap(metadata);
-                                    finalMapList.add(metadataMap);
-                                    LOGGER.info("adding {} to indexable metadata", identifier.getIRIString());
+                                    final Optional<MetadataMap> metadataMap = ofNullable(indexer.buildMetadataMap(json3));
+                                    if (metadataMap.isPresent()) {
+                                        final MetadataMap map = metadataMap.get();
+                                        Map<String, String> metadata = map.getMetadataMap();
+                                        metadata.put("collection", label);
+                                        metadata.put("manifest", m.getId());
+                                        map.setMetadataMap(metadata);
+                                        finalMapList.add(map);
+                                        LOGGER.info("adding {} to indexable metadata", identifier.getIRIString());
+                                    }
                                 }
                             }
                             final MapListCollection l = new MapListCollection();
@@ -105,7 +111,7 @@ public class Collection2LevelCollectorTest {
                 });
                 rootCollection.setRootCollection(mapListCollections);
                 final String out = JsonSerializer.serialize(rootCollection).orElse("");
-                JsonSerializer.writeToFile(out, new File("/tmp/cambridge-metadata.json"));
+                JsonSerializer.writeToFile(out, new File("/tmp/gallica-erudits-bibliophiles-metadata.json"));
             }
         } catch (LdpClientException | IOException e) {
             e.printStackTrace();

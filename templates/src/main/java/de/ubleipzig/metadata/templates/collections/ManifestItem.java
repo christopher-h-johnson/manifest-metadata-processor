@@ -16,6 +16,10 @@ package de.ubleipzig.metadata.templates.collections;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import de.ubleipzig.metadata.templates.Metadata;
+
+import java.util.List;
+
 public class ManifestItem {
 
     @JsonProperty("@id")
@@ -26,6 +30,55 @@ public class ManifestItem {
 
     @JsonProperty
     private String label;
+
+    @JsonProperty
+    private String thumbnail;
+
+    @JsonProperty
+    private List<Related> related;
+
+    @JsonProperty
+    private String description;
+
+    @JsonProperty
+    private List<Metadata> metadata;
+
+    @JsonProperty
+    private SeeAlso seeAlso;
+
+    private static class SeeAlso {
+        @JsonProperty("@id")
+        private String id;
+
+        @JsonProperty
+        private String format;
+
+        public String getId() {
+            return id;
+        }
+    }
+
+    private static class Related {
+        @JsonProperty("@id")
+        private String id;
+
+        @JsonProperty
+        private String format;
+
+        @JsonProperty
+        private String label;
+
+        public String getLabel() {
+            return label;
+        }
+
+        public String getId() {
+            return id;
+        }
+    }
+
+    @JsonProperty
+    private String location;
 
     public String getId() {
         return id;
@@ -49,5 +102,17 @@ public class ManifestItem {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public List<Related> getRelated() {
+        return related;
+    }
+
+    public List<Metadata> getMetadata() {
+        return metadata;
     }
 }

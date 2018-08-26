@@ -33,6 +33,9 @@ public class ManifestList {
     private String label;
 
     @JsonProperty
+    private String related;
+
+    @JsonProperty
     private List<ManifestItem> manifests;
 
     @JsonProperty
