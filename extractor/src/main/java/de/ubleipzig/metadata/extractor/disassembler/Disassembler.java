@@ -36,6 +36,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,11 +55,24 @@ public class Disassembler {
             final Manifest manifest = MAPPER.readValue(body, new TypeReference<Manifest>() {
             });
             final Optional<List<Metadata>> metadata = ofNullable(manifest.getMetadata());
-            final Map<String, String> metadataMap = new HashMap<>();
+            final Map<String, Object> metadataMap = new HashMap<>();
 
             //set title in metadata
             String title = manifest.getLabel();
             metadataMap.put("Title", title);
+
+            // set manifest Id in metadata
+            String manifestId = manifest.getId();
+            metadataMap.put("manifest", manifestId);
+
+            // set license in metadata
+            Optional<String> license = ofNullable(manifest.getLicense());
+            license.ifPresent(s -> metadataMap.put("license", s));
+
+            // set attribution in metadata
+            String attribution = manifest.getAttribution();
+            metadataMap.put("attribution", attribution);
+
             metadata.ifPresent(md -> md.forEach(m -> {
                 final Optional<?> value = ofNullable(m.getValue());
                 final Optional<String> v = value.filter(String.class::isInstance).map(String.class::cast);
@@ -93,16 +107,23 @@ public class Disassembler {
                         structure.setStructureId(ss);
                         sMap.put(ai2.getAndIncrement(), structure);
                     }));
-                    aba.setStructureMap(sMap);
                     c.getImages().forEach(i -> {
-                        String iiifService = i.getResource().getService().getId();
+                        String thumbnail = i.getResource().getService().getId();
                         //hack to fix service
-                        if (iiifService.contains(IIPSRV_DEFAULT)) {
-                            iiifService = iiifService.replace(IIPSRV_DEFAULT, "iiif");
+                        if (thumbnail.contains(IIPSRV_DEFAULT)) {
+                            thumbnail = thumbnail.replace(IIPSRV_DEFAULT, "iiif");
                         }
-                        aba.setIiifService(iiifService);
-                        aba.setImageIndex(imageIndex);
-                        aba.setMetadata(metadataMap);
+                        if (!thumbnail.contains("https")) {
+                            thumbnail = thumbnail.replace("http", "https");
+                        }
+                        Map<String, Object> mapCopy = metadataMap.entrySet().stream()
+                                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+                        mapCopy.put("thumbnail", thumbnail);
+                        mapCopy.put("imageIndex", String.valueOf(imageIndex));
+                        if (sMap.size() > 0) {
+                            mapCopy.put("structureMap", sMap);
+                        }
+                        aba.setMetadata(mapCopy);
                         abaList.add(aba);
                     });
                 });

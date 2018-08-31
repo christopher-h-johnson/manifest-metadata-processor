@@ -25,8 +25,11 @@ import de.ubleipzig.metadata.templates.MapListCollection;
 import de.ubleipzig.metadata.templates.MetadataMap;
 import de.ubleipzig.metadata.templates.OrpAtom;
 import de.ubleipzig.metadata.templates.OrpAtomList;
+import de.ubleipzig.metadata.templates.collections.BodleianCollectionMapListIdentifier;
+import de.ubleipzig.metadata.templates.collections.BodleianMapListCollection;
 import de.ubleipzig.metadata.templates.collections.CollectionMapListIdentifier;
 import de.ubleipzig.metadata.templates.collections.LandingDoc;
+import de.ubleipzig.metadata.templates.collections.ManifestUUIDMap;
 import de.ubleipzig.metadata.templates.indexer.ElasticCreate;
 
 import java.io.ByteArrayInputStream;
@@ -35,7 +38,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import jdk.incubator.http.HttpResponse;
@@ -57,7 +62,7 @@ public class IndexerTest {
     private final LdpClient client = new LdpClientImpl();
     private static final JenaRDF rdf = new JenaRDF();
     private final String contentTypeJson = "application/json";
-    private final String elasticSearchHost = "https://es.iiif.cloud/";
+    private final String elasticSearchHost = "http://workspaces.ub.uni-leipzig.de:9100/";
     private final String elasticSearchLocalhost = "http://localhost:9100/";
     private final String lineSeparator = "line.separator";
     private final String docTypeIndex = "_doc";
@@ -73,10 +78,10 @@ public class IndexerTest {
 
     private List<IRI> buildIRIList() {
         final String extractorService =
-                "http://localhost:9098/extractor?type=extract&manifest=http://iiif.ub" + "" + ".uni-leipzig.de/";
-        final int loops = 10300;
+                "http://localhost:9098/extractor?type=extract&m=https://data.getty.edu/museum/api/iiif/";
+        final int loops = 11190;
         final List<IRI> list = new ArrayList<>();
-        for (int i = 9698; i < loops; i++) {
+        for (int i = 0; i < loops; i++) {
             final String pid = String.format(tenDigitString, i);
             final IRI identifier = rdf.createIRI(extractorService + pid + manifestFileName);
             list.add(identifier);
@@ -120,7 +125,7 @@ public class IndexerTest {
         final MapList l = new MapList();
         l.setMapList(mapList);
         final String out = JsonSerializer.serialize(l).orElse("");
-        JsonSerializer.writeToFile(out, new File("/tmp/ubl-metadata.json"));
+        JsonSerializer.writeToFile(out, new File("/tmp/getty-metadata.json"));
     }
 
 
@@ -179,18 +184,51 @@ public class IndexerTest {
     @Test
     void putJsonCollectionElasticBulk() throws LdpClientException {
         final Indexer indexer = new Indexer();
-        final String indexName = "ga1";
+
+        final String indexName = "gt3";
         final String baseUrl = elasticSearchHost;
         final String bulkUri = baseUrl + bulkContext;
         indexer.createIndexMapping(baseUrl + indexName,
                 IndexerTest.class.getResourceAsStream("/ubl-dynamic-mapping.json"));
         final StringBuffer sb = new StringBuffer();
         try {
-            final InputStream jsonList = IndexerTest.class.getResourceAsStream("/gallica/gallica-arsenal-metadata.json");
+            final InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/getty-metadata.json");
             final CollectionMapListIdentifier mapList = MAPPER.readValue(
                     jsonList, new TypeReference<CollectionMapListIdentifier>() {
                     });
             final List<MapListCollection> m = mapList.getRootCollection();
+            m.forEach(map -> {
+                map.getMapListCollection().forEach(ml -> {
+                    ElasticCreate c = indexer.createDocument(indexName, docTypeIndex, getDocumentId());
+                    sb.append(JsonSerializer.serializeRaw(c).orElse(""));
+                    sb.append(System.getProperty(lineSeparator));
+                    sb.append(JsonSerializer.serializeRaw(ml.getMetadataMap()).orElse(""));
+                    sb.append(System.getProperty(lineSeparator));
+                });
+            });
+            final InputStream is = new ByteArrayInputStream(sb.toString().getBytes());
+            client.post(rdf.createIRI(bulkUri), is, contentTypeJson);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void putBodleianCollectionElasticBulk() throws LdpClientException {
+        final Indexer indexer = new Indexer();
+
+        final String indexName = "ox1";
+        final String baseUrl = elasticSearchHost;
+        final String bulkUri = baseUrl + bulkContext;
+        indexer.createIndexMapping(baseUrl + indexName,
+                IndexerTest.class.getResourceAsStream("/ubl-dynamic-mapping.json"));
+        final StringBuffer sb = new StringBuffer();
+        try {
+            final InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/bodleian-metadata.json");
+            final BodleianCollectionMapListIdentifier mapList = MAPPER.readValue(
+                    jsonList, new TypeReference<BodleianCollectionMapListIdentifier>() {
+                    });
+            final List<BodleianMapListCollection> m = mapList.getRootCollection();
             m.forEach(map -> {
                 map.getMapListCollection().forEach(ml -> {
                     ElasticCreate c = indexer.createDocument(indexName, docTypeIndex, getDocumentId());
@@ -238,7 +276,7 @@ public class IndexerTest {
     @Test
     void putJsonAtomsElasticBulk4() {
         final Indexer indexer = new Indexer();
-        final String indexName = "t5";
+        final String indexName = "t6";
         final InputStream mapping = IndexerTest.class.getResourceAsStream("/ubl-dynamic-mapping.json");
         indexer.createIndexMapping(elasticSearchHost + indexName, mapping);
         final List<IRI> list = buildDisassemblerIRIList();
@@ -280,7 +318,7 @@ public class IndexerTest {
         final InputStream mapping = IndexerTest.class.getResourceAsStream("/ubl-nested-atom-mapping.json");
         indexer.createIndexMapping(elasticSearchHost + indexName, mapping);
         final IRI iri = rdf.createIRI(
-                "http://localhost:9098/extractor?type=disassemble&manifest=http://iiif.ub.uni-leipzig.de/" + viewId
+                "http://localhost:9098/extractor?type=disassemble&m=http://iiif.ub.uni-leipzig.de/" + viewId
                         + manifestFileName);
         indexer.putModernContentAtoms(iri, indexName);
     }
@@ -288,8 +326,8 @@ public class IndexerTest {
 
     private List<IRI> buildDisassemblerIRIList() {
         final String disassemblerService =
-                "http://localhost:9098/extractor?type=disassemble&manifest=http://iiif.ub" + ".uni-leipzig.de/";
-        final int loops = 11000;
+                "http://localhost:9098/extractor?type=disassemble&m=http://iiif.ub.uni-leipzig.de/";
+        final int loops = 13000;
         final List<IRI> list = new ArrayList<>();
         for (int i = 12; i < loops; i++) {
             final String pid = String.format(tenDigitString, i);
@@ -299,9 +337,28 @@ public class IndexerTest {
         return list;
     }
 
+    @Test
+    void buildUUIDList() {
+        final String manifestBase = "https://iiif.ub.uni-leipzig.de/";
+        final int loops = 12152;
+        final Map<String, Map<String, String>> manifestMap = new HashMap<>();
+        for (int i = 12; i < loops; i++) {
+            final String pid = String.format(tenDigitString, i);
+            final String manifest = manifestBase + pid + manifestFileName;
+            Map<String, String> manifestKV = new HashMap<>();
+            final UUID uuid = UUIDv5.nameUUIDFromNamespaceAndString(UUIDv5.NAMESPACE_URL, manifest);
+            manifestKV.put("manifest", manifest);
+            manifestMap.put(uuid.toString(), manifestKV);
+        }
+        final ManifestUUIDMap map = new ManifestUUIDMap();
+        map.setManifestMap(manifestMap);
+        String json = JsonSerializer.serialize(map).orElse("");
+        JsonSerializer.writeToFile(json, new File("/tmp/ubl-uuidMap.json"));
+    }
+
     private List<IRI> buildReserializerIRIList() {
         final String disassemblerService =
-                "http://localhost:9098/extractor?type=reserialize&version=2&m=http://iiif" + ".ub" + ".uni-leipzig.de/";
+                "http://localhost:9098/extractor?type=reserialize&version=2&m=http://iiif.ub.uni-leipzig.de/";
         final int loops = 5000;
         final List<IRI> list = new ArrayList<>();
         for (int i = 12; i < loops; i++) {

@@ -14,6 +14,8 @@
 
 package de.ubleipzig.metadata.indexer;
 
+import static java.util.Optional.ofNullable;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -21,15 +23,20 @@ import de.ubleipzig.metadata.processor.JsonSerializer;
 import de.ubleipzig.metadata.templates.MapListCollection;
 import de.ubleipzig.metadata.templates.MetadataMap;
 import de.ubleipzig.metadata.templates.collections.ManifestItem;
+import de.ubleipzig.metadata.templates.collections.ManifestUUIDMap;
 import de.ubleipzig.metadata.templates.collections.PagedCollection;
 import de.ubleipzig.metadata.templates.collections.RootCollection;
 import de.ubleipzig.metadata.templates.collections.TopCollection;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -58,7 +65,8 @@ public class CollectionPagedCollectorTest {
 
     private List<MetadataMap> buildMetadataMapList(final List<ManifestItem> manifestList) {
         final List<MetadataMap> metadataMapList = new ArrayList<>();
-        for (ManifestItem m : manifestList) {
+        final List<ManifestItem> sublist = manifestList.subList(195000, 209500);
+        for (ManifestItem m : sublist) {
             final IRI identifier = rdf.createIRI(m.getId());
             final IRI apiReq = rdf.createIRI(baseUrl + identifier.getIRIString());
             final HttpResponse res3;
@@ -98,14 +106,12 @@ public class CollectionPagedCollectorTest {
     }
 
     @Test
-    void buildCollectionsFromJson() throws IOException {
+    void buildCollectionManifestList() throws IOException {
         final IRI rootCollectionIRI = rdf.createIRI("https://iiif.harvardartmuseums.org/collections/top");
         final String json = getJsonResponse(rootCollectionIRI);
         final TopCollection collections = MAPPER.readValue(json, new TypeReference<TopCollection>() {
         });
         final List<PagedCollection> cList = collections.getMembers();
-        final RootCollection rootCollection = new RootCollection();
-        final List<MapListCollection> mapListCollections = new ArrayList<>();
         for (PagedCollection c : cList) {
             final String collectionId = c.getId();
             final IRI cIRI0 = rdf.createIRI(collectionId);
@@ -113,8 +119,8 @@ public class CollectionPagedCollectorTest {
             final PagedCollection subTop = MAPPER.readValue(json0, new TypeReference<PagedCollection>() {
             });
             final Integer total = subTop.getTotal();
-            //final int loops = total / 100;
-            final int loops = 10;
+            final int loops = total / 100;
+            //final int loops = 10;
             String nextId = null;
             List<ManifestItem> manifestList = null;
             Iterable<ManifestItem> items = null;
@@ -156,6 +162,11 @@ public class CollectionPagedCollectorTest {
             if (items != null) {
                 List<ManifestItem> finalManifestList = StreamSupport.stream(items.spliterator(), false).collect(
                         Collectors.toList());
+                final PagedCollection manifestListTemp = new PagedCollection();
+                manifestListTemp.setManifests(finalManifestList);
+                final String manifests = JsonSerializer.serialize(manifestListTemp).orElse("");
+                JsonSerializer.writeToFile(manifests, new File("/tmp/harvardArt-manifests.json"));
+                /**
                 final List<MetadataMap> finalMapList = buildMetadataMapList(finalManifestList);
                 final MapListCollection l = new MapListCollection();
                 l.setMapListCollection(finalMapList);
@@ -164,7 +175,48 @@ public class CollectionPagedCollectorTest {
                 rootCollection.setRootCollection(mapListCollections);
                 final String out = JsonSerializer.serialize(rootCollection).orElse("");
                 JsonSerializer.writeToFile(out, new File("/tmp/harvardArt-metadata.json"));
+                **/
             }
         }
     }
+
+    @Test
+    void buildManifestListMetadata() throws IOException {
+        final InputStream is = CollectionPagedCollectorTest.class.getResourceAsStream("/data/harvardArt-manifests.json");
+        final PagedCollection pc = MAPPER.readValue(is, new TypeReference<PagedCollection>() {
+        });
+        final List<ManifestItem> manifests = pc.getManifests();
+        final RootCollection rootCollection = new RootCollection();
+        final List<MapListCollection> mapListCollections = new ArrayList<>();
+        final List<MetadataMap> finalMapList = buildMetadataMapList(manifests);
+        final MapListCollection l = new MapListCollection();
+        l.setMapListCollection(finalMapList);
+        mapListCollections.add(l);
+        rootCollection.setRootCollection(mapListCollections);
+        final String out = JsonSerializer.serialize(rootCollection).orElse("");
+        JsonSerializer.writeToFile(out, new File("/tmp/harvardArt-metadata-195000-209500.json"));
+    }
+
+    @Test
+    void buildManifestUUIDs() throws IOException {
+        final InputStream is = CollectionPagedCollectorTest.class.getResourceAsStream("/data/harvardArt-manifests.json");
+        final PagedCollection pc = MAPPER.readValue(is, new TypeReference<PagedCollection>() {
+        });
+        final Map<String, Map<String, String>> manifestMap = new HashMap<>();
+        final List<ManifestItem> manifests = pc.getManifests();
+        manifests.forEach(m -> {
+            final Optional<String> manifest = ofNullable(m.getId());
+            if (manifest.isPresent()) {
+                Map<String, String> manifestKV = new HashMap<>();
+                final UUID uuid = UUIDv5.nameUUIDFromNamespaceAndString(UUIDv5.NAMESPACE_URL, manifest.get());
+                manifestKV.put("manifest", manifest.get());
+                manifestMap.put(uuid.toString(), manifestKV);
+            }
+        });
+        final ManifestUUIDMap map = new ManifestUUIDMap();
+        map.setManifestMap(manifestMap);
+        String json = JsonSerializer.serialize(map).orElse("");
+        JsonSerializer.writeToFile(json, new File("/tmp/hvd-uuidMap.json"));
+    }
 }
+

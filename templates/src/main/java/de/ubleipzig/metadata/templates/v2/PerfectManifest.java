@@ -94,6 +94,8 @@ public class PerfectManifest {
     @JsonProperty
     private Object rendering;
 
+    @JsonProperty
+    private String navDate;
 
     /**
      * Manifest.
@@ -149,6 +151,7 @@ public class PerfectManifest {
     public void setAttribution(final String attribution) {
         this.attribution = attribution;
     }
+
 
     public String getAttribution() {
         return attribution;

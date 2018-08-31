@@ -26,18 +26,24 @@ public class DeserializeElasticDumpTest {
 
     @Test
     void deserializeDoc() {
-        String filename = "/tmp/gt2.json";
-        final Map<String, String> manifestMap = new HashMap<>();
+        String filename = "/tmp/ox1.json";
+        final Map<String, Map<String, String>> manifestMap = new HashMap<>();
         try (Stream<String> stream = Files.lines(Paths.get(filename))) {
             stream.forEach(l -> {
                 final ElasticDocumentObjectDeserialize doc;
                 try {
                     doc = MAPPER.readValue(l, new TypeReference<ElasticDocumentObjectDeserialize>() {
                     });
-                    final Optional<String> manifest = ofNullable(doc.getSource().getId());
+                    final Optional<String> manifest = ofNullable(doc.getSource().getManifest());
                     if (manifest.isPresent()) {
-                        final UUID uuid = UUIDv5.nameUUIDFromNamespaceAndString(UUIDv5.NAMESPACE_URL, manifest.get());
-                        manifestMap.put(uuid.toString(), manifest.get());
+                        String man = manifest.get();
+                        if (!man.contains("https")) {
+                            man = man.replace("http", "https");
+                        }
+                        Map<String, String> manifestKV = new HashMap<>();
+                        final UUID uuid = UUIDv5.nameUUIDFromNamespaceAndString(UUIDv5.NAMESPACE_URL, man);
+                        manifestKV.put("manifest", man);
+                        manifestMap.put(uuid.toString(), manifestKV);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -46,7 +52,7 @@ public class DeserializeElasticDumpTest {
             final ManifestUUIDMap map = new ManifestUUIDMap();
             map.setManifestMap(manifestMap);
             String json = JsonSerializer.serialize(map).orElse("");
-            JsonSerializer.writeToFile(json, new File("/tmp/gt2-uuidMap.json"));
+            JsonSerializer.writeToFile(json, new File("/tmp/ox1-uuidMap.json"));
         } catch (IOException e) {
             e.printStackTrace();
         }

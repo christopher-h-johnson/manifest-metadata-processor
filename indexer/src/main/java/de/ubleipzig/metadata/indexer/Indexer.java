@@ -39,6 +39,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -138,10 +139,11 @@ public class Indexer {
                 });
                 final List<AnnotationBodyAtom> m = atomList.getAtomList();
                 m.forEach(map -> {
+                    LOGGER.info("indexing {}", map.getThumbnail());
                     ElasticCreate c = indexer.createDocument(indexName, docTypeIndex, getDocumentId());
                     sb.append(JsonSerializer.serializeRaw(c).orElse(""));
                     sb.append(System.getProperty(lineSeparator));
-                    sb.append(JsonSerializer.serializeRaw(map).orElse(""));
+                    sb.append(JsonSerializer.serializeRaw(map.getMetadata()).orElse(""));
                     sb.append(System.getProperty(lineSeparator));
                 });
                 LOGGER.debug(sb.toString());
@@ -167,16 +169,16 @@ public class Indexer {
                 final List<AnnotationBodyAtom> m = atomList.getAtomList();
                 final List<AnnotationBodyAtom> modernList = m.stream().collect(Collectors.filtering(
                         x -> (Boolean) x.getMetadata().entrySet().stream().anyMatch(
-                                y -> y.getKey().contains("Date") && Integer.valueOf(y.getValue()) > 1900),
+                                y -> y.getKey().contains("Date") && Integer.valueOf((String) y.getValue()) > 1900),
                         Collectors.toList()));
                 if (!modernList.isEmpty()) {
                     modernList.forEach(map -> {
                         ElasticCreate c = indexer.createDocument(indexName, docTypeIndex, getDocumentId());
                         sb.append(JsonSerializer.serializeRaw(c).orElse(""));
                         sb.append(System.getProperty(lineSeparator));
-                        LOGGER.info("Scanning Image {}", map.getIiifService());
+                        LOGGER.info("Scanning Image {}", map.getThumbnail());
                         IRI scannerApi = rdf.createIRI(
-                                scannerAPIHost + "?type=scan&lang=deu&image=" + map.getIiifService());
+                                scannerAPIHost + "?type=scan&lang=deu&image=" + map.getThumbnail());
                         List<ContentList.Content> cList = getContentList(scannerApi).getContentList();
                         map.setContentList(cList);
                         sb.append(JsonSerializer.serializeRaw(map).orElse(""));

@@ -130,7 +130,7 @@ public class PagedCollection {
         return manifests;
     }
 
-    public void setManifest(List<ManifestItem> manifests) {
+    public void setManifests(List<ManifestItem> manifests) {
         this.manifests = manifests;
     }
 

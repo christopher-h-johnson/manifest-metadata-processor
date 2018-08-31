@@ -50,6 +50,9 @@ public class Sequence {
     private String viewingHint;
 
     @JsonProperty
+    private String startCanvas;
+
+    @JsonProperty
     private String viewingDirection;
 
     @JsonProperty

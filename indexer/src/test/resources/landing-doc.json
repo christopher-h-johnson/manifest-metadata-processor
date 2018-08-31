@@ -1,0 +1,18 @@
+{
+  "thumbnail": "https://iiif.ub.uni-leipzig.de/iiif/j2k/0000/0081/0000008110/00000006.jpx",
+  "name": "UBL Atomic Search",
+  "route": "/collection/atomic",
+  "dateUpdated": "2018-08-27T10:25:13.559Z",
+  "docCount": 2605115,
+  "index": "t6"
+}
+{
+  "imageIndex": 1,
+  "imageServiceIRI": "https://image02.cudl.lib.cam.ac.uk/iiif/PR-TAB-B-00725-00167-000-00001.jp2",
+  "metadataMap": {
+    "tag1": "Cambridge Digital Library",
+    "tag2": "/collection/uc",
+    "tag3": "2018-08-04T17:44:07.522Z",
+    "tag4": "26584",
+    "index": "uc2"
+  }

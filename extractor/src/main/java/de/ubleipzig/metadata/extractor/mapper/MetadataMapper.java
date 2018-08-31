@@ -22,6 +22,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import de.ubleipzig.metadata.templates.BodleianMetadataMap;
 import de.ubleipzig.metadata.templates.Metadata;
 import de.ubleipzig.metadata.templates.MetadataMap;
 import de.ubleipzig.metadata.templates.v2.Body;
@@ -52,19 +53,24 @@ public class MetadataMapper {
     }
 
     private String getRandomImageAsThumbnail(final PerfectManifest manifest) {
-        final List<Sequence> seq = manifest.getSequences();
-        final List<Canvas> canvases = seq.get(0).getCanvases();
-        final int canvasCount = canvases.size();
-        if (canvasCount == 1) {
-            final List<PaintingAnnotation> images = canvases.get(0).getImages();
-            final Body res = images.get(0).getBody();
-            return res.getService().getId();
-        } else {
-            int n = new SplittableRandom().nextInt(0, canvasCount);
-            final List<PaintingAnnotation> images = canvases.get(n).getImages();
-            final Body res = images.get(0).getBody();
-            return res.getService().getId();
+        final Optional<List<Sequence>> seq = ofNullable(manifest.getSequences());
+        if (seq.isPresent()) {
+            final List<Canvas> canvases = seq.get().get(0).getCanvases();
+            final int canvasCount = canvases.size();
+            if (canvasCount == 1) {
+                final List<PaintingAnnotation> images = canvases.get(0).getImages();
+                final Body res = images.get(0).getBody();
+                return res.getService().getId();
+            } else if (canvasCount > 1) {
+                int n = new SplittableRandom().nextInt(0, canvasCount);
+                final List<PaintingAnnotation> images = canvases.get(n).getImages();
+                final Body res = images.get(0).getBody();
+                return res.getService().getId();
+            } else {
+                return null;
+            }
         }
+        return null;
     }
 
     public String build() {
@@ -72,17 +78,22 @@ public class MetadataMapper {
             final PerfectManifest manifest = MAPPER.readValue(body, new TypeReference<PerfectManifest>() {
             });
 
-            final Map<String, String> metadataMap = new HashMap<>();
+            final Map<String, Object> metadataMap = new HashMap<>();
+
+            //get Manifest Id
+            final Optional<String> id = ofNullable(manifest.getId());
+            id.ifPresent(t -> metadataMap.put("manifest", id.get()));
 
             //get Thumbnail
-            final Optional<Object> thumbnail = ofNullable(manifest.getThumbnail());
-            String thumb;
-            thumb = getRandomImageAsThumbnail(manifest);
-            metadataMap.put("thumbnail", thumb);
+            //final Optional<Object> thumbnail = ofNullable(manifest.getThumbnail());
+            final Optional<String> thumb;
+            thumb = ofNullable(getRandomImageAsThumbnail(manifest));
+            thumb.ifPresent(t -> metadataMap.put("thumbnail", t));
 
-            final Optional<List<Metadata>> metadata = ofNullable(manifest.getMetadata());
             final String title = manifest.getLabel();
             metadataMap.put("title", title);
+
+            final Optional<List<Metadata>> metadata = ofNullable(manifest.getMetadata());
 
             //set related (only if string)
             final Optional<?> related = ofNullable(manifest.getRelated());
@@ -99,9 +110,9 @@ public class MetadataMapper {
                     metadataMap.put("seeAlso", see.get());
                 } else {
                     @SuppressWarnings("unchecked")
-                    final Optional<List<String>> vl = seeAlso.filter(List.class::isInstance).map(List.class::cast);
+                    final Optional<List<Object>> vl = seeAlso.filter(List.class::isInstance).map(List.class::cast);
                     if (vl.isPresent()) {
-                        List<String> s = vl.get();
+                        List<Object> s = vl.get();
                         String vals = s.stream().map(Object::toString).collect(Collectors.joining(","));
                         metadataMap.put("seeAlso", vals);
                     }
@@ -136,16 +147,16 @@ public class MetadataMapper {
                     metadataMap.put(m.getLabel(), v.get());
                 } else {
                     @SuppressWarnings("unchecked")
-                    final Optional<List<Map<String, String>>> vl = value.filter(List.class::isInstance).map(List.class::cast);
+                    final Optional<List<String>> vl = value.filter(List.class::isInstance).map(List.class::cast);
                     if (vl.isPresent()) {
-                        List<Map<String, String>> s = vl.get();
-                        final String vals = s.stream().map((Map<String, String> key) -> key.get("@value")).collect(Collectors.joining(","));
+                        List<String> s = vl.get();
+                        //final String vals = s.stream().map(Object::toString).collect(Collectors.joining(","));
                         // String vals = s.stream().map(Object::toString).collect(Collectors.joining(","));
-                        metadataMap.put(m.getLabel(), vals);
+                        metadataMap.put(m.getLabel(), s);
                     }
                 }
             }));
-            final MetadataMap map = new MetadataMap();
+            final BodleianMetadataMap map = new BodleianMetadataMap();
             map.setMetadataMap(metadataMap);
             final Optional<String> json = serialize(map);
             return json.orElse(null);

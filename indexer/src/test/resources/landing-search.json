@@ -1,0 +1,136 @@
+{
+  "took": 0,
+  "timed_out": false,
+  "_shards": {
+    "total": 5,
+    "successful": 5,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": 6,
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "a1",
+        "_type": "_doc",
+        "_id": "8",
+        "_score": 1,
+        "_source": {
+          "imageIndex": 1,
+          "imageServiceIRI": "https://gallica.bnf.fr/iiif/ark:/12148/btv1b8303380t/f8",
+          "metadataMap": {
+            "tag1": "Gallica",
+            "tag2": "/collection/ga",
+            "tag3": "2018-08-28T11:35:21.121Z",
+            "tag4": "15502",
+            "index": "ga2",
+            "tag6": "",
+            "tag7": "",
+            "tag8": ""
+          }
+        }
+      },
+      {
+        "_index": "a1",
+        "_type": "_doc",
+        "_id": "4",
+        "_score": 1,
+        "_source": {
+          "imageIndex": 1,
+          "imageServiceIRI": "https://image02.cudl.lib.cam.ac.uk/iiif/PR-TAB-B-00725-00167-000-00001.jp2",
+          "metadataMap": {
+            "tag1": "Cambridge Digital Library",
+            "tag2": "/collection/uc",
+            "tag3": "2018-08-04T17:44:07.522Z",
+            "tag4": "26584",
+            "index": "uc2",
+            "tag6": "",
+            "tag7": "",
+            "tag8": ""
+          }
+        }
+      },
+      {
+        "_index": "a1",
+        "_type": "_doc",
+        "_id": "6",
+        "_score": 1,
+        "_source": {
+          "imageIndex": 1,
+          "imageServiceIRI": "https://data.getty.edu/museum/api/iiif/357413",
+          "metadataMap": {
+            "tag1": "The J. Paul Getty Museum",
+            "tag2": "/collection/getty",
+            "tag3": "2018-08-09T13:02:58.018Z",
+            "tag4": "8889",
+            "index": "gt2",
+            "tag6": "",
+            "tag7": "",
+            "tag8": ""
+          }
+        }
+      },
+      {
+        "_index": "a1",
+        "_type": "_doc",
+        "_id": "2",
+        "_score": 1,
+        "_source": {
+          "imageIndex": 1,
+          "imageServiceIRI": "https://www.e-codices.unifr.ch/loris/kba/kba-0003/kba-0003_027r.jp2",
+          "metadataMap": {
+            "tag1": "e-codices",
+            "tag2": "/collection/ec",
+            "tag3": "2018-07-25T07:18:10.738Z",
+            "tag4": "2046",
+            "index": "ec9",
+            "tag6": "",
+            "tag7": "",
+            "tag8": ""
+          }
+        }
+      },
+      {
+        "_index": "a1",
+        "_type": "_doc",
+        "_id": "7",
+        "_score": 1,
+        "_source": {
+          "imageIndex": 1,
+          "imageServiceIRI": "https://ids.lib.harvard.edu/ids/iiif/20457112",
+          "metadataMap": {
+            "tag1": "Harvard Art Museums",
+            "tag2": "/collection/harvard",
+            "tag3": "2018-08-13T11:27:00.908Z",
+            "tag4": "209495",
+            "index": "hvd2",
+            "tag6": "",
+            "tag7": "",
+            "tag8": ""
+          }
+        }
+      },
+      {
+        "_index": "a1",
+        "_type": "_doc",
+        "_id": "3",
+        "_score": 1,
+        "_source": {
+          "imageIndex": 1,
+          "imageServiceIRI": "https://iiif.ub.uni-leipzig.de/iiif/j2k/0000/0081/0000008110/00000006.jpx",
+          "metadataMap": {
+            "tag1": "UBL Atomic Search",
+            "tag2": "/collection/atomic",
+            "tag3": "2018-08-27T10:25:13.559Z",
+            "tag4": "2605115",
+            "index": "t6",
+            "tag6": "",
+            "tag7": "",
+            "tag8": ""
+          }
+        }
+      }
+    ]
+  }
+}

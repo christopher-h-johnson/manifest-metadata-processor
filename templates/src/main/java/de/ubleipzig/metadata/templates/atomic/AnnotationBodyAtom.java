@@ -26,13 +26,13 @@ import java.util.Map;
 public class AnnotationBodyAtom {
 
     @JsonProperty
-    private String iiifService;
+    private String thumbnail;
 
     @JsonProperty
-    private Integer imageIndex;
+    private String imageIndex;
 
     @JsonProperty
-    private Map<String, String> metadata;
+    private Map<String, Object> metadata;
 
     @JsonProperty
     private Map<Integer, Structure> structureMap;
@@ -40,27 +40,27 @@ public class AnnotationBodyAtom {
     @JsonProperty
     private List<ContentList.Content> contentList;
 
-    public String getIiifService() {
-        return iiifService;
+    public String getThumbnail() {
+        return thumbnail;
     }
 
-    public void setIiifService(String iiifService) {
-        this.iiifService = iiifService;
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
-    public Integer getImageIndex() {
+    public String getImageIndex() {
         return imageIndex;
     }
 
-    public void setImageIndex(Integer imageIndex) {
+    public void setImageIndex(String imageIndex) {
         this.imageIndex = imageIndex;
     }
 
-    public Map<String, String> getMetadata() {
+    public Map<String, Object> getMetadata() {
         return metadata;
     }
 
-    public void setMetadata(Map<String, String> metadata) {
+    public void setMetadata(Map<String, Object> metadata) {
         this.metadata = metadata;
     }
 

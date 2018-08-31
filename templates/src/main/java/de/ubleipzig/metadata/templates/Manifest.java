@@ -112,4 +112,12 @@ public class Manifest {
         return thumbnail;
     }
 
+    public String getLicense() {
+        return license;
+    }
+
+    public String getAttribution() {
+        return attribution;
+    }
+
 }

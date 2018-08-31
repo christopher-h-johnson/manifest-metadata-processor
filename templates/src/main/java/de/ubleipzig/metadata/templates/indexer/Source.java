@@ -3,31 +3,39 @@ package de.ubleipzig.metadata.templates.indexer;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@JsonIgnoreProperties({"Artist",
-        "Birthplace",
-        "Culture & Date",
-        "Collection",
-        "Dimensions",
-        "Gallery Label (created)",
-        "Inscription",
-        "Markings",
-        "Medium",
-        "Object Number",
-        "Object Type",
-        "Place Created",
-        "Place Depicted",
-        "Place Found",
-        "Rights Statement",
-        "Signed",
+@JsonIgnoreProperties({
+        "accessRights",
+        "alternatives",
+        "attribution",
+        "catalogueId",
+        "collections",
+        "contributors",
+        "coverages",
+        "creators",
+        "dates",
+        "description",
+        "descriptions",
+        "displayLanguages",
+        "formats",
+        "identifiers",
+        "incipits",
+        "languages",
+        "locations",
+        "publisher",
         "related",
+        "shelfmark",
+        "sources",
+        "subjects",
         "thumbnail",
         "title",
-        "within"})
+        "titles",
+        "types",
+        "seeAlso"})
 public class Source {
     @JsonProperty
-    private String id;
+    private String manifest;
 
-    public String getId() {
-        return id;
+    public String getManifest() {
+        return manifest;
     }
 }
