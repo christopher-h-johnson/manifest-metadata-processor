@@ -17,13 +17,10 @@ package de.ubleipzig.metadata.extractor;
 import static java.util.Optional.ofNullable;
 import static org.apache.camel.Exchange.CONTENT_TYPE;
 import static org.apache.camel.Exchange.HTTP_METHOD;
-import static org.apache.camel.Exchange.HTTP_RESPONSE_CODE;
 import static org.apache.camel.builder.PredicateBuilder.and;
-import static org.apache.camel.builder.PredicateBuilder.or;
 
 import de.ubleipzig.metadata.extractor.disassembler.DimensionManifestBuilder;
 import de.ubleipzig.metadata.extractor.disassembler.Disassembler;
-import de.ubleipzig.metadata.extractor.mapper.BodleianMetadataMapper;
 import de.ubleipzig.metadata.extractor.mapper.MetadataMapper;
 import de.ubleipzig.metadata.extractor.reserializer.Reserializer;
 import de.ubleipzig.metadata.extractor.reserializer.ReserializerVersion3;
@@ -79,8 +76,6 @@ public final class ExtractorTest {
                 from("direct:getManifest")
                         .process(e -> e.getIn().setHeader(Exchange.HTTP_URI, e.getIn().getHeader(MANIFEST_URI)))
                         .to("http4")
-                        .filter(or(header(HTTP_RESPONSE_CODE).isEqualTo(200),
-                                header(HTTP_RESPONSE_CODE).isEqualTo(304)))
                         .setHeader(CONTENT_TYPE)
                         .constant(contentTypeJsonLd)
                         .convertBodyTo(String.class)

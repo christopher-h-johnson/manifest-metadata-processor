@@ -2,7 +2,6 @@ apply plugin: 'com.zyxist.chainsaw'
 
 javaModule {
     name = 'de.ubleipzig.metadata.transformer'
-    extraTestModules = ['jdk.incubator.httpclient']
 }
 
 configurations {

@@ -24,7 +24,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.ubleipzig.metadata.templates.BodleianMetadataMap;
 import de.ubleipzig.metadata.templates.Metadata;
-import de.ubleipzig.metadata.templates.MetadataMap;
 import de.ubleipzig.metadata.templates.v2.Body;
 import de.ubleipzig.metadata.templates.v2.Canvas;
 import de.ubleipzig.metadata.templates.v2.PaintingAnnotation;

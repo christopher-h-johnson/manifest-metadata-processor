@@ -24,7 +24,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.ubleipzig.metadata.templates.BodleianMetadataMap;
 import de.ubleipzig.metadata.templates.Metadata;
-import de.ubleipzig.metadata.templates.MetadataMap;
 import de.ubleipzig.metadata.templates.v2.Body;
 import de.ubleipzig.metadata.templates.v2.Canvas;
 import de.ubleipzig.metadata.templates.v2.PaintingAnnotation;
@@ -61,7 +60,7 @@ public class BodleianMetadataMapper {
             final List<PaintingAnnotation> images = canvases.get(0).getImages();
             final Body res = images.get(0).getBody();
             return res.getService().getId();
-        } else if (canvasCount > 1){
+        } else if (canvasCount > 1) {
             int n = new SplittableRandom().nextInt(0, canvasCount);
             final List<PaintingAnnotation> images = canvases.get(n).getImages();
             final Body res = images.get(0).getBody();

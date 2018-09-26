@@ -31,6 +31,7 @@ import de.ubleipzig.metadata.templates.collections.TopCollection;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,8 +40,6 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
-import jdk.incubator.http.HttpResponse;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.rdf.api.IRI;
@@ -167,22 +166,23 @@ public class CollectionPagedCollectorTest {
                 final String manifests = JsonSerializer.serialize(manifestListTemp).orElse("");
                 JsonSerializer.writeToFile(manifests, new File("/tmp/harvardArt-manifests.json"));
                 /**
-                final List<MetadataMap> finalMapList = buildMetadataMapList(finalManifestList);
-                final MapListCollection l = new MapListCollection();
-                l.setMapListCollection(finalMapList);
-                l.setId(c.getId());
-                mapListCollections.add(l);
-                rootCollection.setRootCollection(mapListCollections);
-                final String out = JsonSerializer.serialize(rootCollection).orElse("");
-                JsonSerializer.writeToFile(out, new File("/tmp/harvardArt-metadata.json"));
-                **/
+                 final List<MetadataMap> finalMapList = buildMetadataMapList(finalManifestList);
+                 final MapListCollection l = new MapListCollection();
+                 l.setMapListCollection(finalMapList);
+                 l.setId(c.getId());
+                 mapListCollections.add(l);
+                 rootCollection.setRootCollection(mapListCollections);
+                 final String out = JsonSerializer.serialize(rootCollection).orElse("");
+                 JsonSerializer.writeToFile(out, new File("/tmp/harvardArt-metadata.json"));
+                 **/
             }
         }
     }
 
     @Test
     void buildManifestListMetadata() throws IOException {
-        final InputStream is = CollectionPagedCollectorTest.class.getResourceAsStream("/data/harvardArt-manifests.json");
+        final InputStream is = CollectionPagedCollectorTest.class.getResourceAsStream(
+                "/data/harvardArt-manifests.json");
         final PagedCollection pc = MAPPER.readValue(is, new TypeReference<PagedCollection>() {
         });
         final List<ManifestItem> manifests = pc.getManifests();
@@ -199,7 +199,8 @@ public class CollectionPagedCollectorTest {
 
     @Test
     void buildManifestUUIDs() throws IOException {
-        final InputStream is = CollectionPagedCollectorTest.class.getResourceAsStream("/data/harvardArt-manifests.json");
+        final InputStream is = CollectionPagedCollectorTest.class.getResourceAsStream(
+                "/data/harvardArt-manifests.json");
         final PagedCollection pc = MAPPER.readValue(is, new TypeReference<PagedCollection>() {
         });
         final Map<String, Map<String, String>> manifestMap = new HashMap<>();

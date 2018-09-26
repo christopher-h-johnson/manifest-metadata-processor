@@ -1,3 +1,4 @@
+enableFeaturePreview('STABLE_PUBLISHING')
 rootProject.name = 'manifest-metadata-processor'
 include ':extractor'
 include ':indexer'

@@ -14,22 +14,24 @@
 
 package de.ubleipzig.metadata.indexer;
 
+import static java.util.Optional.ofNullable;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.ubleipzig.metadata.processor.JsonSerializer;
-import de.ubleipzig.metadata.templates.MapListCollection;
-import de.ubleipzig.metadata.templates.MetadataMap;
+import de.ubleipzig.metadata.templates.BodleianMetadataMap;
 import de.ubleipzig.metadata.templates.collections.ManifestItem;
 import de.ubleipzig.metadata.templates.collections.ManifestList;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import jdk.incubator.http.HttpResponse;
+import java.util.Optional;
 
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.jena.JenaRDF;
@@ -48,41 +50,94 @@ public class CollectionCollectorTest {
     private static final JenaRDF rdf = new JenaRDF();
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final String baseUrl = "http://localhost:9098/extractor?type=extract&m=";
-    private final Indexer indexer = new Indexer();
     private static final Logger LOGGER = LoggerFactory.getLogger(CollectionCollectorTest.class);
 
     @Test
     void buildCollectionsFromJson() {
-        final IRI rootCollectionIRI = rdf.createIRI("https://biblissima.fr/iiif/collection/gallica-bnf/mss-clairvaux/");
+        final IRI rootCollectionIRI = rdf.createIRI(
+                "https://iiif.durham.ac.uk/manifests/trifle/collection/32150/t2cfj2362083");
         try {
             final HttpResponse res = client.getResponse(rootCollectionIRI);
             if (res.statusCode() == 200 | res.statusCode() == 301) {
                 final String json1 = res.body().toString();
                 final ManifestList subcollections = MAPPER.readValue(json1, new TypeReference<ManifestList>() {
                 });
+                final String collectionLabel = subcollections.getLabel();
                 final List<ManifestItem> manifestList = subcollections.getManifests();
-                List<MetadataMap> finalMapList = new ArrayList<>();
+                List<BodleianMetadataMap> finalMapList = new ArrayList<>();
                 for (ManifestItem m : manifestList) {
                     final IRI identifier = rdf.createIRI(m.getId());
                     final IRI apiReq = rdf.createIRI(baseUrl + identifier.getIRIString());
                     final HttpResponse res3 = client.getResponse(apiReq);
                     if (res3.statusCode() == 200 | res3.statusCode() == 301) {
                         final String json3 = res3.body().toString();
-                        final MetadataMap metadataMap = indexer.buildMetadataMap(json3);
-                        Map<String, String> metadata = metadataMap.getMetadataMap();
-                        metadata.put("manifest", m.getId());
-                        metadataMap.setMetadataMap(metadata);
-                        finalMapList.add(metadataMap);
-                        LOGGER.info("adding {} to indexable metadata", identifier.getIRIString());
+                        final Optional<BodleianMetadataMap> metadataMap = ofNullable(buildMetadataMap(json3));
+                        if (metadataMap.isPresent()) {
+                            Map<String, Object> metadata = metadataMap.get().getMetadataMap();
+                            metadata.put("manifest", m.getId());
+                            metadata.put("collection", collectionLabel);
+                            metadataMap.get().setMetadataMap(metadata);
+                            finalMapList.add(metadataMap.get());
+                            LOGGER.info("adding {} to indexable metadata", identifier.getIRIString());
+                        }
                     }
                 }
-                final MapListCollection l = new MapListCollection();
+                final BodleianMapListCollection l = new BodleianMapListCollection();
                 l.setMapListCollection(finalMapList);
                 final String out = JsonSerializer.serialize(l).orElse("");
-                JsonSerializer.writeToFile(out, new File("/tmp/gallica-mss-clairvaux-metadata.json"));
+                JsonSerializer.writeToFile(out, new File("/tmp/DurhamBishopricHalmoteCourtRecords.json"));
             }
         } catch (LdpClientException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public BodleianMetadataMap buildMetadataMap(final String json) {
+        final BodleianMetadataMap metadataMap;
+        try {
+            metadataMap = MAPPER.readValue(json, new TypeReference<BodleianMetadataMap>() {
+            });
+            return metadataMap;
+        } catch (IOException e) {
+            LOGGER.info("unmappable metadata");
+        }
+        return null;
+    }
+
+    class BodleianMapListCollection {
+
+        @JsonProperty
+        private List<BodleianMetadataMap> mapListCollection;
+
+        @JsonProperty("@id")
+        private String id;
+
+        @JsonProperty
+        private String label;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getLabel() {
+            return label;
+        }
+
+        public void setLabel(String label) {
+            this.label = label;
+        }
+
+        public List<BodleianMetadataMap> getMapListCollection() {
+            return mapListCollection;
+        }
+
+        public void setMapListCollection(List<BodleianMetadataMap> mapListCollection) {
+            this.mapListCollection = mapListCollection;
+        }
+
     }
 }

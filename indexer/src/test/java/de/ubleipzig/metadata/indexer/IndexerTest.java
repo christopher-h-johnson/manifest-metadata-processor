@@ -37,13 +37,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
-import jdk.incubator.http.HttpResponse;
 
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.jena.JenaRDF;
@@ -77,8 +76,8 @@ public class IndexerTest {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     private List<IRI> buildIRIList() {
-        final String extractorService =
-                "http://localhost:9098/extractor?type=extract&m=https://data.getty.edu/museum/api/iiif/";
+        final String extractorService = "http://localhost:9098/extractor?type=extract&m=https://data.getty" + ".edu" +
+                "/museum/api/iiif/";
         final int loops = 11190;
         final List<IRI> list = new ArrayList<>();
         for (int i = 0; i < loops; i++) {
@@ -217,14 +216,15 @@ public class IndexerTest {
     void putBodleianCollectionElasticBulk() throws LdpClientException {
         final Indexer indexer = new Indexer();
 
-        final String indexName = "ox1";
+        final String indexName = "dh1";
         final String baseUrl = elasticSearchHost;
         final String bulkUri = baseUrl + bulkContext;
         indexer.createIndexMapping(baseUrl + indexName,
                 IndexerTest.class.getResourceAsStream("/ubl-dynamic-mapping.json"));
         final StringBuffer sb = new StringBuffer();
         try {
-            final InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/bodleian-metadata.json");
+            final InputStream jsonList = IndexerTest.class.getResourceAsStream(
+                    "/data/durham/sudan-archive/beasely.json");
             final BodleianCollectionMapListIdentifier mapList = MAPPER.readValue(
                     jsonList, new TypeReference<BodleianCollectionMapListIdentifier>() {
                     });
@@ -325,8 +325,8 @@ public class IndexerTest {
 
 
     private List<IRI> buildDisassemblerIRIList() {
-        final String disassemblerService =
-                "http://localhost:9098/extractor?type=disassemble&m=http://iiif.ub.uni-leipzig.de/";
+        final String disassemblerService = "http://localhost:9098/extractor?type=disassemble&m=http://iiif.ub" +
+                ".uni-leipzig.de/";
         final int loops = 13000;
         final List<IRI> list = new ArrayList<>();
         for (int i = 12; i < loops; i++) {
@@ -358,7 +358,7 @@ public class IndexerTest {
 
     private List<IRI> buildReserializerIRIList() {
         final String disassemblerService =
-                "http://localhost:9098/extractor?type=reserialize&version=2&m=http://iiif.ub.uni-leipzig.de/";
+                "http://localhost:9098/extractor?type=reserialize&version=2&m=http://iiif" + ".ub.uni-leipzig.de/";
         final int loops = 5000;
         final List<IRI> list = new ArrayList<>();
         for (int i = 12; i < loops; i++) {

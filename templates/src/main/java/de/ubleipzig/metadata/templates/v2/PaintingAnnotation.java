@@ -38,6 +38,9 @@ public class PaintingAnnotation {
     @JsonProperty("@id")
     private String id;
 
+    @JsonProperty
+    private String label;
+
     @JsonProperty("@type")
     private String type = "oa:Annotation";
 

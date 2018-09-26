@@ -14,27 +14,22 @@
 
 package de.ubleipzig.metadata.indexer;
 
-import static de.ubleipzig.metadata.processor.JsonSerializer.MAPPER;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.ubleipzig.metadata.processor.JsonSerializer;
 import de.ubleipzig.metadata.templates.BodleianMetadataMap;
-import de.ubleipzig.metadata.templates.MapListCollection;
-import de.ubleipzig.metadata.templates.MetadataMap;
 import de.ubleipzig.metadata.templates.collections.ManifestItem;
 import de.ubleipzig.metadata.templates.collections.ManifestList;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import jdk.incubator.http.HttpResponse;
 
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.jena.JenaRDF;

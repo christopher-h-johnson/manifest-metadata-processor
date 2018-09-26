@@ -2,6 +2,9 @@
 
 This is a collection of APIs for the manipulation of IIIF Manifests
 
+## Requirements
+JDK 11
+
 ## Reserializer
 
 This is an api to change/correct previously published manifests.  It can also produce version 3 manifests from version 2 data.

@@ -33,7 +33,10 @@ public class ManifestList {
     private String label;
 
     @JsonProperty
-    private String related;
+    private Object related;
+
+    @JsonProperty
+    private List<ManifestItem> collections;
 
     @JsonProperty
     private List<ManifestItem> manifests;
@@ -49,6 +52,9 @@ public class ManifestList {
 
     @JsonProperty
     private String next;
+
+    @JsonProperty
+    private String license;
 
     @JsonProperty
     private String within;

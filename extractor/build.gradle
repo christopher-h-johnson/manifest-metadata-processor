@@ -6,7 +6,6 @@ description = 'A Camel service that assembles manifests from RDF queries'
 
 javaModule {
     name = 'de.ubleipzig.metadata.extractor'
-    extraTestModules = ['jdk.incubator.httpclient']
 }
 
 configurations {

@@ -6,7 +6,6 @@ description = 'A Camel service that produces IIIF Manifests'
 
 javaModule {
     name = 'de.ubleipzig.metadata.producer'
-    extraTestModules = ['jdk.incubator.httpclient']
 }
 
 configurations {

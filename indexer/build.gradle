@@ -4,7 +4,6 @@ mainClassName = 'de.ubleipzig.metadata.indexer.Indexer'
 
 javaModule {
     name = 'de.ubleipzig.metadata.indexer'
-    extraTestModules = ['jdk.incubator.httpclient']
 }
 
 configurations {

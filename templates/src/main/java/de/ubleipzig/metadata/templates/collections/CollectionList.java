@@ -33,7 +33,19 @@ public class CollectionList {
     private String label;
 
     @JsonProperty
+    private String license;
+
+    @JsonProperty
+    private Object related;
+
+    @JsonProperty
+    private String within;
+
+    @JsonProperty
     private List<ManifestItem> collections;
+
+    @JsonProperty
+    private List<ManifestItem> manifests;
 
     @JsonProperty
     private String description;
@@ -101,5 +113,13 @@ public class CollectionList {
 
     public void setCollections(List<ManifestItem> collections) {
         this.collections = collections;
+    }
+
+    public List<ManifestItem> getManifests() {
+        return manifests;
+    }
+
+    public void setManifests(List<ManifestItem> manifests) {
+        this.manifests = manifests;
     }
 }

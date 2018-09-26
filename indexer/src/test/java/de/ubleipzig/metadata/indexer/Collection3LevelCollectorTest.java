@@ -29,11 +29,10 @@ import de.ubleipzig.metadata.templates.collections.RootCollection;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import jdk.incubator.http.HttpResponse;
 
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.jena.JenaRDF;
@@ -57,7 +56,7 @@ public class Collection3LevelCollectorTest {
 
     @Test
     void buildCollectionsFromJson() {
-        final IRI rootCollectionIRI = rdf.createIRI("https://view.nls.uk/collections/top.json");
+        final IRI rootCollectionIRI = rdf.createIRI("https://iiif.durham.ac.uk/manifests/trifle/collection/index");
         try {
             final HttpResponse res = client.getResponse(rootCollectionIRI);
             if (res.statusCode() == 200 | res.statusCode() == 301) {
