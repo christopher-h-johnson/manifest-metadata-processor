@@ -16,6 +16,7 @@ module de.ubleipzig.metadata.templates {
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
     requires de.ubleipzig.iiif.vocabulary;
+    requires com.fasterxml.jackson.dataformat.xml;
     exports de.ubleipzig.metadata.templates;
     exports de.ubleipzig.metadata.templates.collections;
     opens de.ubleipzig.metadata.templates to com.fasterxml.jackson.databind;

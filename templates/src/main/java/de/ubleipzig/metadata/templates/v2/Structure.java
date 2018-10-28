@@ -40,7 +40,7 @@ public class Structure {
     private String type = SCEnum.Range.compactedIRI();
 
     @JsonProperty("label")
-    private String label;
+    private Object label;
 
     @JsonProperty
     private String within;
@@ -101,7 +101,7 @@ public class Structure {
      * @return String
      */
     @JsonIgnore
-    public String getStructureLabel() {
+    public Object getStructureLabel() {
         return label;
     }
 

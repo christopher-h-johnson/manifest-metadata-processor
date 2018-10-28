@@ -56,6 +56,9 @@ public class Canvas {
     @JsonProperty("related")
     private Object related;
 
+    @JsonProperty("service")
+    private Object service;
+
     @JsonProperty
     private List<Object> otherContent;
 

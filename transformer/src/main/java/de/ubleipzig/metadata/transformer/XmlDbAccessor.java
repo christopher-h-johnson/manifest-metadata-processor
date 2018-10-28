@@ -15,6 +15,7 @@
 package de.ubleipzig.metadata.transformer;
 
 import static java.io.File.separator;
+import static java.util.Optional.ofNullable;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,6 +29,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.jena.JenaRDF;
@@ -50,17 +52,20 @@ public class XmlDbAccessor {
 
     public List<Metadata> harmonizeIdentifierLabels(final List<Metadata> metadata) {
         metadata.forEach(m -> {
-            final String label = m.getLabel();
-            switch (label) {
-                case "urn":
-                    m.setLabel("URN");
-                    break;
-                case "swb-ppn":
-                    m.setLabel("Source PPN (SWB)");
-                    break;
-                default:
-                    break;
-            }
+            final Optional<?> label = ofNullable(m.getLabel());
+            final Optional<String> labelString = label.filter(String.class::isInstance).map(String.class::cast);
+            labelString.ifPresent(l -> {
+                switch (l) {
+                    case "urn":
+                        m.setLabel("URN");
+                        break;
+                    case "swb-ppn":
+                        m.setLabel("Source PPN (SWB)");
+                        break;
+                    default:
+                        break;
+                }
+            });
         });
         return metadata;
     }

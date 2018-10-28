@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class Metadata {
 
     @JsonProperty("label")
-    private String label;
+    private Object label;
 
     @JsonProperty("value")
     private Object value;
@@ -39,7 +39,7 @@ public class Metadata {
      * @return String
      */
     @JsonIgnore
-    public String getLabel() {
+    public Object getLabel() {
         return label;
     }
 
@@ -47,7 +47,7 @@ public class Metadata {
      * @param label String
      */
     @JsonIgnore
-    public void setLabel(final String label) {
+    public void setLabel(final Object label) {
         this.label = label;
     }
 

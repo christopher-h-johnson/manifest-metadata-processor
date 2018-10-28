@@ -5,4 +5,5 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion") {force = true}
     implementation("com.fasterxml.jackson.core:jackson-core:$jacksonVersion") {force = true}
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion") {force = true}
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion") {force = true}
 }

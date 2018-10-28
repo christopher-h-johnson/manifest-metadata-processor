@@ -29,6 +29,7 @@ import de.ubleipzig.metadata.templates.collections.BodleianCollectionMapListIden
 import de.ubleipzig.metadata.templates.collections.BodleianMapListCollection;
 import de.ubleipzig.metadata.templates.collections.CollectionMapListIdentifier;
 import de.ubleipzig.metadata.templates.collections.LandingDoc;
+import de.ubleipzig.metadata.templates.collections.MDZIdentifiers;
 import de.ubleipzig.metadata.templates.collections.ManifestUUIDMap;
 import de.ubleipzig.metadata.templates.indexer.ElasticCreate;
 
@@ -68,6 +69,7 @@ public class IndexerTest {
     private final String bulkContext = "_bulk";
     private final String manifestFileName = "/manifest.json";
     private final String tenDigitString = "%010d";
+    private final String extractorBase = "http://localhost:9098/extractor?type=extract&m=";
 
     private static String getDocumentId() {
         return UUID.randomUUID().toString();
@@ -76,13 +78,14 @@ public class IndexerTest {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     private List<IRI> buildIRIList() {
-        final String extractorService = "http://localhost:9098/extractor?type=extract&m=https://data.getty" + ".edu" +
-                "/museum/api/iiif/";
-        final int loops = 11190;
+        final String extractorService = "http://localhost:9098/extractor?type=extract&m=https://api" +
+                ".digitale-sammlungen.de/iiif/presentation/v2/bsb";
+
+        final int loops = 120000;
         final List<IRI> list = new ArrayList<>();
         for (int i = 0; i < loops; i++) {
             final String pid = String.format(tenDigitString, i);
-            final IRI identifier = rdf.createIRI(extractorService + pid + manifestFileName);
+            final IRI identifier = rdf.createIRI(extractorService + pid + "/manifest");
             list.add(identifier);
         }
         return list;
@@ -103,28 +106,38 @@ public class IndexerTest {
 
     @Test
     public void testGetJsonAPI() {
-        final List<IRI> list = buildIRIList();
-        final List<MetadataMap> mapList = new ArrayList<>();
-        list.forEach(i -> {
-            try {
-                final HttpResponse res = client.getResponse(i);
-                if (res.statusCode() == 200) {
-                    final String json = res.body().toString();
-                    final MetadataMap metadataMap = MAPPER.readValue(json, new TypeReference<MetadataMap>() {
-                    });
-                    if (metadataMap.getMetadataMap().size() > 0) {
-                        mapList.add(metadataMap);
-                        logger.info("adding {} to indexable metadata", i.getIRIString());
+        //final List<IRI> list = buildIRIList();
+        final InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/mdz/MDZIdentifiers-80000.json");
+
+        try {
+            MDZIdentifiers list = MAPPER.readValue(jsonList, new TypeReference<MDZIdentifiers>() {
+            });
+            final List<String> mdzIds = list.getIdentifiers();
+            final List<MetadataMap> mapList = new ArrayList<>();
+            mdzIds.forEach(i -> {
+                try {
+                    final IRI iri = rdf.createIRI(extractorBase + i);
+                    final HttpResponse res = client.getResponse(iri);
+                    if (res.statusCode() == 200) {
+                        final String json = res.body().toString();
+                        final MetadataMap metadataMap = MAPPER.readValue(json, new TypeReference<MetadataMap>() {
+                        });
+                        if (metadataMap.getMetadataMap().size() > 0) {
+                            mapList.add(metadataMap);
+                            logger.info("adding {} to indexable metadata", iri.getIRIString());
+                        }
                     }
+                } catch (LdpClientException | IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (LdpClientException | IOException e) {
-                e.printStackTrace();
-            }
-        });
-        final MapList l = new MapList();
-        l.setMapList(mapList);
-        final String out = JsonSerializer.serialize(l).orElse("");
-        JsonSerializer.writeToFile(out, new File("/tmp/getty-metadata.json"));
+            });
+            final MapList l = new MapList();
+            l.setMapList(mapList);
+            final String out = JsonSerializer.serialize(l).orElse("");
+            JsonSerializer.writeToFile(out, new File("/tmp/mdz-metadata-80000.json"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -248,13 +261,13 @@ public class IndexerTest {
     @Test
     void putJsonCollectionElasticBulk3() throws LdpClientException {
         final Indexer indexer = new Indexer();
-        final String indexName = "m4";
+        final String indexName = "mdz1";
         final String baseUrl = elasticSearchHost;
         final String bulkUri = baseUrl + bulkContext;
         indexer.createIndexMapping(baseUrl + indexName, IndexerTest.class.getResourceAsStream("/ubl-mapping.json"));
         final StringBuffer sb = new StringBuffer();
         try {
-            InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/ubl-metadata.json");
+            InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/mdz/mdz-metadata-0.json");
             final MapList mapList = MAPPER.readValue(jsonList, new TypeReference<MapList>() {
             });
             final List<MetadataMap> m = mapList.getMapList();
@@ -318,8 +331,7 @@ public class IndexerTest {
         final InputStream mapping = IndexerTest.class.getResourceAsStream("/ubl-nested-atom-mapping.json");
         indexer.createIndexMapping(elasticSearchHost + indexName, mapping);
         final IRI iri = rdf.createIRI(
-                "http://localhost:9098/extractor?type=disassemble&m=http://iiif.ub.uni-leipzig.de/" + viewId
-                        + manifestFileName);
+                "http://localhost:9098/extractor?type=disassemble&m=http://iiif.ub.uni-leipzig.de/" + viewId + manifestFileName);
         indexer.putModernContentAtoms(iri, indexName);
     }
 

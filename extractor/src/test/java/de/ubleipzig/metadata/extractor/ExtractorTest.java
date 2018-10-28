@@ -14,6 +14,7 @@
 
 package de.ubleipzig.metadata.extractor;
 
+import static de.ubleipzig.metadata.processor.QueryUtils.readFile;
 import static java.util.Optional.ofNullable;
 import static org.apache.camel.Exchange.CONTENT_TYPE;
 import static org.apache.camel.Exchange.HTTP_METHOD;
@@ -26,6 +27,11 @@ import de.ubleipzig.metadata.extractor.reserializer.Reserializer;
 import de.ubleipzig.metadata.extractor.reserializer.ReserializerVersion3;
 import de.ubleipzig.metadata.processor.ContextUtils;
 
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.apache.camel.CamelContext;
@@ -75,18 +81,22 @@ public final class ExtractorTest {
                         .to("direct:getManifest");
                 from("direct:getManifest")
                         .process(e -> e.getIn().setHeader(Exchange.HTTP_URI, e.getIn().getHeader(MANIFEST_URI)))
+                        .setHeader("Accept-Encoding")
+                        .constant("gzip")
                         .to("http4")
                         .setHeader(CONTENT_TYPE)
                         .constant(contentTypeJsonLd)
-                        .convertBodyTo(String.class)
+                        .convertBodyTo(InputStream.class)
                         .to("direct:toExchangeProcess");
                 from("direct:toExchangeProcess")
                         .choice()
                         .when(header(TYPE).isEqualTo("extract"))
                         .process(e -> {
-                            final Optional<String> body = ofNullable(e.getIn().getBody().toString());
-                            if (body.isPresent()) {
-                                final MetadataMapper extractor = new MetadataMapper(body.get());
+                            final Optional<InputStream> is = ofNullable(e.getIn().getBody(InputStream.class));
+                            if (is.isPresent()) {
+                                final InputStream bis = is.get();
+                                final String body = readFile(bis);
+                                final MetadataMapper extractor = new MetadataMapper(body);
                                 e.getIn().setBody(extractor.build());
                             }
                         })

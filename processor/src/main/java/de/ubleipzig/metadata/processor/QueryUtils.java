@@ -18,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -134,7 +135,7 @@ public final class QueryUtils {
      */
     public static String readFile(final InputStream in) throws IOException {
         final StringBuilder inobj = new StringBuilder();
-        try (BufferedReader buf = new BufferedReader(new InputStreamReader(in, "UTF-8"))) {
+        try (BufferedReader buf = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
             String line;
             while ((line = buf.readLine()) != null) {
                 inobj.append(line).append("\n");

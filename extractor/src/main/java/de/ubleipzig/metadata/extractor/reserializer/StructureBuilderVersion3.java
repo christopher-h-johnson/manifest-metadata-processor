@@ -86,8 +86,8 @@ public class StructureBuilderVersion3 {
         final List<Item> newStructures = new ArrayList<>();
         for (Structure struct : structures) {
             final Item newStructure = new Item();
-            final String structureLabel = struct.getStructureLabel();
-            final Map<String, List<String>> labelMap = buildLabelMap(structureLabel, "de");
+            final Object structureLabel = struct.getStructureLabel();
+            final Map<String, List<String>> labelMap = buildLabelMap((String) structureLabel, "de");
             newStructure.setLabel(labelMap);
             final Optional<List<String>> fr = ofNullable(struct.getRanges());
             final List<Item> newRanges = new ArrayList<>();

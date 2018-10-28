@@ -21,14 +21,14 @@ import java.util.Map;
 public class BodleianMetadataMap {
 
     @JsonProperty
-    private Map<String, Object> metadataMap;
+    private Map<Object, Object> metadataMap;
 
     /**
      * getMetadataMap.
      *
      * @return Map
      */
-    public Map<String, Object> getMetadataMap() {
+    public Map<Object, Object> getMetadataMap() {
         return metadataMap;
     }
 
@@ -37,7 +37,7 @@ public class BodleianMetadataMap {
      *
      * @param metadataMap Map
      */
-    public void setMetadataMap(final Map<String, Object> metadataMap) {
+    public void setMetadataMap(final Map<Object, Object> metadataMap) {
         this.metadataMap = metadataMap;
     }
 }

@@ -73,7 +73,7 @@ public class CollectionCollectorTest {
                         final String json3 = res3.body().toString();
                         final Optional<BodleianMetadataMap> metadataMap = ofNullable(buildMetadataMap(json3));
                         if (metadataMap.isPresent()) {
-                            Map<String, Object> metadata = metadataMap.get().getMetadataMap();
+                            Map<Object, Object> metadata = metadataMap.get().getMetadataMap();
                             metadata.put("manifest", m.getId());
                             metadata.put("collection", collectionLabel);
                             metadataMap.get().setMetadataMap(metadata);

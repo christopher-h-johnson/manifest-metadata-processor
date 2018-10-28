@@ -76,7 +76,7 @@ public class BodleianMetadataMapper {
             final PerfectManifest manifest = MAPPER.readValue(body, new TypeReference<PerfectManifest>() {
             });
 
-            final Map<String, Object> metadataMap = new HashMap<>();
+            final Map<Object, Object> metadataMap = new HashMap<>();
 
             //get Manifest Id
             final Optional<String> id = ofNullable(manifest.getId());

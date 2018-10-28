@@ -64,7 +64,7 @@ public class BodleianCollectionCollectorTest {
             if (res3.statusCode() == 200 | res3.statusCode() == 301) {
                 final String json3 = res3.body().toString();
                 final BodleianMetadataMap metadataMap = buildMetadataMap(json3);
-                Map<String, Object> metadata = metadataMap.getMetadataMap();
+                Map<Object, Object> metadata = metadataMap.getMetadataMap();
                 metadata.put("manifest", m.getId());
                 metadataMap.setMetadataMap(metadata);
                 finalMapList.add(metadataMap);

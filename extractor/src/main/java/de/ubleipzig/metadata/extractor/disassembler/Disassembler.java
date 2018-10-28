@@ -74,9 +74,13 @@ public class Disassembler {
             metadataMap.put("attribution", attribution);
 
             metadata.ifPresent(md -> md.forEach(m -> {
+                final Optional<?> label = ofNullable(m.getLabel());
+                final Optional<String> l = label.filter(String.class::isInstance).map(String.class::cast);
                 final Optional<?> value = ofNullable(m.getValue());
                 final Optional<String> v = value.filter(String.class::isInstance).map(String.class::cast);
-                v.ifPresent(s -> metadataMap.put(m.getLabel(), s));
+                if (l.isPresent() && v.isPresent()) {
+                    metadataMap.put(l.get(), v.get());
+                }
             }));
 
             //build structures objects
@@ -84,7 +88,7 @@ public class Disassembler {
             final Map<String, List<String>> structureMap = new HashMap<>();
             final Map<String, String> structureLabelMap = new HashMap<>();
             structures.ifPresent(st -> st.forEach(s -> {
-                structureLabelMap.put(s.getStructureId(), s.getStructureLabel());
+                structureLabelMap.put(s.getStructureId(), (String) s.getStructureLabel());
                 Optional<List<String>> canvases = ofNullable(s.getCanvases());
                 canvases.ifPresent(strings -> {
                     structureMap.put(s.getStructureId(), strings);

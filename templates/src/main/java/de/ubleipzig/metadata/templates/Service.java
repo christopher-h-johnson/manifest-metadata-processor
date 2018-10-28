@@ -33,6 +33,9 @@ public class Service {
     @JsonProperty
     private String profile;
 
+    @JsonProperty
+    private String protocol;
+
     public String getId() {
         return id;
     }

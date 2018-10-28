@@ -92,7 +92,7 @@ public class Collection2LevelCollectorTest {
                                                 buildMetadataMap(json3));
                                         if (metadataMap.isPresent()) {
                                             final BodleianMetadataMap map = metadataMap.get();
-                                            Map<String, Object> metadata = map.getMetadataMap();
+                                            Map<Object, Object> metadata = map.getMetadataMap();
                                             metadata.put("collection", label);
                                             metadata.put("manifest", m.getId());
                                             map.setMetadataMap(metadata);
