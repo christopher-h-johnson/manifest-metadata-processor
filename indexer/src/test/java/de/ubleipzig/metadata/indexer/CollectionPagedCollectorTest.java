@@ -196,28 +196,5 @@ public class CollectionPagedCollectorTest {
         final String out = JsonSerializer.serialize(rootCollection).orElse("");
         JsonSerializer.writeToFile(out, new File("/tmp/harvardArt-metadata-195000-209500.json"));
     }
-
-    @Test
-    void buildManifestUUIDs() throws IOException {
-        final InputStream is = CollectionPagedCollectorTest.class.getResourceAsStream(
-                "/data/harvardArt-manifests.json");
-        final PagedCollection pc = MAPPER.readValue(is, new TypeReference<PagedCollection>() {
-        });
-        final Map<String, Map<String, String>> manifestMap = new HashMap<>();
-        final List<ManifestItem> manifests = pc.getManifests();
-        manifests.forEach(m -> {
-            final Optional<String> manifest = ofNullable(m.getId());
-            if (manifest.isPresent()) {
-                Map<String, String> manifestKV = new HashMap<>();
-                final UUID uuid = UUIDv5.nameUUIDFromNamespaceAndString(UUIDv5.NAMESPACE_URL, manifest.get());
-                manifestKV.put("manifest", manifest.get());
-                manifestMap.put(uuid.toString(), manifestKV);
-            }
-        });
-        final ManifestUUIDMap map = new ManifestUUIDMap();
-        map.setManifestMap(manifestMap);
-        String json = JsonSerializer.serialize(map).orElse("");
-        JsonSerializer.writeToFile(json, new File("/tmp/hvd-uuidMap.json"));
-    }
 }
 

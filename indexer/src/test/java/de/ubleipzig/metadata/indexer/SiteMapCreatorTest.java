@@ -1,3 +1,17 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package de.ubleipzig.metadata.indexer;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -29,7 +43,7 @@ public class SiteMapCreatorTest {
         try {
             ManifestUUIDs map = MAPPER.readValue(is, new TypeReference<ManifestUUIDs>() {
             });
-            Map<String,Object> manifestMap = map.getManifestMap();
+            Map<String, Object> manifestMap = map.getManifestMap();
             manifestMap.forEach((key, value) -> {
                 final String url = "https://collections.iiif.cloud/view/" + key;
                 SiteMap.Location loc = new SiteMap.Location();
@@ -39,7 +53,7 @@ public class SiteMapCreatorTest {
             final SiteMap siteMap = new SiteMap();
             int chunkSize = 50000;
             List<List<SiteMap.Location>> urlLists = new ArrayList<>();
-            for (int i=0; i<urlList.size(); i+= chunkSize) {
+            for (int i = 0; i < urlList.size(); i += chunkSize) {
                 int end = Math.min(urlList.size(), i + chunkSize);
                 urlLists.add(urlList.subList(i, end));
             }

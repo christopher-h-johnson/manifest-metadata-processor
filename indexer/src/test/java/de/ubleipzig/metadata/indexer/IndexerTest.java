@@ -78,8 +78,8 @@ public class IndexerTest {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     private List<IRI> buildIRIList() {
-        final String extractorService = "http://localhost:9098/extractor?type=extract&m=https://api" +
-                ".digitale-sammlungen.de/iiif/presentation/v2/bsb";
+        final String extractorService = "http://localhost:9098/extractor?type=extract&m=https://api" + ".digitale" +
+                "-sammlungen.de/iiif/presentation/v2/bsb";
 
         final int loops = 120000;
         final List<IRI> list = new ArrayList<>();
@@ -107,7 +107,7 @@ public class IndexerTest {
     @Test
     public void testGetJsonAPI() {
         //final List<IRI> list = buildIRIList();
-        final InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/mdz/MDZIdentifiers-80000.json");
+        final InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/mdz/ids2/MDZIdentifiers-10110000.json");
 
         try {
             MDZIdentifiers list = MAPPER.readValue(jsonList, new TypeReference<MDZIdentifiers>() {
@@ -134,7 +134,7 @@ public class IndexerTest {
             final MapList l = new MapList();
             l.setMapList(mapList);
             final String out = JsonSerializer.serialize(l).orElse("");
-            JsonSerializer.writeToFile(out, new File("/tmp/mdz-metadata-80000.json"));
+            JsonSerializer.writeToFile(out, new File("/tmp/mdz-metadata-10110000.json"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -267,7 +267,7 @@ public class IndexerTest {
         indexer.createIndexMapping(baseUrl + indexName, IndexerTest.class.getResourceAsStream("/ubl-mapping.json"));
         final StringBuffer sb = new StringBuffer();
         try {
-            InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/mdz/mdz-metadata-0.json");
+            InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/mdz/mdz-metadata-10110000.json");
             final MapList mapList = MAPPER.readValue(jsonList, new TypeReference<MapList>() {
             });
             final List<MetadataMap> m = mapList.getMapList();
@@ -331,7 +331,8 @@ public class IndexerTest {
         final InputStream mapping = IndexerTest.class.getResourceAsStream("/ubl-nested-atom-mapping.json");
         indexer.createIndexMapping(elasticSearchHost + indexName, mapping);
         final IRI iri = rdf.createIRI(
-                "http://localhost:9098/extractor?type=disassemble&m=http://iiif.ub.uni-leipzig.de/" + viewId + manifestFileName);
+                "http://localhost:9098/extractor?type=disassemble&m=http://iiif.ub.uni-leipzig.de/" + viewId +
+                        manifestFileName);
         indexer.putModernContentAtoms(iri, indexName);
     }
 

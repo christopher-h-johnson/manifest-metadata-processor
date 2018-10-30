@@ -28,10 +28,6 @@ import de.ubleipzig.metadata.extractor.reserializer.ReserializerVersion3;
 import de.ubleipzig.metadata.processor.ContextUtils;
 
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.Optional;
 
 import org.apache.camel.CamelContext;

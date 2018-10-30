@@ -17,6 +17,7 @@ module de.ubleipzig.metadata.indexer {
     requires org.apache.commons.rdf.jena;
     requires de.ubleipzig.metadata.templates;
     requires com.fasterxml.jackson.databind;
+    requires com.fasterxml.jackson.dataformat.xml;
     requires de.ubleipzig.metadata.processor;
     requires com.fasterxml.jackson.core;
     requires slf4j.api;
