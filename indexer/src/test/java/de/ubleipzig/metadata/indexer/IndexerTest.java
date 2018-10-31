@@ -107,7 +107,7 @@ public class IndexerTest {
     @Test
     public void testGetJsonAPI() {
         //final List<IRI> list = buildIRIList();
-        final InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/mdz/ids2/MDZIdentifiers-10110000.json");
+        final InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/mdz/ids2/MDZIdentifiers-10170000.json");
 
         try {
             MDZIdentifiers list = MAPPER.readValue(jsonList, new TypeReference<MDZIdentifiers>() {
@@ -134,7 +134,7 @@ public class IndexerTest {
             final MapList l = new MapList();
             l.setMapList(mapList);
             final String out = JsonSerializer.serialize(l).orElse("");
-            JsonSerializer.writeToFile(out, new File("/tmp/mdz-metadata-10110000.json"));
+            JsonSerializer.writeToFile(out, new File("/tmp/mdz-metadata-10170000.json"));
         } catch (IOException e) {
             e.printStackTrace();
         }
