@@ -81,7 +81,7 @@ public class APIIdentifierResolverTest {
 
     @Test
     void resolveAPIIdentifiers() {
-        IntStream.range(1010, 102000 / 10).map(i -> i * 10000).forEach((x) -> {
+        IntStream.range(1022, 103200 / 10).map(i -> i * 10000).forEach((x) -> {
             final int end = x + 10000;
             final List<String> list = buildIdentifierList(x, end);
             final APIIdentifierCollection collection = new APIIdentifierCollection();

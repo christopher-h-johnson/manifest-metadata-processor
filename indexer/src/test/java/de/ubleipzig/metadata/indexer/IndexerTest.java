@@ -107,7 +107,7 @@ public class IndexerTest {
     @Test
     public void testGetJsonAPI() {
         //final List<IRI> list = buildIRIList();
-        final InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/mdz/ids2/MDZIdentifiers-10110000.json");
+        final InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/mdz/ids3/MDZIdentifiers-10280000.json");
 
         try {
             MDZIdentifiers list = MAPPER.readValue(jsonList, new TypeReference<MDZIdentifiers>() {
@@ -134,7 +134,7 @@ public class IndexerTest {
             final MapList l = new MapList();
             l.setMapList(mapList);
             final String out = JsonSerializer.serialize(l).orElse("");
-            JsonSerializer.writeToFile(out, new File("/tmp/mdz-metadata-10110000.json"));
+            JsonSerializer.writeToFile(out, new File("/tmp/mdz-metadata-10280000.json"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -267,7 +267,7 @@ public class IndexerTest {
         indexer.createIndexMapping(baseUrl + indexName, IndexerTest.class.getResourceAsStream("/ubl-mapping.json"));
         final StringBuffer sb = new StringBuffer();
         try {
-            InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/mdz/mdz-metadata-10110000.json");
+            InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/mdz/mdz-metadata-10280000.json");
             final MapList mapList = MAPPER.readValue(jsonList, new TypeReference<MapList>() {
             });
             final List<MetadataMap> m = mapList.getMapList();
