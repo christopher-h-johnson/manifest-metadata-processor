@@ -28,6 +28,8 @@ import de.ubleipzig.metadata.extractor.reserializer.ReserializerVersion3;
 import de.ubleipzig.metadata.processor.ContextUtils;
 
 import java.io.InputStream;
+import java.net.URI;
+import java.util.Map;
 import java.util.Optional;
 
 import org.apache.camel.CamelContext;
@@ -36,6 +38,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.JndiRegistry;
+import org.apache.camel.util.URISupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,7 +79,17 @@ public final class ExtractorTest {
                         .when(header(HTTP_METHOD).isEqualTo("GET"))
                         .to("direct:getManifest");
                 from("direct:getManifest")
-                        .process(e -> e.getIn().setHeader(Exchange.HTTP_URI, e.getIn().getHeader(MANIFEST_URI)))
+                        .process(e -> {
+                            final String m = e.getIn().getHeader(MANIFEST_URI).toString();
+                            final URI uri = new URI(m);
+                            final String query = uri.getQuery();
+                            final String path = uri.getPath();
+                            final String authority = uri.getAuthority();
+                            final String scheme = uri.getScheme();
+                            final String req = scheme + "://" + authority + path;
+                            e.getIn().setHeader(Exchange.HTTP_URI, req);
+                            e.getIn().setHeader(Exchange.HTTP_QUERY, query);
+                        })
                         .setHeader("Accept-Encoding")
                         .constant("gzip")
                         .to("http4")

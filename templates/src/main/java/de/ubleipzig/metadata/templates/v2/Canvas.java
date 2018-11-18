@@ -29,6 +29,9 @@ import java.util.List;
 @JsonPropertyOrder({"@id", "@type", "label", "height", "width", "images"})
 public class Canvas {
 
+    @JsonProperty("@context")
+    private String context;
+
     @JsonProperty("@id")
     private String id;
 

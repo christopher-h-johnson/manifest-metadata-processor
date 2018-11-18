@@ -52,12 +52,12 @@ public class MetadataMapper {
         this.body = body;
     }
 
-    private String getRandomImageAsThumbnail(final PerfectManifest manifest) {
+    private String getRandomImageAsThumbnail(final PerfectManifest manifest, final Boolean getFirst) {
         final Optional<List<Sequence>> seq = ofNullable(manifest.getSequences());
         if (seq.isPresent()) {
             final List<Canvas> canvases = seq.get().get(0).getCanvases();
             final int canvasCount = canvases.size();
-            if (canvasCount == 1) {
+            if (canvasCount == 1 || getFirst) {
                 final List<PaintingAnnotation> images = canvases.get(0).getImages();
                 final Body res = images.get(0).getBody();
                 return res.getService().getId();
@@ -99,7 +99,7 @@ public class MetadataMapper {
         //get Thumbnail
         //final Optional<Object> thumbnail = ofNullable(manifest.getThumbnail());
         final Optional<String> thumb;
-        thumb = ofNullable(getRandomImageAsThumbnail(manifest));
+        thumb = ofNullable(getRandomImageAsThumbnail(manifest, true));
         thumb.ifPresent(t -> metadataMap.put("thumbnail", t));
 
         final String title = manifest.getLabel();
@@ -129,7 +129,7 @@ public class MetadataMapper {
                         @SuppressWarnings("unchecked") List<Map<String, String>> valList =
                                 (List<Map<String, String>>) valueList;
                         Map<String, String> values = valList.stream().collect(
-                                Collectors.toMap(sll -> sll.get("@id"), s -> s.get("label")));
+                                Collectors.toMap(sll -> sll.get("@id"), s -> s.get("format")));
                         List<String> vll = new ArrayList<>();
                         values.forEach((k, v) -> {
                             vll.add(k);

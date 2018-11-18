@@ -36,6 +36,9 @@ public class Service {
     @JsonProperty
     private String protocol;
 
+    @JsonProperty
+    private Object tiles;
+
     public String getId() {
         return id;
     }

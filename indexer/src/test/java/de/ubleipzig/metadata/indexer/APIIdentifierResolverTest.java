@@ -56,13 +56,13 @@ public class APIIdentifierResolverTest {
     }
 
     private List<String> buildIdentifierList(final int start, final int end) {
-        final String apiIdentifier = "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb";
+        final String apiIdentifier = "https://www.nga.gov/api/v1/iiif/presentation/manifest.json?cultObj:id=";
         final HttpClient client = getClient();
         final List<String> list = new ArrayList<>();
         for (int i = start; i < end; i++) {
-            final String eightDigitString = "%08d";
-            final String pid = String.format(eightDigitString, i);
-            final IRI identifier = rdf.createIRI(apiIdentifier + pid + "/manifest");
+            final String tenDigitString = "%05d";
+            final String pid = String.format(tenDigitString, i);
+            final IRI identifier = rdf.createIRI(apiIdentifier + pid);
             try {
                 final URI uri = new URI(identifier.getIRIString());
                 final HttpRequest req = HttpRequest.newBuilder(uri).method("HEAD", noBody()).build();
@@ -81,13 +81,13 @@ public class APIIdentifierResolverTest {
 
     @Test
     void resolveAPIIdentifiers() {
-        IntStream.range(1010, 102000 / 10).map(i -> i * 10000).forEach((x) -> {
+        IntStream.range(4, 100000 / 10).map(i -> i * 10000).forEach((x) -> {
             final int end = x + 10000;
             final List<String> list = buildIdentifierList(x, end);
             final APIIdentifierCollection collection = new APIIdentifierCollection();
             collection.setIdentifiers(list);
             final String out = JsonSerializer.serialize(collection).orElse("");
-            JsonSerializer.writeToFile(out, new File("/tmp/MDZIdentifiers-" + x + ".json"));
+            JsonSerializer.writeToFile(out, new File("/tmp/NGAIdentifiers-" + x + ".json"));
         });
     }
 
