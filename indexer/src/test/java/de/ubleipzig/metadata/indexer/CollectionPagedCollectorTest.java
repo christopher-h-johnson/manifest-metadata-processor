@@ -74,7 +74,7 @@ public class CollectionPagedCollectorTest {
                 if (res3.statusCode() == 200 | res3.statusCode() == 301) {
                     final String json3 = res3.body().toString();
                     final MetadataMap metadataMap = indexer.buildMetadataMap(json3);
-                    Map<String, String> metadata = metadataMap.getMetadataMap();
+                    Map<String, Object> metadata = metadataMap.getMetadataMap();
                     metadata.put("manifest", m.getId());
                     metadataMap.setMetadataMap(metadata);
                     metadataMapList.add(metadataMap);

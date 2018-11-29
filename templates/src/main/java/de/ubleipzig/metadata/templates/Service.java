@@ -31,6 +31,12 @@ public class Service {
     private String id;
 
     @JsonProperty
+    private Integer height;
+
+    @JsonProperty
+    private Integer width;
+
+    @JsonProperty
     private String profile;
 
     @JsonProperty

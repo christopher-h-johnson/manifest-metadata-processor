@@ -21,14 +21,14 @@ import java.util.Map;
 public class MetadataMap {
 
     @JsonProperty
-    private Map<String, String> metadataMap;
+    private Map<String, Object> metadataMap;
 
     /**
      * getMetadataMap.
      *
      * @return Map
      */
-    public Map<String, String> getMetadataMap() {
+    public Map<String, Object> getMetadataMap() {
         return metadataMap;
     }
 
@@ -37,7 +37,7 @@ public class MetadataMap {
      *
      * @param metadataMap Map
      */
-    public void setMetadataMap(final Map<String, String> metadataMap) {
+    public void setMetadataMap(final Map<String, Object> metadataMap) {
         this.metadataMap = metadataMap;
     }
 }

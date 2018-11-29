@@ -99,7 +99,7 @@ public class Collection3LevelCollectorTest {
                                             if (res3.statusCode() == 200 | res3.statusCode() == 301) {
                                                 final String json3 = res3.body().toString();
                                                 final MetadataMap metadataMap = indexer.buildMetadataMap(json3);
-                                                Map<String, String> metadata = metadataMap.getMetadataMap();
+                                                Map<String, Object> metadata = metadataMap.getMetadataMap();
                                                 metadata.put("collection", label);
                                                 metadata.put("subCollection", label2);
                                                 metadata.put("manifest", m.getId());

@@ -99,9 +99,11 @@ public class MetadataMapper {
         //get Thumbnail
         //final Optional<Object> thumbnail = ofNullable(manifest.getThumbnail());
         final Optional<String> thumb;
-        thumb = ofNullable(getRandomImageAsThumbnail(manifest, true));
+        thumb = ofNullable(getRandomImageAsThumbnail(manifest, false));
         thumb.ifPresent(t -> metadataMap.put("thumbnail", t));
-
+        if (!thumb.isPresent()) {
+            return null;
+        }
         final String title = manifest.getLabel();
         metadataMap.put("title", title);
 

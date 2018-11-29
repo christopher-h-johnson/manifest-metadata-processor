@@ -29,7 +29,7 @@ dependencies {
     implementation("org.slf4j:slf4j-api:$slf4jVersion")
     implementation("org.trellisldp:trellis-client:$trellisClientVersion")
     implementation("org.apache.commons:commons-collections4:4.2")
-
+    implementation("org.jsoup:jsoup:1.11.3")
 
     testImplementation("org.apache.camel:camel-test:$camelVersion")
     testImplementation("org.apache.camel:camel-jetty9:$camelVersion")

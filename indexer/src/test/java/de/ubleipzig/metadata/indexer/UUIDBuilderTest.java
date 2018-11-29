@@ -56,7 +56,7 @@ public class UUIDBuilderTest {
     @Test
     void buildManifestUUIDsForIdentifierList() {
         try {
-            URL dir = UUIDBuilderTest.class.getClassLoader().getResource("data/mdz/ids3");
+            URL dir = UUIDBuilderTest.class.getClassLoader().getResource("data/wales/ids");
             final Map<String, Map<String, String>> manifestMap = new HashMap<>();
             File folder = new File(dir.toURI());
             File[] listOfFiles = folder.listFiles();
@@ -81,7 +81,7 @@ public class UUIDBuilderTest {
             final ManifestUUIDMap map = new ManifestUUIDMap();
             map.setManifestMap(manifestMap);
             String json = JsonSerializer.serialize(map).orElse("");
-            JsonSerializer.writeToFile(json, new File("/tmp/mdz-uuids3.json"));
+            JsonSerializer.writeToFile(json, new File("/tmp/wales-ids.json"));
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }

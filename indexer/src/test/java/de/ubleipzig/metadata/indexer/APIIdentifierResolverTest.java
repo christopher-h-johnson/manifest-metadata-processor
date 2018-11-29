@@ -17,6 +17,7 @@ package de.ubleipzig.metadata.indexer;
 import static java.net.http.HttpClient.Redirect.ALWAYS;
 import static java.net.http.HttpRequest.BodyPublishers.noBody;
 import static java.net.http.HttpResponse.BodyHandlers.ofString;
+import static org.jsoup.Jsoup.parse;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -37,18 +38,22 @@ import java.util.stream.IntStream;
 
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.jena.JenaRDF;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.trellisldp.client.LdpClient;
+import org.trellisldp.client.LdpClientException;
 import org.trellisldp.client.LdpClientImpl;
 
 @Disabled
 public class APIIdentifierResolverTest {
     private static Logger logger = LoggerFactory.getLogger(APIIdentifierResolverTest.class);
-    private final LdpClient client = new LdpClientImpl();
     private static final JenaRDF rdf = new JenaRDF();
+    private final LdpClient client = new LdpClientImpl();
 
     private static HttpClient getClient() {
         final ExecutorService exec = Executors.newCachedThreadPool();
@@ -56,13 +61,59 @@ public class APIIdentifierResolverTest {
     }
 
     private List<String> buildIdentifierList(final int start, final int end) {
-        final String apiIdentifier = "https://www.nga.gov/api/v1/iiif/presentation/manifest.json?cultObj:id=";
+        final String apiIdentifier = "https://damsssl.llgc.org.uk/iiif/2.0/";
         final HttpClient client = getClient();
         final List<String> list = new ArrayList<>();
         for (int i = start; i < end; i++) {
-            final String tenDigitString = "%05d";
+            final String tenDigitString = "%07d";
             final String pid = String.format(tenDigitString, i);
-            final IRI identifier = rdf.createIRI(apiIdentifier + pid);
+            final IRI identifier = rdf.createIRI(apiIdentifier + pid + "/manifest.json");
+            try {
+                final URI uri = new URI(identifier.getIRIString());
+                final HttpRequest req = HttpRequest.newBuilder(uri).method("HEAD", noBody()).build();
+                final HttpResponse<String> response = client.send(req, ofString());
+                logger.info("Identifier {} returned response code {}", identifier.getIRIString(),
+                        String.valueOf(response.statusCode()));
+                if (response.statusCode() == 200) {
+                    list.add(identifier.getIRIString());
+                }
+            } catch (InterruptedException | IOException | URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
+
+    private List<String> buildYaleIdentifierList(final int start, final int end) {
+        final String apiIdentifier = "https://manifests.britishart.yale.edu/manifest/";
+        final HttpClient client = getClient();
+        final List<String> list = new ArrayList<>();
+        for (int i = start; i < end; i++) {
+            final IRI identifier = rdf.createIRI(apiIdentifier + i);
+            try {
+                final URI uri = new URI(identifier.getIRIString());
+                final HttpRequest req = HttpRequest.newBuilder(uri).method("HEAD", noBody()).build();
+                final HttpResponse<String> response = client.send(req, ofString());
+                logger.info("Identifier {} returned response code {}", identifier.getIRIString(),
+                        String.valueOf(response.statusCode()));
+                if (response.statusCode() == 200) {
+                    list.add(identifier.getIRIString());
+                }
+            } catch (InterruptedException | IOException | URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
+
+    private List<String> buildUBLIdentifierList(final int start, final int end) {
+        final String apiIdentifier = "https://iiif.ub.uni-leipzig.de/";
+        final HttpClient client = getClient();
+        final List<String> list = new ArrayList<>();
+        for (int i = start; i < end; i++) {
+            final String pid = String.format("%010d", i);
+            final String id = apiIdentifier + pid + "/manifest.json";
+            final IRI identifier = rdf.createIRI(id);
             try {
                 final URI uri = new URI(identifier.getIRIString());
                 final HttpRequest req = HttpRequest.newBuilder(uri).method("HEAD", noBody()).build();
@@ -80,8 +131,26 @@ public class APIIdentifierResolverTest {
     }
 
     @Test
+    void buildAPIIdentifiers() {
+            final List<String> list = buildIdentifierList(1128800, 1138800);
+            final APIIdentifierCollection collection = new APIIdentifierCollection();
+            collection.setIdentifiers(list);
+            final String out = JsonSerializer.serialize(collection).orElse("");
+            JsonSerializer.writeToFile(out, new File("/tmp/wales-1128800.json"));
+    }
+
+    @Test
+    void resolveUBLAPIIdentifiers() {
+        final List<String> list = buildUBLIdentifierList(1, 13053);
+        final APIIdentifierCollection collection = new APIIdentifierCollection();
+        collection.setIdentifiers(list);
+        final String out = JsonSerializer.serialize(collection).orElse("");
+        JsonSerializer.writeToFile(out, new File("/tmp/UBLIdentifiers-20000.json"));
+    }
+
+    @Test
     void resolveAPIIdentifiers() {
-        IntStream.range(4, 100000 / 10).map(i -> i * 10000).forEach((x) -> {
+        IntStream.range(11, 200000 / 10).map(i -> i * 10000).forEach((x) -> {
             final int end = x + 10000;
             final List<String> list = buildIdentifierList(x, end);
             final APIIdentifierCollection collection = new APIIdentifierCollection();
@@ -99,5 +168,26 @@ public class APIIdentifierResolverTest {
         public void setIdentifiers(List<String> identifiers) {
             this.identifiers = identifiers;
         }
+    }
+
+    @Test
+    void getLCNCollectionFromDOM() {
+        final List<String> list = new ArrayList<>();
+        final APIIdentifierCollection collection = new APIIdentifierCollection();
+        final IRI rootCollectionIRI = rdf.createIRI("https://www.loc.gov/collections/panoramic-maps/?c=500&sp=4&st=list");
+        try {
+            String response = client.getDefaultType(rootCollectionIRI);
+            Document html = parse(response);
+            Elements hrefs = html.select("#results > ul > li > div > div > span.item-description-title > a");
+            hrefs.forEach(href -> {
+                final String id = href.attr("href") + "manifest.json";
+                list.add(id);
+            });
+        } catch (LdpClientException e) {
+            e.printStackTrace();
+        }
+        collection.setIdentifiers(list);
+        final String out = JsonSerializer.serialize(collection).orElse("");
+        JsonSerializer.writeToFile(out, new File("/tmp/LCNMaps-4.json"));
     }
 }

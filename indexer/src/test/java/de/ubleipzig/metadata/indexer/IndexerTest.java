@@ -38,6 +38,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.net.http.HttpHeaders;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -78,10 +79,9 @@ public class IndexerTest {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     private List<IRI> buildIRIList() {
-        final String extractorService = "http://localhost:9098/extractor?type=extract&m=https://api" + ".digitale" +
-                "-sammlungen.de/iiif/presentation/v2/bsb";
+        final String extractorService = "http://localhost:9098/extractor?type=extract&m=https://iiif.ub.uni-leipzig.de/";
 
-        final int loops = 120000;
+        final int loops = 13053;
         final List<IRI> list = new ArrayList<>();
         for (int i = 0; i < loops; i++) {
             final String pid = String.format(tenDigitString, i);
@@ -107,7 +107,44 @@ public class IndexerTest {
     @Test
     public void testGetJsonAPI() {
         //final List<IRI> list = buildIRIList();
-        final InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/mdz/ids3/MDZIdentifiers-10280000.json");
+        final InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/wales/ids/wales-1128800.json");
+
+        try {
+            MDZIdentifiers list = MAPPER.readValue(jsonList, new TypeReference<MDZIdentifiers>() {
+            });
+            final List<String> mdzIds = list.getIdentifiers();
+            final List<MetadataMap> mapList = new ArrayList<>();
+            mdzIds.forEach(i -> {
+                try {
+                    final IRI iri = rdf.createIRI(extractorBase + i);
+                    final HttpResponse res = client.getResponse(iri);
+                    final String body = res.body().toString();
+                    if (res.statusCode() == 200 && !body.isEmpty()) {
+                        final String json = res.body().toString();
+                        final MetadataMap metadataMap = MAPPER.readValue(json, new TypeReference<MetadataMap>() {
+                        });
+                        if (metadataMap.getMetadataMap().size() > 0) {
+                            mapList.add(metadataMap);
+                            logger.info("adding {} to indexable metadata", iri.getIRIString());
+                        }
+                    }
+                } catch (LdpClientException | IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            final MapList l = new MapList();
+            l.setMapList(mapList);
+            final String out = JsonSerializer.serialize(l).orElse("");
+            JsonSerializer.writeToFile(out, new File("/tmp/wales-metadata-1128800.json"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testGetYaleJsonAPI() {
+        //final List<IRI> list = buildIRIList();
+        final InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/yale/ids5/YaleIdentifiers-50000.json");
 
         try {
             MDZIdentifiers list = MAPPER.readValue(jsonList, new TypeReference<MDZIdentifiers>() {
@@ -134,12 +171,11 @@ public class IndexerTest {
             final MapList l = new MapList();
             l.setMapList(mapList);
             final String out = JsonSerializer.serialize(l).orElse("");
-            JsonSerializer.writeToFile(out, new File("/tmp/mdz-metadata-10280000.json"));
+            JsonSerializer.writeToFile(out, new File("/tmp/yale-metadata-50000.json"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
     @Test
     void putJsonElastic() {
@@ -197,14 +233,14 @@ public class IndexerTest {
     void putJsonCollectionElasticBulk() throws LdpClientException {
         final Indexer indexer = new Indexer();
 
-        final String indexName = "gt3";
+        final String indexName = "wales1";
         final String baseUrl = elasticSearchHost;
         final String bulkUri = baseUrl + bulkContext;
         indexer.createIndexMapping(baseUrl + indexName,
                 IndexerTest.class.getResourceAsStream("/ubl-dynamic-mapping.json"));
         final StringBuffer sb = new StringBuffer();
         try {
-            final InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/getty-metadata.json");
+            final InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/wales.metadata/wales-metadata-1128800.json");
             final CollectionMapListIdentifier mapList = MAPPER.readValue(
                     jsonList, new TypeReference<CollectionMapListIdentifier>() {
                     });
@@ -261,13 +297,13 @@ public class IndexerTest {
     @Test
     void putJsonCollectionElasticBulk3() throws LdpClientException {
         final Indexer indexer = new Indexer();
-        final String indexName = "mdz1";
+        final String indexName = "wales1";
         final String baseUrl = elasticSearchHost;
         final String bulkUri = baseUrl + bulkContext;
-        indexer.createIndexMapping(baseUrl + indexName, IndexerTest.class.getResourceAsStream("/ubl-mapping.json"));
+        indexer.createIndexMapping(baseUrl + indexName, IndexerTest.class.getResourceAsStream("/ubl-dynamic-mapping.json"));
         final StringBuffer sb = new StringBuffer();
         try {
-            InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/mdz/mdz-metadata-10280000.json");
+            InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/wales.metadata/wales-metadata-1128800.json");
             final MapList mapList = MAPPER.readValue(jsonList, new TypeReference<MapList>() {
             });
             final List<MetadataMap> m = mapList.getMapList();

@@ -73,7 +73,7 @@ public class SparqlMetadataExtractor {
             final Query query = QueryFactory.create(q);
             try (QueryExecution qexec = QueryExecutionFactory.create(query, model)) {
                 final ResultSet results = qexec.execSelect();
-                final Map<String, String> metadata = new TreeMap<>();
+                final Map<String, Object> metadata = new TreeMap<>();
                 if (results.hasNext()) {
                     while (results.hasNext()) {
                         final QuerySolution qs = results.next();
