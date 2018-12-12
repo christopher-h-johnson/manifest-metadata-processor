@@ -15,6 +15,7 @@
 package de.ubleipzig.metadata.extractor;
 
 import static de.ubleipzig.metadata.processor.ContextUtils.createInitialContext;
+import static de.ubleipzig.metadata.processor.QueryUtils.readFile;
 import static java.util.Optional.ofNullable;
 import static org.apache.camel.Exchange.CONTENT_TYPE;
 import static org.apache.camel.Exchange.HTTP_METHOD;
@@ -28,6 +29,8 @@ import de.ubleipzig.metadata.extractor.mapper.MetadataMapper;
 import de.ubleipzig.metadata.extractor.reserializer.Reserializer;
 import de.ubleipzig.metadata.extractor.reserializer.ReserializerVersion3;
 
+import java.io.InputStream;
+import java.net.URI;
 import java.util.Optional;
 
 import org.apache.camel.Exchange;
@@ -109,61 +112,80 @@ public class Extractor {
                     "Access-Control-Allow" + "-Origin")
                     .constant("*").choice()
                     .when(header(HTTP_METHOD).isEqualTo("GET")).to("direct:getManifest");
-            from("direct:getManifest").process(
-                    e -> e.getIn().setHeader(Exchange.HTTP_URI, e.getIn().getHeader(MANIFEST_URI)))
+            from("direct:getManifest")
+                    .process(e -> {
+                        final String m = e.getIn().getHeader(MANIFEST_URI).toString();
+                        final URI uri = new URI(m);
+                        final String query = uri.getQuery();
+                        final String path = uri.getPath();
+                        final String authority = uri.getAuthority();
+                        final String scheme = uri.getScheme();
+                        final String req = scheme + "://" + authority + path;
+                        e.getIn().setHeader(Exchange.HTTP_URI, req);
+                        e.getIn().setHeader(Exchange.HTTP_QUERY, query);
+                    })
+                    .setHeader("Accept-Encoding")
+                    .constant("gzip")
                     .to("http4")
                     .filter(header(HTTP_RESPONSE_CODE).isEqualTo(200))
                     .setHeader(CONTENT_TYPE)
                     .constant(contentTypeJsonLd)
-                    .convertBodyTo(String.class)
+                    .convertBodyTo(InputStream.class)
                     .log(INFO, LOGGER, "Fetching Json-LD document")
                     .to("direct:toExchangeProcess");
             from("direct:toExchangeProcess")
                     .choice()
                     .when(header(TYPE).isEqualTo("extract"))
                     .process(e -> {
-                        final Optional<String> body = ofNullable(e.getIn().getBody().toString());
-                        if (body.isPresent()) {
-                            final MetadataMapper extractor = new MetadataMapper(body.get());
-                            e.getIn().setBody(extractor.build());
-                        }
+                            final Optional<InputStream> is = ofNullable(e.getIn().getBody(InputStream.class));
+                            if (is.isPresent()) {
+                                final InputStream bis = is.get();
+                                final String body = readFile(bis);
+                                final MetadataMapper extractor = new MetadataMapper(body);
+                                e.getIn().setBody(extractor.build());
+                            }
                     })
                     .when(header(TYPE).isEqualTo("disassemble"))
                     .process(e -> {
-                            final Optional<String> body = ofNullable(e.getIn().getBody().toString());
-                            if (body.isPresent()) {
-                                final Disassembler disassembler = new Disassembler(body.get());
-                                e.getIn().setBody(disassembler.build());
-                            }
+                        final Optional<InputStream> is = ofNullable(e.getIn().getBody(InputStream.class));
+                        if (is.isPresent()) {
+                            final InputStream bis = is.get();
+                            final String body = readFile(bis);
+                            final Disassembler disassembler = new Disassembler(body);
+                            e.getIn().setBody(disassembler.build());
+                        }
                     })
                     .when(header(TYPE).isEqualTo("dimensions"))
                     .process(e -> {
-                        final Optional<String> body = ofNullable(e.getIn().getBody().toString());
-                        if (body.isPresent()) {
-                            final DimensionManifestBuilder dimManifestBuilder =
-                                    new DimensionManifestBuilder(body.get());
-                            e.getIn().setBody(dimManifestBuilder.build());
-                        }
+                            final Optional<InputStream> is = ofNullable(e.getIn().getBody(InputStream.class));
+                            if (is.isPresent()) {
+                                final InputStream bis = is.get();
+                                final String body = readFile(bis);
+                                final DimensionManifestBuilder dimManifestBuilder = new DimensionManifestBuilder(body);
+                                e.getIn().setBody(dimManifestBuilder.build());
+                            }
                     })
                     .when(and(header(TYPE).isEqualTo("reserialize"), header(VERSION).isEqualTo("2")))
                     .process(e -> {
-                        final Optional<String> body = ofNullable(e.getIn().getBody().toString());
+                        final Optional<InputStream> is = ofNullable(e.getIn().getBody(InputStream.class));
                         final String xmldbHost = e.getContext().resolvePropertyPlaceholders("{{xmldb.host}}");
-                        if (body.isPresent()) {
-                            final Reserializer reserializer =
-                                    new Reserializer(body.get(), xmldbHost);
-                            e.getIn().setBody(reserializer.build());
-                        }
+                            if (is.isPresent()) {
+                                final InputStream bis = is.get();
+                                final String body = readFile(bis);
+                                final Reserializer reserializer = new Reserializer(body, xmldbHost);
+                                e.getIn().setBody(reserializer.build());
+                            }
                     })
                     .when(and(header(TYPE).isEqualTo("reserialize"), header(VERSION).isEqualTo("3")))
                     .process(e -> {
-                        final Optional<String> body = ofNullable(e.getIn().getBody().toString());
+                        final Optional<InputStream> is = ofNullable(e.getIn().getBody(InputStream.class));
                         final String xmldbHost = e.getContext().resolvePropertyPlaceholders("{{xmldb.host}}");
-                        if (body.isPresent()) {
-                            final ReserializerVersion3 reserializer =
-                                    new ReserializerVersion3(body.get(), xmldbHost);
-                            e.getIn().setBody(reserializer.build());
-                        }
+                            if (is.isPresent()) {
+                                final InputStream bis = is.get();
+                                final String body = readFile(bis);
+                                final ReserializerVersion3 reserializer = new ReserializerVersion3(body, xmldbHost);
+                                e.getIn().setBody(reserializer.build());
+                            }
                     });
         }
     }

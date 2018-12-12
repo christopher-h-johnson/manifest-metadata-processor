@@ -117,30 +117,36 @@ public final class ExtractorTest {
                         })
                         .when(header(TYPE).isEqualTo("dimensions"))
                         .process(e -> {
-                            final Optional<String> body = ofNullable(e.getIn().getBody().toString());
-                            if (body.isPresent()) {
+                            final Optional<InputStream> is = ofNullable(e.getIn().getBody(InputStream.class));
+                            if (is.isPresent()) {
+                                final InputStream bis = is.get();
+                                final String body = readFile(bis);
                                 final DimensionManifestBuilder dimManifestBuilder =
-                                        new DimensionManifestBuilder(body.get());
+                                        new DimensionManifestBuilder(body);
                                 e.getIn().setBody(dimManifestBuilder.build());
                             }
                         })
                         .when(and(header(TYPE).isEqualTo("reserialize"), header(VERSION).isEqualTo("2")))
                         .process(e -> {
-                            final Optional<String> body = ofNullable(e.getIn().getBody().toString());
+                            final Optional<InputStream> is = ofNullable(e.getIn().getBody(InputStream.class));
                             final String xmldbHost = e.getContext().resolvePropertyPlaceholders("{{xmldb.host}}");
-                            if (body.isPresent()) {
+                            if (is.isPresent()) {
+                                final InputStream bis = is.get();
+                                final String body = readFile(bis);
                                 final Reserializer reserializer =
-                                        new Reserializer(body.get(), xmldbHost);
+                                        new Reserializer(body, xmldbHost);
                                 e.getIn().setBody(reserializer.build());
                             }
                         })
                         .when(and(header(TYPE).isEqualTo("reserialize"), header(VERSION).isEqualTo("3")))
                         .process(e -> {
-                            final Optional<String> body = ofNullable(e.getIn().getBody().toString());
+                            final Optional<InputStream> is = ofNullable(e.getIn().getBody(InputStream.class));
                             final String xmldbHost = e.getContext().resolvePropertyPlaceholders("{{xmldb.host}}");
-                            if (body.isPresent()) {
+                            if (is.isPresent()) {
+                                final InputStream bis = is.get();
+                                final String body = readFile(bis);
                                 final ReserializerVersion3 reserializer =
-                                        new ReserializerVersion3(body.get(), xmldbHost);
+                                        new ReserializerVersion3(body, xmldbHost);
                                 e.getIn().setBody(reserializer.build());
                             }
                         });
