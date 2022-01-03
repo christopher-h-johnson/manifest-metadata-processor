@@ -14,13 +14,6 @@
 
 package de.ubleipzig.metadata.extractor.reserializer;
 
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.baseUrl;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.structureBase;
-import static de.ubleipzig.metadata.extractor.reserializer.ReserializerUtils.buildLabelMap;
-import static de.ubleipzig.metadata.extractor.reserializer.ReserializerUtils.buildPaddedCanvases;
-import static java.io.File.separator;
-import static java.util.Optional.ofNullable;
-
 import de.ubleipzig.metadata.templates.v2.Structure;
 import de.ubleipzig.metadata.templates.v3.Item;
 import de.ubleipzig.metadata.templates.v3.MetadataVersion3;
@@ -36,6 +29,13 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.baseUrl;
+import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.structureBase;
+import static de.ubleipzig.metadata.extractor.reserializer.ReserializerUtils.buildLabelMap;
+import static de.ubleipzig.metadata.extractor.reserializer.ReserializerUtils.buildPaddedCanvases;
+import static java.io.File.separator;
+import static java.util.Optional.ofNullable;
 
 public class StructureBuilderVersion3 {
     private final List<Structure> structures;

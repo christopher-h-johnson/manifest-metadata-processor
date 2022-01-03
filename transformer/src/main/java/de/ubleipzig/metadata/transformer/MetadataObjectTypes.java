@@ -14,25 +14,13 @@
 
 package de.ubleipzig.metadata.transformer;
 
-import static de.ubleipzig.metadata.transformer.MetadataApiEnum.AUTHOR;
-import static de.ubleipzig.metadata.transformer.MetadataApiEnum.COLLECTION;
-import static de.ubleipzig.metadata.transformer.MetadataApiEnum.DISPLAYORDER;
-import static de.ubleipzig.metadata.transformer.MetadataApiEnum.LANGUAGE;
-import static de.ubleipzig.metadata.transformer.MetadataApiEnum.MANIFESTTYPE;
-import static de.ubleipzig.metadata.transformer.MetadataApiEnum.STRUCTTYPE;
-import static java.util.Optional.ofNullable;
-
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.ResourceBundle;
-import java.util.Set;
-import java.util.Spliterator;
-import java.util.Spliterators;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
+
+import static de.ubleipzig.metadata.transformer.MetadataApiEnum.*;
+import static java.util.Optional.ofNullable;
 
 public abstract class MetadataObjectTypes {
     @SuppressWarnings("unchecked")

@@ -14,11 +14,8 @@
 
 package de.ubleipzig.metadata.indexer;
 
-import static java.util.Optional.ofNullable;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.ubleipzig.metadata.processor.JsonSerializer;
 import de.ubleipzig.metadata.templates.BodleianMetadataMap;
 import de.ubleipzig.metadata.templates.collections.BodleianMapListCollection;
@@ -26,15 +23,6 @@ import de.ubleipzig.metadata.templates.collections.BodleianRootCollection;
 import de.ubleipzig.metadata.templates.collections.CollectionList;
 import de.ubleipzig.metadata.templates.collections.ManifestItem;
 import de.ubleipzig.metadata.templates.collections.ManifestList;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.jena.JenaRDF;
 import org.junit.jupiter.api.Disabled;
@@ -44,6 +32,16 @@ import org.slf4j.LoggerFactory;
 import org.trellisldp.client.LdpClient;
 import org.trellisldp.client.LdpClientException;
 import org.trellisldp.client.LdpClientImpl;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import static java.util.Optional.ofNullable;
 
 @Disabled
 public class Collection2LevelCollectorTest {

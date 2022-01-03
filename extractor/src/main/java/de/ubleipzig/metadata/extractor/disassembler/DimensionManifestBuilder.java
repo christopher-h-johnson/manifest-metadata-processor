@@ -14,16 +14,15 @@
 
 package de.ubleipzig.metadata.extractor.disassembler;
 
-import static de.ubleipzig.metadata.extractor.ExtractorUtils.IIPSRV_DEFAULT;
-import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.ubleipzig.image.metadata.templates.ImageDimensionManifest;
 import de.ubleipzig.image.metadata.templates.ImageDimensions;
 import de.ubleipzig.metadata.templates.ImageServiceResponse;
 import de.ubleipzig.metadata.templates.Manifest;
+import org.apache.commons.io.FilenameUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,9 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.commons.io.FilenameUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static de.ubleipzig.metadata.extractor.ExtractorUtils.IIPSRV_DEFAULT;
+import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
 
 public class DimensionManifestBuilder {
     private static final Logger LOGGER = LoggerFactory.getLogger(DimensionManifestBuilder.class);

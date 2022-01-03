@@ -14,11 +14,10 @@
 package de.ubleipzig.metadata.transformer;
 
 import de.ubleipzig.metadata.templates.ISO639;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
-
-import org.junit.jupiter.api.Test;
 
 public class LanguageMapTest {
 

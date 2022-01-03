@@ -14,63 +14,34 @@
 
 package de.ubleipzig.metadata.extractor.reserializer;
 
-import static de.ubleipzig.metadata.extractor.ExtractorUtils.IIPSRV_DEFAULT;
-import static de.ubleipzig.metadata.extractor.disassembler.DimensionManifestBuilder.mapServiceResponse;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.IIIF_SERVICE_PROFILE;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.IIIF_SERVICE_TYPE;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.IIIF_VERSION3_CONTEXT;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.SEE_ALSO_PROFILE;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.WEB_ANNOTATION_CONTEXT;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.annotationBase;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.annotationPageBase;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.baseUrl;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.domainAttribution;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.domainLicense;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.domainLogo;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.katalogUrl;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.manifestBase;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.targetBase;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.viewerUrl;
-import static de.ubleipzig.metadata.extractor.reserializer.ReserializerUtils.buildLabelMap;
-import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
-import static java.io.File.separator;
-import static java.lang.String.format;
-import static java.util.Optional.ofNullable;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.ubleipzig.metadata.templates.Canvases;
 import de.ubleipzig.metadata.templates.ImageServiceResponse;
 import de.ubleipzig.metadata.templates.Images;
 import de.ubleipzig.metadata.templates.Manifest;
 import de.ubleipzig.metadata.templates.v2.Structure;
-import de.ubleipzig.metadata.templates.v3.AnnotationPage;
-import de.ubleipzig.metadata.templates.v3.AnnotationVersion3;
-import de.ubleipzig.metadata.templates.v3.BodyVersion3;
-import de.ubleipzig.metadata.templates.v3.CanvasVersion3;
-import de.ubleipzig.metadata.templates.v3.Item;
-import de.ubleipzig.metadata.templates.v3.ManifestVersion3;
-import de.ubleipzig.metadata.templates.v3.MetadataVersion3;
-import de.ubleipzig.metadata.templates.v3.SeeAlso;
-import de.ubleipzig.metadata.templates.v3.ServiceVersion3;
+import de.ubleipzig.metadata.templates.v3.*;
 import de.ubleipzig.metadata.transformer.MetadataApi;
 import de.ubleipzig.metadata.transformer.MetadataBuilderVersion3;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static de.ubleipzig.metadata.extractor.ExtractorUtils.IIPSRV_DEFAULT;
+import static de.ubleipzig.metadata.extractor.disassembler.DimensionManifestBuilder.mapServiceResponse;
+import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.*;
+import static de.ubleipzig.metadata.extractor.reserializer.ReserializerUtils.buildLabelMap;
+import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
+import static java.io.File.separator;
+import static java.lang.String.format;
+import static java.util.Optional.ofNullable;
 
 public class ReserializerVersion3 {
 

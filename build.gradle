@@ -5,43 +5,41 @@ buildscript {
     }
     dependencies {
         classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.1.1'
     }
 }
 
 plugins {
-    id "com.zyxist.chainsaw" version "0.3.1"
-    id 'net.researchgate.release' version '2.6.0'
-    id 'com.github.hierynomus.license' version '0.14.0'
-    id 'io.codearte.nexus-staging' version '0.9.0'
+    id 'org.javamodularity.moduleplugin' version '1.8.10' apply false
+    id 'com.github.hierynomus.license' version '0.16.1'
+    id 'io.codearte.nexus-staging' version '0.30.0'
 }
 
 ext {
     /* Dependencies */
-    camelVersion = '2.21.0'
+    activationApiVersion = '1.1.1'
+    camelVersion = '2.25.4'
     commonsIoVersion = '2.6'
     commonsRdfVersion = '0.5.0'
-    commonsRdfJenaVersion = '1.0.0-SNAPSHOT'
     elasticsearchVersion = '6.2.2'
     imageMetadataVersion = '0.2.0-SNAPSHOT'
     iiifVocabularyVersion = '0.1.1'
     jacksonVersion = '2.9.5'
+    jaxbVersion = '2.3.1'
     jsonldVersion = '0.12.0'
     leptonicaVersion = '1.75.3-1.4.1'
-    slf4jVersion = '1.7.25'
+    logbackVersion = '1.2.10'
+    slf4jVersion = '1.7.32'
     tesseractVersion = '3.05.01-1.4.1'
     trellisClientVersion = '0.3.0-SNAPSHOT'
     xbeamVersion = '1.4.16'
 
     /* Testing */
-    jaxbVersion = '2.3.0'
-    activationApiVersion = '1.2.0'
-    junitVersion = '5.1.1'
-    jaxbVersion = '2.3.0'
-    jenaVersion = '4.0.0-SNAPSHOT'
-    activationVersion = '1.1.1'
-    logbackVersion = '1.2.3'
-    apiguardianVersion = '1.0.0'
+    httpClientOsgiVersion = '4.5.3'
+    jenaVersion = '3.7.0'
+    junitVersion = "5.8.2"
+    xercesVersion = '2.11.0'
+    mockitoVersion = '4.2.0'
+    slf4jVersion = '1.7.32'
 
     /* Transitive patched modules */
     commonsLoggingVersion = '1.2'
@@ -49,11 +47,11 @@ ext {
     httpClientOsgiVersion = '4.5.3'
     httpCoreOsgiVersion = '4.4.6'
 
-    jacocoVersion = '0.8.1'
+    jacocoVersion = '0.8.7'
     checkstyleVersion = '8.8'
 }
 
-allprojects { subproject ->
+configure(allprojects) { project ->
 
     ext {
         name = 'Manifest Metadata Processor API'
@@ -76,14 +74,14 @@ allprojects { subproject ->
     }
 }
 
-subprojects {
-    apply plugin: 'maven'
+subprojects { subproj ->
+    apply plugin: 'java'
     apply plugin: 'java-library'
     apply plugin: 'maven-publish'
     apply plugin: 'signing'
     apply plugin: 'checkstyle'
     apply plugin: 'com.github.hierynomus.license'
-    apply plugin: 'org.junit.platform.gradle.plugin'
+    apply plugin: 'org.javamodularity.moduleplugin'
 
     sourceCompatibility = 1.11
     targetCompatibility = 1.11
@@ -95,11 +93,6 @@ subprojects {
         }
     }
 
-
-    dependencies {
-        testCompile("org.junit.jupiter:junit-jupiter-api:$junitVersion")
-        testRuntime("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
-    }
 
     checkstyle {
         configFile = rootProject.file('buildtools/src/main/resources/checkstyle/checkstyle.xml')
@@ -128,11 +121,30 @@ subprojects {
     classes {
         classes.dependsOn processConfig
     }
+
+    dependencies {
+        testImplementation(platform("org.junit:junit-bom:$junitVersion"))
+        testImplementation('org.junit.jupiter:junit-jupiter')
+    }
+
+    tasks.withType(Test).configureEach {
+        useJUnitPlatform()
+
+        systemProperty 'java.util.logging.config.file', "${subproj.buildDir}/resources/test/logging-test.properties"
+
+        forkEvery = 1
+
+        testLogging {
+            events 'PASSED', 'FAILED', 'SKIPPED'
+            showStandardStreams = true
+        }
+    }
 }
 
 configure(rootProject) {
     license {
         include "**/*.java"
+        exclude "**/*Test.java"
         //noinspection GroovyAssignabilityCheck
         header rootProject.file('buildtools/src/main/resources/license/HEADER.txt')
         //noinspection GroovyAssignabilityCheck

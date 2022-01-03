@@ -15,7 +15,6 @@
 package de.ubleipzig.metadata.templates.collections;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import de.ubleipzig.metadata.templates.Metadata;
 
 import java.util.List;

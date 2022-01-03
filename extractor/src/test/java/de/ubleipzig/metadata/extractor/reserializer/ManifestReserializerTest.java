@@ -14,15 +14,13 @@
 
 package de.ubleipzig.metadata.extractor.reserializer;
 
-import static de.ubleipzig.metadata.processor.QueryUtils.readFile;
-import static java.util.Optional.ofNullable;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.ubleipzig.metadata.templates.Metadata;
 import de.ubleipzig.metadata.templates.metsmods.MetsMods;
 import de.ubleipzig.metadata.transformer.MetadataImplVersion2;
 import de.ubleipzig.metadata.transformer.XmlDbAccessor;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,8 +29,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import static de.ubleipzig.metadata.processor.QueryUtils.readFile;
+import static java.util.Optional.ofNullable;
 
 @Disabled
 public class ManifestReserializerTest {

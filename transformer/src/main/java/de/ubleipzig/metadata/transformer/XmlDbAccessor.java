@@ -14,15 +14,18 @@
 
 package de.ubleipzig.metadata.transformer;
 
-import static java.io.File.separator;
-import static java.util.Optional.ofNullable;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.ubleipzig.metadata.templates.Metadata;
 import de.ubleipzig.metadata.templates.metsmods.MetsMods;
 import de.ubleipzig.metadata.templates.metsmods.RecordList;
+import org.apache.commons.rdf.api.IRI;
+import org.apache.commons.rdf.jena.JenaRDF;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.trellisldp.client.LdpClient;
+import org.trellisldp.client.LdpClientException;
+import org.trellisldp.client.LdpClientImpl;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -31,13 +34,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.commons.rdf.api.IRI;
-import org.apache.commons.rdf.jena.JenaRDF;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.trellisldp.client.LdpClient;
-import org.trellisldp.client.LdpClientException;
-import org.trellisldp.client.LdpClientImpl;
+import static java.io.File.separator;
+import static java.util.Optional.ofNullable;
 
 public class XmlDbAccessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(XmlDbAccessor.class);

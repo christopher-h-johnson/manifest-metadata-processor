@@ -1,5 +1,3 @@
-apply plugin: 'com.zyxist.chainsaw'
-
 dependencies {
     implementation("de.ubleipzig:iiif.vocabulary:$iiifVocabularyVersion")
     implementation("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion") {force = true}

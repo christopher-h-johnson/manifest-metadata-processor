@@ -1,17 +1,9 @@
-enableFeaturePreview('STABLE_PUBLISHING')
 rootProject.name = 'manifest-metadata-processor'
-include ':extractor'
-include ':indexer'
-include ':processor'
-include ':producer'
-include ':renderer'
-include ':templates'
-include ':transformer'
+include 'extractor'
+include 'indexer'
+include 'processor'
+include 'producer'
+include 'renderer'
+include 'templates'
+include 'transformer'
 
-project(':extractor').projectDir = "$rootDir/extractor" as File
-project(':indexer').projectDir = "$rootDir/indexer" as File
-project(':processor').projectDir = "$rootDir/processor" as File
-project(':producer').projectDir = "$rootDir/producer" as File
-project(':renderer').projectDir = "$rootDir/renderer" as File
-project(':templates').projectDir = "$rootDir/templates" as File
-project(':transformer').projectDir = "$rootDir/transformer" as File

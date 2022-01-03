@@ -14,13 +14,17 @@
 
 package de.ubleipzig.metadata.extractor.mapper;
 
-import static de.ubleipzig.metadata.processor.JsonLdProcessorUtils.toRDF;
-import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
-import static org.apache.commons.rdf.api.RDFSyntax.NTRIPLES;
-import static org.apache.jena.core.rdf.model.ModelFactory.createDefaultModel;
-
 import de.ubleipzig.metadata.processor.QueryUtils;
 import de.ubleipzig.metadata.templates.MetadataMap;
+import org.apache.commons.rdf.api.Graph;
+import org.apache.commons.rdf.jena.JenaRDF;
+import org.apache.jena.query.*;
+import org.apache.jena.riot.Lang;
+import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.rdf.model.Literal;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Resource;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,20 +33,10 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeMap;
 
-import org.apache.commons.rdf.api.Graph;
-import org.apache.commons.rdf.jena.JenaRDF;
-import org.apache.jena.arq.query.Query;
-import org.apache.jena.arq.query.QueryExecution;
-import org.apache.jena.arq.query.QueryExecutionFactory;
-import org.apache.jena.arq.query.QueryFactory;
-import org.apache.jena.arq.query.QuerySolution;
-import org.apache.jena.arq.query.ResultSet;
-import org.apache.jena.arq.riot.Lang;
-import org.apache.jena.arq.riot.RDFDataMgr;
-import org.apache.jena.core.rdf.model.Literal;
-import org.apache.jena.core.rdf.model.Model;
-import org.apache.jena.core.rdf.model.ModelFactory;
-import org.apache.jena.core.rdf.model.Resource;
+import static de.ubleipzig.metadata.processor.JsonLdProcessorUtils.toRDF;
+import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
+import static org.apache.commons.rdf.api.RDFSyntax.NTRIPLES;
+import static org.apache.jena.rdf.model.ModelFactory.createDefaultModel;
 
 public class SparqlMetadataExtractor {
     private static final JenaRDF rdf = new JenaRDF();
@@ -67,7 +61,7 @@ public class SparqlMetadataExtractor {
         try {
             final InputStream is = toRDF(body);
             final Graph graph = getGraph(is);
-            final org.apache.jena.core.graph.Graph jenaGraph = rdf.asJenaGraph(Objects.requireNonNull(graph));
+            final org.apache.jena.graph.Graph jenaGraph = rdf.asJenaGraph(Objects.requireNonNull(graph));
             final Model model = ModelFactory.createModelForGraph(jenaGraph);
             final String q = QueryUtils.getQuery("metadata.sparql");
             final Query query = QueryFactory.create(q);

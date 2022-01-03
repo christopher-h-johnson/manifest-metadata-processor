@@ -1,11 +1,10 @@
 apply plugin: 'application'
-apply plugin: 'com.zyxist.chainsaw'
 
-mainClassName = 'de.ubleipzig.metadata.extractor.Extractor'
 description = 'A Camel service that assembles manifests from RDF queries'
 
-javaModule {
-    name = 'de.ubleipzig.metadata.extractor'
+application {
+    mainClass = 'de.ubleipzig.metadata.extractor.Extractor'
+    mainModule = 'de.ubleipzig.metadata.extractor'
 }
 
 configurations {
@@ -28,7 +27,6 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("de.ubleipzig:iiif.vocabulary:$iiifVocabularyVersion")
     implementation("de.ubleipzig:image.metadata:$imageMetadataVersion")
-    implementation("de.ubleipzig:commons-rdf-jena-jpms:$commonsRdfJenaVersion")
     implementation("javax.activation:javax.activation-api:$activationApiVersion")
     implementation("javax.xml.bind:jaxb-api:$jaxbVersion")
     implementation("commons-io:commons-io:$commonsIoVersion")
@@ -36,8 +34,12 @@ dependencies {
     implementation("org.apache.camel:camel-http4:$camelVersion")
     implementation("org.apache.httpcomponents:httpclient-cache:$httpClientOsgiVersion")
     implementation("org.trellisldp:trellis-client:$trellisClientVersion")
-
-    testImplementation("de.ubleipzig:jena.core-jpms:$jenaVersion")
+    implementation("org.slf4j:slf4j-api:$slf4jVersion")
+    implementation 'org.apache.commons:commons-rdf-jena:0.5.0'
+    implementation("com.fasterxml.jackson.core:jackson-core:$jacksonVersion") {force = true}
+    implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion") {force = true}
+    implementation 'org.apache.jena:jena-arq:4.3.2'
+    implementation 'org.apache.jena:jena-core:4.3.2'
     testImplementation("org.apache.camel:camel-test:$camelVersion")
     testImplementation("org.apache.camel:camel-jetty9:$camelVersion")
     testImplementation("org.apache.camel:camel-http4:$camelVersion")

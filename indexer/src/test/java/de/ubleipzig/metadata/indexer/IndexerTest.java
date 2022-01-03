@@ -14,38 +14,16 @@
 
 package de.ubleipzig.metadata.indexer;
 
-import static java.io.File.separator;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.ubleipzig.metadata.processor.JsonSerializer;
 import de.ubleipzig.metadata.templates.MapList;
 import de.ubleipzig.metadata.templates.MapListCollection;
 import de.ubleipzig.metadata.templates.MetadataMap;
 import de.ubleipzig.metadata.templates.OrpAtom;
 import de.ubleipzig.metadata.templates.OrpAtomList;
-import de.ubleipzig.metadata.templates.collections.BodleianCollectionMapListIdentifier;
-import de.ubleipzig.metadata.templates.collections.BodleianMapListCollection;
-import de.ubleipzig.metadata.templates.collections.CollectionMapListIdentifier;
-import de.ubleipzig.metadata.templates.collections.LandingDoc;
-import de.ubleipzig.metadata.templates.collections.MDZIdentifiers;
-import de.ubleipzig.metadata.templates.collections.ManifestUUIDMap;
+import de.ubleipzig.metadata.templates.collections.*;
 import de.ubleipzig.metadata.templates.indexer.ElasticCreate;
-
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.http.HttpHeaders;
-import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.jena.JenaRDF;
 import org.junit.jupiter.api.Disabled;
@@ -55,6 +33,20 @@ import org.slf4j.LoggerFactory;
 import org.trellisldp.client.LdpClient;
 import org.trellisldp.client.LdpClientException;
 import org.trellisldp.client.LdpClientImpl;
+
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import static java.io.File.separator;
 
 @Disabled
 public class IndexerTest {

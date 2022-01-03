@@ -14,15 +14,14 @@
 
 package de.ubleipzig.metadata.extractor;
 
-import static de.ubleipzig.metadata.processor.QueryUtils.readFile;
-
 import de.ubleipzig.metadata.extractor.disassembler.Disassembler;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import org.junit.jupiter.api.Test;
+import static de.ubleipzig.metadata.processor.QueryUtils.readFile;
 
 public class ManifestDisassemblerTest {
 

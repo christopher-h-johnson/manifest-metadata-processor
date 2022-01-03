@@ -1,11 +1,10 @@
 apply plugin: 'application'
-apply plugin: 'com.zyxist.chainsaw'
 
-mainClassName = 'de.ubleipzig.metadata.producer.Producer'
 description = 'A Camel service that produces IIIF Manifests'
 
-javaModule {
-    name = 'de.ubleipzig.metadata.producer'
+application {
+    mainClass = 'de.ubleipzig.metadata.producer.Producer'
+    mainModule = 'de.ubleipzig.metadata.producer'
 }
 
 configurations {
@@ -27,19 +26,21 @@ dependencies {
     implementation project(":extractor")
     implementation project(":transformer")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion")
     implementation("de.ubleipzig:iiif.vocabulary:$iiifVocabularyVersion")
     implementation("de.ubleipzig:image.metadata:$imageMetadataVersion")
-    implementation("de.ubleipzig:commons-rdf-jena-jpms:$commonsRdfJenaVersion")
     implementation("javax.activation:javax.activation-api:$activationApiVersion")
+    implementation 'javax.validation:validation-api:2.0.1.Final'
     implementation("javax.xml.bind:jaxb-api:$jaxbVersion")
     implementation("commons-io:commons-io:$commonsIoVersion")
     implementation("org.apache.camel:camel-jetty9:$camelVersion")
     implementation("org.apache.camel:camel-http4:$camelVersion")
+    implementation 'org.apache.commons:commons-rdf-jena:0.5.0'
     implementation("org.apache.httpcomponents:httpclient-cache:$httpClientOsgiVersion")
     implementation("org.trellisldp:trellis-client:$trellisClientVersion")
     implementation("org.xmlbeam:xmlprojector:$xbeamVersion")
 
-    testImplementation("de.ubleipzig:jena.core-jpms:$jenaVersion")
+    testImplementation 'org.apache.jena:jena-core:4.3.2'
     testImplementation("org.apache.camel:camel-test:$camelVersion")
     testImplementation("org.apache.camel:camel-jetty9:$camelVersion")
     testImplementation("org.apache.camel:camel-http4:$camelVersion")

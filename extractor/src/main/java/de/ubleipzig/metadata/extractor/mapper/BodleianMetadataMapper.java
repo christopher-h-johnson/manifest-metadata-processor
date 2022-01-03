@@ -14,14 +14,10 @@
 
 package de.ubleipzig.metadata.extractor.mapper;
 
-import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
-import static java.util.Optional.ofNullable;
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.ubleipzig.metadata.templates.BodleianMetadataMap;
 import de.ubleipzig.metadata.templates.Metadata;
 import de.ubleipzig.metadata.templates.v2.Body;
@@ -29,18 +25,15 @@ import de.ubleipzig.metadata.templates.v2.Canvas;
 import de.ubleipzig.metadata.templates.v2.PaintingAnnotation;
 import de.ubleipzig.metadata.templates.v2.PerfectManifest;
 import de.ubleipzig.metadata.templates.v2.Sequence;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.SplittableRandom;
-import java.util.stream.Collectors;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
+import static java.util.Optional.ofNullable;
 
 
 public class BodleianMetadataMapper {

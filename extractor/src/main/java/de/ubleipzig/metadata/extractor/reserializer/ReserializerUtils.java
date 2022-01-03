@@ -14,17 +14,17 @@
 
 package de.ubleipzig.metadata.extractor.reserializer;
 
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.baseUrl;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.targetBase;
-import static java.io.File.separator;
-import static java.lang.String.format;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.baseUrl;
+import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.targetBase;
+import static java.io.File.separator;
+import static java.lang.String.format;
 
 public final class ReserializerUtils {
 

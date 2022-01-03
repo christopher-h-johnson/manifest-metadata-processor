@@ -16,7 +16,6 @@ package de.ubleipzig.metadata.templates.v2;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
 import de.ubleipzig.iiif.vocabulary.SCEnum;
 
 import java.util.List;

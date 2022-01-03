@@ -18,9 +18,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-
 import de.ubleipzig.metadata.templates.collections.SiteMap;
 import de.ubleipzig.metadata.templates.indexer.ManifestUUIDs;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,13 +31,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.junit.jupiter.api.Test;
-
 public class SiteMapCreatorTest {
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final ObjectMapper xmlMapper = new XmlMapper();
 
     @Test
+    @Disabled
     void testBuildSiteMaps() {
         final InputStream is = SiteMapCreatorTest.class.getResourceAsStream("/data/unified.json");
         final List<SiteMap.Location> urlList = new ArrayList<>();

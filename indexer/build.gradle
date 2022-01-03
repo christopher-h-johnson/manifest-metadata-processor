@@ -1,9 +1,8 @@
 apply plugin: 'application'
-apply plugin: 'com.zyxist.chainsaw'
-mainClassName = 'de.ubleipzig.metadata.indexer.Indexer'
 
-javaModule {
-    name = 'de.ubleipzig.metadata.indexer'
+application {
+    mainClass = 'de.ubleipzig.metadata.indexer.Indexer'
+    mainModule = 'de.ubleipzig.metadata.indexer'
 }
 
 configurations {
@@ -25,6 +24,8 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-core:$jacksonVersion") {force = true}
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion") {force = true}
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion") {force = true}
+    implementation 'org.apache.commons:commons-rdf-api:0.5.0'
+    implementation 'org.apache.commons:commons-rdf-jena:0.5.0'
     implementation("org.xmlbeam:xmlprojector:$xbeamVersion")
     implementation("org.slf4j:slf4j-api:$slf4jVersion")
     implementation("org.trellisldp:trellis-client:$trellisClientVersion")
