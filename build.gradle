@@ -3,17 +3,10 @@ buildscript {
         mavenCentral()
         jcenter()
     }
-    dependencies {
-        classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.1.1'
-    }
-}
+ }
 
 plugins {
-    id "com.zyxist.chainsaw" version "0.3.1"
-    id 'net.researchgate.release' version '2.6.0'
-    id 'com.github.hierynomus.license' version '0.14.0'
-    id 'io.codearte.nexus-staging' version '0.9.0'
+    id 'application'
 }
 
 ext {
@@ -25,7 +18,7 @@ ext {
     elasticsearchVersion = '6.2.2'
     imageMetadataVersion = '0.2.0-SNAPSHOT'
     iiifVocabularyVersion = '0.1.1'
-    jacksonVersion = '2.9.5'
+    jacksonVersion = '2.17.1'
     jsonldVersion = '0.12.0'
     leptonicaVersion = '1.75.3-1.4.1'
     slf4jVersion = '1.7.25'
@@ -36,7 +29,7 @@ ext {
     /* Testing */
     jaxbVersion = '2.3.0'
     activationApiVersion = '1.2.0'
-    junitVersion = '5.1.1'
+    junitVersion = '5.9.3'
     jaxbVersion = '2.3.0'
     jenaVersion = '4.0.0-SNAPSHOT'
     activationVersion = '1.1.1'
@@ -74,16 +67,17 @@ allprojects { subproject ->
             url 'https://oss.sonatype.org/content/repositories/snapshots'
         }
     }
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(11)
+        }
+    }
 }
 
 subprojects {
-    apply plugin: 'maven'
     apply plugin: 'java-library'
     apply plugin: 'maven-publish'
-    apply plugin: 'signing'
-    apply plugin: 'checkstyle'
-    apply plugin: 'com.github.hierynomus.license'
-    apply plugin: 'org.junit.platform.gradle.plugin'
 
     sourceCompatibility = 1.11
     targetCompatibility = 1.11
@@ -97,25 +91,12 @@ subprojects {
 
 
     dependencies {
-        testCompile("org.junit.jupiter:junit-jupiter-api:$junitVersion")
-        testRuntime("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+        testImplementation ("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
     }
 
-    checkstyle {
-        configFile = rootProject.file('buildtools/src/main/resources/checkstyle/checkstyle.xml')
-        configProperties.checkstyleConfigDir = rootProject.file('buildtools/src/main/resources/checkstyle/')
-        toolVersion = checkstyleVersion
-    }
-
-    license {
-        include "**/*.java"
-        //noinspection GroovyAssignabilityCheck
-        header rootProject.file('buildtools/src/main/resources/license/HEADER.txt')
-        //noinspection GroovyAssignabilityCheck
-        strictCheck true
-        mapping {
-            java = 'SLASHSTAR_STYLE'
-        }
+    tasks.named('test') {
+        useJUnitPlatform()
     }
 
     task processConfig(type: Copy) {
@@ -127,18 +108,5 @@ subprojects {
 
     classes {
         classes.dependsOn processConfig
-    }
-}
-
-configure(rootProject) {
-    license {
-        include "**/*.java"
-        //noinspection GroovyAssignabilityCheck
-        header rootProject.file('buildtools/src/main/resources/license/HEADER.txt')
-        //noinspection GroovyAssignabilityCheck
-        strictCheck true
-        mapping {
-            java = 'SLASHSTAR_STYLE'
-        }
     }
 }

@@ -1,10 +1,5 @@
 apply plugin: 'application'
-apply plugin: 'com.zyxist.chainsaw'
 mainClassName = 'de.ubleipzig.metadata.indexer.Indexer'
-
-javaModule {
-    name = 'de.ubleipzig.metadata.indexer'
-}
 
 configurations {
     all {
@@ -21,14 +16,15 @@ configurations {
 dependencies {
     implementation project(":processor")
     implementation project(":templates")
-    implementation("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion") {force = true}
-    implementation("com.fasterxml.jackson.core:jackson-core:$jacksonVersion") {force = true}
-    implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion") {force = true}
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion") {force = true}
+    implementation("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion")
+    implementation("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
+    implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion")
     implementation("org.xmlbeam:xmlprojector:$xbeamVersion")
     implementation("org.slf4j:slf4j-api:$slf4jVersion")
     implementation("org.trellisldp:trellis-client:$trellisClientVersion")
     implementation("org.apache.commons:commons-collections4:4.2")
+    implementation("de.ubleipzig:commons-rdf-jena-jpms:$commonsRdfJenaVersion")
     implementation("org.jsoup:jsoup:1.11.3")
 
     testImplementation("org.apache.camel:camel-test:$camelVersion")

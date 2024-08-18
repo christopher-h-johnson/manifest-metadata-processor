@@ -1,12 +1,7 @@
 apply plugin: 'application'
-apply plugin: 'com.zyxist.chainsaw'
 
 mainClassName = 'de.ubleipzig.metadata.renderer.Renderer'
 description = 'A Camel service that assembles manifests from RDF queries'
-
-javaModule {
-    name = 'de.ubleipzig.metadata.renderer'
-}
 
 configurations {
     all {

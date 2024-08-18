@@ -73,7 +73,7 @@ public class Extractor {
         main.addRouteBuilder(new Extractor.QueryRoute());
         main.addMainListener(new Extractor.Events());
         final JndiRegistry registry = new JndiRegistry(createInitialContext());
-        main.setPropertyPlaceholderLocations("file:${env:EXTRACTOR_HOME}/de.ubleipzig.metadata.extractor.cfg");
+        main.setPropertyPlaceholderLocations("classpath:de.ubleipzig.metadata.extractor.cfg");
         main.run();
     }
 

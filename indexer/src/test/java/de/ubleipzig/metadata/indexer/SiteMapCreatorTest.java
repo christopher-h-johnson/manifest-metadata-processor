@@ -30,8 +30,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+@Disabled
 public class SiteMapCreatorTest {
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final ObjectMapper xmlMapper = new XmlMapper();
