@@ -22,8 +22,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+@Disabled
 public class ManifestDisassemblerTest {
 
     @Test

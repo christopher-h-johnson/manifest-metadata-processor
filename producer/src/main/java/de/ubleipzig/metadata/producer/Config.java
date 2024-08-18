@@ -15,35 +15,33 @@ package de.ubleipzig.metadata.producer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.validation.constraints.NotNull;
-
 public class Config {
 
-    @NotNull
+
     private String baseUrl;
-    @NotNull
+    
     private String katalogUrl;
-    @NotNull
+    
     private String manifestFilename;
-    @NotNull
+    
     private Boolean isUBLImageService;
-    @NotNull
+    
     private String imageServiceBaseUrl;
-    @NotNull
+    
     private String imageServiceImageDirPrefix;
-    @NotNull
+    
     private String imageServiceFileExtension;
-    @NotNull
+    
     private String imageServiceContext;
-    @NotNull
+    
     private String imageServiceProfile;
-    @NotNull
+    
     private String sequenceContext;
-    @NotNull
+    
     private String canvasContext;
-    @NotNull
+    
     private String annotationContext;
-    @NotNull
+    
     private String rangeContext;
     private String license;
     private String attributionLicenseNote;

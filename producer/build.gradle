@@ -1,12 +1,7 @@
 apply plugin: 'application'
-apply plugin: 'com.zyxist.chainsaw'
 
 mainClassName = 'de.ubleipzig.metadata.producer.Producer'
 description = 'A Camel service that produces IIIF Manifests'
-
-javaModule {
-    name = 'de.ubleipzig.metadata.producer'
-}
 
 configurations {
     all {
@@ -30,6 +25,7 @@ dependencies {
     implementation("de.ubleipzig:iiif.vocabulary:$iiifVocabularyVersion")
     implementation("de.ubleipzig:image.metadata:$imageMetadataVersion")
     implementation("de.ubleipzig:commons-rdf-jena-jpms:$commonsRdfJenaVersion")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion")
     implementation("javax.activation:javax.activation-api:$activationApiVersion")
     implementation("javax.xml.bind:jaxb-api:$jaxbVersion")
     implementation("commons-io:commons-io:$commonsIoVersion")

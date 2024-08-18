@@ -1,8 +1,3 @@
-apply plugin: 'com.zyxist.chainsaw'
-
-javaModule {
-    name = 'de.ubleipzig.metadata.transformer'
-}
 
 configurations {
     all {

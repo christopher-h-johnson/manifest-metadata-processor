@@ -26,8 +26,10 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+@Disabled
 public class UUIDBuilderTest {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 

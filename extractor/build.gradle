@@ -1,12 +1,7 @@
 apply plugin: 'application'
-apply plugin: 'com.zyxist.chainsaw'
 
 mainClassName = 'de.ubleipzig.metadata.extractor.Extractor'
 description = 'A Camel service that assembles manifests from RDF queries'
-
-javaModule {
-    name = 'de.ubleipzig.metadata.extractor'
-}
 
 configurations {
     all {

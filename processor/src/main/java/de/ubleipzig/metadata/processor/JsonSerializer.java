@@ -61,7 +61,7 @@ public final class JsonSerializer {
      */
     public static Optional<String> serialize(final Object manifest) {
         try {
-            return of(MAPPER.writer(PrettyPrinter.instance).writeValueAsString(manifest));
+            return of(MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(manifest));
         } catch (final JsonProcessingException ex) {
             return empty();
         }
@@ -97,14 +97,5 @@ public final class JsonSerializer {
             return false;
         }
         return true;
-    }
-
-    private static class PrettyPrinter extends DefaultPrettyPrinter {
-
-        public static final PrettyPrinter instance = new PrettyPrinter();
-
-        public PrettyPrinter() {
-            _arrayIndenter = DefaultIndenter.SYSTEM_LINEFEED_INSTANCE;
-        }
     }
 }
