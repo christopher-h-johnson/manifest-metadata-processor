@@ -15,33 +15,23 @@ package de.ubleipzig.metadata.templates.v3;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.Map;
 
 public class MetadataVersion3 {
 
+    @Setter
+    @Getter
     @JsonProperty
     private Map<String, List<String>> label;
 
-    public Map<String, List<String>> getLabel() {
-        return label;
-    }
-
-    public void setLabel(Map<String, List<String>> label) {
-        this.label = label;
-    }
-
+    @Setter
+    @Getter
     @JsonProperty
     private Map<String, List<String>> value;
-
-    public Map<String, List<String>> getValue() {
-        return value;
-    }
-
-    public void setValue(Map<String, List<String>> value) {
-        this.value = value;
-    }
 
     @JsonIgnore
     private Integer displayOrder;

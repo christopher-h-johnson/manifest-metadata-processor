@@ -14,6 +14,8 @@
 package de.ubleipzig.metadata.templates;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -28,9 +30,31 @@ public class ImageServiceResponse {
     @JsonProperty
     private String protocol;
 
+    /**
+     * -- GETTER --
+     *
+     *
+     * -- SETTER --
+     *
+     @return Integer
+      * @param width Integer
+     */
+    @Setter
+    @Getter
     @JsonProperty
     private Integer width;
 
+    /**
+     * -- GETTER --
+     *
+     *
+     * -- SETTER --
+     *
+     @return Integer
+      * @param height Integer
+     */
+    @Setter
+    @Getter
     @JsonProperty
     private Integer height;
 
@@ -43,35 +67,4 @@ public class ImageServiceResponse {
     @JsonProperty
     private List<Object> tiles;
 
-    /**
-     *
-     * @return Integer
-     */
-    public Integer getWidth() {
-        return width;
-    }
-
-    /**
-     *
-     * @param width Integer
-     */
-    public void setWidth(final Integer width) {
-        this.width = width;
-    }
-
-    /**
-     *
-     * @return Integer
-     */
-    public Integer getHeight() {
-        return height;
-    }
-
-    /**
-     *
-     * @param height Integer
-     */
-    public void setHeight(final Integer height) {
-        this.height = height;
-    }
 }

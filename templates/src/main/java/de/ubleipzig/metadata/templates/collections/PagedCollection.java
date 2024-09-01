@@ -14,6 +14,8 @@
 package de.ubleipzig.metadata.templates.collections;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -21,15 +23,22 @@ public class PagedCollection {
     @JsonProperty("@context")
     private String context;
 
+    @Setter
+    @Getter
     @JsonProperty("@id")
     private String id;
 
+    @Setter
+    @Getter
     @JsonProperty("@type")
     private String type;
 
+    @Setter
+    @Getter
     @JsonProperty("first")
     private String first;
 
+    @Getter
     @JsonProperty("total")
     private Integer total;
 
@@ -39,18 +48,28 @@ public class PagedCollection {
     @JsonProperty
     private String label;
 
+    @Setter
+    @Getter
     @JsonProperty
     private List<ManifestItem> manifests;
 
+    @Setter
+    @Getter
     @JsonProperty
     private String description;
 
+    @Setter
+    @Getter
     @JsonProperty
     private String logo;
 
+    @Setter
+    @Getter
     @JsonProperty
     private String attribution;
 
+    @Setter
+    @Getter
     @JsonProperty
     private String next;
 
@@ -65,73 +84,5 @@ public class PagedCollection {
 
     @JsonProperty
     private String viewingHint;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(final String type) {
-        this.type = type;
-    }
-
-    public String getFirst() {
-        return first;
-    }
-
-    public Integer getTotal() {
-        return total;
-    }
-
-    public void setFirst(final String first) {
-        this.first = first;
-    }
-
-    public String getNext() {
-        return next;
-    }
-
-    public void setNext(String next) {
-        this.next = next;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getLogo() {
-        return logo;
-    }
-
-    public void setLogo(String logo) {
-        this.logo = logo;
-    }
-
-    public String getAttribution() {
-        return attribution;
-    }
-
-    public void setAttribution(String attribution) {
-        this.attribution = attribution;
-    }
-
-    public List<ManifestItem> getManifests() {
-        return manifests;
-    }
-
-    public void setManifests(List<ManifestItem> manifests) {
-        this.manifests = manifests;
-    }
 
 }

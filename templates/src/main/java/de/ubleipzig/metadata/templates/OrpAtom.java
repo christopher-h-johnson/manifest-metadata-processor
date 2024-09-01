@@ -16,6 +16,7 @@ package de.ubleipzig.metadata.templates;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 
 import java.util.Map;
 
@@ -27,6 +28,13 @@ public class OrpAtom {
     @JsonProperty
     private String imageServiceIRI;
 
+    /**
+     * -- GETTER --
+     *  getMetadataMap.
+     *
+     * @return Map
+     */
+    @Getter
     @JsonProperty
     private Map<String, String> metadataMap;
 
@@ -66,15 +74,6 @@ public class OrpAtom {
      */
     public void setImageServiceIRI(String imageServiceIRI) {
         this.imageServiceIRI = imageServiceIRI;
-    }
-
-    /**
-     * getMetadataMap.
-     *
-     * @return Map
-     */
-    public Map<String, String> getMetadataMap() {
-        return metadataMap;
     }
 
     /**

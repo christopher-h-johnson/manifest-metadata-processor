@@ -41,15 +41,16 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.Exchange;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.slf4j.Logger;
 
 /**/
+@Slf4j
 public final class JsonLdExchange {
 
-    private static final Logger log = getLogger(JsonLdExchange.class);
     private static final String EMPTY = "empty";
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
@@ -62,8 +63,8 @@ public final class JsonLdExchange {
         final List<NameValuePair> params = URLEncodedUtils.parse(new URI("http://null?" + queryString), UTF_8);
         final Map<String, String> mapped = params.stream().collect(
                 Collectors.toMap(NameValuePair::getName, NameValuePair::getValue));
-        final Integer from = Integer.valueOf(mapped.get("from"));
-        final Integer to = Integer.valueOf(mapped.get("to"));
+        final int from = Integer.parseInt(mapped.get("from"));
+        final int to = Integer.parseInt(mapped.get("to"));
         final Integer pct = Integer.valueOf(mapped.get("pct"));
         log.info("Getting Json Body");
         final Optional<String> body = ofNullable(e.getIn().getBody().toString());
@@ -100,7 +101,7 @@ public final class JsonLdExchange {
             e.getIn().setHeader("Content-Disposition", "inline; filename=\"" + manifestTitle + "\"");
             e.getIn().setBody(baos.toByteArray());
         } catch (Exception ex) {
-            ex.printStackTrace();
+            log.error(ex.getMessage());
         }
     }
 
@@ -113,7 +114,7 @@ public final class JsonLdExchange {
             e.getIn().setHeader("Content-Disposition", "attachment; filename=\"" + manifestTitle + "\"");
             e.getIn().setBody(zip);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            log.error(ex.getMessage());
         }
     }
 
@@ -151,8 +152,8 @@ public final class JsonLdExchange {
         final List<NameValuePair> params = URLEncodedUtils.parse(new URI("http://null?" + queryString), UTF_8);
         final Map<String, String> mapped = params.stream().collect(
                 Collectors.toMap(NameValuePair::getName, NameValuePair::getValue));
-        final Integer from = Integer.valueOf(mapped.get("from"));
-        final Integer to = Integer.valueOf(mapped.get("to"));
+        final int from = Integer.parseInt(mapped.get("from"));
+        final int to = Integer.parseInt(mapped.get("to"));
         final Integer pct = Integer.valueOf(mapped.get("pct"));
         log.info("Getting Json Body");
         final Optional<String> body = ofNullable(e.getIn().getBody().toString());

@@ -39,10 +39,12 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.http.HttpResponse;
+import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.jena.JenaRDF;
 import org.slf4j.Logger;
@@ -51,11 +53,10 @@ import org.trellisldp.client.LdpClient;
 import org.trellisldp.client.LdpClientException;
 import org.trellisldp.client.LdpClientImpl;
 
-
+@Slf4j
 public class Indexer {
     private final LdpClient client = new LdpClientImpl();
     private static final JenaRDF rdf = new JenaRDF();
-    private static final Logger LOGGER = LoggerFactory.getLogger(Indexer.class);
 
     public Indexer() {
     }
@@ -74,10 +75,9 @@ public class Indexer {
         return i;
     }
 
-    public ElasticCreate createDocument(String indexName, String type, String id) {
+    public ElasticCreate createDocument(String indexName, String id) {
         final ElasticDocumentObject doc = new ElasticDocumentObject();
         doc.setIndex(indexName);
-        doc.setType(type);
         doc.setId(id);
         final ElasticCreate create = new ElasticCreate();
         create.setCreate(doc);
@@ -90,7 +90,7 @@ public class Indexer {
         try {
             client.put(identifier, is, "application/json");
         } catch (LdpClientException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -101,9 +101,13 @@ public class Indexer {
             sb.append(jsonNode.toString());
             System.out.println(sb.toString());
             InputStream is = new ByteArrayInputStream(sb.toString().getBytes());
-            client.put(rdf.createIRI(baseUrl), is, "application/json");
+            String username = "admin";
+            String password = "OpenSearch1!";
+            String encoded = Base64.getEncoder().encodeToString((username + ":" + password).getBytes());
+            final String token = "Basic " + encoded;
+            client.putWithAuth(rdf.createIRI(baseUrl), is, "application/json", token);
         } catch (LdpClientException | IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -112,7 +116,7 @@ public class Indexer {
             final String extractorService = "http://localhost:9098/extractor?type=extract&m=";
             final String extractorRequest = extractorService + iri.getIRIString();
             final IRI req = rdf.createIRI(extractorRequest);
-            final HttpResponse res = client.getResponse(req);
+            final HttpResponse<?> res = client.getResponse(req);
             if (res.statusCode() == 200) {
                 final String json = res.body().toString();
                 return MAPPER.readValue(json, new TypeReference<MetadataMap>() {
@@ -130,26 +134,26 @@ public class Indexer {
 
         final StringBuffer sb = new StringBuffer();
         try {
-            final HttpResponse res = client.getResponse(iri);
+            final HttpResponse<?> res = client.getResponse(iri);
             if (res.statusCode() == 200) {
                 final String jsonList = res.body().toString();
                 final AtomList atomList = MAPPER.readValue(jsonList, new TypeReference<AtomList>() {
                 });
                 final List<AnnotationBodyAtom> m = atomList.getAtomList();
                 m.forEach(map -> {
-                    LOGGER.info("indexing {}", map.getThumbnail());
-                    ElasticCreate c = indexer.createDocument(indexName, docTypeIndex, getDocumentId());
+                    log.info("indexing {}", map.getThumbnail());
+                    ElasticCreate c = indexer.createDocument(indexName, getDocumentId());
                     sb.append(JsonSerializer.serializeRaw(c).orElse(""));
-                    sb.append(System.getProperty(lineSeparator));
+                    sb.append(System.lineSeparator());
                     sb.append(JsonSerializer.serializeRaw(map.getMetadata()).orElse(""));
-                    sb.append(System.getProperty(lineSeparator));
+                    sb.append(System.lineSeparator());
                 });
-                LOGGER.debug(sb.toString());
+                log.debug(sb.toString());
                 final InputStream is = new ByteArrayInputStream(sb.toString().getBytes());
                 client.post(rdf.createIRI(bulkUri), is, contentTypeJson);
             }
         } catch (IOException | LdpClientException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -159,7 +163,7 @@ public class Indexer {
 
         final StringBuffer sb = new StringBuffer();
         try {
-            final HttpResponse res = client.getResponse(iri);
+            final HttpResponse<?> res = client.getResponse(iri);
             if (res.statusCode() == 200) {
                 final String jsonList = res.body().toString();
                 final AtomList atomList = MAPPER.readValue(jsonList, new TypeReference<AtomList>() {
@@ -167,41 +171,41 @@ public class Indexer {
                 final List<AnnotationBodyAtom> m = atomList.getAtomList();
                 final List<AnnotationBodyAtom> modernList = m.stream().collect(Collectors.filtering(
                         x -> (Boolean) x.getMetadata().entrySet().stream().anyMatch(
-                                y -> y.getKey().contains("Date") && Integer.valueOf((String) y.getValue()) > 1900),
+                                y -> y.getKey().contains("Date") && Integer.parseInt((String) y.getValue()) > 1900),
                         Collectors.toList()));
                 if (!modernList.isEmpty()) {
                     modernList.forEach(map -> {
-                        ElasticCreate c = indexer.createDocument(indexName, docTypeIndex, getDocumentId());
+                        ElasticCreate c = indexer.createDocument(indexName, getDocumentId());
                         sb.append(JsonSerializer.serializeRaw(c).orElse(""));
-                        sb.append(System.getProperty(lineSeparator));
-                        LOGGER.info("Scanning Image {}", map.getThumbnail());
+                        sb.append(System.lineSeparator());
+                        log.info("Scanning Image {}", map.getThumbnail());
                         IRI scannerApi = rdf.createIRI(
                                 scannerAPIHost + "?type=scan&lang=deu&image=" + map.getThumbnail());
                         List<ContentList.Content> cList = getContentList(scannerApi).getContentList();
                         map.setContentList(cList);
                         sb.append(JsonSerializer.serializeRaw(map).orElse(""));
-                        sb.append(System.getProperty(lineSeparator));
+                        sb.append(System.lineSeparator());
                     });
-                    LOGGER.debug(sb.toString());
+                    log.debug(sb.toString());
                     final InputStream is = new ByteArrayInputStream(sb.toString().getBytes());
                     client.post(rdf.createIRI(bulkUri), is, contentTypeJson);
                 }
             }
         } catch (IOException | LdpClientException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
     public ContentList getContentList(IRI iri) {
         try {
-            final HttpResponse res = client.getResponse(iri);
+            final HttpResponse<?> res = client.getResponse(iri);
             if (res.statusCode() == 200) {
                 final String jsonList = res.body().toString();
                 return MAPPER.readValue(jsonList, new TypeReference<ContentList>() {
                 });
             }
         } catch (IOException | LdpClientException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return null;
     }
@@ -214,7 +218,7 @@ public class Indexer {
                     });
             return metadataMap;
         } catch (IOException e) {
-            LOGGER.info("unmappable metadata");
+            log.info("unmappable metadata");
         }
         return null;
     }

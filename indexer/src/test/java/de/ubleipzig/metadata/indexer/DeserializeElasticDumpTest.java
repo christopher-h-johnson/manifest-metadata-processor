@@ -32,10 +32,12 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Stream;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 @Disabled
+@Slf4j
 public class DeserializeElasticDumpTest {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
@@ -61,7 +63,7 @@ public class DeserializeElasticDumpTest {
                         manifestMap.put(uuid.toString(), manifestKV);
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    log.error(e.getMessage());
                 }
             });
             final ManifestUUIDMap map = new ManifestUUIDMap();
@@ -69,7 +71,7 @@ public class DeserializeElasticDumpTest {
             String json = JsonSerializer.serialize(map).orElse("");
             JsonSerializer.writeToFile(json, new File("/tmp/dh1-uuidMap.json"));
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 }

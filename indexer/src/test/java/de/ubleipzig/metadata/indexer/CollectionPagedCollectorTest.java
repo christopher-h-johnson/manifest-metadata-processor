@@ -41,6 +41,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.jena.JenaRDF;
@@ -53,6 +54,7 @@ import org.trellisldp.client.LdpClientException;
 import org.trellisldp.client.LdpClientImpl;
 
 @Disabled
+@Slf4j
 public class CollectionPagedCollectorTest {
 
     private final LdpClient client = new LdpClientImpl();
@@ -68,7 +70,7 @@ public class CollectionPagedCollectorTest {
         for (ManifestItem m : sublist) {
             final IRI identifier = rdf.createIRI(m.getId());
             final IRI apiReq = rdf.createIRI(baseUrl + identifier.getIRIString());
-            final HttpResponse res3;
+            final HttpResponse<?> res3;
             try {
                 res3 = client.getResponse(apiReq);
                 if (res3.statusCode() == 200 | res3.statusCode() == 301) {
@@ -81,7 +83,7 @@ public class CollectionPagedCollectorTest {
                     LOGGER.info("adding {} to indexable metadata", identifier.getIRIString());
                 }
             } catch (LdpClientException e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
             }
         }
         return metadataMapList;
@@ -92,14 +94,14 @@ public class CollectionPagedCollectorTest {
     }
 
     private String getJsonResponse(final IRI cIRI) {
-        final HttpResponse res1;
+        final HttpResponse<?> res1;
         try {
             res1 = client.getResponse(cIRI);
             if (res1.statusCode() == 200 | res1.statusCode() == 301) {
                 return res1.body().toString();
             }
         } catch (LdpClientException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         throw new RuntimeException("request failed");
     }

@@ -21,6 +21,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import de.ubleipzig.iiif.vocabulary.SCEnum;
 import de.ubleipzig.metadata.templates.Metadata;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -42,18 +44,53 @@ public class Structure {
     @JsonProperty("label")
     private Object label;
 
+    /**
+     * -- SETTER --
+     *
+     * @param within String
+     */
+    @Setter
     @JsonProperty
     private String within;
 
+    /**
+     * -- SETTER --
+     *
+     * @param ranges List
+     */
+    @Setter
     @JsonProperty("ranges")
     private List<String> ranges;
 
+    /**
+     * -- GETTER --
+     *
+     *
+     * -- SETTER --
+     *
+     @return List
+      * @param canvases List
+     */
+    @Setter
+    @Getter
     @JsonProperty("canvases")
     private List<String> canvases;
 
+    /**
+     * -- SETTER --
+     *
+     * @param viewingHint String
+     */
+    @Setter
     @JsonProperty("viewingHint")
     private String viewingHint;
 
+    /**
+     * -- SETTER --
+     *
+     * @param metadata List
+     */
+    @Setter
     @JsonProperty("metadata")
     private List<Metadata> metadata;
 
@@ -83,21 +120,6 @@ public class Structure {
     }
 
     /**
-     *
-     * @return List
-     */
-    public List<String> getCanvases() {
-        return canvases;
-    }
-
-    /**
-     * @param canvases List
-     */
-    public void setCanvases(final List<String> canvases) {
-        this.canvases = canvases;
-    }
-
-    /**
      * @return String
      */
     @JsonIgnore
@@ -121,25 +143,11 @@ public class Structure {
     }
 
     /**
-     * @param viewingHint String
-     */
-    public void setViewingHint(final String viewingHint) {
-        this.viewingHint = viewingHint;
-    }
-
-    /**
      * @return String
      */
     @JsonIgnore
     public String getWithin() {
         return within;
-    }
-
-    /**
-     * @param within String
-     */
-    public void setWithin(final String within) {
-        this.within = within;
     }
 
     /**
@@ -166,13 +174,6 @@ public class Structure {
     }
 
     /**
-     * @param ranges List
-     */
-    public void setRanges(final List<String> ranges) {
-        this.ranges = ranges;
-    }
-
-    /**
      * @return List
      */
     @JsonIgnore
@@ -180,10 +181,4 @@ public class Structure {
         return metadata;
     }
 
-    /**
-     * @param metadata List
-     */
-    public void setMetadata(final List<Metadata> metadata) {
-        this.metadata = metadata;
-    }
 }

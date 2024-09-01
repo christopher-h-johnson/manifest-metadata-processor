@@ -17,10 +17,14 @@ package de.ubleipzig.metadata.templates;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 @JsonIgnoreProperties(value = {"format", "height", "width", "@type", "type"}, allowGetters = true)
 public class Resource {
 
+    @Setter
+    @Getter
     @JsonProperty
     private Service service;
 
@@ -30,15 +34,18 @@ public class Resource {
     @JsonProperty("type")
     private String type;
 
+    @Getter
     @JsonProperty
     private String label;
 
     @JsonProperty
     private String format;
 
+    @Getter
     @JsonProperty
     private String height;
 
+    @Getter
     @JsonProperty
     private String width;
 
@@ -52,23 +59,4 @@ public class Resource {
         return this.id;
     }
 
-    public Service getService() {
-        return service;
-    }
-
-    public void setService(Service service) {
-        this.service = service;
-    }
-
-    public String getHeight() {
-        return height;
-    }
-
-    public String getWidth() {
-        return width;
-    }
-
-    public String getLabel() {
-        return label;
-    }
 }

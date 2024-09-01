@@ -69,16 +69,17 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Slf4j
 public class ReserializerVersion3 {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ReserializerVersion3.class);
     private static final ObjectMapper MAPPER = new ObjectMapper();
-    private static String NONE = "@none";
-    private String body;
-    private String xmldbHost;
+    private static final String NONE = "@none";
+    private final String body;
+    private final String xmldbHost;
 
     public ReserializerVersion3(final String body, final String xmldbHost) {
         this.body = body;
@@ -116,7 +117,7 @@ public class ReserializerVersion3 {
                         try {
                             is = new URL(iiifService + "/info.json").openStream();
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            log.error(e.getMessage());
                         }
                         final ImageServiceResponse ir = mapServiceResponse(is);
                         height = ir.getHeight();
@@ -272,7 +273,7 @@ public class ReserializerVersion3 {
                 return urn.get().getValue().get(NONE).get(0);
             }
         } else {
-            LOGGER.warn("No URN Available for {}", viewId);
+            log.warn("No URN Available for {}", viewId);
         }
         return null;
     }

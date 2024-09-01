@@ -19,6 +19,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import de.ubleipzig.iiif.vocabulary.SCEnum;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -34,9 +36,22 @@ public class Sequence {
     @JsonProperty("@context")
     private String context;
 
+    /**
+     * -- SETTER --
+     *
+     * @param id String
+     */
+    @Getter
+    @Setter
     @JsonProperty("@id")
     private String id;
 
+    /**
+     * -- SETTER --
+     *
+     * @param type String
+     */
+    @Setter
     @JsonProperty("@type")
     private String type = SCEnum.Sequence.compactedIRI();
 
@@ -46,6 +61,12 @@ public class Sequence {
     @JsonProperty
     private List<Object> rendering;
 
+    /**
+     * -- SETTER --
+     *
+     * @param viewingHint String
+     */
+    @Setter
     @JsonProperty
     private String viewingHint;
 
@@ -55,49 +76,21 @@ public class Sequence {
     @JsonProperty
     private String viewingDirection;
 
+    /**
+     * -- SETTER --
+     *
+     *
+     * -- GETTER --
+     *
+     @param canvases List
+      * @return List
+     */
+    @Getter
+    @Setter
     @JsonProperty
     private List<Canvas> canvases;
 
     public Sequence() {
-    }
-
-    /**
-     * @param id String
-     */
-    public void setId(final String id) {
-        this.id = id;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * @param type String
-     */
-    public void setType(final String type) {
-        this.type = type;
-    }
-
-    /**
-     * @param canvases List
-     */
-    public void setCanvases(final List<Canvas> canvases) {
-        this.canvases = canvases;
-    }
-
-    /**
-     * @return List
-     */
-    public List<Canvas> getCanvases() {
-        return canvases;
-    }
-
-    /**
-     * @param viewingHint String
-     */
-    public void setViewingHint(final String viewingHint) {
-        this.viewingHint = viewingHint;
     }
 
 

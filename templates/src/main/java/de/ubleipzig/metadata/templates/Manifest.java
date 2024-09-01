@@ -17,6 +17,8 @@ package de.ubleipzig.metadata.templates;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import de.ubleipzig.metadata.templates.v2.Structure;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -25,15 +27,19 @@ public class Manifest {
     @JsonProperty("@context")
     private String context;
 
+    @Getter
     @JsonProperty("@id")
     private String id;
 
     @JsonProperty("@type")
     private String type;
 
+    @Setter
+    @Getter
     @JsonProperty
     private String label;
 
+    @Getter
     @JsonProperty
     private String license;
 
@@ -46,15 +52,18 @@ public class Manifest {
     @JsonProperty
     private Object description;
 
+    @Getter
     @JsonProperty
     private String attribution;
 
+    @Getter
     @JsonProperty
     private List<Metadata> metadata;
 
     @JsonProperty
     private String logo;
 
+    @Getter
     @JsonProperty
     private Object related;
 
@@ -64,60 +73,20 @@ public class Manifest {
     @JsonProperty
     private List<Object> seeAlso;
 
+    @Getter
     @JsonProperty
     private List<Structure> structures;
 
     @JsonProperty
     private String viewingHint;
 
+    @Getter
     @JsonProperty
     private Object thumbnail;
 
+    @Setter
+    @Getter
     @JsonProperty
     private List<Sequences> sequences;
-
-    public List<Metadata> getMetadata() {
-        return metadata;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public List<Sequences> getSequences() {
-        return sequences;
-    }
-
-    public void setSequences(List<Sequences> sequences) {
-        this.sequences = sequences;
-    }
-
-    public List<Structure> getStructures() {
-        return structures;
-    }
-
-    public Object getRelated() {
-        return related;
-    }
-
-    public Object getThumbnail() {
-        return thumbnail;
-    }
-
-    public String getLicense() {
-        return license;
-    }
-
-    public String getAttribution() {
-        return attribution;
-    }
 
 }

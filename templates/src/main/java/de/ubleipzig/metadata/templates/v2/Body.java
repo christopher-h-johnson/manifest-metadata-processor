@@ -19,6 +19,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import de.ubleipzig.metadata.templates.Service;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * TemplateBody.
@@ -34,6 +36,13 @@ public class Body {
     @JsonProperty("@type")
     private String type;
 
+    /**
+     * -- SETTER --
+     *  setResourceId.
+     *
+     * @param label label
+     */
+    @Setter
     @JsonProperty
     private String label;
 
@@ -46,6 +55,18 @@ public class Body {
     @JsonProperty
     private Integer width;
 
+    /**
+     * -- SETTER --
+     *  setService.
+     *
+     *
+     * -- GETTER --
+     *
+     @param service service
+      * @return Service
+     */
+    @Getter
+    @Setter
     @JsonProperty
     private Service service;
 
@@ -63,15 +84,6 @@ public class Body {
     @JsonIgnore
     public String getResourceId() {
         return this.id;
-    }
-
-    /**
-     * setResourceId.
-     *
-     * @param label label
-     */
-    public void setLabel(final String label) {
-        this.label = label;
     }
 
     /**
@@ -99,23 +111,6 @@ public class Body {
      */
     public void setResourceFormat(final String format) {
         this.format = format;
-    }
-
-    /**
-     * setService.
-     *
-     * @param service service
-     */
-    public void setService(final Service service) {
-        this.service = service;
-    }
-
-    /**
-     *
-     * @return Service
-     */
-    public Service getService() {
-        return service;
     }
 
     /**
