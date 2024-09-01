@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.jena.JenaRDF;
 import org.junit.jupiter.api.Disabled;
@@ -60,7 +62,7 @@ public class BodleianCollectionCollectorTest {
         for (ManifestItem m : manifestList) {
             final IRI identifier = rdf.createIRI(m.getId());
             final IRI apiReq = rdf.createIRI(baseUrl + identifier.getIRIString());
-            final HttpResponse res3 = client.getResponse(apiReq);
+            final HttpResponse<?> res3 = client.getResponse(apiReq);
             if (res3.statusCode() == 200 | res3.statusCode() == 301) {
                 final String json3 = res3.body().toString();
                 final BodleianMetadataMap metadataMap = buildMetadataMap(json3);
@@ -90,7 +92,9 @@ public class BodleianCollectionCollectorTest {
         return null;
     }
 
-    class BodleianMapListCollection {
+    @Setter
+    @Getter
+    static class BodleianMapListCollection {
 
         @JsonProperty
         private List<BodleianMetadataMap> mapListCollection;
@@ -100,30 +104,6 @@ public class BodleianCollectionCollectorTest {
 
         @JsonProperty
         private String label;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getLabel() {
-            return label;
-        }
-
-        public void setLabel(String label) {
-            this.label = label;
-        }
-
-        public List<BodleianMetadataMap> getMapListCollection() {
-            return mapListCollection;
-        }
-
-        public void setMapListCollection(List<BodleianMetadataMap> mapListCollection) {
-            this.mapListCollection = mapListCollection;
-        }
 
     }
 }

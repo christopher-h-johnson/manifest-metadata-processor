@@ -15,9 +15,12 @@ package de.ubleipzig.metadata.templates;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+@Setter
 public class ContentList {
     @JsonProperty
     private List<Content> contentList;
@@ -27,10 +30,8 @@ public class ContentList {
         return contentList;
     }
 
-    public void setContentList(List<Content> contentList) {
-        this.contentList = contentList;
-    }
-
+    @Setter
+    @Getter
     public static class Content {
         @JsonProperty
         private String objectId;
@@ -41,28 +42,5 @@ public class ContentList {
         @JsonProperty
         private String region;
 
-        public String getObjectId() {
-            return objectId;
-        }
-
-        public void setObjectId(final String objectId) {
-            this.objectId = objectId;
-        }
-
-        public String getChars() {
-            return chars;
-        }
-
-        public void setChars(final String chars) {
-            this.chars = chars;
-        }
-
-        public String getRegion() {
-            return region;
-        }
-
-        public void setRegion(final String region) {
-            this.region = region;
-        }
     }
 }

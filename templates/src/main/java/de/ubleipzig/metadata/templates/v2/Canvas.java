@@ -22,6 +22,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import de.ubleipzig.iiif.vocabulary.SCEnum;
 import de.ubleipzig.metadata.templates.Metadata;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -32,24 +34,64 @@ public class Canvas {
     @JsonProperty("@context")
     private String context;
 
+    /**
+     * -- GETTER --
+     *
+     *
+     * -- SETTER --
+     *
+     @return String
+      * @param id String
+     */
+    @Setter
+    @Getter
     @JsonProperty("@id")
     private String id;
 
     @JsonProperty("@type")
     private String type = SCEnum.Canvas.compactedIRI();
 
+    /**
+     * -- GETTER --
+     *
+     *
+     * -- SETTER --
+     *
+     @return List
+      * @param images List
+     */
+    @Setter
+    @Getter
     @JsonProperty("images")
     private List<PaintingAnnotation> images;
 
     @JsonProperty("metadata")
     private List<Metadata> metadata;
 
+    /**
+     * -- SETTER --
+     *
+     * @param label String
+     */
+    @Setter
     @JsonProperty("label")
     private String label;
 
+    /**
+     * -- SETTER --
+     *
+     * @param height int
+     */
+    @Setter
     @JsonProperty("height")
     private Integer height;
 
+    /**
+     * -- SETTER --
+     *
+     * @param width int
+     */
+    @Setter
     @JsonProperty("width")
     private Integer width;
 
@@ -66,31 +108,10 @@ public class Canvas {
     private List<Object> otherContent;
 
     /**
-     * @return String
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * @param id String
-     */
-    public void setId(final String id) {
-        this.id = id;
-    }
-
-    /**
      * @return int
      */
     public int getHeight() {
         return height;
-    }
-
-    /**
-     * @param height int
-     */
-    public void setHeight(final Integer height) {
-        this.height = height;
     }
 
     /**
@@ -101,40 +122,11 @@ public class Canvas {
     }
 
     /**
-     * @param width int
-     */
-    public void setWidth(final Integer width) {
-        this.width = width;
-    }
-
-    /**
-     * @return List
-     */
-    public List<PaintingAnnotation> getImages() {
-        return images;
-    }
-
-    /**
-     * @param images List
-     */
-    public void setImages(final List<PaintingAnnotation> images) {
-        this.images = images;
-    }
-
-    /**
      * @return String
      */
     @JsonIgnore
     public String getLabel() {
         return this.label;
-    }
-
-    /**
-     *
-     * @param label String
-     */
-    public void setLabel(final String label) {
-        this.label = label;
     }
 
     /**

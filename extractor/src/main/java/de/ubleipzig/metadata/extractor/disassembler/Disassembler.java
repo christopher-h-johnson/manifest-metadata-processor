@@ -124,7 +124,7 @@ public class Disassembler {
                                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
                         mapCopy.put("thumbnail", thumbnail);
                         mapCopy.put("imageIndex", String.valueOf(imageIndex));
-                        if (sMap.size() > 0) {
+                        if (!sMap.isEmpty()) {
                             mapCopy.put("structureMap", sMap);
                         }
                         aba.setMetadata(mapCopy);

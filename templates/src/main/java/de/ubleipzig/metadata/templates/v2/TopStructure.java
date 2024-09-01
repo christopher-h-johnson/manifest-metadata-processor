@@ -18,6 +18,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import de.ubleipzig.iiif.vocabulary.SCEnum;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -44,6 +46,17 @@ public class TopStructure extends Structure {
     @JsonIgnore
     private List<String> canvases;
 
+    /**
+     * -- GETTER --
+     *
+     *
+     * -- SETTER --
+     *
+     @return List
+      * @param ranges List
+     */
+    @Setter
+    @Getter
     @JsonProperty("ranges")
     private List<String> ranges;
 
@@ -65,20 +78,6 @@ public class TopStructure extends Structure {
      */
     public void setStructureLabel(final String structureLabel) {
         this.label = structureLabel;
-    }
-
-    /**
-     * @return List
-     */
-    public List<String> getRanges() {
-        return this.ranges;
-    }
-
-    /**
-     * @param ranges List
-     */
-    public void setRanges(final List<String> ranges) {
-        this.ranges = ranges;
     }
 
 }

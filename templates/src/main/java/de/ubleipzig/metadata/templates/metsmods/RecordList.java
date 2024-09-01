@@ -15,6 +15,7 @@
 package de.ubleipzig.metadata.templates.metsmods;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -31,15 +32,12 @@ public class RecordList {
     }
 
     public static class Record {
+        @Setter
         @JsonProperty
         private String urn;
 
         public String getUrn() {
             return urn;
-        }
-
-        public void setUrn(String urn) {
-            this.urn = urn;
         }
 
         @JsonProperty
@@ -56,12 +54,9 @@ public class RecordList {
             return createDate;
         }
 
+        @Setter
         @JsonProperty
         private String resolvedURI;
-
-        public void setResolvedURI(String resolvedURI) {
-            this.resolvedURI = resolvedURI;
-        }
 
         public String getResolvedURI() {
             return resolvedURI;

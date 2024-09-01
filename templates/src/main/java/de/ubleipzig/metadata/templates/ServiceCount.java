@@ -15,17 +15,16 @@
 package de.ubleipzig.metadata.templates;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
+
+@Setter
+@Getter
 public class ServiceCount {
 
     @JsonProperty
     private Integer imageServiceCount;
 
-    public Integer getImageServiceCount() {
-        return imageServiceCount;
-    }
-
-    public void setImageServiceCount(Integer imageServiceCount) {
-        this.imageServiceCount = imageServiceCount;
-    }
 }

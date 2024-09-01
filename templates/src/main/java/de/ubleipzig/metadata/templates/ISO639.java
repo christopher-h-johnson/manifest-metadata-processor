@@ -14,6 +14,7 @@
 package de.ubleipzig.metadata.templates;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 
 import java.util.List;
 
@@ -26,36 +27,24 @@ public class ISO639 {
     }
 
     public static class Language {
+        @Getter
         @JsonProperty
         private String iso639_2;
 
         @JsonProperty
         private String iso639_1;
 
+        @Getter
         @JsonProperty
         private String englishName;
 
+        @Getter
         @JsonProperty
         private String frenchName;
 
+        @Getter
         @JsonProperty
         private String germanName;
 
-        public String getEnglishName() {
-            return englishName;
-        }
-
-        public String getFrenchName() {
-            return frenchName;
-        }
-
-        public String getGermanName() {
-            return germanName;
-
-        }
-
-        public String getIso639_2() {
-            return iso639_2;
-        }
     }
 }

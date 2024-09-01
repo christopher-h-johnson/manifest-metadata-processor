@@ -16,19 +16,15 @@ package de.ubleipzig.metadata.templates.v3;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.Getter;
+import lombok.Setter;
 
 @JsonPropertyOrder({"id", "type", "profile"})
 public class SeeAlso {
+    @Setter
+    @Getter
     @JsonProperty("id")
     private String id;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     @JsonProperty("type")
     private String type;
@@ -68,6 +64,12 @@ public class SeeAlso {
         this.format = format;
     }
 
+    /**
+     * -- SETTER --
+     *
+     * @param profile profile
+     */
+    @Setter
     @JsonProperty
     private String profile;
 
@@ -79,10 +81,4 @@ public class SeeAlso {
         return this.profile;
     }
 
-    /**
-     * @param profile profile
-     */
-    public void setProfile(final String profile) {
-        this.profile = profile;
-    }
 }

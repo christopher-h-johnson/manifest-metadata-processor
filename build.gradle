@@ -21,6 +21,7 @@ ext {
     jacksonVersion = '2.17.1'
     jsonldVersion = '0.12.0'
     leptonicaVersion = '1.75.3-1.4.1'
+    lombokVersion = '1.18.34'
     slf4jVersion = '1.7.25'
     tesseractVersion = '3.05.01-1.4.1'
     trellisClientVersion = '0.3.0-SNAPSHOT'
@@ -33,7 +34,7 @@ ext {
     jaxbVersion = '2.3.0'
     jenaVersion = '4.0.0-SNAPSHOT'
     activationVersion = '1.1.1'
-    logbackVersion = '1.2.3'
+    logbackVersion = '1.5.7'
     apiguardianVersion = '1.0.0'
 
     /* Transitive patched modules */
@@ -91,6 +92,10 @@ subprojects {
 
 
     dependencies {
+        compileOnly("org.projectlombok:lombok:$lombokVersion")
+        annotationProcessor("org.projectlombok:lombok:$lombokVersion")
+        testCompileOnly("org.projectlombok:lombok:$lombokVersion")
+        testAnnotationProcessor("org.projectlombok:lombok:$lombokVersion")
         testImplementation ("org.junit.jupiter:junit-jupiter-api:$junitVersion")
         testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
     }

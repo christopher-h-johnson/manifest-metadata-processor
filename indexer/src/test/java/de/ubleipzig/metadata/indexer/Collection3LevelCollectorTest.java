@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.jena.JenaRDF;
 import org.junit.jupiter.api.Disabled;
@@ -45,6 +46,7 @@ import org.trellisldp.client.LdpClientException;
 import org.trellisldp.client.LdpClientImpl;
 
 @Disabled
+@Slf4j
 public class Collection3LevelCollectorTest {
 
     private final LdpClient client = new LdpClientImpl();
@@ -52,13 +54,12 @@ public class Collection3LevelCollectorTest {
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final String baseUrl = "http://localhost:9098/extractor?type=extract&m=";
     private final Indexer indexer = new Indexer();
-    private static final Logger LOGGER = LoggerFactory.getLogger(Collection3LevelCollectorTest.class);
 
     @Test
     void buildCollectionsFromJson() {
         final IRI rootCollectionIRI = rdf.createIRI("https://iiif.durham.ac.uk/manifests/trifle/collection/index");
         try {
-            final HttpResponse res = client.getResponse(rootCollectionIRI);
+            final HttpResponse<?> res = client.getResponse(rootCollectionIRI);
             if (res.statusCode() == 200 | res.statusCode() == 301) {
                 final String json = res.body().toString();
                 final CollectionList collections = MAPPER.readValue(json, new TypeReference<CollectionList>() {
@@ -71,7 +72,7 @@ public class Collection3LevelCollectorTest {
                     final String label = c.getLabel();
                     final IRI cIRI = rdf.createIRI(cid);
                     try {
-                        final HttpResponse res1 = client.getResponse(cIRI);
+                        final HttpResponse<?> res1 = client.getResponse(cIRI);
                         if (res1.statusCode() == 200 | res1.statusCode() == 301) {
                             final String json1 = res1.body().toString();
                             final CollectionList subCollections = MAPPER.readValue(
@@ -82,7 +83,7 @@ public class Collection3LevelCollectorTest {
                                 final String cid2 = c1.getId();
                                 final String label2 = c1.getLabel();
                                 final IRI cIRI2 = rdf.createIRI(cid2);
-                                final HttpResponse res2;
+                                final HttpResponse<?> res2;
                                 try {
                                     res2 = client.getResponse(cIRI2);
                                     if (res2.statusCode() == 200 | res2.statusCode() == 301) {
@@ -95,7 +96,7 @@ public class Collection3LevelCollectorTest {
                                         for (ManifestItem m : manifestList) {
                                             final IRI identifier = rdf.createIRI(m.getId());
                                             final IRI apiReq = rdf.createIRI(baseUrl + identifier.getIRIString());
-                                            final HttpResponse res3 = client.getResponse(apiReq);
+                                            final HttpResponse<?> res3 = client.getResponse(apiReq);
                                             if (res3.statusCode() == 200 | res3.statusCode() == 301) {
                                                 final String json3 = res3.body().toString();
                                                 final MetadataMap metadataMap = indexer.buildMetadataMap(json3);
@@ -105,7 +106,7 @@ public class Collection3LevelCollectorTest {
                                                 metadata.put("manifest", m.getId());
                                                 metadataMap.setMetadataMap(metadata);
                                                 finalMapList.add(metadataMap);
-                                                LOGGER.info(
+                                                log.info(
                                                         "adding {} to indexable metadata", identifier.getIRIString());
                                             }
                                         }
@@ -115,39 +116,21 @@ public class Collection3LevelCollectorTest {
                                         l.setLabel(c.getLabel());
                                         mapListCollections.add(l);
                                     }
-                                } catch (LdpClientException e) {
-                                    e.printStackTrace();
-                                } catch (JsonParseException e) {
-                                    e.printStackTrace();
-                                } catch (JsonMappingException e) {
-                                    e.printStackTrace();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
+                                } catch (LdpClientException | IOException e) {
+                                    log.error(e.getMessage());
                                 }
                             });
                         }
-                    } catch (LdpClientException e) {
-                        e.printStackTrace();
-                    } catch (JsonMappingException e) {
-                        e.printStackTrace();
-                    } catch (JsonParseException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    };
+                    } catch (LdpClientException | IOException e) {
+                        log.error(e.getMessage());
+                    }
                     rootCollection.setRootCollection(mapListCollections);
                     final String out = JsonSerializer.serialize(rootCollection).orElse("");
                     JsonSerializer.writeToFile(out, new File("/tmp/cambridge-metadata.json"));
                 });
             }
-        } catch (LdpClientException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (JsonParseException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (LdpClientException | IOException e) {
+            log.error(e.getMessage());
         }
     }
 }

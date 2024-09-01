@@ -17,9 +17,7 @@ package de.ubleipzig.metadata.extractor.mapper;
 import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
 import static java.util.Optional.ofNullable;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.ubleipzig.metadata.templates.BodleianMetadataMap;
@@ -39,12 +37,11 @@ import java.util.Optional;
 import java.util.SplittableRandom;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 public class MetadataMapper {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MetadataMapper.class);
+
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private String body;
 
@@ -52,12 +49,12 @@ public class MetadataMapper {
         this.body = body;
     }
 
-    private String getRandomImageAsThumbnail(final PerfectManifest manifest, final Boolean getFirst) {
+    private String getRandomImageAsThumbnail(final PerfectManifest manifest) {
         final Optional<List<Sequence>> seq = ofNullable(manifest.getSequences());
         if (seq.isPresent()) {
             final List<Canvas> canvases = seq.get().get(0).getCanvases();
             final int canvasCount = canvases.size();
-            if (canvasCount == 1 || getFirst) {
+            if (canvasCount == 1) {
                 final List<PaintingAnnotation> images = canvases.get(0).getImages();
                 final Body res = images.get(0).getBody();
                 return res.getService().getId();
@@ -77,12 +74,8 @@ public class MetadataMapper {
         try {
             return MAPPER.readValue(body, new TypeReference<PerfectManifest>() {
             });
-        } catch (JsonParseException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         throw new RuntimeException();
     }
@@ -99,9 +92,9 @@ public class MetadataMapper {
         //get Thumbnail
         //final Optional<Object> thumbnail = ofNullable(manifest.getThumbnail());
         final Optional<String> thumb;
-        thumb = ofNullable(getRandomImageAsThumbnail(manifest, false));
+        thumb = ofNullable(getRandomImageAsThumbnail(manifest));
         thumb.ifPresent(t -> metadataMap.put("thumbnail", t));
-        if (!thumb.isPresent()) {
+        if (thumb.isEmpty()) {
             return null;
         }
         final String title = manifest.getLabel();
@@ -153,14 +146,14 @@ public class MetadataMapper {
         //set license  (only if string)
         final Optional<?> license = ofNullable(manifest.getLicense());
         if (license.isPresent()) {
-            final Optional<String> lisc = license.filter(String.class::isInstance).map(String.class::cast);
+            final Optional<String> lisc = license.map(String.class::cast);
             lisc.ifPresent(s -> metadataMap.put("license", s));
         }
 
         //set attribution  (only if string)
         final Optional<?> attribution = ofNullable(manifest.getAttribution());
         if (attribution.isPresent()) {
-            final Optional<String> attr = attribution.filter(String.class::isInstance).map(String.class::cast);
+            final Optional<String> attr = attribution.map(String.class::cast);
             attr.ifPresent(s -> metadataMap.put("attribution", s));
         }
 

@@ -22,6 +22,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import de.ubleipzig.iiif.vocabulary.SCEnum;
 import de.ubleipzig.metadata.templates.Metadata;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -35,20 +37,61 @@ import java.util.List;
         "sequences", "service"})
 public class PerfectManifest {
 
+    /**
+     * -- SETTER --
+     *
+     * @param context String
+     */
+    @Setter
     @JsonIgnoreProperties({"rendering", "logo"})
 
     @JsonProperty("@context")
     private String context;
 
+    /**
+     * -- GETTER --
+     *
+     *
+     * -- SETTER --
+     *
+     @return String
+      * @param id String
+     */
+    @Setter
+    @Getter
     @JsonProperty("@id")
     private String id;
 
+    /**
+     * -- SETTER --
+     *
+     * @param type String
+     */
+    @Setter
     @JsonProperty("@type")
     private String type = SCEnum.Manifest.compactedIRI();
 
+    /**
+     * -- SETTER --
+     *
+     *
+     * -- GETTER --
+     *
+     @param label String
+      * @return String
+     */
+    @Getter
+    @Setter
     @JsonProperty("label")
     private String label;
 
+    /**
+     * -- SETTER --
+     *
+     * @param license String
+     */
+    @Getter
+    @Setter
     @JsonProperty("license")
     private String license;
 
@@ -58,33 +101,109 @@ public class PerfectManifest {
     @JsonProperty
     private String within;
 
+    /**
+     * -- GETTER --
+     *
+     * @return List
+     */
+    @Getter
     @JsonProperty
     private Object description;
 
+    /**
+     * -- SETTER --
+     *
+     * @param attribution String
+     */
+    @Getter
+    @Setter
     @JsonProperty
     private String attribution;
 
+    @Getter
     @JsonProperty
     private Object thumbnail;
 
+    /**
+     * -- SETTER --
+     *
+     * @param logo String
+     */
+    @Setter
     @JsonProperty("logo")
     private Object logo;
 
+    /**
+     * -- SETTER --
+     *
+     *
+     * -- GETTER --
+     *
+     @param related List
+      * @return List
+     */
+    @Getter
+    @Setter
     @JsonProperty("related")
     private Object related;
 
+    /**
+     * -- SETTER --
+     *
+     *
+     * -- GETTER --
+     *
+     @param sequences List
+      * @return List
+     */
+    @Getter
+    @Setter
     @JsonProperty("sequences")
     private List<Sequence> sequences;
 
+    /**
+     * -- SETTER --
+     *
+     * @param service String
+     */
+    @Setter
     @JsonProperty("service")
     private  Object service;
 
+    /**
+     * -- SETTER --
+     *
+     *
+     * -- GETTER --
+     *
+     @param seeAlso List
+      * @return List
+     */
+    @Getter
+    @Setter
     @JsonProperty
     private Object seeAlso;
 
+    /**
+     * -- SETTER --
+     *
+     *
+     * -- GETTER --
+     *
+     @param metadata List
+      * @return List
+     */
+    @Getter
+    @Setter
     @JsonProperty("metadata")
     private List<Metadata> metadata;
 
+    /**
+     * -- SETTER --
+     *
+     * @param structures List
+     */
+    @Setter
     @JsonProperty("structures")
     private List<Structure> structures;
 
@@ -103,158 +222,7 @@ public class PerfectManifest {
     public PerfectManifest() {
     }
 
-    /**
-     * @param context String
-     */
-    public void setContext(final String context) {
-        this.context = context;
-    }
 
-    /**
-     * @return String
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * @param id String
-     */
-    public void setId(final String id) {
-        this.id = id;
-    }
-
-    /**
-     * @param type String
-     */
-    public void setType(final String type) {
-        this.type = type;
-    }
-
-    /**
-     * @param label String
-     */
-    public void setLabel(final String label) {
-        this.label = label;
-    }
-
-    /**
-     * @return String
-     */
-    public String getLabel() {
-        return label;
-    }
-
-    /**
-     * @param attribution String
-     */
-    public void setAttribution(final String attribution) {
-        this.attribution = attribution;
-    }
-
-
-    public String getAttribution() {
-        return attribution;
-    }
-
-    public Object getThumbnail() {
-        return thumbnail;
-    }
-
-    /**
-     * @param license String
-     */
-    public void setLicense(final String license) {
-        this.license = license;
-    }
-
-    public String getLicense() {
-        return license;
-    }
-
-    /**
-     * @param logo String
-     */
-    public void setLogo(final Object logo) {
-        this.logo = logo;
-    }
-
-    /**
-     * @param service String
-     */
-    public void setService(final Object service) {
-        this.service = service;
-    }
-
-    /**
-     * @param sequences List
-     */
-    public void setSequences(final List<Sequence> sequences) {
-        this.sequences = sequences;
-    }
-
-    /**
-     * @return List
-     */
-    public List<Sequence> getSequences() {
-        return sequences;
-    }
-
-    /**
-     * @param structures List
-     */
-    public void setStructures(final List<Structure> structures) {
-        this.structures = structures;
-    }
-
-    /**
-     * @param metadata List
-     */
-    public void setMetadata(final List<Metadata> metadata) {
-        this.metadata = metadata;
-    }
-
-    /**
-     * @return List
-     */
-    public List<Metadata> getMetadata() {
-        return metadata;
-    }
-
-    /**
-     * @param related List
-     */
-    public void setRelated(final Object related) {
-        this.related = related;
-    }
-
-    /**
-     * @return List
-     */
-    public Object getRelated() {
-        return related;
-    }
-
-    /**
-     * @param seeAlso List
-     */
-    public void setSeeAlso(final Object seeAlso) {
-        this.seeAlso = seeAlso;
-    }
-
-    /**
-     * @return List
-     */
-    public Object getSeeAlso() {
-        return seeAlso;
-    }
-
-    /**
-     * @return List
-     */
-    public Object getDescription() {
-        return description;
-    }
 }
 
 

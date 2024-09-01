@@ -26,10 +26,12 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 @Disabled
+@Slf4j
 public class UUIDBuilderTest {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
@@ -77,7 +79,7 @@ public class UUIDBuilderTest {
                         manifestMap.put(uuid.toString(), manifestKV);
                     });
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    log.error(e.getMessage());
                 }
             });
             final ManifestUUIDMap map = new ManifestUUIDMap();
@@ -85,7 +87,7 @@ public class UUIDBuilderTest {
             String json = JsonSerializer.serialize(map).orElse("");
             JsonSerializer.writeToFile(json, new File("/tmp/wales-ids.json"));
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 }
