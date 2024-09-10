@@ -20,6 +20,7 @@ dependencies {
     implementation project(":processor")
     implementation project(":templates")
     implementation project(":transformer")
+    implementation group: 'com.google.guava', name: 'guava', version: '33.3.0-jre'
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("de.ubleipzig:iiif.vocabulary:$iiifVocabularyVersion")
     implementation("de.ubleipzig:image.metadata:$imageMetadataVersion")

@@ -21,6 +21,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import de.ubleipzig.iiif.vocabulary.SCEnum;
 import de.ubleipzig.metadata.templates.Metadata;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -31,6 +35,10 @@ import java.util.List;
  */
 @JsonInclude(Include.NON_NULL)
 @JsonPropertyOrder({"@id", "@type", "label", "viewingHint", "ranges", "canvases"})
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class Structure {
 
     @JsonProperty("@id")
@@ -69,121 +77,4 @@ public class Structure {
     @JsonProperty("license")
     private String license;
 
-    /**
-     *
-     */
-    public Structure() {
-    }
-
-    /**
-     * @param structureType String
-     */
-    public void setStructureType(final String structureType) {
-        this.type = structureType;
-    }
-
-    /**
-     *
-     * @return List
-     */
-    public List<String> getCanvases() {
-        return canvases;
-    }
-
-    /**
-     * @param canvases List
-     */
-    public void setCanvases(final List<String> canvases) {
-        this.canvases = canvases;
-    }
-
-    /**
-     * @return String
-     */
-    @JsonIgnore
-    public Object getStructureLabel() {
-        return label;
-    }
-
-    /**
-     * @param structureLabel String
-     */
-    public void setStructureLabel(final String structureLabel) {
-        this.label = structureLabel;
-    }
-
-    /**
-     * @return String
-     */
-    @JsonIgnore
-    public String getViewingHint() {
-        return viewingHint;
-    }
-
-    /**
-     * @param viewingHint String
-     */
-    public void setViewingHint(final String viewingHint) {
-        this.viewingHint = viewingHint;
-    }
-
-    /**
-     * @return String
-     */
-    @JsonIgnore
-    public String getWithin() {
-        return within;
-    }
-
-    /**
-     * @param within String
-     */
-    public void setWithin(final String within) {
-        this.within = within;
-    }
-
-    /**
-     * @return String
-     */
-    @JsonIgnore
-    public String getStructureId() {
-        return id;
-    }
-
-    /**
-     * @param id String
-     */
-    public void setStructureId(final String id) {
-        this.id = id;
-    }
-
-    /**
-     * @return List
-     */
-    @JsonIgnore
-    public List<String> getRanges() {
-        return ranges;
-    }
-
-    /**
-     * @param ranges List
-     */
-    public void setRanges(final List<String> ranges) {
-        this.ranges = ranges;
-    }
-
-    /**
-     * @return List
-     */
-    @JsonIgnore
-    public List<Metadata> getMetadata() {
-        return metadata;
-    }
-
-    /**
-     * @param metadata List
-     */
-    public void setMetadata(final List<Metadata> metadata) {
-        this.metadata = metadata;
-    }
 }

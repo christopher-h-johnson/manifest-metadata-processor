@@ -22,11 +22,19 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import de.ubleipzig.iiif.vocabulary.SCEnum;
 import de.ubleipzig.metadata.templates.Metadata;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
 @JsonInclude(Include.NON_NULL)
 @JsonPropertyOrder({"@id", "@type", "label", "height", "width", "images"})
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class Canvas {
 
     @JsonProperty("@context")
@@ -64,85 +72,5 @@ public class Canvas {
 
     @JsonProperty
     private List<Object> otherContent;
-
-    /**
-     * @return String
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * @param id String
-     */
-    public void setId(final String id) {
-        this.id = id;
-    }
-
-    /**
-     * @return int
-     */
-    public int getHeight() {
-        return height;
-    }
-
-    /**
-     * @param height int
-     */
-    public void setHeight(final Integer height) {
-        this.height = height;
-    }
-
-    /**
-     * @return int
-     */
-    public int getWidth() {
-        return width;
-    }
-
-    /**
-     * @param width int
-     */
-    public void setWidth(final Integer width) {
-        this.width = width;
-    }
-
-    /**
-     * @return List
-     */
-    public List<PaintingAnnotation> getImages() {
-        return images;
-    }
-
-    /**
-     * @param images List
-     */
-    public void setImages(final List<PaintingAnnotation> images) {
-        this.images = images;
-    }
-
-    /**
-     * @return String
-     */
-    @JsonIgnore
-    public String getLabel() {
-        return this.label;
-    }
-
-    /**
-     *
-     * @param label String
-     */
-    public void setLabel(final String label) {
-        this.label = label;
-    }
-
-    /**
-     * @return String
-     */
-    @JsonIgnore
-    public List<Metadata> getMetadata() {
-        return this.metadata;
-    }
 
 }

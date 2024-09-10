@@ -33,6 +33,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.jena.JenaRDF;
 import org.junit.jupiter.api.Disabled;
@@ -44,20 +47,20 @@ import org.trellisldp.client.LdpClientException;
 import org.trellisldp.client.LdpClientImpl;
 
 @Disabled
+@Slf4j
 public class CollectionCollectorTest {
 
     private final LdpClient client = new LdpClientImpl();
     private static final JenaRDF rdf = new JenaRDF();
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final String baseUrl = "http://localhost:9098/extractor?type=extract&m=";
-    private static final Logger LOGGER = LoggerFactory.getLogger(CollectionCollectorTest.class);
 
     @Test
     void buildCollectionsFromJson() {
         final IRI rootCollectionIRI = rdf.createIRI(
                 "https://iiif.durham.ac.uk/manifests/trifle/collection/32150/t2cfj2362083");
         try {
-            final HttpResponse res = client.getResponse(rootCollectionIRI);
+            final HttpResponse<?> res = client.getResponse(rootCollectionIRI);
             if (res.statusCode() == 200 | res.statusCode() == 301) {
                 final String json1 = res.body().toString();
                 final ManifestList subcollections = MAPPER.readValue(json1, new TypeReference<ManifestList>() {
@@ -68,7 +71,7 @@ public class CollectionCollectorTest {
                 for (ManifestItem m : manifestList) {
                     final IRI identifier = rdf.createIRI(m.getId());
                     final IRI apiReq = rdf.createIRI(baseUrl + identifier.getIRIString());
-                    final HttpResponse res3 = client.getResponse(apiReq);
+                    final HttpResponse<?> res3 = client.getResponse(apiReq);
                     if (res3.statusCode() == 200 | res3.statusCode() == 301) {
                         final String json3 = res3.body().toString();
                         final Optional<BodleianMetadataMap> metadataMap = ofNullable(buildMetadataMap(json3));
@@ -78,7 +81,7 @@ public class CollectionCollectorTest {
                             metadata.put("collection", collectionLabel);
                             metadataMap.get().setMetadataMap(metadata);
                             finalMapList.add(metadataMap.get());
-                            LOGGER.info("adding {} to indexable metadata", identifier.getIRIString());
+                            log.info("adding {} to indexable metadata", identifier.getIRIString());
                         }
                     }
                 }
@@ -88,7 +91,7 @@ public class CollectionCollectorTest {
                 JsonSerializer.writeToFile(out, new File("/tmp/DurhamBishopricHalmoteCourtRecords.json"));
             }
         } catch (LdpClientException | IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -99,12 +102,14 @@ public class CollectionCollectorTest {
             });
             return metadataMap;
         } catch (IOException e) {
-            LOGGER.info("unmappable metadata");
+            log.info("unmappable metadata");
         }
         return null;
     }
 
-    class BodleianMapListCollection {
+    @Setter
+    @Getter
+    static class BodleianMapListCollection {
 
         @JsonProperty
         private List<BodleianMetadataMap> mapListCollection;
@@ -114,30 +119,6 @@ public class CollectionCollectorTest {
 
         @JsonProperty
         private String label;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getLabel() {
-            return label;
-        }
-
-        public void setLabel(String label) {
-            this.label = label;
-        }
-
-        public List<BodleianMetadataMap> getMapListCollection() {
-            return mapListCollection;
-        }
-
-        public void setMapListCollection(List<BodleianMetadataMap> mapListCollection) {
-            this.mapListCollection = mapListCollection;
-        }
 
     }
 }

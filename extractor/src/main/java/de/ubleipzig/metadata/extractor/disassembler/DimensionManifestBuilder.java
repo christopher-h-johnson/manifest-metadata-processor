@@ -32,14 +32,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Slf4j
 public class DimensionManifestBuilder {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DimensionManifestBuilder.class);
+
     private static final ObjectMapper MAPPER = new ObjectMapper();
-    private String body;
+    private final String body;
 
     public DimensionManifestBuilder(final String body) {
         this.body = body;
@@ -84,7 +86,7 @@ public class DimensionManifestBuilder {
                             dims.setFilename(filename);
                             is = new URL(iiifService + "/info.json").openStream();
                         } catch (IOException ex) {
-                            ex.printStackTrace();
+                            log.error(ex.getMessage());
                         }
                         final ImageServiceResponse ir = mapServiceResponse(is);
                         final Integer height = ir.getHeight();

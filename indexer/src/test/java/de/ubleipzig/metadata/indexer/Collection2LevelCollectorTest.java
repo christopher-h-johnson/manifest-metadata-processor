@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.jena.JenaRDF;
 import org.junit.jupiter.api.Disabled;
@@ -46,20 +47,20 @@ import org.trellisldp.client.LdpClientException;
 import org.trellisldp.client.LdpClientImpl;
 
 @Disabled
+@Slf4j
 public class Collection2LevelCollectorTest {
 
     private final LdpClient client = new LdpClientImpl();
     private static final JenaRDF rdf = new JenaRDF();
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final String baseUrl = "http://localhost:9098/extractor?type=extract&m=";
-    private static final Logger LOGGER = LoggerFactory.getLogger(Collection2LevelCollectorTest.class);
 
     @Test
     void buildCollectionsFromJson() {
         final IRI rootCollectionIRI = rdf.createIRI(
                 "https://iiif.durham.ac.uk/manifests/trifle/collection/32150/t2cqj72p712g");
         try {
-            final HttpResponse res = client.getResponse(rootCollectionIRI);
+            final HttpResponse<?> res = client.getResponse(rootCollectionIRI);
             if (res.statusCode() == 200 | res.statusCode() == 301) {
                 final String json = res.body().toString();
                 final CollectionList collections = MAPPER.readValue(json, new TypeReference<CollectionList>() {
@@ -73,7 +74,7 @@ public class Collection2LevelCollectorTest {
                     final String label = c.getLabel();
                     final IRI cIRI = rdf.createIRI(cid);
                     try {
-                        final HttpResponse res1 = client.getResponse(cIRI);
+                        final HttpResponse<?> res1 = client.getResponse(cIRI);
                         if (res1.statusCode() == 200 | res1.statusCode() == 301) {
                             final String json1 = res1.body().toString();
                             final ManifestList subcollections = MAPPER.readValue(
@@ -85,7 +86,7 @@ public class Collection2LevelCollectorTest {
                                 for (ManifestItem m : manifestList.get()) {
                                     final IRI identifier = rdf.createIRI(m.getId());
                                     final IRI apiReq = rdf.createIRI(baseUrl + identifier.getIRIString());
-                                    final HttpResponse res3 = client.getResponse(apiReq);
+                                    final HttpResponse<?> res3 = client.getResponse(apiReq);
                                     if (res3.statusCode() == 200 | res3.statusCode() == 301) {
                                         final String json3 = res3.body().toString();
                                         final Optional<BodleianMetadataMap> metadataMap = ofNullable(
@@ -97,7 +98,7 @@ public class Collection2LevelCollectorTest {
                                             metadata.put("manifest", m.getId());
                                             map.setMetadataMap(metadata);
                                             finalMapList.add(map);
-                                            LOGGER.info("adding {} from collection {} to indexable metadata",
+                                            log.info("adding {} from collection {} to indexable metadata",
                                                     identifier.getIRIString(), label);
                                         }
                                     }
@@ -110,7 +111,7 @@ public class Collection2LevelCollectorTest {
                             mapListCollections.add(l);
                         }
                     } catch (LdpClientException | IOException e) {
-                        e.printStackTrace();
+                        log.error(e.getMessage());
                     }
                 });
                 rootCollection.setRootCollection(mapListCollections);
@@ -118,7 +119,7 @@ public class Collection2LevelCollectorTest {
                 JsonSerializer.writeToFile(out, new File("/tmp/beasely.json"));
             }
         } catch (LdpClientException | IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -129,7 +130,7 @@ public class Collection2LevelCollectorTest {
             });
             return metadataMap;
         } catch (IOException e) {
-            LOGGER.info("unmappable metadata");
+            log.info("unmappable metadata");
         }
         return null;
     }

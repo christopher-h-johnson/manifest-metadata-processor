@@ -41,8 +41,6 @@ public final class JsonLdProcessorUtils {
     private JsonLdProcessorUtils() {
     }
 
-    private static final Logger log = LoggerFactory.getLogger(JsonLdProcessorUtils.class);
-
     /**
      * toRDF.
      *

@@ -20,6 +20,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import de.ubleipzig.iiif.vocabulary.SCEnum;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -30,10 +34,17 @@ import java.util.List;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({"@context", "id", "type", "motivation", "body", "target"})
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class PaintingAnnotation {
 
+//    @JsonProperty("@context")
+//    private List<String> context;
+
     @JsonProperty("@context")
-    private List<String> context;
+    private String context;
 
     @JsonProperty("@id")
     private String id;
@@ -53,58 +64,20 @@ public class PaintingAnnotation {
     @JsonProperty
     private String on;
 
-    /**
-     * setContext.
-     *
-     * @param context a {@link List} of contexts
-     */
-    public void setContext(final List<String> context) {
-        this.context = context;
-    }
-
-    /**
-     * setId.
-     *
-     * @param id id
-     */
-    public void setId(final String id) {
-        this.id = id;
-    }
-
-    /**
-     * getAnnoId.
-     *
-     * @return id
-     */
     @JsonIgnore
     public String getAnnoId() {
         return this.id;
     }
 
-    /**
-     * getBody.
-     *
-     * @return TemplateBody
-     */
     @JsonIgnore
     public Body getBody() {
         return this.resource;
     }
 
-    /**
-     * setBody.
-     *
-     * @param resource body
-     */
     public void setBody(final Body resource) {
         this.resource = resource;
     }
 
-    /**
-     * setTarget.
-     *
-     * @param on target
-     */
     public void setTarget(final String on) {
         this.on = on;
     }

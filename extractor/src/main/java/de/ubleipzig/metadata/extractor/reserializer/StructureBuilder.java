@@ -23,6 +23,7 @@ import static java.util.Optional.ofNullable;
 import de.ubleipzig.metadata.templates.Metadata;
 import de.ubleipzig.metadata.templates.v2.Structure;
 import de.ubleipzig.metadata.transformer.MetadataApi;
+import lombok.extern.slf4j.Slf4j;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -33,6 +34,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Slf4j
 public class StructureBuilder {
     private final List<Structure> structures;
     private final String viewId;
@@ -58,11 +60,11 @@ public class StructureBuilder {
                 }
             }
 
-            final String structureId = s.getStructureId();
+            final String structureId = s.getId();
             if (!structureId.contains("LOG") || !structureId.contains("r0")) {
                 if (ai.get() == 0) {
                     final String newStructureId = baseUrl + viewId + separator + structureBase + separator + "LOG_0000";
-                    backReferenceMap.put(s.getStructureId(), newStructureId);
+                    backReferenceMap.put(s.getId(), newStructureId);
                     //unset within (fix for early manifests)
                     s.setWithin(null);
                     s.setViewingHint("top");
@@ -71,7 +73,7 @@ public class StructureBuilder {
                     final String newStructureId =
                             baseUrl + viewId + separator + structureBase + separator + "LOG_" + String.format(
                             "%04d", ai.getAndIncrement());
-                    backReferenceMap.put(s.getStructureId(), newStructureId);
+                    backReferenceMap.put(s.getId(), newStructureId);
                     //unset within (fix for early manifests)
                     s.setWithin(null);
                 }
@@ -90,9 +92,9 @@ public class StructureBuilder {
                 }
                 struct.setRanges(newRanges);
             }
-            final String structId = struct.getStructureId();
+            final String structId = struct.getId();
             final String newStructId = backReferenceMap.get(structId);
-            struct.setStructureId(newStructId);
+            struct.setId(newStructId);
             final String sId;
             try {
                 sId = new URL(newStructId).getPath().split(separator)[3];
@@ -100,7 +102,7 @@ public class StructureBuilder {
                         metadataImplVersion2.buildStructureMetadataForId(sId));
                 structureMetadata.ifPresent(struct::setMetadata);
             } catch (MalformedURLException e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
             }
         }
         return structures;

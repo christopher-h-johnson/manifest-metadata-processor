@@ -1,0 +1,192 @@
+{
+  "@context": "http://www.shared-canvas.org/ns/context.json",
+  "@id": "https://ids.si.edu/ids/manifest/FS-7491_11",
+  "@type": "sc:Manifest",
+  "label": "FS-7491_11",
+  "logo": "https://ids.si.edu/SI_Sunburst_40px.jpg",
+  "metadata": [
+    {
+      "label": "Title",
+      "value": "Autumn foliage and birds"
+    },
+    {
+      "label": "Metadata Usage",
+      "value": "CC0"
+    },
+    {
+      "label": "Guid",
+      "value": "http://n2t.net/ark:/65665/ye37cede7fb-84cd-4de4-916b-3012993053e1"
+    },
+    {
+      "label": "Data Source",
+      "value": "Freer Gallery of Art and Arthur M. Sackler Gallery"
+    },
+    {
+      "label": "Artist",
+      "value": "Formerly attributed to Cui Bai (active mid- to late 11th century)"
+    },
+    {
+      "label": "Medium",
+      "value": "Ink and color on silk"
+    },
+    {
+      "label": "Dimensions",
+      "value": "H x W (image): 82.2 × 49.8 cm (32 3/8 × 19 5/8 in)"
+    },
+    {
+      "label": "Provenance",
+      "value": "To 1919"
+    },
+    {
+      "label": "Provenance",
+      "value": "You Xiaoxi (late 19th-early 20th century), Shanghai, to 1919 [1]"
+    },
+    {
+      "label": "Provenance",
+      "value": "1919"
+    },
+    {
+      "label": "Provenance",
+      "value": "Charles Lang Freer (1854-1919), purchased from You Xiaoxi in 1919 [2]"
+    },
+    {
+      "label": "Provenance",
+      "value": "From 1920"
+    },
+    {
+      "label": "Provenance",
+      "value": "Freer Gallery of Art, gift of Charles Lang Freer in 1920 [3]"
+    },
+    {
+      "label": "Provenance",
+      "value": "Notes:"
+    },
+    {
+      "label": "Provenance",
+      "value": "[1] See Original Kakemono and Makimono List, L. 1349, Freer Gallery of Art and Arthur M. Sackler Gallery Archives. This object exhibits seals, colophons, or inscriptions that could provide additional information regarding the object’s history; see Curatorial Remarks in the object record for further details."
+    },
+    {
+      "label": "Provenance",
+      "value": "[2] See note 1."
+    },
+    {
+      "label": "Provenance",
+      "value": "[3] The original deed of Charles Lang Freer's gift was signed in 1906. The collection was received in 1920 upon the completion of the Freer Gallery."
+    },
+    {
+      "label": "Collection",
+      "value": "Freer Gallery of Art Collection"
+    },
+    {
+      "label": "Exhibition History",
+      "value": "Chinese Bird and Flower Painting (December 17, 1993 to May 31, 1994)"
+    },
+    {
+      "label": "Exhibition History",
+      "value": "Masterpieces of Chinese Painting (II) (May 9, 1993 to May 31, 1994)"
+    },
+    {
+      "label": "Previous custodian or owner",
+      "value": "You Xiaoxi 游篠溪 (late 19th-early 20th century) (C.L. Freer source)"
+    },
+    {
+      "label": "Previous custodian or owner",
+      "value": "Charles Lang Freer (1854-1919)"
+    },
+    {
+      "label": "Origin",
+      "value": "China"
+    },
+    {
+      "label": "Credit Line",
+      "value": "Gift of Charles Lang Freer"
+    },
+    {
+      "label": "Accession Number",
+      "value": "F1919.154"
+    },
+    {
+      "label": "Date",
+      "value": "14th-15th century"
+    },
+    {
+      "label": "Period",
+      "value": "Yuan or Ming dynasty"
+    },
+    {
+      "label": "Type",
+      "value": "Painting"
+    },
+    {
+      "label": "Topic",
+      "value": "bird"
+    },
+    {
+      "label": "Topic",
+      "value": "autumn"
+    },
+    {
+      "label": "Topic",
+      "value": "Yuan dynasty (1279 - 1368)"
+    },
+    {
+      "label": "Topic",
+      "value": "Ming dynasty (1368 - 1644)"
+    },
+    {
+      "label": "Topic",
+      "value": "China"
+    },
+    {
+      "label": "Topic",
+      "value": "bird and flower"
+    },
+    {
+      "label": "Topic",
+      "value": "Chinese Art"
+    },
+    {
+      "label": "Topic",
+      "value": "Charles Lang Freer collection"
+    }
+  ],
+  "license": "https://www.si.edu/termsofuse",
+  "attribution": "Smithsonian Institution",
+  "sequences": [
+    {
+      "@context": "http://iiif.io/api/presentation/2/context.json",
+      "@id": "https://ids.si.edu/ids/manifest/FS-7491_11",
+      "@type": "sc:Sequence",
+      "canvases": [
+        {
+          "@id": "https://ids.si.edu/ids/iiif/canvas-FS-7491_11",
+          "@type": "sc:Canvas",
+          "label": "image FS-7491_11",
+          "height": 5250,
+          "width": 3305,
+          "images": [
+            {
+              "@context": "http://iiif.io/api/presentation/2/context.json",
+              "@id": "https://ids.si.edu/ids/iiif/FS-7491_11",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://ids.si.edu/ids/iiif/FS-7491_11/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "height": 5250,
+                "width": 3305,
+                "format": "image/jpeg",
+                "service": {
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "@id": "https://ids.si.edu/ids/iiif/FS-7491_11",
+                  "profile": "http://iiif.io/api/image/2/level2.json"
+                }
+              },
+              "on": "https://ids.si.edu/ids/iiif/FS-7491_11"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

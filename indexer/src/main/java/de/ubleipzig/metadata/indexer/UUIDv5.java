@@ -14,6 +14,7 @@
 package de.ubleipzig.metadata.indexer;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
@@ -27,7 +28,7 @@ import java.util.UUID;
 public final class UUIDv5 {
 
     public static final UUID NAMESPACE_URL = UUID.fromString("6ba7b811-9dad-11d1-80b4-00c04fd430c8");
-    private static final Charset UTF8 = Charset.forName("UTF-8");
+    private static final Charset UTF8 = StandardCharsets.UTF_8;
 
     private UUIDv5() {
     }

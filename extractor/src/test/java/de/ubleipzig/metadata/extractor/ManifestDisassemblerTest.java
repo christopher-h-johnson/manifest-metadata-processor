@@ -16,16 +16,21 @@ package de.ubleipzig.metadata.extractor;
 
 import static de.ubleipzig.metadata.processor.QueryUtils.readFile;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.ubleipzig.metadata.extractor.disassembler.Disassembler;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
+import de.ubleipzig.metadata.templates.v2.PerfectManifest;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-@Disabled
+@Slf4j
 public class ManifestDisassemblerTest {
 
     @Test
@@ -35,9 +40,25 @@ public class ManifestDisassemblerTest {
             InputStream is = url.openStream();
             String json = readFile(is);
             final Disassembler disassembler = new Disassembler(json);
-            System.out.println(disassembler.build());
+            log.info(disassembler.build());
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+        }
+    }
+
+    @Test
+    void deserializeManifest() {
+        final ObjectMapper MAPPER = new ObjectMapper()
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT,true)
+                ;
+        try {
+            final URL url = new URL("https://ids.si.edu/ids/manifest/FS-7491_11");
+            InputStream is = url.openStream();
+            String json = readFile(is);
+            PerfectManifest manifest = MAPPER.readValue(json, new TypeReference<PerfectManifest>() {});
+         } catch (IOException e) {
+            log.error(e.getMessage());
         }
     }
 }

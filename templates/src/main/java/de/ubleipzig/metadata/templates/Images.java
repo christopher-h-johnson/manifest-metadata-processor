@@ -17,10 +17,18 @@ package de.ubleipzig.metadata.templates;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Setter;
 
 @JsonIgnoreProperties(value = {"motivation", "on", "type", "@type"}, allowGetters = true)
 public class Images {
 
+    /**
+     * -- SETTER --
+     *  setId.
+     *
+     * @param id id
+     */
+    @Setter
     @JsonProperty("@id")
     private String id;
 
@@ -32,18 +40,16 @@ public class Images {
     @JsonProperty
     private String on;
 
+    /**
+     * -- SETTER --
+     *  setBody.
+     *
+     * @param resource body
+     */
+    @Setter
     @JsonProperty
     private Resource resource;
 
-
-    /**
-     * setId.
-     *
-     * @param id id
-     */
-    public void setId(final String id) {
-        this.id = id;
-    }
 
     /**
      * getAnnoId.
@@ -63,15 +69,6 @@ public class Images {
     @JsonIgnore
     public Resource getResource() {
         return this.resource;
-    }
-
-    /**
-     * setBody.
-     *
-     * @param resource body
-     */
-    public void setResource(final Resource resource) {
-        this.resource = resource;
     }
 
     /**

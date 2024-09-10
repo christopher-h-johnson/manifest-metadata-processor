@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.jena.JenaRDF;
 import org.junit.jupiter.api.Disabled;
@@ -45,6 +46,7 @@ import org.xmlbeam.XBProjector;
 import org.xmlbeam.annotation.XBRead;
 
 @Disabled
+@Slf4j
 public class URNResolverTest {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
@@ -78,7 +80,7 @@ public class URNResolverTest {
                     LOGGER.error("invalid URN {}", urn);
                 });
             } catch (LdpClientException e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
             }
         });
         list.setRecords(rList);
@@ -95,7 +97,7 @@ public class URNResolverTest {
         final String xml = client.getDefaultType(req);
         NBN nbn = projector.projectXMLString(xml, NBN.class);
         final String resolvedURI = getResolvedURI(nbn);
-        System.out.println(resolvedURI);
+        log.info(resolvedURI);
     }
 
     public List<String> buildURNList() {

@@ -30,10 +30,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 @Disabled
+@Slf4j
 public class SiteMapCreatorTest {
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final ObjectMapper xmlMapper = new XmlMapper();
@@ -67,12 +69,12 @@ public class SiteMapCreatorTest {
                 try {
                     xmlMapper.writeValue(new File(fileName), siteMap);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    log.error(e.getMessage());
                 }
             });
 
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 }

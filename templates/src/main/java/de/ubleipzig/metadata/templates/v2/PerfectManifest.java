@@ -22,6 +22,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import de.ubleipzig.iiif.vocabulary.SCEnum;
 import de.ubleipzig.metadata.templates.Metadata;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -33,6 +37,10 @@ import java.util.List;
 @JsonInclude(Include.NON_NULL)
 @JsonPropertyOrder({"@context", "@id", "@type", "label", "license", "attribution", "logo", "related", "metadata",
         "sequences", "service"})
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class PerfectManifest {
 
     @JsonIgnoreProperties({"rendering", "logo"})
@@ -97,164 +105,6 @@ public class PerfectManifest {
     @JsonProperty
     private String navDate;
 
-    /**
-     * Manifest.
-     */
-    public PerfectManifest() {
-    }
-
-    /**
-     * @param context String
-     */
-    public void setContext(final String context) {
-        this.context = context;
-    }
-
-    /**
-     * @return String
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * @param id String
-     */
-    public void setId(final String id) {
-        this.id = id;
-    }
-
-    /**
-     * @param type String
-     */
-    public void setType(final String type) {
-        this.type = type;
-    }
-
-    /**
-     * @param label String
-     */
-    public void setLabel(final String label) {
-        this.label = label;
-    }
-
-    /**
-     * @return String
-     */
-    public String getLabel() {
-        return label;
-    }
-
-    /**
-     * @param attribution String
-     */
-    public void setAttribution(final String attribution) {
-        this.attribution = attribution;
-    }
-
-
-    public String getAttribution() {
-        return attribution;
-    }
-
-    public Object getThumbnail() {
-        return thumbnail;
-    }
-
-    /**
-     * @param license String
-     */
-    public void setLicense(final String license) {
-        this.license = license;
-    }
-
-    public String getLicense() {
-        return license;
-    }
-
-    /**
-     * @param logo String
-     */
-    public void setLogo(final Object logo) {
-        this.logo = logo;
-    }
-
-    /**
-     * @param service String
-     */
-    public void setService(final Object service) {
-        this.service = service;
-    }
-
-    /**
-     * @param sequences List
-     */
-    public void setSequences(final List<Sequence> sequences) {
-        this.sequences = sequences;
-    }
-
-    /**
-     * @return List
-     */
-    public List<Sequence> getSequences() {
-        return sequences;
-    }
-
-    /**
-     * @param structures List
-     */
-    public void setStructures(final List<Structure> structures) {
-        this.structures = structures;
-    }
-
-    /**
-     * @param metadata List
-     */
-    public void setMetadata(final List<Metadata> metadata) {
-        this.metadata = metadata;
-    }
-
-    /**
-     * @return List
-     */
-    public List<Metadata> getMetadata() {
-        return metadata;
-    }
-
-    /**
-     * @param related List
-     */
-    public void setRelated(final Object related) {
-        this.related = related;
-    }
-
-    /**
-     * @return List
-     */
-    public Object getRelated() {
-        return related;
-    }
-
-    /**
-     * @param seeAlso List
-     */
-    public void setSeeAlso(final Object seeAlso) {
-        this.seeAlso = seeAlso;
-    }
-
-    /**
-     * @return List
-     */
-    public Object getSeeAlso() {
-        return seeAlso;
-    }
-
-    /**
-     * @return List
-     */
-    public Object getDescription() {
-        return description;
-    }
 }
 
 

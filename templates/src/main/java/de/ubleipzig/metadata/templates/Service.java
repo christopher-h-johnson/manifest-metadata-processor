@@ -18,6 +18,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.Getter;
+import lombok.Setter;
 
 @JsonPropertyOrder({"@context", "@id", "profile"})
 public class Service {
@@ -27,6 +29,8 @@ public class Service {
     @JsonProperty("@context")
     private String context;
 
+    @Getter
+    @Setter
     @JsonProperty("@id")
     private String id;
 
@@ -36,6 +40,12 @@ public class Service {
     @JsonProperty
     private Integer width;
 
+    /**
+     * -- SETTER --
+     *
+     * @param profile profile
+     */
+    @Setter
     @JsonProperty
     private String profile;
 
@@ -44,14 +54,6 @@ public class Service {
 
     @JsonProperty
     private Object tiles;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     /**
      * @return String
@@ -77,10 +79,4 @@ public class Service {
         return this.profile;
     }
 
-    /**
-     * @param profile profile
-     */
-    public void setProfile(final String profile) {
-        this.profile = profile;
-    }
 }

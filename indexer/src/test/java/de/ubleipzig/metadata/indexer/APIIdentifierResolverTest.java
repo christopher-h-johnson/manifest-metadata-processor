@@ -36,6 +36,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
 
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.jena.JenaRDF;
 import org.jsoup.Jsoup;
@@ -50,8 +52,8 @@ import org.trellisldp.client.LdpClientException;
 import org.trellisldp.client.LdpClientImpl;
 
 @Disabled
+@Slf4j
 public class APIIdentifierResolverTest {
-    private static Logger logger = LoggerFactory.getLogger(APIIdentifierResolverTest.class);
     private static final JenaRDF rdf = new JenaRDF();
     private final LdpClient client = new LdpClientImpl();
 
@@ -72,13 +74,13 @@ public class APIIdentifierResolverTest {
                 final URI uri = new URI(identifier.getIRIString());
                 final HttpRequest req = HttpRequest.newBuilder(uri).method("HEAD", noBody()).build();
                 final HttpResponse<String> response = client.send(req, ofString());
-                logger.info("Identifier {} returned response code {}", identifier.getIRIString(),
+                log.info("Identifier {} returned response code {}", identifier.getIRIString(),
                         String.valueOf(response.statusCode()));
                 if (response.statusCode() == 200) {
                     list.add(identifier.getIRIString());
                 }
             } catch (InterruptedException | IOException | URISyntaxException e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
             }
         }
         return list;
@@ -94,13 +96,13 @@ public class APIIdentifierResolverTest {
                 final URI uri = new URI(identifier.getIRIString());
                 final HttpRequest req = HttpRequest.newBuilder(uri).method("HEAD", noBody()).build();
                 final HttpResponse<String> response = client.send(req, ofString());
-                logger.info("Identifier {} returned response code {}", identifier.getIRIString(),
+                log.info("Identifier {} returned response code {}", identifier.getIRIString(),
                         String.valueOf(response.statusCode()));
                 if (response.statusCode() == 200) {
                     list.add(identifier.getIRIString());
                 }
             } catch (InterruptedException | IOException | URISyntaxException e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
             }
         }
         return list;
@@ -118,13 +120,13 @@ public class APIIdentifierResolverTest {
                 final URI uri = new URI(identifier.getIRIString());
                 final HttpRequest req = HttpRequest.newBuilder(uri).method("HEAD", noBody()).build();
                 final HttpResponse<String> response = client.send(req, ofString());
-                logger.info("Identifier {} returned response code {}", identifier.getIRIString(),
+                log.info("Identifier {} returned response code {}", identifier.getIRIString(),
                         String.valueOf(response.statusCode()));
                 if (response.statusCode() == 200) {
                     list.add(identifier.getIRIString());
                 }
             } catch (InterruptedException | IOException | URISyntaxException e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
             }
         }
         return list;
@@ -160,14 +162,12 @@ public class APIIdentifierResolverTest {
         });
     }
 
-    class APIIdentifierCollection {
+    @Setter
+    static class APIIdentifierCollection {
 
         @JsonProperty
         private List<String> identifiers;
 
-        public void setIdentifiers(List<String> identifiers) {
-            this.identifiers = identifiers;
-        }
     }
 
     @Test
@@ -184,7 +184,7 @@ public class APIIdentifierResolverTest {
                 list.add(id);
             });
         } catch (LdpClientException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         collection.setIdentifiers(list);
         final String out = JsonSerializer.serialize(collection).orElse("");

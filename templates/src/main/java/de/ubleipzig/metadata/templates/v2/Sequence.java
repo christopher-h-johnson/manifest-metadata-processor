@@ -19,6 +19,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import de.ubleipzig.iiif.vocabulary.SCEnum;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -29,6 +33,10 @@ import java.util.List;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({"@id", "@type", "viewingHint", "canvases"})
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class Sequence {
 
     @JsonProperty("@context")
@@ -57,48 +65,5 @@ public class Sequence {
 
     @JsonProperty
     private List<Canvas> canvases;
-
-    public Sequence() {
-    }
-
-    /**
-     * @param id String
-     */
-    public void setId(final String id) {
-        this.id = id;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * @param type String
-     */
-    public void setType(final String type) {
-        this.type = type;
-    }
-
-    /**
-     * @param canvases List
-     */
-    public void setCanvases(final List<Canvas> canvases) {
-        this.canvases = canvases;
-    }
-
-    /**
-     * @return List
-     */
-    public List<Canvas> getCanvases() {
-        return canvases;
-    }
-
-    /**
-     * @param viewingHint String
-     */
-    public void setViewingHint(final String viewingHint) {
-        this.viewingHint = viewingHint;
-    }
-
 
 }

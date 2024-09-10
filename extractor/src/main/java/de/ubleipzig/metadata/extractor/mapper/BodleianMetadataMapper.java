@@ -39,12 +39,13 @@ import java.util.Optional;
 import java.util.SplittableRandom;
 import java.util.stream.Collectors;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+@Slf4j
 public class BodleianMetadataMapper {
-    private static final Logger LOGGER = LoggerFactory.getLogger(BodleianMetadataMapper.class);
+
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private String body;
 
@@ -195,55 +196,55 @@ public class BodleianMetadataMapper {
                         metadataMap.put("catalogueId", catalogueId.get());
                     }
                 }
-                if (subjects.size() > 0) {
+                if (!subjects.isEmpty()) {
                     metadataMap.put("subjects", subjects);
                 }
-                if (types.size() > 0) {
+                if (!types.isEmpty()) {
                     metadataMap.put("types", types);
                 }
-                if (descriptions.size() > 0) {
+                if (!descriptions.isEmpty()) {
                     metadataMap.put("descriptions", descriptions);
                 }
-                if (formats.size() > 0) {
+                if (!formats.isEmpty()) {
                     metadataMap.put("formats", formats);
                 }
-                if (contributors.size() > 0) {
+                if (!contributors.isEmpty()) {
                     metadataMap.put("contributors", contributors);
                 }
-                if (identifiers.size() > 0) {
+                if (!identifiers.isEmpty()) {
                     metadataMap.put("identifiers", identifiers);
                 }
-                if (titles.size() > 0) {
+                if (!titles.isEmpty()) {
                     metadataMap.put("titles", titles);
                 }
-                if (coverages.size() > 0) {
+                if (!coverages.isEmpty()) {
                     metadataMap.put("coverages", coverages);
                 }
-                if (sources.size() > 0) {
+                if (!sources.isEmpty()) {
                     metadataMap.put("sources", sources);
                 }
-                if (incipits.size() > 0) {
+                if (!incipits.isEmpty()) {
                     metadataMap.put("incipits", incipits);
                 }
-                if (languages.size() > 0) {
+                if (!languages.isEmpty()) {
                     metadataMap.put("languages", languages);
                 }
-                if (displayLanguages.size() > 0) {
+                if (!displayLanguages.isEmpty()) {
                     metadataMap.put("displayLanguages", displayLanguages);
                 }
-                if (collections.size() > 0) {
+                if (!collections.isEmpty()) {
                     metadataMap.put("collections", collections);
                 }
-                if (dates.size() > 0) {
+                if (!dates.isEmpty()) {
                     metadataMap.put("dates", dates);
                 }
-                if (alternatives.size() > 0) {
+                if (!alternatives.isEmpty()) {
                     metadataMap.put("alternatives", alternatives);
                 }
-                if (creators.size() > 0) {
+                if (!creators.isEmpty()) {
                     metadataMap.put("creators", creators);
                 }
-                if (locations.size() > 0) {
+                if (!locations.isEmpty()) {
                     metadataMap.put("locations", locations);
                 }
             }
@@ -281,26 +282,22 @@ public class BodleianMetadataMapper {
             //set license  (only if string)
             final Optional<?> license = ofNullable(manifest.getLicense());
             if (license.isPresent()) {
-                final Optional<String> lisc = license.filter(String.class::isInstance).map(String.class::cast);
+                final Optional<String> lisc = license.map(String.class::cast);
                 lisc.ifPresent(s -> metadataMap.put("license", s));
             }
 
             //set attribution  (only if string)
             final Optional<?> attribution = ofNullable(manifest.getAttribution());
             if (attribution.isPresent()) {
-                final Optional<String> attr = attribution.filter(String.class::isInstance).map(String.class::cast);
+                final Optional<String> attr = attribution.map(String.class::cast);
                 attr.ifPresent(s -> metadataMap.put("attribution", s));
             }
             final BodleianMetadataMap map = new BodleianMetadataMap();
             map.setMetadataMap(metadataMap);
             final Optional<String> json = serialize(map);
             return json.orElse(null);
-        } catch (JsonParseException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return null;
     }

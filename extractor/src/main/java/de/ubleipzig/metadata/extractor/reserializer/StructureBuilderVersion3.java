@@ -62,11 +62,11 @@ public class StructureBuilderVersion3 {
                 }
             }
 
-            final String structureId = s.getStructureId();
+            final String structureId = s.getId();
             if (!structureId.contains("LOG") || !structureId.contains("r0")) {
                 if (ai.get() == 0) {
                     final String newStructureId = baseUrl + viewId + separator + structureBase + separator + "LOG_0000";
-                    backReferenceMap.put(s.getStructureId(), newStructureId);
+                    backReferenceMap.put(s.getId(), newStructureId);
                     //unset within (fix for early manifests)
                     s.setWithin(null);
                     ai.getAndIncrement();
@@ -74,7 +74,7 @@ public class StructureBuilderVersion3 {
                     final String newStructureId =
                             baseUrl + viewId + separator + structureBase + separator + "LOG_" + String.format(
                             "%04d", ai.getAndIncrement());
-                    backReferenceMap.put(s.getStructureId(), newStructureId);
+                    backReferenceMap.put(s.getId(), newStructureId);
                     //unset within (fix for early manifests)
                     s.setWithin(null);
                 }
@@ -86,7 +86,7 @@ public class StructureBuilderVersion3 {
         final List<Item> newStructures = new ArrayList<>();
         for (Structure struct : structures) {
             final Item newStructure = new Item();
-            final Object structureLabel = struct.getStructureLabel();
+            final Object structureLabel = struct.getLabel();
             final Map<String, List<String>> labelMap = buildLabelMap((String) structureLabel, "de");
             newStructure.setLabel(labelMap);
             final Optional<List<String>> fr = ofNullable(struct.getRanges());
@@ -114,7 +114,7 @@ public class StructureBuilderVersion3 {
             final Stream<Item> combinedItems = Stream.concat(newRanges.stream(), newCanvases.stream());
             final List<Item> newItems = combinedItems.collect(Collectors.toList());
             newStructure.setItems(newItems);
-            final String structId = struct.getStructureId();
+            final String structId = struct.getId();
             final String newStructId = backReferenceMap.get(structId);
             newStructure.setId(newStructId);
             final String sId;

@@ -18,6 +18,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import de.ubleipzig.iiif.vocabulary.SCEnum;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -27,6 +31,10 @@ import java.util.List;
  * @author christopher-johnson
  */
 @JsonPropertyOrder({"@id", "@type", "label", "viewingHint", "ranges"})
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class TopStructure extends Structure {
 
     @JsonProperty("@id")
@@ -46,39 +54,5 @@ public class TopStructure extends Structure {
 
     @JsonProperty("ranges")
     private List<String> ranges;
-
-    /**
-     *
-     */
-    public TopStructure() {
-    }
-
-    /**
-     * @param id String
-     */
-    public void setStructureId(final String id) {
-        this.id = id;
-    }
-
-    /**
-     * @param structureLabel String
-     */
-    public void setStructureLabel(final String structureLabel) {
-        this.label = structureLabel;
-    }
-
-    /**
-     * @return List
-     */
-    public List<String> getRanges() {
-        return this.ranges;
-    }
-
-    /**
-     * @param ranges List
-     */
-    public void setRanges(final List<String> ranges) {
-        this.ranges = ranges;
-    }
 
 }

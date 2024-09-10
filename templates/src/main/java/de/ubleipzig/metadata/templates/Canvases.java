@@ -17,11 +17,14 @@ package de.ubleipzig.metadata.templates;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 public class Canvases {
 
+    @Getter
     @JsonIgnoreProperties({"label", "thumbnail", "seeAlso", "height", "width", "otherContent"})
 
     @JsonProperty("@id")
@@ -30,6 +33,12 @@ public class Canvases {
     @JsonProperty("@type")
     private String type;
 
+    /**
+     * -- SETTER --
+     *
+     * @param label String
+     */
+    @Setter
     @JsonProperty
     private String label;
 
@@ -48,20 +57,10 @@ public class Canvases {
     @JsonProperty
     private List<Object> otherContent;
 
+    @Setter
+    @Getter
     @JsonProperty
     private List<Images> images;
-
-    public List<Images> getImages() {
-        return images;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setImages(List<Images> images) {
-        this.images = images;
-    }
 
     /**
      * @return String
@@ -71,11 +70,4 @@ public class Canvases {
         return this.label;
     }
 
-    /**
-     *
-     * @param label String
-     */
-    public void setLabel(final String label) {
-        this.label = label;
-    }
 }

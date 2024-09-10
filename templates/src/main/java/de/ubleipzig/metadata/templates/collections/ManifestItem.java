@@ -17,29 +17,40 @@ package de.ubleipzig.metadata.templates.collections;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import de.ubleipzig.metadata.templates.Metadata;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 public class ManifestItem {
 
+    @Setter
+    @Getter
     @JsonProperty("@id")
     private String id;
 
+    @Setter
+    @Getter
     @JsonProperty("@type")
     private String type;
 
+    @Setter
+    @Getter
     @JsonProperty
     private String label;
 
+    @Getter
     @JsonProperty
     private String thumbnail;
 
+    @Getter
     @JsonProperty
     private List<Related> related;
 
     @JsonProperty
     private String description;
 
+    @Getter
     @JsonProperty
     private List<Metadata> metadata;
 
@@ -47,15 +58,13 @@ public class ManifestItem {
     private SeeAlso seeAlso;
 
     private static class SeeAlso {
+        @Getter
         @JsonProperty("@id")
         private String id;
 
         @JsonProperty
         private String format;
 
-        public String getId() {
-            return id;
-        }
     }
 
     private static class Related {
@@ -80,39 +89,4 @@ public class ManifestItem {
     @JsonProperty
     private String location;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public String getThumbnail() {
-        return thumbnail;
-    }
-
-    public List<Related> getRelated() {
-        return related;
-    }
-
-    public List<Metadata> getMetadata() {
-        return metadata;
-    }
 }

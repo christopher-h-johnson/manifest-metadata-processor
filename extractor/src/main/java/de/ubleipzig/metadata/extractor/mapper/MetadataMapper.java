@@ -14,50 +14,40 @@
 
 package de.ubleipzig.metadata.extractor.mapper;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+import de.ubleipzig.metadata.templates.Metadata;
+import de.ubleipzig.metadata.templates.v2.*;
+import lombok.extern.slf4j.Slf4j;
+
+import java.io.IOException;
+import java.time.Instant;
+import java.util.*;
+import java.util.stream.Collectors;
+
 import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
 import static java.util.Optional.ofNullable;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import de.ubleipzig.metadata.templates.BodleianMetadataMap;
-import de.ubleipzig.metadata.templates.Metadata;
-import de.ubleipzig.metadata.templates.v2.Body;
-import de.ubleipzig.metadata.templates.v2.Canvas;
-import de.ubleipzig.metadata.templates.v2.PaintingAnnotation;
-import de.ubleipzig.metadata.templates.v2.PerfectManifest;
-import de.ubleipzig.metadata.templates.v2.Sequence;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.SplittableRandom;
-import java.util.stream.Collectors;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-
+@Slf4j
 public class MetadataMapper {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MetadataMapper.class);
-    private static final ObjectMapper MAPPER = new ObjectMapper();
-    private String body;
+
+    private static final ObjectMapper MAPPER = new ObjectMapper()
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    private final String body;
 
     public MetadataMapper(final String body) {
         this.body = body;
     }
 
-    private String getRandomImageAsThumbnail(final PerfectManifest manifest, final Boolean getFirst) {
+    private String getRandomImageAsThumbnail(final PerfectManifest manifest) {
         final Optional<List<Sequence>> seq = ofNullable(manifest.getSequences());
         if (seq.isPresent()) {
             final List<Canvas> canvases = seq.get().get(0).getCanvases();
             final int canvasCount = canvases.size();
-            if (canvasCount == 1 || getFirst) {
+            if (canvasCount == 1) {
                 final List<PaintingAnnotation> images = canvases.get(0).getImages();
                 final Body res = images.get(0).getBody();
                 return res.getService().getId();
@@ -77,12 +67,8 @@ public class MetadataMapper {
         try {
             return MAPPER.readValue(body, new TypeReference<PerfectManifest>() {
             });
-        } catch (JsonParseException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         throw new RuntimeException();
     }
@@ -90,18 +76,18 @@ public class MetadataMapper {
     public String build() {
         PerfectManifest manifest = mapManifest();
 
-        final Map<Object, Object> metadataMap = new HashMap<>();
+        Multimap<String, String> metadataMap = ArrayListMultimap.create();
 
         //get Manifest Id
         final Optional<String> id = ofNullable(manifest.getId());
         id.ifPresent(t -> metadataMap.put("manifest", id.get()));
-
+        metadataMap.put("lastUpdated", String.valueOf(Instant.now()));
         //get Thumbnail
         //final Optional<Object> thumbnail = ofNullable(manifest.getThumbnail());
         final Optional<String> thumb;
-        thumb = ofNullable(getRandomImageAsThumbnail(manifest, false));
+        thumb = ofNullable(getRandomImageAsThumbnail(manifest));
         thumb.ifPresent(t -> metadataMap.put("thumbnail", t));
-        if (!thumb.isPresent()) {
+        if (thumb.isEmpty()) {
             return null;
         }
         final String title = manifest.getLabel();
@@ -153,14 +139,14 @@ public class MetadataMapper {
         //set license  (only if string)
         final Optional<?> license = ofNullable(manifest.getLicense());
         if (license.isPresent()) {
-            final Optional<String> lisc = license.filter(String.class::isInstance).map(String.class::cast);
+            final Optional<String> lisc = license.map(String.class::cast);
             lisc.ifPresent(s -> metadataMap.put("license", s));
         }
 
         //set attribution  (only if string)
         final Optional<?> attribution = ofNullable(manifest.getAttribution());
         if (attribution.isPresent()) {
-            final Optional<String> attr = attribution.filter(String.class::isInstance).map(String.class::cast);
+            final Optional<String> attr = attribution.map(String.class::cast);
             attr.ifPresent(s -> metadataMap.put("attribution", s));
         }
 
@@ -183,7 +169,7 @@ public class MetadataMapper {
                 String englishLabel = labels.get("en");
                 metadataMap.put(englishLabel, v.get());
             } else if (l.isPresent() & vl.isPresent()) {
-                metadataMap.put(l.get(), vl.get());
+                metadataMap.put(l.get(), vl.get().toString());
             } else if (ll.isPresent() & vl.isPresent()) {
                 @SuppressWarnings("unchecked") final List<Map<String, String>> labelList =
                         (List<Map<String, String>>) ll.get();
@@ -206,8 +192,16 @@ public class MetadataMapper {
                 // String vals = s.stream().map(Object::toString).collect(Collectors.joining(","));
             }
         }));
-        final BodleianMetadataMap map = new BodleianMetadataMap();
-        map.setMetadataMap(metadataMap);
+        Map<String, Object> newMap = new HashMap<>();
+
+        metadataMap.asMap().forEach((key, value) -> {
+            if (value.size() == 1) {
+                newMap.put(key, value.stream().findFirst().orElse(null));
+            } else {
+                newMap.put(key, value);
+            }
+        });
+        MultivalueMetadataMap map = MultivalueMetadataMap.builder().metadataMap(newMap).build();
         final Optional<String> json = serialize(map);
         return json.orElse(null);
     }
