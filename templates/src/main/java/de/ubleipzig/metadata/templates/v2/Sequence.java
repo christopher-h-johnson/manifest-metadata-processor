@@ -19,7 +19,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import de.ubleipzig.iiif.vocabulary.SCEnum;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -31,27 +33,18 @@ import java.util.List;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({"@id", "@type", "viewingHint", "canvases"})
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class Sequence {
 
     @JsonProperty("@context")
     private String context;
 
-    /**
-     * -- SETTER --
-     *
-     * @param id String
-     */
-    @Getter
-    @Setter
     @JsonProperty("@id")
     private String id;
 
-    /**
-     * -- SETTER --
-     *
-     * @param type String
-     */
-    @Setter
     @JsonProperty("@type")
     private String type = SCEnum.Sequence.compactedIRI();
 
@@ -61,12 +54,6 @@ public class Sequence {
     @JsonProperty
     private List<Object> rendering;
 
-    /**
-     * -- SETTER --
-     *
-     * @param viewingHint String
-     */
-    @Setter
     @JsonProperty
     private String viewingHint;
 
@@ -76,22 +63,7 @@ public class Sequence {
     @JsonProperty
     private String viewingDirection;
 
-    /**
-     * -- SETTER --
-     *
-     *
-     * -- GETTER --
-     *
-     @param canvases List
-      * @return List
-     */
-    @Getter
-    @Setter
     @JsonProperty
     private List<Canvas> canvases;
-
-    public Sequence() {
-    }
-
 
 }

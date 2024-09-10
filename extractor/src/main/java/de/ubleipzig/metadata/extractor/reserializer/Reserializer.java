@@ -124,17 +124,17 @@ public class Reserializer {
 
                         //createBody
                         bodyObj.setService(service);
-                        bodyObj.setResourceHeight(height);
-                        bodyObj.setResourceWidth(width);
-                        bodyObj.setResourceType("dctypes:Image");
-                        bodyObj.setResourceFormat("image/jpeg");
+                        bodyObj.setHeight(height);
+                        bodyObj.setWidth(width);
+                        bodyObj.setType("dctypes:Image");
+                        bodyObj.setFormat("image/jpeg");
                         String resourceId = i.getResource().getResourceId();
                         //hack for Mirador file extension check
                         if (resourceId.contains("jpx")) {
                             final String jpgResource = resourceId.replace("jpx", "jpg");
-                            bodyObj.setResourceId(jpgResource);
+                            bodyObj.setId(jpgResource);
                         } else {
-                            bodyObj.setResourceId(resourceId);
+                            bodyObj.setId(resourceId);
                         }
                         bodyObj.setLabel(i.getResource().getLabel());
                     }

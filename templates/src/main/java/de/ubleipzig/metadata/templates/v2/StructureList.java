@@ -13,6 +13,11 @@
  */
 package de.ubleipzig.metadata.templates.v2;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.List;
 
 /**
@@ -20,6 +25,9 @@ import java.util.List;
  *
  * @author christopher-johnson
  */
+@NoArgsConstructor
+@Setter
+@Getter
 public class StructureList {
 
     private TopStructure top;

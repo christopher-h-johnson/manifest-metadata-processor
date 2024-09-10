@@ -21,7 +21,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import de.ubleipzig.iiif.vocabulary.SCEnum;
 import de.ubleipzig.metadata.templates.Metadata;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -33,6 +35,10 @@ import java.util.List;
  */
 @JsonInclude(Include.NON_NULL)
 @JsonPropertyOrder({"@id", "@type", "label", "viewingHint", "ranges", "canvases"})
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class Structure {
 
     @JsonProperty("@id")
@@ -44,53 +50,18 @@ public class Structure {
     @JsonProperty("label")
     private Object label;
 
-    /**
-     * -- SETTER --
-     *
-     * @param within String
-     */
-    @Setter
     @JsonProperty
     private String within;
 
-    /**
-     * -- SETTER --
-     *
-     * @param ranges List
-     */
-    @Setter
     @JsonProperty("ranges")
     private List<String> ranges;
 
-    /**
-     * -- GETTER --
-     *
-     *
-     * -- SETTER --
-     *
-     @return List
-      * @param canvases List
-     */
-    @Setter
-    @Getter
     @JsonProperty("canvases")
     private List<String> canvases;
 
-    /**
-     * -- SETTER --
-     *
-     * @param viewingHint String
-     */
-    @Setter
     @JsonProperty("viewingHint")
     private String viewingHint;
 
-    /**
-     * -- SETTER --
-     *
-     * @param metadata List
-     */
-    @Setter
     @JsonProperty("metadata")
     private List<Metadata> metadata;
 
@@ -105,80 +76,5 @@ public class Structure {
 
     @JsonProperty("license")
     private String license;
-
-    /**
-     *
-     */
-    public Structure() {
-    }
-
-    /**
-     * @param structureType String
-     */
-    public void setStructureType(final String structureType) {
-        this.type = structureType;
-    }
-
-    /**
-     * @return String
-     */
-    @JsonIgnore
-    public Object getStructureLabel() {
-        return label;
-    }
-
-    /**
-     * @param structureLabel String
-     */
-    public void setStructureLabel(final String structureLabel) {
-        this.label = structureLabel;
-    }
-
-    /**
-     * @return String
-     */
-    @JsonIgnore
-    public String getViewingHint() {
-        return viewingHint;
-    }
-
-    /**
-     * @return String
-     */
-    @JsonIgnore
-    public String getWithin() {
-        return within;
-    }
-
-    /**
-     * @return String
-     */
-    @JsonIgnore
-    public String getStructureId() {
-        return id;
-    }
-
-    /**
-     * @param id String
-     */
-    public void setStructureId(final String id) {
-        this.id = id;
-    }
-
-    /**
-     * @return List
-     */
-    @JsonIgnore
-    public List<String> getRanges() {
-        return ranges;
-    }
-
-    /**
-     * @return List
-     */
-    @JsonIgnore
-    public List<Metadata> getMetadata() {
-        return metadata;
-    }
 
 }

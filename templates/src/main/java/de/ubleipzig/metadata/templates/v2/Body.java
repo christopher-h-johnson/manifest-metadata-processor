@@ -19,7 +19,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import de.ubleipzig.metadata.templates.Service;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -28,6 +30,10 @@ import lombok.Setter;
  * @author christopher-johnson
  */
 @JsonPropertyOrder({"id", "type", "label", "format", "height", "width", "service"})
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class Body {
 
     @JsonProperty("@id")
@@ -36,13 +42,6 @@ public class Body {
     @JsonProperty("@type")
     private String type;
 
-    /**
-     * -- SETTER --
-     *  setResourceId.
-     *
-     * @param label label
-     */
-    @Setter
     @JsonProperty
     private String label;
 
@@ -55,79 +54,7 @@ public class Body {
     @JsonProperty
     private Integer width;
 
-    /**
-     * -- SETTER --
-     *  setService.
-     *
-     *
-     * -- GETTER --
-     *
-     @param service service
-      * @return Service
-     */
-    @Getter
-    @Setter
     @JsonProperty
     private Service service;
 
-    /**
-     * TemplateBody.
-     */
-    public Body() {
-    }
-
-    /**
-     * getResourceId.
-     *
-     * @return String
-     */
-    @JsonIgnore
-    public String getResourceId() {
-        return this.id;
-    }
-
-    /**
-     * setResourceId.
-     *
-     * @param id id
-     */
-    public void setResourceId(final String id) {
-        this.id = id;
-    }
-
-    /**
-     * setResourceType.
-     *
-     * @param type label
-     */
-    public void setResourceType(final String type) {
-        this.type = type;
-    }
-
-    /**
-     * setResourceFormat.
-     *
-     * @param format format
-     */
-    public void setResourceFormat(final String format) {
-        this.format = format;
-    }
-
-    /**
-     * setResourceHeight.
-     *
-     * @param height height
-     */
-    public void setResourceHeight(final Integer height) {
-        this.height = height;
-    }
-
-    /**
-     * setResourceWidth.
-     *
-     * @param width width
-     */
-    public void setResourceWidth(final Integer width) {
-        this.width = width;
-    }
 }

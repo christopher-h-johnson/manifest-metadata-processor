@@ -22,76 +22,42 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import de.ubleipzig.iiif.vocabulary.SCEnum;
 import de.ubleipzig.metadata.templates.Metadata;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
 @JsonInclude(Include.NON_NULL)
 @JsonPropertyOrder({"@id", "@type", "label", "height", "width", "images"})
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class Canvas {
 
     @JsonProperty("@context")
     private String context;
 
-    /**
-     * -- GETTER --
-     *
-     *
-     * -- SETTER --
-     *
-     @return String
-      * @param id String
-     */
-    @Setter
-    @Getter
     @JsonProperty("@id")
     private String id;
 
     @JsonProperty("@type")
     private String type = SCEnum.Canvas.compactedIRI();
 
-    /**
-     * -- GETTER --
-     *
-     *
-     * -- SETTER --
-     *
-     @return List
-      * @param images List
-     */
-    @Setter
-    @Getter
     @JsonProperty("images")
     private List<PaintingAnnotation> images;
 
     @JsonProperty("metadata")
     private List<Metadata> metadata;
 
-    /**
-     * -- SETTER --
-     *
-     * @param label String
-     */
-    @Setter
     @JsonProperty("label")
     private String label;
 
-    /**
-     * -- SETTER --
-     *
-     * @param height int
-     */
-    @Setter
     @JsonProperty("height")
     private Integer height;
 
-    /**
-     * -- SETTER --
-     *
-     * @param width int
-     */
-    @Setter
     @JsonProperty("width")
     private Integer width;
 
@@ -106,35 +72,5 @@ public class Canvas {
 
     @JsonProperty
     private List<Object> otherContent;
-
-    /**
-     * @return int
-     */
-    public int getHeight() {
-        return height;
-    }
-
-    /**
-     * @return int
-     */
-    public int getWidth() {
-        return width;
-    }
-
-    /**
-     * @return String
-     */
-    @JsonIgnore
-    public String getLabel() {
-        return this.label;
-    }
-
-    /**
-     * @return String
-     */
-    @JsonIgnore
-    public List<Metadata> getMetadata() {
-        return this.metadata;
-    }
 
 }

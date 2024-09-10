@@ -19,6 +19,7 @@ import static java.io.File.separator;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.google.common.collect.Lists;
 import de.ubleipzig.metadata.processor.JsonSerializer;
 import de.ubleipzig.metadata.templates.MapList;
 import de.ubleipzig.metadata.templates.MapListCollection;
@@ -33,15 +34,16 @@ import de.ubleipzig.metadata.templates.collections.MDZIdentifiers;
 import de.ubleipzig.metadata.templates.collections.ManifestUUIDMap;
 import de.ubleipzig.metadata.templates.indexer.ElasticCreate;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 import java.net.http.HttpResponse;
+import java.nio.file.Files;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.rdf.api.IRI;
 import org.apache.commons.rdf.jena.JenaRDF;
 import org.junit.jupiter.api.Test;
@@ -98,13 +100,16 @@ public class IndexerTest {
     @Test
     public void testGetJsonAPI() {
         //final List<IRI> list = buildIRIList();
-        final InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/nga/ids/NGAIdentifiers-80000.json");
+        final InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/smithsonian/ids/1510-1920-2.json");
 
         try {
             MDZIdentifiers list = MAPPER.readValue(jsonList, new TypeReference<>() {
             });
-            final List<String> mdzIds = list.getIdentifiers();
+            final List<String> mdzIds = list.getIdentifiers().stream()
+                    .distinct()
+                    .collect(Collectors.toList());
             final List<MetadataMap> mapList = new ArrayList<>();
+            log.info("getting metadata for {} ids", mdzIds.size());
             mdzIds.forEach(i -> {
                 try {
                     final IRI iri = rdf.createIRI(extractorBase + i);
@@ -112,7 +117,7 @@ public class IndexerTest {
                     final String body = res.body().toString();
                     if (res.statusCode() == 200 && !body.isEmpty()) {
                         final String json = res.body().toString();
-                        final MetadataMap metadataMap = MAPPER.readValue(json, new TypeReference<MetadataMap>() {
+                        final MetadataMap metadataMap = MAPPER.readValue(json, new TypeReference<>() {
                         });
                         if (!metadataMap.getMetadataMap().isEmpty()) {
                             mapList.add(metadataMap);
@@ -126,30 +131,36 @@ public class IndexerTest {
             final MapList l = new MapList();
             l.setMapList(mapList);
             final String out = JsonSerializer.serialize(l).orElse("");
-            JsonSerializer.writeToFile(out, new File("/tmp/nga-metadata-90000.json"));
+            JsonSerializer.writeToFile(out, new File("/tmp/smithsonian-paintings-1510-1920-2.json"));
         } catch (IOException e) {
             log.error(e.getMessage());
         }
     }
 
     @Test
-    void putJsonCollectionElasticBulk3() throws LdpClientException {
+    void putJsonCollectionElasticBulk3() {
         final Indexer indexer = new Indexer();
-        final String indexName = "nga";
-        final StringBuffer sb = new StringBuffer();
+        final String indexName = "sni";
         try {
-            InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/nga.metadata/nga-metadata-90000.json");
+            InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/smithsonian.metadata/smithsonian-paintings-1510-1920-2.json");
             final MapList mapList = MAPPER.readValue(jsonList, new TypeReference<>() {
             });
             final List<MetadataMap> m = mapList.getMapList();
-            m.forEach(map -> {
-                ElasticCreate c = indexer.createDocument(indexName, getDocumentId());
-                sb.append(JsonSerializer.serializeRaw(c).orElse(""));
-                sb.append(System.lineSeparator());
-                sb.append(JsonSerializer.serializeRaw(map.getMetadataMap()).orElse(""));
-                sb.append(System.lineSeparator());
+            log.info(String.valueOf(m.size()));
+            List<List<MetadataMap>> subSets = Lists.partition(m, 1000);
+            AtomicInteger it = new AtomicInteger();
+            subSets.forEach(ss -> {
+                int i = it.getAndIncrement();
+                final StringBuffer sb = new StringBuffer();
+                ss.forEach(map -> {
+                    ElasticCreate c = indexer.createDocument(indexName, getDocumentId());
+                    sb.append(JsonSerializer.serializeRaw(c).orElse(""));
+                    sb.append(System.lineSeparator());
+                    sb.append(JsonSerializer.serializeRaw(map.getMetadataMap()).orElse(""));
+                    sb.append(System.lineSeparator());
+                });
+                JsonSerializer.writeToFile(sb.toString(), new File("/tmp/sni-2-sl" + i + ".txt"));
             });
-            JsonSerializer.writeToFile(sb.toString(), new File("/tmp/nga-metadata-bulk-9.txt"));
         } catch (IOException e) {
             log.error(e.getMessage());
         }
@@ -168,7 +179,7 @@ public class IndexerTest {
             mdzIds.forEach(i -> {
                 try {
                     final IRI iri = rdf.createIRI(extractorBase + i);
-                    final HttpResponse res = client.getResponse(iri);
+                    final HttpResponse<?> res = client.getResponse(iri);
                     if (res.statusCode() == 200) {
                         final String json = res.body().toString();
                         final MetadataMap metadataMap = MAPPER.readValue(json, new TypeReference<>() {

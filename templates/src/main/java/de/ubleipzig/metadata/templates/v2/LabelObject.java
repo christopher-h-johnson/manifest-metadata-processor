@@ -14,7 +14,15 @@
 package de.ubleipzig.metadata.templates.v2;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class LabelObject {
 
     @JsonProperty("@language")
@@ -23,19 +31,4 @@ public class LabelObject {
     @JsonProperty("@value")
     String value;
 
-    public String getLanguage() {
-        return language;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 }

@@ -88,10 +88,10 @@ public class Disassembler {
             final Map<String, List<String>> structureMap = new HashMap<>();
             final Map<String, String> structureLabelMap = new HashMap<>();
             structures.ifPresent(st -> st.forEach(s -> {
-                structureLabelMap.put(s.getStructureId(), (String) s.getStructureLabel());
+                structureLabelMap.put(s.getId(), (String) s.getLabel());
                 Optional<List<String>> canvases = ofNullable(s.getCanvases());
                 canvases.ifPresent(strings -> {
-                    structureMap.put(s.getStructureId(), strings);
+                    structureMap.put(s.getId(), strings);
                 });
             }));
 
@@ -107,8 +107,8 @@ public class Disassembler {
                     final AtomicInteger ai2 = new AtomicInteger(1);
                     structureSet.ifPresent(structs -> structs.forEach(ss -> {
                         final Structure structure = new Structure();
-                        structure.setStructureLabel(structureLabelMap.get(ss));
-                        structure.setStructureId(ss);
+                        structure.setLabel(structureLabelMap.get(ss));
+                        structure.setId(ss);
                         sMap.put(ai2.getAndIncrement(), structure);
                     }));
                     c.getImages().forEach(i -> {

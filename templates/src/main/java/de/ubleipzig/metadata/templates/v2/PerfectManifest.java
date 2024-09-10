@@ -22,7 +22,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import de.ubleipzig.iiif.vocabulary.SCEnum;
 import de.ubleipzig.metadata.templates.Metadata;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -35,63 +37,26 @@ import java.util.List;
 @JsonInclude(Include.NON_NULL)
 @JsonPropertyOrder({"@context", "@id", "@type", "label", "license", "attribution", "logo", "related", "metadata",
         "sequences", "service"})
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class PerfectManifest {
 
-    /**
-     * -- SETTER --
-     *
-     * @param context String
-     */
-    @Setter
     @JsonIgnoreProperties({"rendering", "logo"})
 
     @JsonProperty("@context")
     private String context;
 
-    /**
-     * -- GETTER --
-     *
-     *
-     * -- SETTER --
-     *
-     @return String
-      * @param id String
-     */
-    @Setter
-    @Getter
     @JsonProperty("@id")
     private String id;
 
-    /**
-     * -- SETTER --
-     *
-     * @param type String
-     */
-    @Setter
     @JsonProperty("@type")
     private String type = SCEnum.Manifest.compactedIRI();
 
-    /**
-     * -- SETTER --
-     *
-     *
-     * -- GETTER --
-     *
-     @param label String
-      * @return String
-     */
-    @Getter
-    @Setter
     @JsonProperty("label")
     private String label;
 
-    /**
-     * -- SETTER --
-     *
-     * @param license String
-     */
-    @Getter
-    @Setter
     @JsonProperty("license")
     private String license;
 
@@ -101,109 +66,33 @@ public class PerfectManifest {
     @JsonProperty
     private String within;
 
-    /**
-     * -- GETTER --
-     *
-     * @return List
-     */
-    @Getter
     @JsonProperty
     private Object description;
 
-    /**
-     * -- SETTER --
-     *
-     * @param attribution String
-     */
-    @Getter
-    @Setter
     @JsonProperty
     private String attribution;
 
-    @Getter
     @JsonProperty
     private Object thumbnail;
 
-    /**
-     * -- SETTER --
-     *
-     * @param logo String
-     */
-    @Setter
     @JsonProperty("logo")
     private Object logo;
 
-    /**
-     * -- SETTER --
-     *
-     *
-     * -- GETTER --
-     *
-     @param related List
-      * @return List
-     */
-    @Getter
-    @Setter
     @JsonProperty("related")
     private Object related;
 
-    /**
-     * -- SETTER --
-     *
-     *
-     * -- GETTER --
-     *
-     @param sequences List
-      * @return List
-     */
-    @Getter
-    @Setter
     @JsonProperty("sequences")
     private List<Sequence> sequences;
 
-    /**
-     * -- SETTER --
-     *
-     * @param service String
-     */
-    @Setter
     @JsonProperty("service")
     private  Object service;
 
-    /**
-     * -- SETTER --
-     *
-     *
-     * -- GETTER --
-     *
-     @param seeAlso List
-      * @return List
-     */
-    @Getter
-    @Setter
     @JsonProperty
     private Object seeAlso;
 
-    /**
-     * -- SETTER --
-     *
-     *
-     * -- GETTER --
-     *
-     @param metadata List
-      * @return List
-     */
-    @Getter
-    @Setter
     @JsonProperty("metadata")
     private List<Metadata> metadata;
 
-    /**
-     * -- SETTER --
-     *
-     * @param structures List
-     */
-    @Setter
     @JsonProperty("structures")
     private List<Structure> structures;
 
@@ -215,13 +104,6 @@ public class PerfectManifest {
 
     @JsonProperty
     private String navDate;
-
-    /**
-     * Manifest.
-     */
-    public PerfectManifest() {
-    }
-
 
 }
 
