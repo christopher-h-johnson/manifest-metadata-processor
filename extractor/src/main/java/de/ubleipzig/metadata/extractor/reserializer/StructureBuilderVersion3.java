@@ -19,12 +19,14 @@ import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.struc
 import static de.ubleipzig.metadata.extractor.reserializer.ReserializerUtils.buildLabelMap;
 import static de.ubleipzig.metadata.extractor.reserializer.ReserializerUtils.buildPaddedCanvases;
 import static java.io.File.separator;
+import static java.io.File.separatorChar;
 import static java.util.Optional.ofNullable;
 
 import de.ubleipzig.metadata.templates.v2.Structure;
 import de.ubleipzig.metadata.templates.v3.Item;
 import de.ubleipzig.metadata.templates.v3.MetadataVersion3;
 import de.ubleipzig.metadata.transformer.MetadataApi;
+import lombok.extern.slf4j.Slf4j;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -37,6 +39,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Slf4j
 public class StructureBuilderVersion3 {
     private final List<Structure> structures;
     private final String viewId;
@@ -119,13 +122,13 @@ public class StructureBuilderVersion3 {
             newStructure.setId(newStructId);
             final String sId;
             try {
-                sId = new URL(newStructId).getPath().split(separator)[3];
+                sId = new URL(newStructId).getPath().split(String.valueOf(separatorChar))[3];
                 //TODO
                 final Optional<List<MetadataVersion3>> structureMetadata = ofNullable(
                         metadataImplVersion3.buildStructureMetadataForId(sId));
                 //structureMetadata.ifPresent(struct::setMetadata);
             } catch (MalformedURLException e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
             }
             newStructures.add(newStructure);
         }

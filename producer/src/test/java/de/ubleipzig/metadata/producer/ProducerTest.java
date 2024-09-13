@@ -24,6 +24,7 @@ import de.ubleipzig.metadata.processor.ContextUtils;
 
 import java.util.Optional;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
@@ -33,9 +34,9 @@ import org.apache.camel.impl.JndiRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Slf4j
 public final class ProducerTest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProducerTest.class);
     private static final String HTTP_ACCEPT = "Accept";
     private static final String TYPE = "type";
     private static final String VERSION = "version";
@@ -47,7 +48,7 @@ public final class ProducerTest {
     }
 
     public static void main(final String[] args) throws Exception {
-        LOGGER.info("About to run IIIF Producer API...");
+        log.info("About to run IIIF Producer API...");
         final JndiRegistry registry = new JndiRegistry(ContextUtils.createInitialContext());
         final CamelContext camelContext = new DefaultCamelContext(registry);
 

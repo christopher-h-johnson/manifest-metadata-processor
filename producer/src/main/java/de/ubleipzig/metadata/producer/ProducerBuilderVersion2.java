@@ -56,16 +56,17 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.rdf.api.IRI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Slf4j
 public class ProducerBuilderVersion2 {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProducerBuilderVersion2.class);
     private static final ObjectMapper MAPPER = new ObjectMapper();
-    private String xmldbHost;
-    private MetsData mets;
+    private final String xmldbHost;
+    private final MetsData mets;
 
     public ProducerBuilderVersion2(final String xmlDoc, final String xmldbHost) {
         this.xmldbHost = xmldbHost;
@@ -181,24 +182,24 @@ public class ProducerBuilderVersion2 {
             //set Canvas Id
             canvas.setId(canvasIdString);
             //set BodyId
-            body.setResourceId(bodyIdString);
+            body.setId(bodyIdString);
 
             //getDimensionsFromImageService
             InputStream is = null;
             try {
                 is = new URL(serviceIRI.getIRIString() + "/info.json").openStream();
             } catch (IOException e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
             }
             final ImageServiceResponse ir = mapServiceResponse(is);
             final Integer height = ir.getHeight();
             final Integer width = ir.getWidth();
             canvas.setWidth(width);
             canvas.setHeight(height);
-            body.setResourceType(config.getResourceType());
-            body.setResourceFormat(config.getResourceFormat());
-            body.setResourceWidth(width);
-            body.setResourceHeight(height);
+            body.setType(config.getResourceType());
+            body.setFormat(config.getResourceFormat());
+            body.setWidth(width);
+            body.setHeight(height);
 
             //build Service
             final Service service = new Service();
@@ -222,7 +223,7 @@ public class ProducerBuilderVersion2 {
         final List<Sequence> sequence = addCanvasesToSequence(canvases, sequenceId, config);
         manifest.setSequences(sequence);
 
-        LOGGER.info("Builder Process Complete, Serializing to Json ...");
+        log.info("Builder Process Complete, Serializing to Json ...");
         final Optional<String> json = serialize(manifest);
         return json.orElse(null);
     }

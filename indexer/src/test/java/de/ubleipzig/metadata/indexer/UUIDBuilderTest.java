@@ -38,7 +38,7 @@ public class UUIDBuilderTest {
     @Test
     void buildManifestUUIDs() throws IOException {
         final InputStream is = UUIDBuilderTest.class.getResourceAsStream("/data/harvardArt-manifests.json");
-        final PagedCollection pc = MAPPER.readValue(is, new TypeReference<PagedCollection>() {
+        final PagedCollection pc = MAPPER.readValue(is, new TypeReference<>() {
         });
         final Map<String, Map<String, String>> manifestMap = new HashMap<>();
         final List<ManifestItem> manifests = pc.getManifests();
@@ -62,7 +62,7 @@ public class UUIDBuilderTest {
         try {
             URL dir = UUIDBuilderTest.class.getClassLoader().getResource("data/wales/ids");
             final Map<String, Map<String, String>> manifestMap = new HashMap<>();
-            File folder = new File(dir.toURI());
+            File folder = new File(dir != null ? dir.toURI() : null);
             File[] listOfFiles = folder.listFiles();
             List<File> fileList = new ArrayList<>(Arrays.asList(Objects.requireNonNull(listOfFiles)));
             fileList.forEach(f -> {

@@ -29,8 +29,8 @@ import org.slf4j.LoggerFactory;
 public class MetadataBuilder {
     private static final Logger LOGGER = LoggerFactory.getLogger(MetadataBuilder.class);
     private MetadataApi<Metadata> metadataImplVersion2 = new MetadataImplVersion2();
-    private Manifest manifest;
-    private XmlDbAccessor accessor;
+    private final Manifest manifest;
+    private final XmlDbAccessor accessor;
 
     public MetadataBuilder(final Manifest manifest, final String xmldbHost) {
         this.manifest = manifest;

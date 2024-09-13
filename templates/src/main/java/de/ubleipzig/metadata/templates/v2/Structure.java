@@ -69,7 +69,7 @@ public class Structure {
     private String attribution;
 
     @JsonProperty("description")
-    private String description;
+    private Object description;
 
     @JsonProperty("logo")
     private String logo;

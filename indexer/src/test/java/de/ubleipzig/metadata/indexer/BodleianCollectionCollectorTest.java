@@ -17,11 +17,20 @@ package de.ubleipzig.metadata.indexer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.ubleipzig.metadata.processor.JsonSerializer;
 import de.ubleipzig.metadata.templates.BodleianMetadataMap;
 import de.ubleipzig.metadata.templates.collections.ManifestItem;
 import de.ubleipzig.metadata.templates.collections.ManifestList;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.rdf.api.IRI;
+import org.apache.jena.commonsrdf.JenaRDF;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.trellisldp.client.LdpClient;
+import org.trellisldp.client.LdpClientException;
+import org.trellisldp.client.LdpClientImpl;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,26 +40,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.apache.commons.rdf.api.IRI;
-import org.apache.commons.rdf.jena.JenaRDF;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.trellisldp.client.LdpClient;
-import org.trellisldp.client.LdpClientException;
-import org.trellisldp.client.LdpClientImpl;
-
 @Disabled
+@Slf4j
 public class BodleianCollectionCollectorTest {
 
     private final LdpClient client = new LdpClientImpl();
     private static final JenaRDF rdf = new JenaRDF();
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final String baseUrl = "http://localhost:9098/extractor?type=extract&m=";
-    private static final Logger LOGGER = LoggerFactory.getLogger(BodleianCollectionCollectorTest.class);
 
     @Test
     void buildCollectionsFromJson() throws IOException, LdpClientException {
@@ -70,7 +67,7 @@ public class BodleianCollectionCollectorTest {
                 metadata.put("manifest", m.getId());
                 metadataMap.setMetadataMap(metadata);
                 finalMapList.add(metadataMap);
-                LOGGER.info("adding {} to indexable metadata", identifier.getIRIString());
+                log.info("adding {} to indexable metadata", identifier.getIRIString());
             }
         }
         final BodleianMapListCollection l = new BodleianMapListCollection();
@@ -87,7 +84,7 @@ public class BodleianCollectionCollectorTest {
                     });
             return metadataMap;
         } catch (IOException e) {
-            LOGGER.info("unmappable metadata");
+            log.info("unmappable metadata");
         }
         return null;
     }

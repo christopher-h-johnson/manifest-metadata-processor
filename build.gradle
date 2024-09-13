@@ -1,7 +1,6 @@
 buildscript {
     repositories {
         mavenCentral()
-        jcenter()
     }
  }
 
@@ -11,14 +10,15 @@ plugins {
 
 ext {
     /* Dependencies */
-    camelVersion = '2.21.0'
-    commonsIoVersion = '2.6'
+    camelVersion = '2.23.1'
+    commonsIoVersion = '2.7'
     commonsRdfVersion = '0.5.0'
-    commonsRdfJenaVersion = '1.0.0-SNAPSHOT'
+    commonsRdfSimpleVersion = '0.5.0'
+    commonsRdfJenaVersion = '5.1.0'
     elasticsearchVersion = '6.2.2'
     imageMetadataVersion = '0.2.0-SNAPSHOT'
     iiifVocabularyVersion = '0.1.1'
-    jacksonVersion = '2.17.1'
+    jacksonVersion = '2.17.2'
     jsonldVersion = '0.12.0'
     leptonicaVersion = '1.75.3-1.4.1'
     lombokVersion = '1.18.34'
@@ -32,7 +32,7 @@ ext {
     activationApiVersion = '1.2.0'
     junitVersion = '5.9.3'
     jaxbVersion = '2.3.0'
-    jenaVersion = '4.0.0-SNAPSHOT'
+    jenaVersion = '5.1.0'
     activationVersion = '1.1.1'
     logbackVersion = '1.5.7'
     apiguardianVersion = '1.0.0'
@@ -62,7 +62,6 @@ allprojects { subproject ->
     group = 'de.ubleipzig'
 
     repositories {
-        jcenter()
         mavenCentral()
         maven {
             url 'https://oss.sonatype.org/content/repositories/snapshots'
@@ -84,9 +83,11 @@ subprojects {
     targetCompatibility = 1.11
 
     gradle.projectsEvaluated {
-        tasks.withType(JavaCompile) {
-            options.compilerArgs.add("-Xlint:unchecked")
-            options.compilerArgs.add("-Xlint:deprecation")
+        tasks.withType(JavaCompile).tap {
+            configureEach {
+                options.compilerArgs.add("-Xlint:unchecked")
+                options.compilerArgs.add("-Xlint:deprecation")
+            }
         }
     }
 
@@ -104,7 +105,7 @@ subprojects {
         useJUnitPlatform()
     }
 
-    task processConfig(type: Copy) {
+    tasks.register('processConfig', Copy) {
         from('src/main/cfg') {
             include '**/*.cfg'
         }

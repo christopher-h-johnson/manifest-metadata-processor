@@ -53,6 +53,8 @@ import de.ubleipzig.metadata.transformer.MetadataBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,8 +70,8 @@ import org.slf4j.LoggerFactory;
 public class Reserializer {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
-    private String body;
-    private String xmldbHost;
+    private final String body;
+    private final String xmldbHost;
 
     public Reserializer(final String body, final String xmldbHost) {
         this.body = body;
@@ -86,7 +88,7 @@ public class Reserializer {
             //build structures objects
             final Optional<List<Structure>> structures = ofNullable(manifest.getStructures());
             final List<Canvas> canvases = new ArrayList<>();
-            final String viewId = new URL(manifest.getId()).getPath().split(separator)[1];
+            final String viewId = new URI(manifest.getId()).toURL().getPath().split(separator)[1];
 
             manifest.getSequences().forEach(sq -> {
                 final AtomicInteger index = new AtomicInteger(1);
@@ -175,6 +177,8 @@ public class Reserializer {
             return json.orElse(null);
         } catch (IOException ex) {
             throw new RuntimeException("Could not Reserialize Manifest", ex.getCause());
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
         }
     }
 

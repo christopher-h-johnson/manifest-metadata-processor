@@ -24,13 +24,14 @@ import de.ubleipzig.metadata.templates.v3.MetadataVersion3;
 import java.util.List;
 import java.util.Optional;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Slf4j
 public class MetadataBuilderVersion3 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MetadataBuilderVersion3.class);
-    private Manifest manifest;
-    private XmlDbAccessor accessor;
+    private final Manifest manifest;
+    private final XmlDbAccessor accessor;
     private MetadataApi<MetadataVersion3> metadataImplVersion3 = new MetadataImplVersion3();
 
     public MetadataBuilderVersion3(final Manifest manifest, final String xmldbHost) {
@@ -70,26 +71,26 @@ public class MetadataBuilderVersion3 {
     }
 
     public MetadataApi<MetadataVersion3> buildMetadataFromPPNApi(String ppn) {
-        LOGGER.info("Getting Metadata from PPN API using {}", ppn);
+        log.info("Getting Metadata from PPN API using {}", ppn);
         final Optional<MetsMods> metsMods = ofNullable(accessor.getMetadataFromAPIwithPPN(ppn));
         metsMods.ifPresentOrElse(mets -> {
             metadataImplVersion3.setMetsMods(mets);
             metadataImplVersion3.buildFinalMetadata();
         }, () -> {
-            LOGGER.error("invalid PPN {}", ppn);
+            log.error("invalid PPN {}", ppn);
             throw new RuntimeException("Invalid PPN for manifest");
         });
         return metadataImplVersion3;
     }
 
     public MetadataApi<MetadataVersion3> buildMetadataFromURNApi(String urn) {
-        LOGGER.info("Getting Metadata from URN API using {}", urn);
+        log.info("Getting Metadata from URN API using {}", urn);
         final Optional<MetsMods> metsMods = ofNullable(accessor.getMetadataFromAPI(urn));
         metsMods.ifPresentOrElse(mets -> {
             metadataImplVersion3.setMetsMods(mets);
             metadataImplVersion3.buildFinalMetadata();
         }, () -> {
-            LOGGER.error("invalid URN {}", urn);
+            log.error("invalid URN {}", urn);
             throw new RuntimeException("Invalid URN for manifest");
         });
         return metadataImplVersion3;

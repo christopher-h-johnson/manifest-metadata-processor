@@ -15,6 +15,7 @@
 package de.ubleipzig.metadata.indexer;
 
 import static java.io.File.separator;
+import static java.io.File.separatorChar;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,17 +36,18 @@ import de.ubleipzig.metadata.templates.collections.ManifestUUIDMap;
 import de.ubleipzig.metadata.templates.indexer.ElasticCreate;
 
 import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.http.HttpResponse;
-import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.rdf.api.IRI;
-import org.apache.commons.rdf.jena.JenaRDF;
+import org.apache.jena.commonsrdf.JenaRDF;
 import org.junit.jupiter.api.Test;
 import org.trellisldp.client.LdpClient;
 import org.trellisldp.client.LdpClientException;
@@ -99,8 +101,8 @@ public class IndexerTest {
 
     @Test
     public void testGetJsonAPI() {
-        //final List<IRI> list = buildIRIList();
-        final InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/smithsonian/ids/1510-1920-2.json");
+
+        final InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/getty.ids/manifests-2.json");
 
         try {
             MDZIdentifiers list = MAPPER.readValue(jsonList, new TypeReference<>() {
@@ -108,43 +110,50 @@ public class IndexerTest {
             final List<String> mdzIds = list.getIdentifiers().stream()
                     .distinct()
                     .collect(Collectors.toList());
-            final List<MetadataMap> mapList = new ArrayList<>();
             log.info("getting metadata for {} ids", mdzIds.size());
-            mdzIds.forEach(i -> {
-                try {
-                    final IRI iri = rdf.createIRI(extractorBase + i);
-                    final HttpResponse<?> res = client.getResponse(iri);
-                    final String body = res.body().toString();
-                    if (res.statusCode() == 200 && !body.isEmpty()) {
-                        final String json = res.body().toString();
-                        final MetadataMap metadataMap = MAPPER.readValue(json, new TypeReference<>() {
-                        });
-                        if (!metadataMap.getMetadataMap().isEmpty()) {
-                            mapList.add(metadataMap);
-                            log.info("adding {} to indexable metadata", iri.getIRIString());
+            List<List<String>> subSets = Lists.partition(mdzIds, 5000);
+            AtomicInteger it = new AtomicInteger();
+            subSets.forEach(ss -> {
+                final List<MetadataMap> mapList = new ArrayList<>();
+                int i = it.getAndIncrement();
+                ss.forEach(id -> {
+
+                    try {
+                        final IRI iri = rdf.createIRI(extractorBase + id);
+                        final HttpResponse<?> res = client.getResponse(iri);
+                        final String body = res.body().toString();
+                        if (res.statusCode() == 200 && !body.isEmpty()) {
+                            final String json = res.body().toString();
+                            final MetadataMap metadataMap = MAPPER.readValue(json, new TypeReference<>() {
+                            });
+                            if (!metadataMap.getMetadataMap().isEmpty()) {
+                                mapList.add(metadataMap);
+                                log.info("adding {} to indexable metadata", id);
+                            }
                         }
+                    } catch (LdpClientException | IOException e) {
+                        log.error(e.getMessage());
                     }
-                } catch (LdpClientException | IOException e) {
-                    log.error(e.getMessage());
-                }
+                 });
+                final MapList l = new MapList();
+                l.setMapList(mapList);
+                final String out = JsonSerializer.serialize(l).orElse("");
+                JsonSerializer.writeToFile(out, new File("/tmp/getty-metadata-2-" + i + ".json"));
             });
-            final MapList l = new MapList();
-            l.setMapList(mapList);
-            final String out = JsonSerializer.serialize(l).orElse("");
-            JsonSerializer.writeToFile(out, new File("/tmp/smithsonian-paintings-1510-1920-2.json"));
         } catch (IOException e) {
             log.error(e.getMessage());
         }
     }
 
     @Test
-    void putJsonCollectionElasticBulk3() {
+    void createBulkFormatMetadata() {
+        String filePrefix = "2-5";
         final Indexer indexer = new Indexer();
-        final String indexName = "sni";
+        final String indexName = "gty";
         try {
-            InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/smithsonian.metadata/smithsonian-paintings-1510-1920-2.json");
-            final MapList mapList = MAPPER.readValue(jsonList, new TypeReference<>() {
-            });
+            File file = new File("/tmp/getty-metadata-" + filePrefix + ".json");
+            InputStream jsonList = new FileInputStream(file);
+            final MapList mapList = MAPPER.readValue(jsonList, new TypeReference<>() {});
             final List<MetadataMap> m = mapList.getMapList();
             log.info(String.valueOf(m.size()));
             List<List<MetadataMap>> subSets = Lists.partition(m, 1000);
@@ -159,7 +168,7 @@ public class IndexerTest {
                     sb.append(JsonSerializer.serializeRaw(map.getMetadataMap()).orElse(""));
                     sb.append(System.lineSeparator());
                 });
-                JsonSerializer.writeToFile(sb.toString(), new File("/tmp/sni-2-sl" + i + ".txt"));
+                JsonSerializer.writeToFile(sb.toString(), new File("/tmp/gty-" + filePrefix + "-" + i + ".txt"));
             });
         } catch (IOException e) {
             log.error(e.getMessage());
@@ -267,7 +276,7 @@ public class IndexerTest {
         try {
             final InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/wales.metadata/wales-metadata-1128800.json");
             final CollectionMapListIdentifier mapList = MAPPER.readValue(
-                    jsonList, new TypeReference<CollectionMapListIdentifier>() {
+                    jsonList, new TypeReference<>() {
                     });
             final List<MapListCollection> m = mapList.getRootCollection();
             m.forEach(map -> {
@@ -341,11 +350,11 @@ public class IndexerTest {
         list.forEach(iri -> {
             try {
                 final String iriString = iri.getIRIString();
-                final String viewId = new URL(iriString).getQuery().split(separator)[3];
+                final String viewId = new URI(iriString).toURL().getQuery().split(String.valueOf(separatorChar))[3];
                 //final String filePath = IndexerTest.class.getResource("/data").getPath() + separator + viewId + "
                 // .json";
                 final String filePath = "/tmp/manifests" + separator + viewId + ".json";
-                final HttpResponse res = client.getResponse(iri);
+                final HttpResponse<?> res = client.getResponse(iri);
                 if (res.statusCode() == 200) {
                     final String json = res.body().toString();
                     JsonSerializer.writeToFile(json, new File(filePath));
@@ -353,7 +362,7 @@ public class IndexerTest {
                 } else {
                     log.warn("Reserializing View Id {} failed with statusCode {}", viewId, res.statusCode());
                 }
-            } catch (LdpClientException | IOException e) {
+            } catch (LdpClientException | IOException | URISyntaxException e) {
                 log.error(e.getMessage());
             }
         });

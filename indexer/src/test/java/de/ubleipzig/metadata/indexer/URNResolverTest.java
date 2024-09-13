@@ -34,7 +34,7 @@ import java.util.Optional;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.rdf.api.IRI;
-import org.apache.commons.rdf.jena.JenaRDF;
+import org.apache.jena.commonsrdf.JenaRDF;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -50,7 +50,7 @@ import org.xmlbeam.annotation.XBRead;
 public class URNResolverTest {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
-    private static XBProjector projector = new XBProjector(TO_STRING_RENDERS_XML);
+    private static final XBProjector projector = new XBProjector(TO_STRING_RENDERS_XML);
     private final LdpClient client = new LdpClientImpl();
     private static final JenaRDF rdf = new JenaRDF();
     private static final Logger LOGGER = LoggerFactory.getLogger(URNResolverTest.class);

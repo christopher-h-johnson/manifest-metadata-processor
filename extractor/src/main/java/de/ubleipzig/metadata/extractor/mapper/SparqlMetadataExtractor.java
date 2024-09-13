@@ -17,7 +17,8 @@ package de.ubleipzig.metadata.extractor.mapper;
 import static de.ubleipzig.metadata.processor.JsonLdProcessorUtils.toRDF;
 import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
 import static org.apache.commons.rdf.api.RDFSyntax.NTRIPLES;
-import static org.apache.jena.core.rdf.model.ModelFactory.createDefaultModel;
+import static org.apache.jena.rdf.model.ModelFactory.createDefaultModel;
+import static org.apache.jena.rdf.model.ModelFactory.createDefaultModel;
 
 import de.ubleipzig.metadata.processor.QueryUtils;
 import de.ubleipzig.metadata.templates.MetadataMap;
@@ -30,71 +31,71 @@ import java.util.Optional;
 import java.util.TreeMap;
 
 import org.apache.commons.rdf.api.Graph;
-import org.apache.commons.rdf.jena.JenaRDF;
-import org.apache.jena.arq.query.Query;
-import org.apache.jena.arq.query.QueryExecution;
-import org.apache.jena.arq.query.QueryExecutionFactory;
-import org.apache.jena.arq.query.QueryFactory;
-import org.apache.jena.arq.query.QuerySolution;
-import org.apache.jena.arq.query.ResultSet;
-import org.apache.jena.arq.riot.Lang;
-import org.apache.jena.arq.riot.RDFDataMgr;
-import org.apache.jena.core.rdf.model.Literal;
-import org.apache.jena.core.rdf.model.Model;
-import org.apache.jena.core.rdf.model.ModelFactory;
-import org.apache.jena.core.rdf.model.Resource;
+import org.apache.jena.commonsrdf.JenaRDF;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.QueryFactory;
+import org.apache.jena.query.QuerySolution;
+import org.apache.jena.query.ResultSet;
+import org.apache.jena.riot.Lang;
+import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.rdf.model.Literal;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Resource;
 
-public class SparqlMetadataExtractor {
-    private static final JenaRDF rdf = new JenaRDF();
-    private static final String EMPTY = "empty";
-    private String body;
-
-    public SparqlMetadataExtractor(final String body) {
-        this.body = body;
-    }
-
-    private static Graph getGraph(final InputStream stream) {
-        final Model model = createDefaultModel();
-        if (rdf.asJenaLang(NTRIPLES).isPresent()) {
-            final Lang lang = rdf.asJenaLang(NTRIPLES).get();
-            RDFDataMgr.read(model, stream, null, lang);
-            return rdf.asGraph(model);
-        }
-        return null;
-    }
-
-    public String build() throws IOException {
-        try {
-            final InputStream is = toRDF(body);
-            final Graph graph = getGraph(is);
-            final org.apache.jena.core.graph.Graph jenaGraph = rdf.asJenaGraph(Objects.requireNonNull(graph));
-            final Model model = ModelFactory.createModelForGraph(jenaGraph);
-            final String q = QueryUtils.getQuery("metadata.sparql");
-            final Query query = QueryFactory.create(q);
-            try (QueryExecution qexec = QueryExecutionFactory.create(query, model)) {
-                final ResultSet results = qexec.execSelect();
-                final Map<String, Object> metadata = new TreeMap<>();
-                if (results.hasNext()) {
-                    while (results.hasNext()) {
-                        final QuerySolution qs = results.next();
-                        final Resource id = qs.getResource("manifest");
-                        final Literal k = qs.getLiteral("k").asLiteral();
-                        final Literal v = qs.getLiteral("mvalue").asLiteral();
-                        final Literal l = qs.getLiteral("title").asLiteral();
-                        final Resource r = qs.getResource("related");
-                        metadata.put(k.getString(), v.getString());
-                        metadata.put("title", l.getString());
-                        metadata.put("related", r.getURI());
-                        metadata.put("@id", id.getURI());
-                    }
-                }
-                final MetadataMap metadataMap = new MetadataMap();
-                metadataMap.setMetadataMap(metadata);
-                final Optional<String> json = serialize(metadataMap);
-                return json.orElse(null);
-            }
-        } catch (IOException ex) {
-            throw new RuntimeException("Could not Disassemble Manifest", ex.getCause());
-        }
-    }
-}
+//public class SparqlMetadataExtractor {
+//    private static final JenaRDF rdf = new JenaRDF();
+//    private static final String EMPTY = "empty";
+//    private final String body;
+//
+//    public SparqlMetadataExtractor(final String body) {
+//        this.body = body;
+//    }
+//
+//    private static Graph getGraph(final InputStream stream) {
+//        final Model model = createDefaultModel();
+//        if (rdf.asJenaLang(NTRIPLES).isPresent()) {
+//            final Lang lang = rdf.asJenaLang(NTRIPLES).get();
+//            RDFDataMgr.read(model, stream, null, lang);
+//            return rdf.asGraph(model);
+//        }
+//        return null;
+//    }
+//
+//    public String build() throws IOException {
+//        try {
+//            final InputStream is = toRDF(body);
+//            final Graph graph = getGraph(is);
+//            final org.apache.jena.graph.Graph jenaGraph = rdf.asJenaGraph(Objects.requireNonNull(graph));
+//            final Model model = ModelFactory.createModelForGraph(jenaGraph);
+//            final String q = QueryUtils.getQuery("metadata.sparql");
+//            final Query query = QueryFactory.create(q);
+//            try (QueryExecution qexec = QueryExecutionFactory.create(query, model)) {
+//                final ResultSet results = qexec.execSelect();
+//                final Map<String, Object> metadata = new TreeMap<>();
+//                if (results.hasNext()) {
+//                    while (results.hasNext()) {
+//                        final QuerySolution qs = results.next();
+//                        final Resource id = qs.getResource("manifest");
+//                        final Literal k = qs.getLiteral("k").asLiteral();
+//                        final Literal v = qs.getLiteral("mvalue").asLiteral();
+//                        final Literal l = qs.getLiteral("title").asLiteral();
+//                        final Resource r = qs.getResource("related");
+//                        metadata.put(k.getString(), v.getString());
+//                        metadata.put("title", l.getString());
+//                        metadata.put("related", r.getURI());
+//                        metadata.put("@id", id.getURI());
+//                    }
+//                }
+//                final MetadataMap metadataMap = new MetadataMap();
+//                metadataMap.setMetadataMap(metadata);
+//                final Optional<String> json = serialize(metadataMap);
+//                return json.orElse(null);
+//            }
+//        } catch (IOException ex) {
+//            throw new RuntimeException("Could not Disassemble Manifest", ex.getCause());
+//        }
+//    }
+//}

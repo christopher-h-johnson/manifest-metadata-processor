@@ -4,8 +4,10 @@ mainClassName = 'de.ubleipzig.metadata.extractor.Extractor'
 description = 'A Camel service that assembles manifests from RDF queries'
 
 configurations {
-    all {
+    configureEach {
         exclude(group: 'commons-logging', module: 'commons-logging')
+        exclude(group: 'de.ubleipzig', module: 'jena.arq-jpms')
+        exclude(group: 'de.ubleipzig', module: 'jena.core-jpms')
         exclude(group: 'org.apache.camel', module: 'camel-core-osgi')
         exclude group: 'com.sun.xml.bind', module: 'jaxb-core'
         exclude group: 'com.sun.xml.bind', module: 'jaxb-impl'
@@ -21,16 +23,19 @@ dependencies {
     implementation project(":templates")
     implementation project(":transformer")
     implementation group: 'com.google.guava', name: 'guava', version: '33.3.0-jre'
+    implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("de.ubleipzig:iiif.vocabulary:$iiifVocabularyVersion")
     implementation("de.ubleipzig:image.metadata:$imageMetadataVersion")
-    implementation("de.ubleipzig:commons-rdf-jena-jpms:$commonsRdfJenaVersion")
+    implementation("org.apache.jena:jena-commonsrdf:$commonsRdfJenaVersion")
     implementation("javax.activation:javax.activation-api:$activationApiVersion")
     implementation("javax.xml.bind:jaxb-api:$jaxbVersion")
-    implementation("commons-io:commons-io:$commonsIoVersion")
+    implementation("commons-io:commons-io:2.7")
     implementation("org.apache.camel:camel-jetty9:$camelVersion")
     implementation("org.apache.camel:camel-http4:$camelVersion")
     implementation("org.apache.httpcomponents:httpclient-cache:$httpClientOsgiVersion")
+    implementation("org.apache.jena:jena-arq:$jenaVersion")
+    implementation("org.apache.jena:jena-core:$jenaVersion")
     implementation("org.trellisldp:trellis-client:$trellisClientVersion")
 
     testImplementation("de.ubleipzig:jena.core-jpms:$jenaVersion")

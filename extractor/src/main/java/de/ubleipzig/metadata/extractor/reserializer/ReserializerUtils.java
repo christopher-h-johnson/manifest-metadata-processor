@@ -14,9 +14,12 @@
 
 package de.ubleipzig.metadata.extractor.reserializer;
 
+import lombok.extern.slf4j.Slf4j;
+
 import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.baseUrl;
 import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.targetBase;
 import static java.io.File.separator;
+import static java.io.File.separatorChar;
 import static java.lang.String.format;
 
 import java.net.MalformedURLException;
@@ -26,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public final class ReserializerUtils {
 
     private ReserializerUtils() {
@@ -43,11 +47,11 @@ public final class ReserializerUtils {
         final List<String> paddedCanvases = new ArrayList<>();
         canvases.forEach(c -> {
             try {
-                final String paddedCanvasId = format("%08d", Integer.valueOf(new URL(c).getPath().split(separator)[3]));
+                final String paddedCanvasId = format("%08d", Integer.valueOf(new URL(c).getPath().split(String.valueOf(separatorChar))[3]));
                 final String canvas = baseUrl + viewId + separator + targetBase + separator + paddedCanvasId;
                 paddedCanvases.add(canvas);
             } catch (MalformedURLException e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
             }
         });
         return paddedCanvases;

@@ -31,14 +31,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 @Disabled
+@Slf4j
 public class ManifestReserializerTest {
     private String testManifest = "http://iiif.ub.uni-leipzig.de/0000000054/manifest.json";
     private String testManifest1 = "http://iiif.ub.uni-leipzig.de/0000000018/manifest.json";
-    private String xmldbhost = "http://workspaces.ub.uni-leipzig.de:8900";
+    private final String xmldbhost = "http://workspaces.ub.uni-leipzig.de:8900";
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @Test
@@ -50,7 +52,7 @@ public class ManifestReserializerTest {
             final Reserializer reserializer = new Reserializer(json, xmldbhost);
             System.out.println(reserializer.build());
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -63,7 +65,7 @@ public class ManifestReserializerTest {
             final Reserializer reserializer = new Reserializer(json, xmldbhost);
             System.out.println(reserializer.build());
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -76,7 +78,8 @@ public class ManifestReserializerTest {
             final ReserializerVersion3 reserializer = new ReserializerVersion3(json, xmldbhost);
             System.out.println(reserializer.build());
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+
         }
     }
 
