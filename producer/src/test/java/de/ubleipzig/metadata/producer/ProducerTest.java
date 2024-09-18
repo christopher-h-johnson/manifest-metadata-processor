@@ -14,16 +14,7 @@
 
 package de.ubleipzig.metadata.producer;
 
-import static java.util.Optional.ofNullable;
-import static org.apache.camel.Exchange.CONTENT_TYPE;
-import static org.apache.camel.Exchange.HTTP_METHOD;
-import static org.apache.camel.Exchange.HTTP_RESPONSE_CODE;
-import static org.apache.camel.builder.PredicateBuilder.and;
-
 import de.ubleipzig.metadata.processor.ContextUtils;
-
-import java.util.Optional;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
@@ -31,8 +22,12 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.JndiRegistry;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.util.Optional;
+
+import static java.util.Optional.ofNullable;
+import static org.apache.camel.Exchange.*;
+import static org.apache.camel.builder.PredicateBuilder.and;
 
 @Slf4j
 public final class ProducerTest {

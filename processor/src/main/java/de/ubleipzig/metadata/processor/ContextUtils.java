@@ -14,18 +14,17 @@
 
 package de.ubleipzig.metadata.processor;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Hashtable;
-import java.util.Properties;
+import org.apache.camel.util.IOHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-
-import org.apache.camel.util.IOHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Hashtable;
+import java.util.Properties;
 
 public final class ContextUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(ContextUtils.class);

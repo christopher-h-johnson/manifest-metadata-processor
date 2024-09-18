@@ -15,7 +15,6 @@ package de.ubleipzig.metadata.templates.atomic;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import de.ubleipzig.metadata.templates.ContentList;
 import de.ubleipzig.metadata.templates.v2.Structure;
 

@@ -16,18 +16,19 @@ package de.ubleipzig.metadata.extractor.reserializer;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.baseUrl;
 import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.targetBase;
 import static java.io.File.separator;
 import static java.io.File.separatorChar;
 import static java.lang.String.format;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Slf4j
 public final class ReserializerUtils {
@@ -47,11 +48,13 @@ public final class ReserializerUtils {
         final List<String> paddedCanvases = new ArrayList<>();
         canvases.forEach(c -> {
             try {
-                final String paddedCanvasId = format("%08d", Integer.valueOf(new URL(c).getPath().split(String.valueOf(separatorChar))[3]));
+                final String paddedCanvasId = format("%08d", Integer.valueOf(new URI(c).toURL().getPath().split(String.valueOf(separatorChar))[3]));
                 final String canvas = baseUrl + viewId + separator + targetBase + separator + paddedCanvasId;
                 paddedCanvases.add(canvas);
             } catch (MalformedURLException e) {
                 log.error(e.getMessage());
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
             }
         });
         return paddedCanvases;

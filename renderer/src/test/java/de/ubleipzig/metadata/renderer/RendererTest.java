@@ -14,11 +14,6 @@
 
 package de.ubleipzig.metadata.renderer;
 
-import static de.ubleipzig.metadata.processor.ContextUtils.createInitialContext;
-import static org.apache.camel.Exchange.CONTENT_TYPE;
-import static org.apache.camel.Exchange.HTTP_METHOD;
-import static org.apache.camel.Exchange.HTTP_RESPONSE_CODE;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
@@ -26,8 +21,9 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.JndiRegistry;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import static de.ubleipzig.metadata.processor.ContextUtils.createInitialContext;
+import static org.apache.camel.Exchange.*;
 
 @Slf4j
 public final class RendererTest {

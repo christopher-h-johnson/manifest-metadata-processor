@@ -14,24 +14,10 @@
 
 package de.ubleipzig.metadata.indexer;
 
-import static java.util.Optional.ofNullable;
-import static org.xmlbeam.XBProjector.Flags.TO_STRING_RENDERS_XML;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.ubleipzig.metadata.processor.JsonSerializer;
 import de.ubleipzig.metadata.templates.metsmods.RecordList;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.rdf.api.IRI;
 import org.apache.jena.commonsrdf.JenaRDF;
@@ -44,6 +30,18 @@ import org.trellisldp.client.LdpClientException;
 import org.trellisldp.client.LdpClientImpl;
 import org.xmlbeam.XBProjector;
 import org.xmlbeam.annotation.XBRead;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import static java.util.Optional.ofNullable;
+import static org.xmlbeam.XBProjector.Flags.TO_STRING_RENDERS_XML;
 
 @Disabled
 @Slf4j

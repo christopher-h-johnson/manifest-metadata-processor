@@ -14,28 +14,26 @@
 
 package de.ubleipzig.metadata.extractor.disassembler;
 
-import static de.ubleipzig.metadata.extractor.ExtractorUtils.IIPSRV_DEFAULT;
-import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.ubleipzig.image.metadata.templates.ImageDimensionManifest;
 import de.ubleipzig.image.metadata.templates.ImageDimensions;
 import de.ubleipzig.metadata.templates.ImageServiceResponse;
 import de.ubleipzig.metadata.templates.Manifest;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FilenameUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static de.ubleipzig.metadata.extractor.ExtractorUtils.IIPSRV_DEFAULT;
+import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
 
 @Slf4j
 public class DimensionManifestBuilder {
@@ -80,13 +78,15 @@ public class DimensionManifestBuilder {
                         //getDimensionsFromImageService
                         InputStream is = null;
                         try {
-                            final URL service = new URL(iiifService);
+                            final URL service = new URI(iiifService).toURL();
                             final String path = service.getPath();
                             final String filename = FilenameUtils.getName(path);
                             dims.setFilename(filename);
-                            is = new URL(iiifService + "/info.json").openStream();
+                            is = new URI(iiifService + "/info.json").toURL().openStream();
                         } catch (IOException ex) {
                             log.error(ex.getMessage());
+                        } catch (URISyntaxException e) {
+                            throw new RuntimeException(e);
                         }
                         final ImageServiceResponse ir = mapServiceResponse(is);
                         final Integer height = ir.getHeight();

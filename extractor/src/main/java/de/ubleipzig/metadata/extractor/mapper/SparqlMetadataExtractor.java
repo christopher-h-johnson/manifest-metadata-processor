@@ -14,37 +14,6 @@
 
 package de.ubleipzig.metadata.extractor.mapper;
 
-import static de.ubleipzig.metadata.processor.JsonLdProcessorUtils.toRDF;
-import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
-import static org.apache.commons.rdf.api.RDFSyntax.NTRIPLES;
-import static org.apache.jena.rdf.model.ModelFactory.createDefaultModel;
-import static org.apache.jena.rdf.model.ModelFactory.createDefaultModel;
-
-import de.ubleipzig.metadata.processor.QueryUtils;
-import de.ubleipzig.metadata.templates.MetadataMap;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.TreeMap;
-
-import org.apache.commons.rdf.api.Graph;
-import org.apache.jena.commonsrdf.JenaRDF;
-import org.apache.jena.query.Query;
-import org.apache.jena.query.QueryExecution;
-import org.apache.jena.query.QueryExecutionFactory;
-import org.apache.jena.query.QueryFactory;
-import org.apache.jena.query.QuerySolution;
-import org.apache.jena.query.ResultSet;
-import org.apache.jena.riot.Lang;
-import org.apache.jena.riot.RDFDataMgr;
-import org.apache.jena.rdf.model.Literal;
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.rdf.model.Resource;
-
 //public class SparqlMetadataExtractor {
 //    private static final JenaRDF rdf = new JenaRDF();
 //    private static final String EMPTY = "empty";

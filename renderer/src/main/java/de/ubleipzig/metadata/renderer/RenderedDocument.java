@@ -19,21 +19,21 @@ import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Image;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.camel.util.IOHelper;
+import org.apache.commons.io.IOUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-
-import lombok.extern.slf4j.Slf4j;
-import org.apache.camel.util.IOHelper;
-import org.apache.commons.io.IOUtils;
 
 @Slf4j
 public final class RenderedDocument {
@@ -42,7 +42,7 @@ public final class RenderedDocument {
     }
 
     public static ByteArrayOutputStream buildPdf(List<String> imageList) throws Exception {
-        final Image image = new Image(ImageDataFactory.create(new URL(imageList.get(0))));
+        final Image image = new Image(ImageDataFactory.create(new URI(imageList.get(0)).toURL()));
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         final com.itextpdf.kernel.pdf.PdfDocument pdfDoc = new com.itextpdf.kernel.pdf.PdfDocument(new PdfWriter(baos));
         final Document doc = new Document(pdfDoc, new PageSize(image.getImageWidth(), image.getImageHeight()));
@@ -50,9 +50,11 @@ public final class RenderedDocument {
         imageList.forEach(i -> {
             Image im = null;
             try {
-                im = new Image(ImageDataFactory.create(new URL(i)));
+                im = new Image(ImageDataFactory.create(new URI(i).toURL()));
             } catch (MalformedURLException e) {
                log.error(e.getMessage());
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
             }
             pdfDoc.addNewPage(new PageSize(Objects.requireNonNull(im).getImageWidth(), im.getImageHeight()));
             im.setFixedPosition(ai.get() + 1, 0, 0);
@@ -69,7 +71,7 @@ public final class RenderedDocument {
         final AtomicInteger ai = new AtomicInteger(0);
         imageList.forEach(i -> {
             try {
-                final InputStream is = new URL(i).openStream();
+                final InputStream is = new URI(i).toURL().openStream();
                 byte[] targetArray = IOUtils.toByteArray(is);
                 zos.putNextEntry(new ZipEntry(manifestTitle + ai.get() + ".jpg"));
                 zos.write(targetArray);
@@ -77,6 +79,8 @@ public final class RenderedDocument {
                 ai.getAndIncrement();
             } catch (IOException e) {
                 log.error(e.getMessage());
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
             }
         });
         IOHelper.close(zos);

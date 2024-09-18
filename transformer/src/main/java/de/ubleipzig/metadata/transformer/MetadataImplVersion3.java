@@ -14,32 +14,14 @@
 
 package de.ubleipzig.metadata.transformer;
 
-import static de.ubleipzig.metadata.transformer.MetadataApiEnum.AUTHOR;
-import static de.ubleipzig.metadata.transformer.MetadataApiEnum.COLLECTION;
-import static de.ubleipzig.metadata.transformer.MetadataApiEnum.DISPLAYORDER;
-import static de.ubleipzig.metadata.transformer.MetadataApiEnum.GND;
-import static de.ubleipzig.metadata.transformer.MetadataApiEnum.LABEL;
-import static de.ubleipzig.metadata.transformer.MetadataApiEnum.LANGUAGE;
-import static de.ubleipzig.metadata.transformer.MetadataApiEnum.MANIFESTTYPE;
-import static de.ubleipzig.metadata.transformer.MetadataApiEnum.MANUSCRIPT;
-import static de.ubleipzig.metadata.transformer.MetadataApiEnum.PHYSICAL_DESCRIPTION;
-import static de.ubleipzig.metadata.transformer.MetadataApiEnum.STRUCTTYPE;
-import static de.ubleipzig.metadata.transformer.MetadataApiEnum.SUBTITLE;
-import static java.util.Optional.ofNullable;
-
 import de.ubleipzig.metadata.templates.metsmods.MetsMods;
 import de.ubleipzig.metadata.templates.v3.MetadataVersion3;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Optional;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static de.ubleipzig.metadata.transformer.MetadataApiEnum.*;
+import static java.util.Optional.ofNullable;
 
 public class MetadataImplVersion3 extends MetadataObjectTypes implements MetadataApi<MetadataVersion3> {
     private static final ResourceBundle deutschLabels = ResourceBundle.getBundle("metadataLabels", Locale.GERMAN);

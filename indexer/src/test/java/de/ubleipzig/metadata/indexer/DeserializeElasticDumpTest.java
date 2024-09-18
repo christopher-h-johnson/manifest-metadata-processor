@@ -13,14 +13,14 @@
  */
 package de.ubleipzig.metadata.indexer;
 
-import static java.util.Optional.ofNullable;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.ubleipzig.metadata.processor.JsonSerializer;
 import de.ubleipzig.metadata.templates.collections.ManifestUUIDMap;
 import de.ubleipzig.metadata.templates.indexer.ElasticDocumentObjectDeserialize;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,9 +32,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import static java.util.Optional.ofNullable;
 
 @Disabled
 @Slf4j

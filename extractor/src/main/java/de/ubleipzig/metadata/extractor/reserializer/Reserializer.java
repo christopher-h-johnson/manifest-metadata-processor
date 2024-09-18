@@ -14,57 +14,33 @@
 
 package de.ubleipzig.metadata.extractor.reserializer;
 
-import static de.ubleipzig.metadata.extractor.ExtractorUtils.IIPSRV_DEFAULT;
-import static de.ubleipzig.metadata.extractor.disassembler.DimensionManifestBuilder.mapServiceResponse;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.annotationBase;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.baseUrl;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.domainAttribution;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.domainLicense;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.domainLogo;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.katalogUrl;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.manifestBase;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.sequenceBase;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.targetBase;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.viewerUrl;
-import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
-import static java.io.File.separator;
-import static java.lang.String.format;
-import static java.util.Optional.ofNullable;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.ubleipzig.iiif.vocabulary.IIIFEnum;
 import de.ubleipzig.iiif.vocabulary.SC;
-import de.ubleipzig.metadata.templates.Canvases;
-import de.ubleipzig.metadata.templates.ImageServiceResponse;
-import de.ubleipzig.metadata.templates.Images;
-import de.ubleipzig.metadata.templates.Manifest;
-import de.ubleipzig.metadata.templates.Metadata;
-import de.ubleipzig.metadata.templates.Service;
-import de.ubleipzig.metadata.templates.v2.Body;
-import de.ubleipzig.metadata.templates.v2.Canvas;
-import de.ubleipzig.metadata.templates.v2.PaintingAnnotation;
-import de.ubleipzig.metadata.templates.v2.PerfectManifest;
-import de.ubleipzig.metadata.templates.v2.Sequence;
-import de.ubleipzig.metadata.templates.v2.Structure;
+import de.ubleipzig.metadata.templates.*;
+import de.ubleipzig.metadata.templates.v2.*;
 import de.ubleipzig.metadata.transformer.MetadataApi;
 import de.ubleipzig.metadata.transformer.MetadataBuilder;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static de.ubleipzig.metadata.extractor.ExtractorUtils.IIPSRV_DEFAULT;
+import static de.ubleipzig.metadata.extractor.disassembler.DimensionManifestBuilder.mapServiceResponse;
+import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.*;
+import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
+import static java.io.File.separator;
+import static java.lang.String.format;
+import static java.util.Optional.ofNullable;
 
 @Slf4j
 public class Reserializer {
@@ -110,9 +86,11 @@ public class Reserializer {
                         //getDimensionsFromImageService
                         InputStream is = null;
                         try {
-                            is = new URL(iiifService + "/info.json").openStream();
+                            is = new URI(iiifService + "/info.json").toURL().openStream();
                         } catch (IOException e) {
                             log.error(e.getMessage());
+                        } catch (URISyntaxException e) {
+                            throw new RuntimeException(e);
                         }
                         final ImageServiceResponse ir = mapServiceResponse(is);
                         height = ir.getHeight();

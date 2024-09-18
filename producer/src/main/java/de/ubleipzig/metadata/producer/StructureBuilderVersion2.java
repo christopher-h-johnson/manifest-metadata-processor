@@ -13,36 +13,26 @@
  */
 package de.ubleipzig.metadata.producer;
 
-import static de.ubleipzig.metadata.producer.doc.MetsConstants.METS_PARENT_LOGICAL_ID;
-import static de.ubleipzig.metadata.producer.doc.MetsConstants.METS_STRUCTURE_TYPE;
-import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.getLogicalLabel;
-import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.getLogicalLastChildren;
-import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.getLogicalLastDescendent;
-import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.getLogicalLastParent;
-import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.getLogicalType;
-import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.getTopLogicals;
-import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.getXlinks;
-import static java.io.File.separator;
-import static java.util.Collections.synchronizedList;
-import static java.util.Comparator.comparing;
-import static java.util.Comparator.naturalOrder;
-import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.toList;
-
 import de.ubleipzig.metadata.producer.doc.MetsData;
 import de.ubleipzig.metadata.templates.Metadata;
 import de.ubleipzig.metadata.templates.v2.Structure;
 import de.ubleipzig.metadata.templates.v2.StructureList;
 import de.ubleipzig.metadata.templates.v2.TopStructure;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static de.ubleipzig.metadata.producer.doc.MetsConstants.METS_PARENT_LOGICAL_ID;
+import static de.ubleipzig.metadata.producer.doc.MetsConstants.METS_STRUCTURE_TYPE;
+import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.*;
+import static java.io.File.separator;
+import static java.util.Collections.synchronizedList;
+import static java.util.Comparator.comparing;
+import static java.util.Comparator.naturalOrder;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toList;
 
 public class StructureBuilderVersion2 {
     private final Map<String, List<MetsData.Xlink>> xlinkmap;

@@ -14,52 +14,38 @@
 
 package de.ubleipzig.metadata.producer;
 
-import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
-import static de.ubleipzig.metadata.producer.doc.MetsConstants.URN_TYPE;
-import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.getAttribution;
-import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.getLogo;
-import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.getManifestTitle;
-import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.getManuscriptIdByType;
-import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.getMetsFromString;
-import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.getOrderLabelForDiv;
-import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.getPhysicalDivs;
-import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.getPresentationUri;
-import static java.io.File.separator;
-import static java.lang.String.format;
-import static java.util.Optional.ofNullable;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-
 import de.ubleipzig.iiif.vocabulary.SC;
 import de.ubleipzig.metadata.producer.doc.MetsData;
 import de.ubleipzig.metadata.templates.ImageServiceResponse;
 import de.ubleipzig.metadata.templates.Metadata;
 import de.ubleipzig.metadata.templates.Service;
 import de.ubleipzig.metadata.templates.metsmods.MetsMods;
-import de.ubleipzig.metadata.templates.v2.Body;
-import de.ubleipzig.metadata.templates.v2.Canvas;
-import de.ubleipzig.metadata.templates.v2.PaintingAnnotation;
-import de.ubleipzig.metadata.templates.v2.PerfectManifest;
-import de.ubleipzig.metadata.templates.v2.Sequence;
-import de.ubleipzig.metadata.templates.v2.StructureList;
+import de.ubleipzig.metadata.templates.v2.*;
 import de.ubleipzig.metadata.transformer.MetadataImplVersion2;
 import de.ubleipzig.metadata.transformer.XmlDbAccessor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.rdf.api.IRI;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.rdf.api.IRI;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
+import static de.ubleipzig.metadata.producer.doc.MetsConstants.URN_TYPE;
+import static de.ubleipzig.metadata.producer.doc.MetsManifestBuilder.*;
+import static java.io.File.separator;
+import static java.io.File.separatorChar;
+import static java.lang.String.format;
+import static java.util.Optional.ofNullable;
 
 @Slf4j
 public class ProducerBuilderVersion2 {
@@ -97,11 +83,13 @@ public class ProducerBuilderVersion2 {
      */
     private String getViewId(final String presentationUri) {
         try {
-            final String presentationUriPath = new URL(presentationUri).getPath();
-            final String[] parts = presentationUriPath.split(separator);
+            final String presentationUriPath = new URI(presentationUri).toURL().getPath();
+            final String[] parts = presentationUriPath.split(String.valueOf(separatorChar));
             return parts[3];
         } catch (MalformedURLException e) {
             throw new RuntimeException("No view Id found. Exiting " + e.getMessage());
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -187,9 +175,11 @@ public class ProducerBuilderVersion2 {
             //getDimensionsFromImageService
             InputStream is = null;
             try {
-                is = new URL(serviceIRI.getIRIString() + "/info.json").openStream();
+                is = new URI(serviceIRI.getIRIString() + "/info.json").toURL().openStream();
             } catch (IOException e) {
                 log.error(e.getMessage());
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
             }
             final ImageServiceResponse ir = mapServiceResponse(is);
             final Integer height = ir.getHeight();

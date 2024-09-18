@@ -15,7 +15,6 @@ package de.ubleipzig.metadata.transformer;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.ubleipzig.metadata.templates.ISO639;
 
 import java.io.IOException;

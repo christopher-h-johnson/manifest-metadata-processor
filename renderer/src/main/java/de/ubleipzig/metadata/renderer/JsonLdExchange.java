@@ -14,21 +14,16 @@
 
 package de.ubleipzig.metadata.renderer;
 
-import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
-import static de.ubleipzig.metadata.renderer.RenderedDocument.buildImageZip;
-import static de.ubleipzig.metadata.renderer.RenderedDocument.buildPdf;
-import static java.nio.charset.StandardCharsets.UTF_8;
-import static java.util.Optional.ofNullable;
-import static org.apache.camel.Exchange.CONTENT_TYPE;
-import static org.apache.camel.Exchange.HTTP_QUERY;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.jsonldjava.core.JsonLdError;
-
 import de.ubleipzig.metadata.templates.Manifest;
 import de.ubleipzig.metadata.templates.Sequences;
 import de.ubleipzig.metadata.templates.ServiceCount;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.camel.Exchange;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -40,10 +35,13 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import lombok.extern.slf4j.Slf4j;
-import org.apache.camel.Exchange;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
+import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
+import static de.ubleipzig.metadata.renderer.RenderedDocument.buildImageZip;
+import static de.ubleipzig.metadata.renderer.RenderedDocument.buildPdf;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.util.Optional.ofNullable;
+import static org.apache.camel.Exchange.CONTENT_TYPE;
+import static org.apache.camel.Exchange.HTTP_QUERY;
 
 /**/
 @Slf4j

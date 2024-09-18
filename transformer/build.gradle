@@ -23,6 +23,6 @@ dependencies {
     implementation("org.apache.jena:jena-commonsrdf:$commonsRdfJenaVersion")
     implementation("commons-io:commons-io:2.7")
     implementation("org.trellisldp:trellis-client:$trellisClientVersion")
-    testImplementation("org.apache.jena:jena.core:$jenaVersion")
+    testImplementation("org.apache.jena:jena-core:$jenaVersion")
     testImplementation("ch.qos.logback:logback-classic:$logbackVersion")
 }

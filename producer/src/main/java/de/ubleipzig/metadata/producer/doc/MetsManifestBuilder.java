@@ -13,8 +13,8 @@
  */
 package de.ubleipzig.metadata.producer.doc;
 
-import static org.slf4j.LoggerFactory.getLogger;
-import static org.xmlbeam.XBProjector.Flags.TO_STRING_RENDERS_XML;
+import lombok.extern.slf4j.Slf4j;
+import org.xmlbeam.XBProjector;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,9 +22,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.xmlbeam.XBProjector;
+import static org.xmlbeam.XBProjector.Flags.TO_STRING_RENDERS_XML;
 
 /**
  * MetsManifestBuilder.

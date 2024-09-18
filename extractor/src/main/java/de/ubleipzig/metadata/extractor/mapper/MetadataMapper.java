@@ -28,7 +28,6 @@ import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.google.common.collect.Iterables.isEmpty;
 import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
 import static java.util.Optional.ofNullable;
 

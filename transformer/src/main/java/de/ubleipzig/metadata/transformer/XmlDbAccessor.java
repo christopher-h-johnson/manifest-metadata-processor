@@ -14,33 +14,33 @@
 
 package de.ubleipzig.metadata.transformer;
 
-import static java.io.File.separator;
-import static java.util.Optional.ofNullable;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.ubleipzig.metadata.templates.Metadata;
 import de.ubleipzig.metadata.templates.metsmods.MetsMods;
 import de.ubleipzig.metadata.templates.metsmods.RecordList;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.rdf.api.IRI;
+import org.apache.jena.commonsrdf.JenaRDF;
+import org.trellisldp.client.LdpClient;
+import org.trellisldp.client.LdpClientException;
+import org.trellisldp.client.LdpClientImpl;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.commons.rdf.api.IRI;
-import org.apache.jena.commonsrdf.JenaRDF;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.trellisldp.client.LdpClient;
-import org.trellisldp.client.LdpClientException;
-import org.trellisldp.client.LdpClientImpl;
+import static java.io.File.separator;
+import static java.util.Optional.ofNullable;
 
+@Slf4j
 public class XmlDbAccessor {
-    private static final Logger LOGGER = LoggerFactory.getLogger(XmlDbAccessor.class);
+
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final JenaRDF rdf = new JenaRDF();
     private final LdpClient client = new LdpClientImpl();
@@ -78,7 +78,7 @@ public class XmlDbAccessor {
             return MAPPER.readValue(res, new TypeReference<MetsMods>() {
             });
         } catch (LdpClientException | IOException e) {
-            LOGGER.error("URN Api Request Failed for URN {}", urn);
+            log.error("URN Api Request Failed for URN {}", urn);
             throw new RuntimeException("URN Api Request Failed" + e.getMessage());
         }
     }
@@ -91,7 +91,7 @@ public class XmlDbAccessor {
             return MAPPER.readValue(res, new TypeReference<MetsMods>() {
             });
         } catch (LdpClientException | IOException e) {
-            LOGGER.error("PPN Api Request Failed for PPN {}", ppn);
+            log.error("PPN Api Request Failed for PPN {}", ppn);
             throw new RuntimeException("PPN Api Request Failed" + e.getMessage());
         }
     }
@@ -107,9 +107,9 @@ public class XmlDbAccessor {
             recordList.getRecords().forEach(r -> {
                 final String apiLink = jsonAPI.getIRIString() + separator + r.getUrn();
                 try {
-                    list.add(new URL(apiLink));
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
+                    list.add(new URI(apiLink).toURL());
+                } catch (MalformedURLException | URISyntaxException e) {
+                    log.error(e.getMessage());
                 }
             });
             return list;
