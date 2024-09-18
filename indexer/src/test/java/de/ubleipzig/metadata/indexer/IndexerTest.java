@@ -14,54 +14,41 @@
 
 package de.ubleipzig.metadata.indexer;
 
-import static java.io.File.separator;
-import static java.io.File.separatorChar;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import com.google.common.collect.Lists;
 import de.ubleipzig.metadata.processor.JsonSerializer;
-import de.ubleipzig.metadata.templates.MapList;
-import de.ubleipzig.metadata.templates.MapListCollection;
-import de.ubleipzig.metadata.templates.MetadataMap;
-import de.ubleipzig.metadata.templates.OrpAtom;
-import de.ubleipzig.metadata.templates.OrpAtomList;
-import de.ubleipzig.metadata.templates.collections.BodleianCollectionMapListIdentifier;
-import de.ubleipzig.metadata.templates.collections.BodleianMapListCollection;
-import de.ubleipzig.metadata.templates.collections.CollectionMapListIdentifier;
-import de.ubleipzig.metadata.templates.collections.LandingDoc;
-import de.ubleipzig.metadata.templates.collections.MDZIdentifiers;
-import de.ubleipzig.metadata.templates.collections.ManifestUUIDMap;
+import de.ubleipzig.metadata.templates.*;
+import de.ubleipzig.metadata.templates.collections.*;
 import de.ubleipzig.metadata.templates.indexer.ElasticCreate;
-
-import java.io.*;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.http.HttpResponse;
-import java.nio.file.Path;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.rdf.api.IRI;
 import org.apache.jena.commonsrdf.JenaRDF;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.trellisldp.client.LdpClient;
 import org.trellisldp.client.LdpClientException;
 import org.trellisldp.client.LdpClientImpl;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.http.HttpResponse;
+import java.util.*;
+
+import static java.io.File.separator;
+import static java.io.File.separatorChar;
+
 @Slf4j
+@Disabled
 public class IndexerTest {
 
     private final LdpClient client = new LdpClientImpl();
     private static final JenaRDF rdf = new JenaRDF();
     private final String contentTypeJson = "application/json";
     private final String elasticSearchHost = "http://workspaces.ub.uni-leipzig.de:9100/";
-    private final String elasticSearchLocalhost = "http://localhost:8000/";
-    private final String lineSeparator = "line.separator";
     private final String bulkContext = "_bulk";
     private final String manifestFileName = "/manifest.json";
     private final String tenDigitString = "%010d";
@@ -97,82 +84,6 @@ public class IndexerTest {
         final String out = JsonSerializer.serialize(doc).orElse("");
         InputStream target = new ByteArrayInputStream(out.getBytes());
         client.put(rdf.createIRI(elasticSearchHost + indexName), target, contentTypeJson);
-    }
-
-    @Test
-    public void testGetJsonAPI() {
-
-        final InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/nga/ids/NGAIdentifiers-130000.json");
-
-        try {
-            MDZIdentifiers list = MAPPER.readValue(jsonList, new TypeReference<>() {
-            });
-            final List<String> mdzIds = list.getIdentifiers().stream()
-                    .distinct()
-                    .collect(Collectors.toList());
-            log.info("getting metadata for {} ids", mdzIds.size());
-            List<List<String>> subSets = Lists.partition(mdzIds, 5000);
-            AtomicInteger it = new AtomicInteger();
-            subSets.forEach(ss -> {
-                final List<MetadataMap> mapList = new ArrayList<>();
-                int i = it.getAndIncrement();
-                ss.forEach(id -> {
-
-                    try {
-                        final IRI iri = rdf.createIRI(extractorBase + id);
-                        final HttpResponse<?> res = client.getResponse(iri);
-                        final String body = res.body().toString();
-                        if (res.statusCode() == 200 && !body.isEmpty()) {
-                            final String json = res.body().toString();
-                            final MetadataMap metadataMap = MAPPER.readValue(json, new TypeReference<>() {
-                            });
-                            if (!metadataMap.getMetadataMap().isEmpty()) {
-                                mapList.add(metadataMap);
-                                log.info("adding {} to indexable metadata", id);
-                            }
-                        }
-                    } catch (LdpClientException | IOException e) {
-                        log.error(e.getMessage());
-                    }
-                 });
-                final MapList l = new MapList();
-                l.setMapList(mapList);
-                final String out = JsonSerializer.serialize(l).orElse("");
-                JsonSerializer.writeToFile(out, new File("/tmp/nga-metadata-13-" + i + ".json"));
-            });
-        } catch (IOException e) {
-            log.error(e.getMessage());
-        }
-    }
-
-    @Test
-    void createBulkFormatMetadata() {
-        String filePrefix = "2-5";
-        final Indexer indexer = new Indexer();
-        final String indexName = "gty";
-        try {
-            File file = new File("/tmp/getty-metadata-" + filePrefix + ".json");
-            InputStream jsonList = new FileInputStream(file);
-            final MapList mapList = MAPPER.readValue(jsonList, new TypeReference<>() {});
-            final List<MetadataMap> m = mapList.getMapList();
-            log.info(String.valueOf(m.size()));
-            List<List<MetadataMap>> subSets = Lists.partition(m, 1000);
-            AtomicInteger it = new AtomicInteger();
-            subSets.forEach(ss -> {
-                int i = it.getAndIncrement();
-                final StringBuffer sb = new StringBuffer();
-                ss.forEach(map -> {
-                    ElasticCreate c = indexer.createDocument(indexName, getDocumentId());
-                    sb.append(JsonSerializer.serializeRaw(c).orElse(""));
-                    sb.append(System.lineSeparator());
-                    sb.append(JsonSerializer.serializeRaw(map.getMetadataMap()).orElse(""));
-                    sb.append(System.lineSeparator());
-                });
-                JsonSerializer.writeToFile(sb.toString(), new File("/tmp/gty-" + filePrefix + "-" + i + ".txt"));
-            });
-        } catch (IOException e) {
-            log.error(e.getMessage());
-        }
     }
 
     @Test

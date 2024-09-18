@@ -14,13 +14,6 @@
 
 package de.ubleipzig.metadata.extractor.reserializer;
 
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.baseUrl;
-import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.structureBase;
-import static de.ubleipzig.metadata.extractor.reserializer.ReserializerUtils.buildPaddedCanvases;
-import static java.io.File.separator;
-import static java.io.File.separatorChar;
-import static java.util.Optional.ofNullable;
-
 import de.ubleipzig.metadata.templates.Metadata;
 import de.ubleipzig.metadata.templates.v2.Structure;
 import de.ubleipzig.metadata.transformer.MetadataApi;
@@ -29,13 +22,15 @@ import lombok.extern.slf4j.Slf4j;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.baseUrl;
+import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.structureBase;
+import static de.ubleipzig.metadata.extractor.reserializer.ReserializerUtils.buildPaddedCanvases;
+import static java.io.File.separator;
+import static java.io.File.separatorChar;
+import static java.util.Optional.ofNullable;
 
 @Slf4j
 public class StructureBuilder {

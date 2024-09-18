@@ -13,10 +13,10 @@
  */
 package de.ubleipzig.metadata.producer.doc;
 
+import org.xmlbeam.annotation.XBRead;
+
 import java.util.List;
 import java.util.Optional;
-
-import org.xmlbeam.annotation.XBRead;
 
 /**
  * MetsData.

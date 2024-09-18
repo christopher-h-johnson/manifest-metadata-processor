@@ -14,21 +14,21 @@
 
 package de.ubleipzig.metadata.extractor;
 
-import static de.ubleipzig.metadata.processor.QueryUtils.readFile;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.ubleipzig.metadata.extractor.disassembler.Disassembler;
+import de.ubleipzig.metadata.templates.v2.PerfectManifest;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
-import de.ubleipzig.metadata.templates.v2.PerfectManifest;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import static de.ubleipzig.metadata.processor.QueryUtils.readFile;
 
 @Slf4j
 public class ManifestDisassemblerTest {
@@ -36,12 +36,12 @@ public class ManifestDisassemblerTest {
     @Test
     void testDisassembleManifest() {
         try {
-            final URL url = new URL("http://iiif.ub.uni-leipzig.de/0000000005/manifest.json");
+            final URL url = new URI("http://iiif.ub.uni-leipzig.de/0000000005/manifest.json").toURL();
             InputStream is = url.openStream();
             String json = readFile(is);
             final Disassembler disassembler = new Disassembler(json);
             log.info(disassembler.build());
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             log.error(e.getMessage());
         }
     }
@@ -53,11 +53,11 @@ public class ManifestDisassemblerTest {
                 .configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT,true)
                 ;
         try {
-            final URL url = new URL("https://ids.si.edu/ids/manifest/FS-7491_11");
+            final URL url = new URI("https://ids.si.edu/ids/manifest/FS-7491_11").toURL();
             InputStream is = url.openStream();
             String json = readFile(is);
             PerfectManifest manifest = MAPPER.readValue(json, new TypeReference<PerfectManifest>() {});
-         } catch (IOException e) {
+         } catch (IOException | URISyntaxException e) {
             log.error(e.getMessage());
         }
     }

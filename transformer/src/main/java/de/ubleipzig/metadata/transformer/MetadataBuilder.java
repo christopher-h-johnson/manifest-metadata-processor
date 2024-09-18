@@ -14,17 +14,16 @@
 
 package de.ubleipzig.metadata.transformer;
 
-import static java.util.Optional.ofNullable;
-
 import de.ubleipzig.metadata.templates.Manifest;
 import de.ubleipzig.metadata.templates.Metadata;
 import de.ubleipzig.metadata.templates.metsmods.MetsMods;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static java.util.Optional.ofNullable;
 
 public class MetadataBuilder {
     private static final Logger LOGGER = LoggerFactory.getLogger(MetadataBuilder.class);

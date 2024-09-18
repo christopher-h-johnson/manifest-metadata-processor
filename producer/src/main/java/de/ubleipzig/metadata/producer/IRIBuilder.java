@@ -13,17 +13,17 @@
  */
 package de.ubleipzig.metadata.producer;
 
-import static java.io.File.separator;
-import static java.lang.Integer.parseInt;
-import static java.lang.Integer.valueOf;
-import static java.lang.String.format;
+import org.apache.commons.rdf.api.IRI;
+import org.apache.commons.rdf.api.RDF;
+import org.apache.commons.rdf.simple.SimpleRDF;
 
 import java.io.File;
 import java.util.UUID;
 
-import org.apache.commons.rdf.api.IRI;
-import org.apache.commons.rdf.api.RDF;
-import org.apache.commons.rdf.simple.SimpleRDF;
+import static java.io.File.separator;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.valueOf;
+import static java.lang.String.format;
 
 public class IRIBuilder {
     private final Config config;

@@ -14,33 +14,30 @@
 
 package de.ubleipzig.metadata.extractor;
 
-import static de.ubleipzig.metadata.processor.QueryUtils.readFile;
-import static java.util.Optional.ofNullable;
-import static org.apache.camel.Exchange.CONTENT_TYPE;
-import static org.apache.camel.Exchange.HTTP_METHOD;
-import static org.apache.camel.builder.PredicateBuilder.and;
-
 import de.ubleipzig.metadata.extractor.disassembler.DimensionManifestBuilder;
 import de.ubleipzig.metadata.extractor.disassembler.Disassembler;
 import de.ubleipzig.metadata.extractor.mapper.MetadataMapper;
 import de.ubleipzig.metadata.extractor.reserializer.Reserializer;
 import de.ubleipzig.metadata.extractor.reserializer.ReserializerVersion3;
 import de.ubleipzig.metadata.processor.ContextUtils;
-
-import java.io.InputStream;
-import java.net.URI;
-import java.util.Map;
-import java.util.Optional;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.JndiRegistry;
-import org.apache.camel.util.URISupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.InputStream;
+import java.net.URI;
+import java.util.Optional;
+
+import static de.ubleipzig.metadata.processor.QueryUtils.readFile;
+import static java.util.Optional.ofNullable;
+import static org.apache.camel.Exchange.CONTENT_TYPE;
+import static org.apache.camel.Exchange.HTTP_METHOD;
+import static org.apache.camel.builder.PredicateBuilder.and;
 
 public final class ExtractorTest {
 

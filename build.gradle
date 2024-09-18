@@ -70,7 +70,7 @@ allprojects { subproject ->
 
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(11)
+            languageVersion = JavaLanguageVersion.of(22)
         }
     }
 }
@@ -79,8 +79,8 @@ subprojects {
     apply plugin: 'java-library'
     apply plugin: 'maven-publish'
 
-    sourceCompatibility = 1.11
-    targetCompatibility = 1.11
+    sourceCompatibility = 1.22
+    targetCompatibility = 1.22
 
     gradle.projectsEvaluated {
         tasks.withType(JavaCompile).tap {
@@ -90,7 +90,6 @@ subprojects {
             }
         }
     }
-
 
     dependencies {
         compileOnly("org.projectlombok:lombok:$lombokVersion")

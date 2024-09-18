@@ -15,7 +15,6 @@
 package de.ubleipzig.metadata.templates;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 

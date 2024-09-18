@@ -14,26 +14,26 @@
 
 package de.ubleipzig.metadata.extractor.reserializer;
 
-import static de.ubleipzig.metadata.processor.QueryUtils.readFile;
-import static java.util.Optional.ofNullable;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.ubleipzig.metadata.templates.Metadata;
 import de.ubleipzig.metadata.templates.metsmods.MetsMods;
 import de.ubleipzig.metadata.transformer.MetadataImplVersion2;
 import de.ubleipzig.metadata.transformer.XmlDbAccessor;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import static de.ubleipzig.metadata.processor.QueryUtils.readFile;
+import static java.util.Optional.ofNullable;
 
 @Disabled
 @Slf4j
@@ -46,38 +46,42 @@ public class ManifestReserializerTest {
     @Test
     void testReserializeManifest() {
         try {
-            final URL url = new URL(testManifest);
+            final URL url = new URI(testManifest).toURL();
             final InputStream is = url.openStream();
             final String json = readFile(is);
             final Reserializer reserializer = new Reserializer(json, xmldbhost);
             System.out.println(reserializer.build());
         } catch (IOException e) {
             log.error(e.getMessage());
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
         }
     }
 
     @Test
     void testReserializeManifest2() {
         try {
-            final URL url = new URL("http://iiif.ub.uni-leipzig.de/0000009054/manifest.json");
+            final URL url = new URI("http://iiif.ub.uni-leipzig.de/0000009054/manifest.json").toURL();
             final InputStream is = url.openStream();
             final String json = readFile(is);
             final Reserializer reserializer = new Reserializer(json, xmldbhost);
             System.out.println(reserializer.build());
         } catch (IOException e) {
             log.error(e.getMessage());
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
         }
     }
 
     @Test
     void testReserializeManifest3() {
         try {
-            final URL url = new URL("http://iiif.ub.uni-leipzig.de/0000004595/manifest.json");
+            final URL url = new URI("http://iiif.ub.uni-leipzig.de/0000004595/manifest.json").toURL();
             final InputStream is = url.openStream();
             final String json = readFile(is);
             final ReserializerVersion3 reserializer = new ReserializerVersion3(json, xmldbhost);
             System.out.println(reserializer.build());
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             log.error(e.getMessage());
 
         }

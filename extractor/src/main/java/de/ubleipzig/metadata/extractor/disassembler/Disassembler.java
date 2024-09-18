@@ -14,32 +14,25 @@
 
 package de.ubleipzig.metadata.extractor.disassembler;
 
-import static de.ubleipzig.metadata.extractor.ExtractorUtils.IIPSRV_DEFAULT;
-import static de.ubleipzig.metadata.extractor.ExtractorUtils.getKeysByValue;
-import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
-import static java.util.Optional.ofNullable;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.ubleipzig.metadata.templates.Manifest;
 import de.ubleipzig.metadata.templates.Metadata;
 import de.ubleipzig.metadata.templates.atomic.AnnotationBodyAtom;
 import de.ubleipzig.metadata.templates.atomic.AtomList;
 import de.ubleipzig.metadata.templates.v2.Structure;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static de.ubleipzig.metadata.extractor.ExtractorUtils.IIPSRV_DEFAULT;
+import static de.ubleipzig.metadata.extractor.ExtractorUtils.getKeysByValue;
+import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
+import static java.util.Optional.ofNullable;
 
 public class Disassembler {
     private static final Logger LOGGER = LoggerFactory.getLogger(Disassembler.class);
