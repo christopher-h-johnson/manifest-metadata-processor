@@ -14,14 +14,19 @@
 
 package de.ubleipzig.metadata.indexer;
 
-import static java.net.http.HttpClient.Redirect.ALWAYS;
-import static java.net.http.HttpRequest.BodyPublishers.noBody;
-import static java.net.http.HttpResponse.BodyHandlers.ofString;
-import static org.jsoup.Jsoup.parse;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import de.ubleipzig.metadata.processor.JsonSerializer;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.rdf.api.IRI;
+import org.apache.jena.commonsrdf.JenaRDF;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.trellisldp.client.LdpClient;
+import org.trellisldp.client.LdpClientException;
+import org.trellisldp.client.LdpClientImpl;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,20 +41,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
 
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.rdf.api.IRI;
-import org.apache.commons.rdf.jena.JenaRDF;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.trellisldp.client.LdpClient;
-import org.trellisldp.client.LdpClientException;
-import org.trellisldp.client.LdpClientImpl;
+import static java.net.http.HttpClient.Redirect.ALWAYS;
+import static java.net.http.HttpRequest.BodyPublishers.noBody;
+import static java.net.http.HttpResponse.BodyHandlers.ofString;
+import static org.jsoup.Jsoup.parse;
 
 @Disabled
 @Slf4j
@@ -75,7 +70,7 @@ public class APIIdentifierResolverTest {
                 final HttpRequest req = HttpRequest.newBuilder(uri).method("HEAD", noBody()).build();
                 final HttpResponse<String> response = client.send(req, ofString());
                 log.info("Identifier {} returned response code {}", identifier.getIRIString(),
-                        String.valueOf(response.statusCode()));
+                        response.statusCode());
                 if (response.statusCode() == 200) {
                     list.add(identifier.getIRIString());
                 }
@@ -97,7 +92,7 @@ public class APIIdentifierResolverTest {
                 final HttpRequest req = HttpRequest.newBuilder(uri).method("HEAD", noBody()).build();
                 final HttpResponse<String> response = client.send(req, ofString());
                 log.info("Identifier {} returned response code {}", identifier.getIRIString(),
-                        String.valueOf(response.statusCode()));
+                        response.statusCode());
                 if (response.statusCode() == 200) {
                     list.add(identifier.getIRIString());
                 }
@@ -121,7 +116,7 @@ public class APIIdentifierResolverTest {
                 final HttpRequest req = HttpRequest.newBuilder(uri).method("HEAD", noBody()).build();
                 final HttpResponse<String> response = client.send(req, ofString());
                 log.info("Identifier {} returned response code {}", identifier.getIRIString(),
-                        String.valueOf(response.statusCode()));
+                        response.statusCode());
                 if (response.statusCode() == 200) {
                     list.add(identifier.getIRIString());
                 }

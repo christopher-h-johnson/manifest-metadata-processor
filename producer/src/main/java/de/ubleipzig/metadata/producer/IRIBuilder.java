@@ -26,7 +26,7 @@ import org.apache.commons.rdf.api.RDF;
 import org.apache.commons.rdf.simple.SimpleRDF;
 
 public class IRIBuilder {
-    private Config config;
+    private final Config config;
     private static final RDF rdf = new SimpleRDF();
 
     /**

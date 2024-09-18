@@ -34,6 +34,7 @@ import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.viewe
 import static de.ubleipzig.metadata.extractor.reserializer.ReserializerUtils.buildLabelMap;
 import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
 import static java.io.File.separator;
+import static java.io.File.separatorChar;
 import static java.lang.String.format;
 import static java.util.Optional.ofNullable;
 
@@ -93,7 +94,7 @@ public class ReserializerVersion3 {
             MetadataApi<MetadataVersion3> metadataImplVersion3 = new MetadataBuilderVersion3(
                     manifest, xmldbHost).build();
             final List<CanvasVersion3> canvases = new ArrayList<>();
-            final String viewId = new URL(manifest.getId()).getPath().split(separator)[1];
+            final String viewId = new URL(manifest.getId()).getPath().split(String.valueOf(separatorChar))[1];
 
             manifest.getSequences().forEach(sq -> {
                 final AtomicInteger index = new AtomicInteger(1);

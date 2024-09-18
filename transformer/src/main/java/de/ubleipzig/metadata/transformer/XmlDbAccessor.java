@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.apache.commons.rdf.api.IRI;
-import org.apache.commons.rdf.jena.JenaRDF;
+import org.apache.jena.commonsrdf.JenaRDF;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.trellisldp.client.LdpClient;
@@ -44,7 +44,7 @@ public class XmlDbAccessor {
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final JenaRDF rdf = new JenaRDF();
     private final LdpClient client = new LdpClientImpl();
-    private String xmldbHost;
+    private final String xmldbHost;
 
     public XmlDbAccessor(final String xmldbHost) {
         this.xmldbHost = xmldbHost;

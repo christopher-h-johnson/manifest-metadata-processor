@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
 public class BodleianMetadataMapper {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
-    private String body;
+    private final String body;
 
     public BodleianMetadataMapper(final String body) {
         this.body = body;

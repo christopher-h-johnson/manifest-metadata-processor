@@ -48,7 +48,7 @@ public class MetadataImplVersion2 extends MetadataObjectTypes implements Metadat
     private static final String PERIOD = ".";
     private MetsMods metsMods;
     private List<Metadata> finalMetadata = new ArrayList<>();
-    private LanguageMap languageMap = new LanguageMap();
+    private final LanguageMap languageMap = new LanguageMap();
 
     public MetadataImplVersion2() {
     }

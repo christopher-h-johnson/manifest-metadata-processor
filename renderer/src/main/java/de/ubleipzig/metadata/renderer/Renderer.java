@@ -32,7 +32,6 @@ import org.slf4j.LoggerFactory;
 
 public class Renderer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Renderer.class);
     private static final String HTTP_ACCEPT = "Accept";
     private static final String SPARQL_QUERY = "type";
     private static final String MANIFEST_URI = "manifest";

@@ -22,7 +22,7 @@ import java.io.IOException;
 
 public class LanguageMap {
     private static final ObjectMapper MAPPER = new ObjectMapper();
-    private ISO639 iso639;
+    private final ISO639 iso639;
 
     public LanguageMap() {
         this.iso639 = mapLanguages();

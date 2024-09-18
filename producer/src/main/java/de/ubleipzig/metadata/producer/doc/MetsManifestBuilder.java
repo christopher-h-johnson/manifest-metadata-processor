@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.xmlbeam.XBProjector;
 
@@ -30,9 +31,8 @@ import org.xmlbeam.XBProjector;
  *
  * @author christopher-johnson
  */
+@Slf4j
 public final class MetsManifestBuilder {
-
-    private static Logger logger = getLogger(MetsManifestBuilder.class);
 
     private MetsManifestBuilder() {
     }
@@ -57,7 +57,7 @@ public final class MetsManifestBuilder {
             final XBProjector projector = new XBProjector(TO_STRING_RENDERS_XML);
             return projector.io().file(url).read(MetsData.class);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             throw new RuntimeException("Cannot Read XML: " + e.getMessage());
         }
     }
@@ -381,7 +381,7 @@ public final class MetsManifestBuilder {
             label = mets.getLogicalLabel(id).orElse(translatedType);
         } else {
             label = mets.getLogicalLabel(id).orElse("");
-            logger.warn("Missing Resource Bundle Mapping for Key \"{}\"", type);
+            log.warn("Missing Resource Bundle Mapping for Key \"{}\"", type);
         }
         return label;
     }

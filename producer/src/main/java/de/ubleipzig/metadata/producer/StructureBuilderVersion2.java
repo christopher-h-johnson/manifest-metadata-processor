@@ -45,10 +45,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class StructureBuilderVersion2 {
-    private Map<String, List<MetsData.Xlink>> xlinkmap;
-    private MetsData mets;
-    private Config config;
-    private String resourceContext;
+    private final Map<String, List<MetsData.Xlink>> xlinkmap;
+    private final MetsData mets;
+    private final Config config;
+    private final String resourceContext;
 
     public StructureBuilderVersion2(final Config config, final MetsData mets, final String resourceContext) {
         this.config = config;
@@ -59,7 +59,7 @@ public class StructureBuilderVersion2 {
 
     public StructureList build() {
         TopStructure top = buildTopStructure();
-        if (top.getRanges().size() > 0) {
+        if (!top.getRanges().isEmpty()) {
             List<Structure> subStructures = buildStructures();
             return new StructureList(top, subStructures);
         }
@@ -76,8 +76,8 @@ public class StructureBuilderVersion2 {
         });
 
         final TopStructure st = new TopStructure();
-        st.setStructureId(resourceContext + config.getRangeContext() + separator + METS_PARENT_LOGICAL_ID);
-        st.setStructureLabel("TOC");
+        st.setId(resourceContext + config.getRangeContext() + separator + METS_PARENT_LOGICAL_ID);
+        st.setLabel("TOC");
         ranges.sort(naturalOrder());
         st.setRanges(ranges);
         return st;
@@ -110,8 +110,8 @@ public class StructureBuilderVersion2 {
                         final String descLabel = getLogicalLabel(mets, descID);
                         final String logType = getLogicalType(mets, descID);
                         ranges.add(0, rangeId);
-                        descSt.setStructureId(rangeId);
-                        descSt.setStructureLabel(descLabel);
+                        descSt.setId(rangeId);
+                        descSt.setLabel(descLabel);
                         final List<Metadata> metadataList = buildStructureMetadata(logType);
                         descSt.setMetadata(metadataList);
                         descSt.setCanvases(getCanvases(descID));
@@ -120,17 +120,17 @@ public class StructureBuilderVersion2 {
                     final Structure st = new Structure();
                     final String structureIdDesc = resourceContext + config.getRangeContext() + separator +
                             lastParentId;
-                    st.setStructureId(structureIdDesc);
+                    st.setId(structureIdDesc);
                     final String logicalLabel = getLogicalLabel(mets, lastParentId);
                     final String logType = getLogicalType(mets, lastParentId);
                     final List<Metadata> metadataList = buildStructureMetadata(logType);
-                    st.setStructureLabel(logicalLabel);
+                    st.setLabel(logicalLabel);
                     st.setMetadata(metadataList);
                     ranges.sort(naturalOrder());
                     st.setRanges(ranges);
                     st.setCanvases(getCanvases(lastParentId));
                     if (!Objects.equals(
-                            st.getStructureId(),
+                            st.getId(),
                             resourceContext + config.getRangeContext() + separator + METS_PARENT_LOGICAL_ID)) {
                         structures.add(0, st);
                     }
@@ -138,9 +138,9 @@ public class StructureBuilderVersion2 {
 
             }
         });
-        final Comparator<Structure> c = Comparator.comparing(Structure::getStructureId);
+        final Comparator<Structure> c = Comparator.comparing(Structure::getId);
         return Stream.concat(structures.stream(), descendents.stream()).filter(
-                new ConcurrentSkipListSet<>(c)::add).sorted(comparing(Structure::getStructureId)).collect(
+                new ConcurrentSkipListSet<>(c)::add).sorted(comparing(Structure::getId)).collect(
                 Collectors.toList());
     }
 

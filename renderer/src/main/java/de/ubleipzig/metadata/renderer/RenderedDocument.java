@@ -31,9 +31,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.util.IOHelper;
 import org.apache.commons.io.IOUtils;
 
+@Slf4j
 public final class RenderedDocument {
 
     private RenderedDocument() {
@@ -50,7 +52,7 @@ public final class RenderedDocument {
             try {
                 im = new Image(ImageDataFactory.create(new URL(i)));
             } catch (MalformedURLException e) {
-                e.printStackTrace();
+               log.error(e.getMessage());
             }
             pdfDoc.addNewPage(new PageSize(Objects.requireNonNull(im).getImageWidth(), im.getImageHeight()));
             im.setFixedPosition(ai.get() + 1, 0, 0);
@@ -74,7 +76,7 @@ public final class RenderedDocument {
                 zos.closeEntry();
                 ai.getAndIncrement();
             } catch (IOException e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
             }
         });
         IOHelper.close(zos);

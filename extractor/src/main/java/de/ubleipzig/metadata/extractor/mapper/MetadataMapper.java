@@ -28,6 +28,7 @@ import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.google.common.collect.Iterables.isEmpty;
 import static de.ubleipzig.metadata.processor.JsonSerializer.serialize;
 import static java.util.Optional.ofNullable;
 
@@ -83,12 +84,20 @@ public class MetadataMapper {
         id.ifPresent(t -> metadataMap.put("manifest", id.get()));
         metadataMap.put("lastUpdated", String.valueOf(Instant.now()));
         //get Thumbnail
-        //final Optional<Object> thumbnail = ofNullable(manifest.getThumbnail());
+        final Optional<Object> thumbnail = ofNullable(manifest.getThumbnail());
         final Optional<String> thumb;
-        thumb = ofNullable(getRandomImageAsThumbnail(manifest));
-        thumb.ifPresent(t -> metadataMap.put("thumbnail", t));
-        if (thumb.isEmpty()) {
-            return null;
+        if (thumbnail.isEmpty()) {
+            thumb = ofNullable(getRandomImageAsThumbnail(manifest));
+            thumb.ifPresent(t -> metadataMap.put("thumbnail", t));
+            if (thumb.isEmpty()) {
+                return null;
+            }
+        } else {
+            @SuppressWarnings("unchecked")
+            LinkedHashMap<String, Object> tb = (LinkedHashMap<String, Object>) thumbnail.get();
+            @SuppressWarnings("unchecked")
+            LinkedHashMap<String, String> service = (LinkedHashMap<String, String>) tb.get("service");
+            metadataMap.put("thumbnail", service.get("@id"));
         }
         final String title = manifest.getLabel();
         metadataMap.put("title", title);
@@ -169,7 +178,7 @@ public class MetadataMapper {
                 String englishLabel = labels.get("en");
                 metadataMap.put(englishLabel, v.get());
             } else if (l.isPresent() & vl.isPresent()) {
-                metadataMap.put(l.get(), vl.get().toString());
+                metadataMap.put(l.get(), (String) vl.get().stream().findFirst().orElse(null));
             } else if (ll.isPresent() & vl.isPresent()) {
                 @SuppressWarnings("unchecked") final List<Map<String, String>> labelList =
                         (List<Map<String, String>>) ll.get();
@@ -196,7 +205,12 @@ public class MetadataMapper {
 
         metadataMap.asMap().forEach((key, value) -> {
             if (value.size() == 1) {
-                newMap.put(key, value.stream().findFirst().orElse(null));
+                try {
+                    String val = value.stream().findFirst().orElse(null);
+                    newMap.put(key, val);
+                } catch (Exception e) {
+                    log.error("cannot add value for {}", key);
+                }
             } else {
                 newMap.put(key, value);
             }

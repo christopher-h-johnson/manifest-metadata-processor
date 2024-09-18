@@ -4,7 +4,7 @@ mainClassName = 'de.ubleipzig.metadata.renderer.Renderer'
 description = 'A Camel service that assembles manifests from RDF queries'
 
 configurations {
-    all {
+    configureEach {
         exclude(group: 'commons-logging', module: 'commons-logging')
         exclude(group: 'org.apache.camel', module: 'camel-core-osgi')
         exclude group: 'com.sun.xml.bind', module: 'jaxb-core'
@@ -20,11 +20,11 @@ dependencies {
     implementation project(":templates")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("com.github.jsonld-java:jsonld-java:$jsonldVersion")
-    implementation("com.itextpdf:io:7.1.2")
+    implementation('com.itextpdf:io:7.1.17')
     implementation("com.itextpdf:layout:7.1.2")
-    implementation("commons-io:commons-io:2.6")
+    implementation('commons-io:commons-io:2.7')
 
-    implementation("de.ubleipzig:commons-rdf-jena-jpms:$commonsRdfJenaVersion")
+    implementation("org.apache.jena:jena-commonsrdf:$commonsRdfJenaVersion")
     implementation("javax.activation:javax.activation-api:$activationApiVersion")
     implementation("javax.xml.bind:jaxb-api:$jaxbVersion")
     implementation("org.apache.camel:camel-jetty9:$camelVersion")

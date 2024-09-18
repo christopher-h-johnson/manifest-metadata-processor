@@ -18,6 +18,7 @@ import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.baseU
 import static de.ubleipzig.metadata.extractor.reserializer.DomainConstants.structureBase;
 import static de.ubleipzig.metadata.extractor.reserializer.ReserializerUtils.buildPaddedCanvases;
 import static java.io.File.separator;
+import static java.io.File.separatorChar;
 import static java.util.Optional.ofNullable;
 
 import de.ubleipzig.metadata.templates.Metadata;
@@ -26,6 +27,8 @@ import de.ubleipzig.metadata.transformer.MetadataApi;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -97,12 +100,14 @@ public class StructureBuilder {
             struct.setId(newStructId);
             final String sId;
             try {
-                sId = new URL(newStructId).getPath().split(separator)[3];
+                sId = new URI(newStructId).toURL().getPath().split(String.valueOf(separatorChar))[3];
                 final Optional<List<Metadata>> structureMetadata = ofNullable(
                         metadataImplVersion2.buildStructureMetadataForId(sId));
                 structureMetadata.ifPresent(struct::setMetadata);
             } catch (MalformedURLException e) {
                 log.error(e.getMessage());
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
             }
         }
         return structures;

@@ -2,7 +2,7 @@ apply plugin: 'application'
 mainClassName = 'de.ubleipzig.metadata.indexer.Indexer'
 
 configurations {
-    all {
+    configureEach {
         exclude(group: 'commons-logging', module: 'commons-logging')
         exclude(group: 'org.apache.camel', module: 'camel-core-osgi')
         exclude group: 'com.sun.xml.bind', module: 'jaxb-core'
@@ -24,8 +24,9 @@ dependencies {
     implementation("org.xmlbeam:xmlprojector:$xbeamVersion")
     implementation("org.slf4j:slf4j-api:$slf4jVersion")
     implementation("org.trellisldp:trellis-client:$trellisClientVersion")
-    implementation("org.apache.commons:commons-collections4:4.2")
-    implementation("de.ubleipzig:commons-rdf-jena-jpms:$commonsRdfJenaVersion")
+    implementation('org.apache.commons:commons-collections4:4.3')
+    implementation("com.google.guava:guava:33.3.0-jre")
+    implementation("org.apache.jena:jena-commonsrdf:$commonsRdfJenaVersion")
     implementation("org.jsoup:jsoup:1.11.3")
 
     testImplementation("org.apache.camel:camel-test:$camelVersion")

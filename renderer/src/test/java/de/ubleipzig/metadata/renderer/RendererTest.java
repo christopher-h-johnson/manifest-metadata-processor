@@ -19,6 +19,7 @@ import static org.apache.camel.Exchange.CONTENT_TYPE;
 import static org.apache.camel.Exchange.HTTP_METHOD;
 import static org.apache.camel.Exchange.HTTP_RESPONSE_CODE;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
@@ -28,9 +29,9 @@ import org.apache.camel.impl.JndiRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Slf4j
 public final class RendererTest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RendererTest.class);
     private static final String HTTP_ACCEPT = "Accept";
     private static final String SPARQL_QUERY = "type";
     private static final String MANIFEST_URI = "manifest";
@@ -40,7 +41,7 @@ public final class RendererTest {
     }
 
     public static void main(final String[] args) throws Exception {
-        LOGGER.info("About to run Renderer API...");
+        log.info("About to run Renderer API...");
         final JndiRegistry registry = new JndiRegistry(createInitialContext());
         final CamelContext camelContext = new DefaultCamelContext(registry);
 

@@ -14,11 +14,8 @@
 
 package de.ubleipzig.metadata.indexer;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.ubleipzig.metadata.processor.JsonSerializer;
 import de.ubleipzig.metadata.templates.MapListCollection;
 import de.ubleipzig.metadata.templates.MetadataMap;
@@ -26,6 +23,14 @@ import de.ubleipzig.metadata.templates.collections.CollectionList;
 import de.ubleipzig.metadata.templates.collections.ManifestItem;
 import de.ubleipzig.metadata.templates.collections.ManifestList;
 import de.ubleipzig.metadata.templates.collections.RootCollection;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.rdf.api.IRI;
+import org.apache.jena.commonsrdf.JenaRDF;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.trellisldp.client.LdpClient;
+import org.trellisldp.client.LdpClientException;
+import org.trellisldp.client.LdpClientImpl;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,17 +38,6 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.rdf.api.IRI;
-import org.apache.commons.rdf.jena.JenaRDF;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.trellisldp.client.LdpClient;
-import org.trellisldp.client.LdpClientException;
-import org.trellisldp.client.LdpClientImpl;
 
 @Disabled
 @Slf4j

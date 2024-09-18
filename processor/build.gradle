@@ -1,6 +1,6 @@
 
 configurations {
-    all {
+    configureEach {
         exclude(group: 'commons-logging', module: 'commons-logging')
         exclude(group: 'org.apache.camel', module: 'camel-core-osgi')
         exclude group: 'com.sun.xml.bind', module: 'jaxb-core'
@@ -18,7 +18,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
     implementation("com.github.jsonld-java:jsonld-java:$jsonldVersion")
-    implementation("de.ubleipzig:commons-rdf-jena-jpms:$commonsRdfJenaVersion")
+    implementation("org.apache.jena:jena-commonsrdf:$commonsRdfJenaVersion")
     implementation("javax.activation:javax.activation-api:$activationApiVersion")
     implementation("javax.xml.bind:jaxb-api:$jaxbVersion")
     implementation("org.apache.camel:camel-core:$camelVersion")

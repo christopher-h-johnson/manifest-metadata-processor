@@ -14,18 +14,8 @@
 
 package de.ubleipzig.metadata.indexer;
 
-import static de.ubleipzig.metadata.indexer.Constants.bulkContext;
-import static de.ubleipzig.metadata.indexer.Constants.contentTypeJson;
-import static de.ubleipzig.metadata.indexer.Constants.docTypeIndex;
-import static de.ubleipzig.metadata.indexer.Constants.elasticSearchHost;
-import static de.ubleipzig.metadata.indexer.Constants.lineSeparator;
-import static de.ubleipzig.metadata.indexer.Constants.scannerAPIHost;
-import static de.ubleipzig.metadata.processor.JsonSerializer.MAPPER;
-import static de.ubleipzig.metadata.processor.QueryUtils.readFile;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
-
 import de.ubleipzig.metadata.processor.JsonSerializer;
 import de.ubleipzig.metadata.templates.ContentList;
 import de.ubleipzig.metadata.templates.MetadataMap;
@@ -34,6 +24,12 @@ import de.ubleipzig.metadata.templates.atomic.AtomList;
 import de.ubleipzig.metadata.templates.indexer.ElasticCreate;
 import de.ubleipzig.metadata.templates.indexer.ElasticDocumentObject;
 import de.ubleipzig.metadata.templates.indexer.ElasticIndex;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.rdf.api.IRI;
+import org.apache.jena.commonsrdf.JenaRDF;
+import org.trellisldp.client.LdpClient;
+import org.trellisldp.client.LdpClientException;
+import org.trellisldp.client.LdpClientImpl;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -44,14 +40,9 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.rdf.api.IRI;
-import org.apache.commons.rdf.jena.JenaRDF;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.trellisldp.client.LdpClient;
-import org.trellisldp.client.LdpClientException;
-import org.trellisldp.client.LdpClientImpl;
+import static de.ubleipzig.metadata.indexer.Constants.*;
+import static de.ubleipzig.metadata.processor.JsonSerializer.MAPPER;
+import static de.ubleipzig.metadata.processor.QueryUtils.readFile;
 
 @Slf4j
 public class Indexer {
