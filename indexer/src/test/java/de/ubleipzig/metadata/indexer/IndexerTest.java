@@ -102,7 +102,7 @@ public class IndexerTest {
     @Test
     public void testGetJsonAPI() {
 
-        final InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/getty.ids/manifests-2.json");
+        final InputStream jsonList = IndexerTest.class.getResourceAsStream("/data/nga/ids/NGAIdentifiers-130000.json");
 
         try {
             MDZIdentifiers list = MAPPER.readValue(jsonList, new TypeReference<>() {
@@ -138,7 +138,7 @@ public class IndexerTest {
                 final MapList l = new MapList();
                 l.setMapList(mapList);
                 final String out = JsonSerializer.serialize(l).orElse("");
-                JsonSerializer.writeToFile(out, new File("/tmp/getty-metadata-2-" + i + ".json"));
+                JsonSerializer.writeToFile(out, new File("/tmp/nga-metadata-13-" + i + ".json"));
             });
         } catch (IOException e) {
             log.error(e.getMessage());
